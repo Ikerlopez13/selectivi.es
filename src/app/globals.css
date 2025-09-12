@@ -2,23 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-.region {
-  transition: fill 0.3s ease-in-out;
+:root {
+  --primary: #FFB800;
+  --secondary: #e5a600;
 }
 
-.region-available {
-  fill: #FFB800;
-  cursor: pointer;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.region-available:hover {
-  fill: #e5a600;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.region-unavailable {
-  fill: #D9D9D9;
+/* Map styles */
+path {
+  transition: fill 0.3s ease;
 }
 
-.region-unavailable:hover {
-  fill: #b3b3b3;
+path[fill="#FFB800"]:hover {
+  fill: var(--secondary);
 }

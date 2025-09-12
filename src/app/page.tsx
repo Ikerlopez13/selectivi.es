@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
+import SpainMap from '@/components/SpainMap'
 
 export default function Home() {
   return (
@@ -23,7 +24,7 @@ export default function Home() {
           </h2>
 
           <div className="max-w-2xl mx-auto">
-            <Image src="/images/Group 27.svg" alt="Mapa de España" width={837} height={670} />
+            <SpainMap />
           </div>
         </div>
 
