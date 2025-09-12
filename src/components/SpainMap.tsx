@@ -3,11 +3,19 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+type Region = {
+  id: string
+  name: string
+  path: string
+  available: boolean
+  url?: string
+}
+
 export default function SpainMap() {
   const router = useRouter()
-  const [hoveredRegion, setHoveredRegion] = useState<string | null>(null)
+  const [hoveredRegion, setHoveredRegion] = useState<Region | null>(null)
 
-  const regions = [
+  const regions: Region[] = [
     {
       id: 'madrid',
       name: 'Madrid',
@@ -25,7 +33,7 @@ export default function SpainMap() {
     // Resto de regiones...
   ]
 
-  const handleRegionClick = (region: typeof regions[0]) => {
+  const handleRegionClick = (region: Region) => {
     if (region.available && region.url) {
       if (region.url.startsWith('http')) {
         window.location.href = region.url
