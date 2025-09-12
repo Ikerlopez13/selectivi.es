@@ -60,21 +60,23 @@ export default function SpainMap() {
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto"
       >
-        {regions.map((region) => (
-          <path
-            key={region.id}
-            d={region.path}
-            fill={region.available ? '#FFB800' : '#D9D9D9'}
-            stroke="#737373"
-            strokeWidth="2"
-            className={`transition-colors duration-200 ${
-              region.available ? 'hover:fill-yellow-500 cursor-pointer' : 'hover:fill-gray-400'
-            }`}
-            onMouseEnter={() => setHoveredRegion(region)}
-            onMouseLeave={() => setHoveredRegion(null)}
-            onClick={() => handleRegionClick(region)}
-          />
-        ))}
+        <g>
+          {regions.map((region) => (
+            <path
+              key={region.id}
+              d={region.path}
+              fill={region.available ? '#FFB800' : '#D9D9D9'}
+              stroke="#737373"
+              strokeWidth="2"
+              className={`transition-colors duration-200 ${
+                region.available ? 'hover:fill-yellow-500 cursor-pointer' : 'hover:fill-gray-400'
+              }`}
+              onMouseEnter={() => setHoveredRegion(region)}
+              onMouseLeave={() => setHoveredRegion(null)}
+              onClick={() => handleRegionClick(region)}
+            />
+          ))}
+        </g>
       </svg>
     </div>
   )
