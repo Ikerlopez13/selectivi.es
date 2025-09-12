@@ -2,33 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #FFB800;
-  --secondary: #2D2D2D;
-}
-
-.region-tooltip {
-  @apply absolute bg-white px-3 py-1.5 rounded-lg shadow-lg text-sm;
-  transform: translate(-50%, -130%);
-}
-
-.region-tooltip::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid white;
+.region {
+  transition: fill 0.3s ease-in-out;
 }
 
 .region-available {
-  @apply text-[#FFB800] font-medium;
+  fill: #FFB800;
+  cursor: pointer;
+}
+
+.region-available:hover {
+  fill: #e5a600;
 }
 
 .region-unavailable {
-  @apply text-gray-500;
+  fill: #D9D9D9;
+}
+
+.region-unavailable:hover {
+  fill: #b3b3b3;
 }
