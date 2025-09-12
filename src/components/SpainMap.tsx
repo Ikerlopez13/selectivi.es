@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 
 type Region = {
   id: string
@@ -59,71 +58,44 @@ export default function SpainMap() {
       )}
 
       {/* SVG Map */}
-      <div className="relative">
-        <Image 
-          src="/images/Group 27.svg"
-          alt="Mapa de España"
-          width={837}
-          height={670}
-          className="w-full h-auto"
-          useMap="#spain-map"
+      <svg 
+        viewBox="0 0 837 670" 
+        fill="none" 
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto"
+      >
+        {/* Galicia */}
+        <path d="M71.5 120.5L80 115.5L89.5 106L96 99L102.5 94L109.5 91L116 89.5L122 89.5L127.5 91L132 94L136 98.5L139 103.5L141 109L142 115L142 121L141 127L139 132.5L136 137.5L132 142L127.5 145.5L122 148L116 149.5L109.5 150L102.5 149.5L96 148L89.5 145.5L84 142L79 137.5L75 132.5L72.5 127L71.5 120.5Z" fill="#D9D9D9" stroke="#737373" strokeWidth="2" className="hover:fill-gray-400" onMouseEnter={() => setHoveredRegion({ id: 'galicia', name: 'Galicia', available: false })} onMouseLeave={() => setHoveredRegion(null)} />
+
+        {/* Asturias */}
+        <path d="M142 89.5L150 88L158.5 87.5L167 88L175 89.5L182.5 92L189 95.5L194.5 100L199 105.5L202 111.5L204 118L204.5 124.5L204 131L202 137L199 142.5L194.5 147L189 150.5L182.5 153L175 154.5L167 155L158.5 154.5L150 153L142 150.5L135 147L129 142.5L124.5 137L121.5 131L120 124.5L120.5 118L122 111.5L125 105.5L129 100L135 95.5L142 92L142 89.5Z" fill="#D9D9D9" stroke="#737373" strokeWidth="2" className="hover:fill-gray-400" onMouseEnter={() => setHoveredRegion({ id: 'asturias', name: 'Asturias', available: false })} onMouseLeave={() => setHoveredRegion(null)} />
+
+        {/* Madrid */}
+        <path 
+          d="M416.278 280.43L405.443 291.265H335.304L334.712 290.638L321.614 276.77H297.848L298.86 274.068L303.692 261.183L303.838 260.795L304.126 260.497L371.771 190.436L372.36 189.826H386.729L387.186 191.193L393.628 210.52L393.859 211.215L393.588 211.895L387.635 226.777L406.029 245.171L406.232 245.375L406.371 245.628L416.034 263.343L416.278 263.792V280.43Z" 
+          fill="#FFB800"
+          stroke="#737373"
+          strokeWidth="2"
+          className="cursor-pointer hover:fill-yellow-500 transition-colors duration-200"
+          onMouseEnter={() => setHoveredRegion(regions.find(r => r.id === 'madrid') || null)}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick(regions.find(r => r.id === 'madrid')!)}
         />
 
-        <map name="spain-map">
-          {/* Madrid */}
-          <area 
-            shape="poly" 
-            coords="416,280,405,291,335,291,334,290,321,276,297,276,298,274,303,261,303,260,304,260,371,190,372,189,386,189,387,191,393,210,393,211,393,211,387,226,406,245,406,245,406,245,416,263,416,263,416,280"
-            href="#"
-            onMouseEnter={() => setHoveredRegion(regions.find(r => r.id === 'madrid') || null)}
-            onMouseLeave={() => setHoveredRegion(null)}
-            onClick={(e) => {
-              e.preventDefault()
-              const region = regions.find(r => r.id === 'madrid')
-              if (region) handleRegionClick(region)
-            }}
-            alt="Madrid"
-            className="cursor-pointer"
-          />
+        {/* Cataluña */}
+        <path 
+          d="M642.535 68.2612L690.852 77.1186L692.015 77.3325L692.389 78.4536L700.038 101.403L768.139 109.231L797.344 91.0776L798.386 90.4301L799.435 91.0649L830.035 109.586L832.803 111.261L830.068 112.989L816.942 121.278L830.375 134.004L831.979 135.524L830.308 136.969L765.08 193.339L764.709 193.66L764.231 193.772L679.515 213.752L669.826 225.258H679.854L680.31 226.625L685.141 241.121L685.744 242.93L683.966 243.619L659.002 253.282L658.013 253.664L657.142 253.061L636.204 238.566L635.493 238.074L635.364 237.218L630.533 205.007L630.487 204.703L630.535 204.399L635.287 174.298L630.625 161.085L630.132 159.689L631.324 158.81L645.923 148.052L652.142 93.6391L636.084 80.6411L634.788 79.5922L635.587 78.1284L640.418 69.27L641.111 67.9995L642.535 68.2612Z" 
+          fill="#FFB800"
+          stroke="#737373"
+          strokeWidth="2"
+          className="cursor-pointer hover:fill-yellow-500 transition-colors duration-200"
+          onMouseEnter={() => setHoveredRegion(regions.find(r => r.id === 'cataluna') || null)}
+          onMouseLeave={() => setHoveredRegion(null)}
+          onClick={() => handleRegionClick(regions.find(r => r.id === 'cataluna')!)}
+        />
 
-          {/* Cataluña */}
-          <area 
-            shape="poly" 
-            coords="642,68,690,77,692,77,692,78,700,101,768,109,797,91,798,90,799,91,830,109,832,111,830,112,816,121,830,134,831,135,830,136,765,193,764,193,764,193,679,213,669,225,679,225,680,226,685,241,685,242,683,243,659,253,658,253,657,253,636,238,635,238,635,237,630,205,630,204,630,204,635,174,630,161,630,159,631,158,645,148,652,93,636,80,634,79,635,78,640,69,641,67,642,68"
-            href="#"
-            onMouseEnter={() => setHoveredRegion(regions.find(r => r.id === 'cataluna') || null)}
-            onMouseLeave={() => setHoveredRegion(null)}
-            onClick={(e) => {
-              e.preventDefault()
-              const region = regions.find(r => r.id === 'cataluna')
-              if (region) handleRegionClick(region)
-            }}
-            alt="Cataluña"
-            className="cursor-pointer"
-          />
-        </map>
-
-        {/* Overlay para regiones disponibles */}
-        <svg 
-          className="absolute top-0 left-0 w-full h-full pointer-events-none"
-          viewBox="0 0 837 670"
-          fill="none"
-        >
-          {/* Madrid */}
-          <path
-            d="M416.278 280.43L405.443 291.265H335.304L334.712 290.638L321.614 276.77H297.848L298.86 274.068L303.692 261.183L303.838 260.795L304.126 260.497L371.771 190.436L372.36 189.826H386.729L387.186 191.193L393.628 210.52L393.859 211.215L393.588 211.895L387.635 226.777L406.029 245.171L406.232 245.375L406.371 245.628L416.034 263.343L416.278 263.792V280.43Z"
-            fill="#FFB800"
-            fillOpacity="0.5"
-          />
-
-          {/* Cataluña */}
-          <path
-            d="M642.535 68.2612L690.852 77.1186L692.015 77.3325L692.389 78.4536L700.038 101.403L768.139 109.231L797.344 91.0776L798.386 90.4301L799.435 91.0649L830.035 109.586L832.803 111.261L830.068 112.989L816.942 121.278L830.375 134.004L831.979 135.524L830.308 136.969L765.08 193.339L764.709 193.66L764.231 193.772L679.515 213.752L669.826 225.258H679.854L680.31 226.625L685.141 241.121L685.744 242.93L683.966 243.619L659.002 253.282L658.013 253.664L657.142 253.061L636.204 238.566L635.493 238.074L635.364 237.218L630.533 205.007L630.487 204.703L630.535 204.399L635.287 174.298L630.625 161.085L630.132 159.689L631.324 158.81L645.923 148.052L652.142 93.6391L636.084 80.6411L634.788 79.5922L635.587 78.1284L640.418 69.27L641.111 67.9995L642.535 68.2612Z"
-            fill="#FFB800"
-            fillOpacity="0.5"
-          />
-        </svg>
-      </div>
+        {/* Resto de regiones... */}
+      </svg>
     </div>
   )
 }
