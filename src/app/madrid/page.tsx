@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Test from '@/components/Test'
 import HistoryQuiz from '@/components/HistoryQuiz'
+import Footer from '@/components/Footer'
+import OnboardingGate from '@/components/OnboardingGate'
 
 // Tarjeta de beneficio hecha 100% con código (sin SVG)
 type BenefitProps = {
@@ -145,6 +147,8 @@ export default function MadridPage() {
       </section>
 
       <HistoryQuiz />
+      <OnboardingGate />
+      <Footer />
     </main>
   )
 }

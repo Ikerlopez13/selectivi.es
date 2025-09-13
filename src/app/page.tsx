@@ -13,8 +13,9 @@ export default function Home() {
       <section className="w-full flex flex-col items-center">
         <div className="max-w-4xl w-full flex flex-col items-center text-center py-12 px-4">
           <div className="flex items-center gap-3 mb-4">
+          <img src="/images/logoo.svg" alt="logo" className="w-12 h-12" />
+
             <h1 className="text-6xl font-bold">selectivi<span className="text-[#FFB800]">ES</span></h1>
-            <img src="/images/logoo.svg" alt="logo" className="w-12 h-12" />
           </div>
           <h2 className="text-2xl md:text-3xl font-medium">
             Entra en la <span className="underline decoration-[#FFB800]">universidad que sueñas</span>, con la{' '}

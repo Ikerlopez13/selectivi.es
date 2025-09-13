@@ -19,7 +19,7 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-6">
-          <a href="#" className="text-gray-700 hover:text-gray-900">Blog</a>
+          <a href="/blog" className="text-gray-700 hover:text-gray-900">Blog</a>
           <a href="#" className="bg-gray-100 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">
             Hazte Premium ⭐️
           </a>
