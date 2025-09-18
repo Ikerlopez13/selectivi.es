@@ -28,7 +28,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-3">Recursos</h4>
             <ul className="space-y-2 text-gray-700">
               <li><a href="/blog" className="hover:underline">Todos los artículos</a></li>
-              <li><a href="#onboarding" className="hover:underline">Cómo funciona</a></li>
+              <li><a href="/onboarding" className="hover:underline">Cómo funciona</a></li>
             </ul>
           </div>
         </div>

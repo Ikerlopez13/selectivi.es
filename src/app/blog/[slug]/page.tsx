@@ -85,7 +85,7 @@ const POSTS: Post[] = [
             <p className="font-semibold">¿Prueba rápida?</p>
             <p className="text-gray-600 text-sm">Mira en 60 segundos cómo funciona el sistema.</p>
           </div>
-          <Link href="#onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
+          <Link href="/onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
             Ver cómo funciona →
           </Link>
         </div>
@@ -153,7 +153,7 @@ const POSTS: Post[] = [
         </div>
         <h2 className="text-2xl font-semibold mb-3">Beneficio</h2>
         <p className="text-gray-700 mb-8">Te acercas a tu nota objetivo de forma medible.</p>
-        <Link href="#onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
+        <Link href="/onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
           Ver cómo funciona →
         </Link>
         <div className="mt-10">
@@ -192,7 +192,7 @@ const POSTS: Post[] = [
         <p className="text-gray-700 mb-8">
           La confianza llega cuando puedes <strong>demostrar</strong> que dominas los temas clave.
         </p>
-        <Link href="#onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
+        <Link href="/onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
           Ver cómo funciona →
         </Link>
         <div className="mt-10">
@@ -260,7 +260,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <h3 className="text-xl font-bold">¿Quieres ver cómo funciona en 60 segundos?</h3>
             <p className="text-gray-600">Onboarding rápido de SeleTest: estudio por temas, feedback inmediato y progreso.</p>
           </div>
-          <Link href="#onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
+          <Link href="/onboarding" className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition">
             Ver cómo funciona →
           </Link>
         </section>

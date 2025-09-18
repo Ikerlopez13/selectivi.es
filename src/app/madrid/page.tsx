@@ -4,6 +4,7 @@ import Test from '@/components/Test'
 import HistoryQuiz from '@/components/HistoryQuiz'
 import Footer from '@/components/Footer'
 import OnboardingGate from '@/components/OnboardingGate'
+import SeletestCTA from '@/components/SeletestCTA'
 
 // Tarjeta de beneficio hecha 100% con código (sin SVG)
 type BenefitProps = {
@@ -75,11 +76,7 @@ export default function MadridPage() {
             </p>
 
             <div className="space-y-8">
-                <a href="#" className="inline-flex items-center gap-2 bg-[#FFB800] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#ffc835] transition-colors shadow-sm">
-                  <span className="text-xl" aria-hidden="true">★</span>
-                  Accede a SeleTest
-                  <span className="text-sm bg-white px-2 py-0.5 rounded">Nuevo!</span>
-                </a>
+                <SeletestCTA />
 
                 <ul className="space-y-4">
                   <li className="flex items-center gap-2">

@@ -56,7 +56,7 @@ export default function Onboarding() {
 
   // Tarjeta consistente estilo “teléfono”
   const Card = ({ children }: { children: React.ReactNode }) => (
-    <div className="mx-auto w-full max-w-[380px]">
+    <div className="mx-auto w-[380px] min-w-[380px] max-w-[380px] shrink-0">
       <div className="relative flex flex-col items-center">
         {/* Badge icono arriba */}
         <div className="absolute -top-7 z-10 bg-white rounded-2xl shadow p-2 border">
@@ -71,11 +71,12 @@ export default function Onboarding() {
   )
 
   return (
-    <section id="onboarding" className="relative min-h-[calc(100vh-140px)] flex items-center">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FFF7D1] via-white to-[#FFF1B2]" />
+    <section id="onboarding" className="relative h-full min-h-full flex items-center">
       <div className="relative max-w-[1100px] mx-auto px-6 w-full">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-8">
-          Descubre cómo funciona en 60 segundos
+        <h2 className="text-center mb-8">
+          <span className="inline-flex items-center gap-2 bg-white/70 backdrop-blur rounded-full px-4 py-2 text-sm md:text-base font-semibold text-black/80 shadow-sm ring-1 ring-black/5">
+            Descubre cómo funciona en <span className="font-extrabold text-black">60 segundos</span>
+          </span>
         </h2>
         <div
           className="relative overflow-hidden rounded-3xl"
@@ -89,36 +90,80 @@ export default function Onboarding() {
           >
             {slides.map((s, i) => {
               return (
-                <div key={i} className="inline-block align-top w-full px-6 py-10 md:px-12" aria-hidden={index !== i}>
+                <div
+                  key={i}
+                  className={`inline-block align-top w-full px-6 py-10 md:px-12 transition-transform duration-300 ${
+                    index === i ? 'scale-100 opacity-100' : 'scale-[0.98] opacity-90'
+                  }`}
+                  aria-hidden={index !== i}
+                >
                   {s.kind === 'image' ? (
                     <Card>
-                      <div className="px-5 pb-6 flex flex-col h-full">
-                        <div className="h-[220px] flex items-center justify-center mt-2 mb-4">
-                          <img src={s.src} alt={s.alt} className="max-h-full w-auto" />
+                      <div className="px-6 pb-8 flex flex-col h-full">
+                        <div className={`flex items-center justify-center mt-2 mb-4 ${i === 1 ? 'h-[280px]' : 'h-[340px]'}`}>
+                          <img src={s.src} alt={s.alt} className={i === 1 ? 'max-h-[200px] w-auto' : 'max-h-full w-auto'} />
                         </div>
-                        <div className="mx-auto mb-4 w-fit text-[12px] bg-[#FFF3C4] rounded-full px-3 py-1 text-black/70">
-                          ✨ + de 1000 estudiantes ya son premium
-                        </div>
-                        <h3 className="text-[22px] font-extrabold text-center mb-3 underline decoration-2 underline-offset-4">Aquí es donde estás ahora</h3>
-                        <p className="text-center text-gray-500 font-extrabold mb-3 text-[22px] leading-7">
-                          {"¿Aún dudas de si conseguirás"}<br />
-                          {"la uni que sueñas?"}
-                        </p>
-                        <p className="text-gray-700 text-center whitespace-pre-line text-[17px] leading-6">
-                          {"Sabemos lo que sientes. Segundas vueltas,\napuntes infinitos, el miedo a no \nrecordar todo el temario…"}
-                        </p>
-                        <div className="text-center mt-auto pt-6">
-                          <a href="#" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
-                            Descubre cómo llegar más lejos
-                          </a>
-                        </div>
+                        {i === 0 ? (
+                          <>
+                            <div className="mx-auto mb-4 w-fit text-[12px] bg-[#FFF3C4] rounded-full px-3 py-1 text-black/70">
+                              ✨ + de 1000 estudiantes ya son premium
+                            </div>
+                            <h3 className="text-[22px] font-extrabold text-center mb-3 underline decoration-2 underline-offset-4">Aquí es donde estás ahora</h3>
+                            <p className="text-center text-gray-500 font-extrabold mb-3 text-[22px] leading-7">
+                              {"¿Aún dudas de si conseguirás"}<br />
+                              {"la uni que sueñas?"}
+                            </p>
+                            <p className="text-gray-700 text-center whitespace-pre-line text-[17px] leading-6">
+                              {"Sabemos lo que sientes. Segundas vueltas,\napuntes infinitos, el miedo a no \nrecordar todo el temario…"}
+                            </p>
+                            <div className="text-center mt-auto pt-6">
+                              <a href="/madrid/premium" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
+                                Descubre cómo llegar más lejos
+                              </a>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="mx-auto mb-3 w-fit text-[12px] font-medium bg-[#FFF3C4] rounded-full px-3 py-1 text-orange-600">
+                              ✨ el 87% de la promoción anterior entró en su primera opción
+                            </div>
+                            <h3 className="text-lg font-bold text-center mb-3 underline decoration-2 underline-offset-4 text-gray-900">Aquí es donde puedes llegar</h3>
+                            <div className="w-full mb-3 text-center">
+                              <p className="max-w-[280px] mx-auto text-center text-gray-900 font-semibold text-[17px] leading-tight">
+                                Con Seletest, podrás convertirte en
+                                <br />
+                                <span className="font-bold bg-[#FFF3C4]/80 rounded px-1">ese estudiante</span> que entra a la
+                                <br />
+                                <span className="font-bold underline decoration-[3px] underline-offset-4">universidad que quiere.</span>
+                              </p>
+                            </div>
+                            <p className="text-gray-600 text-center text-[12px] leading-relaxed mb-4">
+                              Solo 10-20 minutos al día… test simples,<br />
+                              memorizables y acompañamiento hasta el final.
+                            </p>
+                            <div className="flex flex-col items-center gap-2 mb-4">
+                              <span className="w-full max-w-[280px] mx-auto inline-flex items-center justify-center gap-2 bg-[#F4F5F7] rounded-full px-4 py-2 text-[12px] text-gray-800 shadow-sm">
+                                <span className="text-green-600">✓</span> Miles de preguntas reales de EvAU.
+                              </span>
+                              <span className="w-full max-w-[280px] mx-auto inline-flex items-center justify-center gap-2 bg-[#F4F5F7] rounded-full px-4 py-2 text-[12px] text-gray-800 shadow-sm">
+                                <span className="text-green-600">✓</span> Bachillerato, no solo la Selectividad.
+                              </span>
+                              <span className="w-full max-w-[280px] mx-auto inline-flex items-center justify-center gap-2 bg-[#F4F5F7] rounded-full px-4 py-2 text-[12px] text-gray-800 shadow-sm">
+                                <span className="text-green-600">✓</span> Resultados visibles en pocos días.
+                              </span>
+                            </div>
+                            
+                          </>
+                        )}
                       </div>
                     </Card>
                   ) : s.id === 'duolingo' ? (
                     <Card>
                       <div className="px-6 pb-8 text-center flex flex-col h-full">
-                        <div className="bg-[#FFDB76] text-black/90 rounded-2xl px-4 py-4 font-medium mb-4">
-                          “Es el Duolingo de la EvAU…<br className="hidden md:block" /> pero para Bachillerato y Selectividad.”
+                        <div className="relative mx-auto bg-gradient-to-r from-[#FFD775] to-[#FFE79A] text-black rounded-3xl px-6 py-6 md:px-8 md:py-8 font-semibold italic mb-5 shadow-xl ring-1 ring-[#DFAA00]/30">
+                          <p className="text-[18px] md:text-[20px] leading-snug">
+                            “Es el Duolingo de la EvAU…<br className="hidden md:block" /> pero para Bachillerato y Selectividad.”
+                          </p>
                         </div>
                         <div className="mx-auto mb-4 w-fit text-[12px] bg-[#FFF3C4] rounded-full px-3 py-1 text-black/70">
                           ✨ el 87% de la promoción anterior entró en su primera opción
@@ -130,7 +175,7 @@ export default function Onboarding() {
                           <p className="text-gray-700">Sin complicaciones, sin agobios.</p>
                         </div>
                         <div className="mt-auto pt-6">
-                          <a href="#" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
+                          <a href="/madrid/premium" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
                             Descubre cómo llegar más lejos
                           </a>
                         </div>
@@ -139,14 +184,14 @@ export default function Onboarding() {
                   ) : s.id === 'claro' ? (
                     <Card>
                       <div className=" px-6 pb-8 flex flex-col h-full">
-                        <ul className="space-y-2 text-[18px] mx-auto max-w-[320px] text-left">
+                        <ul className="space-y-2 text-[18px] mx-auto max-w-[320px] mt-40 text-left">
                           <li>El sueño está claro; <strong>tu universidad</strong>.</li>
                           <li>La probabilidad, <strong>muy alta con seleTest</strong>.</li>
                           <li>El tiempo: <strong>solo minutos al día</strong>.</li>
                           <li>El esfuerzo: mínimo, <a className="underline" href="#">nosotros te guiamos</a>.</li>
                         </ul>
                         <div className="mt-auto pt-6 text-center">
-                          <a href="#" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
+                          <a href="/madrid/premium" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
                             Descubre cómo llegar más lejos
                           </a>
                         </div>
@@ -163,8 +208,9 @@ export default function Onboarding() {
                           <p className="text-gray-800 font-semibold mb-2">Y por qué es justo:</p>
                           <p className="text-gray-700 mb-6">menos que <u>un café a la semana</u>,<br className="hidden md:block" /> por un futuro que vale <u>miles</u>.</p>
                         </div>
+                        <h4 className="text-2xl font-extrabold mt-32 mb-2">¿Te parece justo?</h4>
                         <div className="mt-auto pt-6">
-                          <a href="#" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
+                          <a href="/madrid/premium" className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3">
                             Hazte premium y empieza ahora
                           </a>
                         </div>

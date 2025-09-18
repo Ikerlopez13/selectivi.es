@@ -46,6 +46,11 @@ export default function BlogPage() {
       <section className="bg-white border-b">
         <div className="max-w-[1200px] mx-auto px-6 py-16">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Blog de selectivi<span className="text-[#FFB800]">ES</span></h1>
+          <div className="mt-5">
+            <a href="/onboarding" className="inline-flex items-center gap-2 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-5 py-3">
+              Saber cómo funciona en 60 seg
+            </a>
+          </div>
           <p className="text-lg md:text-xl text-gray-700 mt-3 max-w-3xl">
             Estrategias, historias reales y recursos para preparar la EvAU con claridad y confianza.
           </p>

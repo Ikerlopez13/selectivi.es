@@ -393,7 +393,7 @@ export default function HistoryQuiz() {
             <p className="text-gray-600 text-sm">En 60 segundos: cuestionarios por temas, feedback inmediato y seguimiento de progreso.</p>
           </div>
           <a
-            href="#onboarding"
+            href="/onboarding"
             className="inline-flex items-center gap-2 bg-[#111827] text-white px-5 py-2.5 rounded-lg font-medium hover:opacity-90 transition"
           >
             Ver cómo funciona
