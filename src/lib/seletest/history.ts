@@ -35,6 +35,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Meseta norte', isCorrect: false },
         { id: 'd', label: 'Pirineos', isCorrect: false },
       ], explanation: 'Los dólmenes se concentraron en Andalucía, Extremadura y Portugal.' },
+      { id: 'prehistoria-antigua-extra1', tier: 'standard', prompt: 'La llegada de los primeros agricultores a la península se sitúa aproximadamente en…', options: [
+        { id: 'a', label: '7000 a. C.', isCorrect: false },
+        { id: 'b', label: '5000 a. C.', isCorrect: true },
+        { id: 'c', label: '3000 a. C.', isCorrect: false },
+        { id: 'd', label: '2000 a. C.', isCorrect: false },
+      ], explanation: 'La transición neolítica en la península ronda 5000 a. C., con asentamiento de agricultura y ganadería.' },
+      { id: 'prehistoria-antigua-extra2', tier: 'standard', prompt: 'La cultura argárica (sureste, 2200–1550 a. C.) se distingue principalmente por…', options: [
+        { id: 'a', label: 'Su cerámica híbrida', isCorrect: false },
+        { id: 'b', label: 'Economía basada en la pesca', isCorrect: false },
+        { id: 'c', label: 'Metalurgia y prácticas funerarias complejas', isCorrect: true },
+        { id: 'd', label: 'Escritura lineal', isCorrect: false },
+      ], explanation: 'El Argar destaca por su metalurgia del bronce y enterramientos característicos.' },
     ] },
     { id: 'pueblos-prerromanos', title: 'Pueblos prerromanos', questions: [
       { id: 'prerromanos-q1', tier: 'standard', prompt: '¿Qué pueblo destacó en la Meseta y el noroeste por su metalurgia del hierro?', options: [
@@ -73,6 +85,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Organización en grandes imperios centralizados', isCorrect: false },
         { id: 'd', label: 'Religión monoteísta estricta', isCorrect: false },
       ], explanation: 'La cultura ibérica se caracteriza por su urbanismo fortificado y un notable desarrollo metalúrgico.' },
+      { id: 'prerromanos-extra1', tier: 'standard', prompt: '¿Qué pueblos prerromanos habitaron la península antes de la romanización?', options: [
+        { id: 'a', label: 'Celtas y fenicios', isCorrect: false },
+        { id: 'b', label: 'Íberos y celtíberos', isCorrect: true },
+        { id: 'c', label: 'Griegos y cartagineses', isCorrect: false },
+        { id: 'd', label: 'Visigodos', isCorrect: false },
+      ], explanation: 'Íberos y celtas/celtíberos ocuparon diversas áreas de la península.' },
     ] },
     { id: 'hispania-romana', title: 'Hispania romana', questions: [
       { id: 'romana-q1', tier: 'standard', prompt: '¿En qué año comenzó la conquista romana de Hispania?', options: [
@@ -135,6 +153,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Aparición de una escritura desconocida', isCorrect: false },
         { id: 'd', label: 'Aislamiento cultural completo', isCorrect: false },
       ], explanation: 'Hispania se integró en provincias y adoptó paulatinamente lengua, derecho y urbanismo romanos.' },
+      { id: 'romana-extra1', tier: 'standard', prompt: 'Emerita Augusta (Mérida) fue fundada en torno a 25 a. C. y llegó a ser capital de Lusitania.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Depende de la época', isCorrect: false },
+        { id: 'd', label: 'No existió', isCorrect: false },
+      ], explanation: 'Ciudad augustea y capital administrativa de la provincia Lusitania.' },
     ] },
     { id: 'monarquia-visigoda', title: 'Monarquía visigoda', questions: [
       { id: 'visigodos-q1', tier: 'standard', prompt: '¿Qué rey promulgó el Liber Iudiciorum unificando el derecho?', options: [
@@ -205,6 +229,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Consejos municipales permanentes', isCorrect: false },
         { id: 'd', label: 'Asambleas militares', isCorrect: false },
       ], explanation: 'Representaban a nobleza, clero y ciudades; votaban servicios y presentaban peticiones.' },
+      { id: 'medieval-extra1', tier: 'standard', prompt: 'La Escuela de Traductores de Toledo facilitó la transmisión de obras clásicas del griego y árabe al latín.', options: [
+        { id: 'a', label: 'Siglos X-XI', isCorrect: false },
+        { id: 'b', label: 'Siglos XI-XII', isCorrect: false },
+        { id: 'c', label: 'Siglos XII-XIII', isCorrect: true },
+        { id: 'd', label: 'Siglos XIV-XV', isCorrect: false },
+      ], explanation: 'Impulso clave a la filosofía aristotélica y platónica en los siglos XII–XIII.' },
     ] },
     { id: 'al-andalus', title: 'Al-Ándalus: evolución política, economía y cultura', questions: [
       { id: 'andalus-q1', tier: 'standard', prompt: '¿Qué estableció Abderramán III en 929?', options: [
@@ -325,6 +355,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Economía plenamente estable', isCorrect: false },
         { id: 'd', label: 'Unificación inmediata de reinos vecinos', isCorrect: false },
       ], explanation: 'Peste y crisis económica y demográfica agudizaron la situación en la Corona de Castilla.' },
+      { id: 'bajamed-extra1', tier: 'standard', prompt: 'En la Baja Edad Media, la crisis del siglo XIV debilitó la autoridad real y fortaleció a la nobleza en Castilla y Aragón.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo Aragón', isCorrect: false },
+        { id: 'd', label: 'Ninguna de las anteriores', isCorrect: false },
+      ], explanation: 'Impacto demográfico y económico con tensiones políticas.' },
     ] },
     { id: 'edad-moderna', title: 'Edad Moderna (siglos XV-XVIII)', questions: [
       { id: 'moderna-q1', tier: 'standard', prompt: '¿Qué hecho de 1492 se considera inicio de la Edad Moderna?', options: [
@@ -357,6 +393,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Consulado de Burgos', isCorrect: false },
         { id: 'd', label: 'Junta de Comercio de Bilbao', isCorrect: false },
       ], explanation: 'La Casa controló flotas, registros y formación de pilotos desde 1503.' },
+      { id: 'moderna-extra1', tier: 'standard', prompt: 'Los Austrias Mayores simbolizan centralización y expansión imperial.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo Carlos I', isCorrect: false },
+        { id: 'd', label: 'Solo Felipe II', isCorrect: false },
+      ], explanation: 'Carlos I y Felipe II encarnaron un proyecto político centralizado y expansivo.' },
+      { id: 'moderna-extra2', tier: 'standard', prompt: 'La plata de Potosí financió guerras y administración de la monarquía.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Depende del periodo', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Ingresos mineros americanos alimentaron la Hacienda Real.' },
     ] },
     { id: 'reyes-catolicos', title: 'Reyes Católicos: unión dinástica y Estado', questions: [
       { id: 'rrcc-q1', tier: 'standard', prompt: 'La unión de Castilla y Aragón bajo Isabel y Fernando fue…', options: [
@@ -503,6 +551,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Restauración del absolutismo sin reformas', isCorrect: false },
         { id: 'd', label: 'Revolución agraria', isCorrect: false },
       ], explanation: 'Las reformas borbónicas buscaron centralizar, modernizar y fortalecer el poder real.' },
+      { id: 'borbones-extra2', tier: 'standard', prompt: 'La Ilustración española promovió reformas administrativas y educativas (Jovellanos, Feijoo).', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo Feijoo', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Modernización institucional y educativa en clave ilustrada.' },
+      { id: 'borbones-extra3', tier: 'standard', prompt: 'En 1767 se expulsó a los jesuitas como parte del reformismo borbónico.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo en virreinatos', isCorrect: false },
+        { id: 'd', label: 'No ocurrió', isCorrect: false },
+      ], explanation: 'Medida para limitar poder eclesiástico y reordenar la enseñanza.' },
     ] },
     { id: 'carlos-iii', title: 'Reformismo ilustrado de Carlos III', questions: [
       { id: 'carlos3-q1', tier: 'standard', prompt: '¿Qué motín popular cuestionó reformas en 1766?', options: [
@@ -769,6 +829,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Paz de Zanjón', isCorrect: false },
         { id: 'd', label: 'Tratado de París', isCorrect: false },
       ], explanation: 'El pronunciamiento del general Pavía disolvió las Cortes y preparó la Restauración.' },
+      { id: 'sexenio-extra3', tier: 'standard', prompt: 'La Revolución de 1868 dio paso al Sexenio Democrático con reformas liberales y nueva constitución.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo reformas', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Derrocamiento de Isabel II, Constitución de 1869 y etapa reformista.' },
     ] },
     { id: 'restauracion', title: 'Restauración borbónica (1874-1902)', questions: [
       { id: 'restauracion-q1', tier: 'standard', prompt: '¿Qué sistema alternaba liberales y conservadores?', options: [
@@ -813,6 +879,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Aislar a España de Europa', isCorrect: false },
         { id: 'd', label: 'Fortalecer el poder de la Iglesia sin cambios sociales', isCorrect: false },
       ], explanation: 'El regeneracionismo propuso reformas para superar el desgaste del sistema.' },
+      { id: 'restauracion-extra2', tier: 'standard', prompt: 'La Restauración se caracterizó por alternancia Liberal/Conservador y caciquismo.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo liberal', isCorrect: false },
+        { id: 'd', label: 'Sin caciquismo', isCorrect: false },
+      ], explanation: 'Turnismo sostenido por clientelismo y encasillado.' },
     ] },
     { id: 'economia-siglo-xix', title: 'Economía y sociedad en el siglo XIX', questions: [
       { id: 'eco19-q1', tier: 'standard', prompt: '¿Qué sector impulsó la industrialización temprana en Cataluña?', options: [
@@ -877,6 +949,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Huelga general de 1902', isCorrect: false },
         { id: 'd', label: 'Revolución de 1868', isCorrect: true },
       ], explanation: 'La Gloriosa es anterior al periodo considerado.' },
+      { id: '1902-36-extra1', tier: 'standard', prompt: 'Nietzsche, con su crítica a la moral y la voluntad de poder, influyó en manifestaciones culturales del siglo XX en España.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo en Alemania', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Recepción notable en debates culturales y literarios.' },
     ] },
     { id: 'alfonso-xiii', title: 'Alfonso XIII y la crisis de la Restauración', questions: [
       { id: 'alfonso13-q1', tier: 'standard', prompt: '¿Qué derrota en 1921 agravó la crisis del sistema en Marruecos?', options: [
@@ -1003,6 +1081,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Consolidación de una monarquía absoluta', isCorrect: false },
         { id: 'd', label: 'Desmantelamiento de toda forma de voto', isCorrect: false },
       ], explanation: 'Se impulsaron reformas civiles, educativas y de derechos de la mujer.' },
+      { id: 'ii-rep-extra2', tier: 'standard', prompt: 'La Segunda República impulsó reformas políticas, sociales y agrarias en un proceso de modernización institucional.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo reformas sociales', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Programa reformista amplio con fuerte contestación.' },
       { id: 'ii-rep-q8', tier: 'standard', prompt: 'La Guerra Civil fue desencadenada por…', options: [
         { id: 'a', label: 'Un golpe de Estado militar el 18 de julio de 1936', isCorrect: true },
         { id: 'b', label: 'Un conflicto de clase estrictamente social', isCorrect: false },
@@ -1131,6 +1215,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'La firma del Tratado de Paz de París', isCorrect: false },
         { id: 'd', label: 'La rendición de Franco', isCorrect: false },
       ], explanation: 'La victoria del bando nacional en 1939 cerró el conflicto.' },
+      { id: 'guerra36-extra1', tier: 'standard', prompt: 'La Guerra Civil enfrentó dos grandes bloques con intervención de potencias externas.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo interno', isCorrect: false },
+        { id: 'd', label: 'Sin intervención externa', isCorrect: false },
+      ], explanation: 'Alemania e Italia apoyaron a los sublevados; la URSS y brigadas internacionales, a la República.' },
+      { id: 'guerra36-extra2', tier: 'standard', prompt: 'Potencias extranjeras participaron: Alemania e Italia con los sublevados; URSS y Brigadas Internacionales con la República.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo Alemania', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Intervención internacional decisiva en el desarrollo del conflicto.' },
     ] },
     { id: 'franquismo', title: 'Dictadura franquista (1939-1975): evolución y contexto', questions: [
       { id: 'franquismo-q1', tier: 'standard', prompt: '¿Cómo se denomina la etapa de autarquía y racionamiento?', options: [
@@ -1243,6 +1339,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'La restauración de la monarquía absoluta', isCorrect: false },
         { id: 'd', label: 'La instauración de una república', isCorrect: false },
       ], explanation: 'Abrió el marco para la legalización de partidos y elecciones.' },
+      { id: 'transicion-extra5', tier: 'standard', prompt: 'Los Pactos de la Moncloa (1977) facilitaron la estabilización económica y la consolidación democrática.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo económico', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Acuerdos políticos y económicos clave en la Transición.' },
+      { id: 'transicion-extra6', tier: 'standard', prompt: 'La política exterior de la Transición se orientó a la integración europea y la defensa de la democracia.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo UE', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Ingreso en comunidades europeas y alineamiento democrático occidental.' },
     ] },
     { id: 'constitucion-1978', title: 'Constitución de 1978', questions: [
       { id: 'ce78-q1', tier: 'standard', prompt: '¿Qué forma política establece la Constitución?', options: [
@@ -1257,6 +1365,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Artículo 27', isCorrect: false },
         { id: 'd', label: 'Artículo 155', isCorrect: false },
       ], explanation: 'Reconoce y garantiza el derecho a la autonomía.' },
+      { id: 'ce78-extra1', tier: 'standard', prompt: 'La Constitución de 1978 consagró la monarquía parlamentaria y un Estado social y democrático de derecho.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo monarquía', isCorrect: false },
+        { id: 'd', label: 'Sin derechos', isCorrect: false },
+      ], explanation: 'Marco democrático con separación de poderes y catálogo de derechos.' },
+      { id: 'ce78-extra2', tier: 'standard', prompt: 'Las reformas de 1978 consolidaron un Estado democrático y pluripartidista.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo en algunas regiones', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Se institucionalizó el pluralismo y el juego democrático.' },
     ] },
     { id: 'gobiernos-autonomias', title: 'Gobiernos democráticos y desarrollo autonómico', questions: [
       { id: 'autonomias-q1', tier: 'standard', prompt: '¿En qué año ingresó España en la CEE?', options: [
@@ -1283,6 +1403,36 @@ export const historyES: Subject = {
         { id: 'c', label: 'Retirada de las políticas sociales', isCorrect: false },
         { id: 'd', label: 'Descentralización completa de competencias', isCorrect: false },
       ], explanation: 'La adhesión facilitó la modernización y el acceso a fondos de cohesión.' },
+      { id: 'autonomias-extra1', tier: 'standard', prompt: 'La adhesión de España a la UE (1986) marcó cambios estructurales en economía, legislación y políticas públicas.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo económica', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Armonización normativa y modernización institucional.' },
+      { id: 'autonomias-extra2', tier: 'standard', prompt: 'La introducción del euro: 1999 (contable) y 2002 (circulación) sustituyó a la peseta.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo 1999', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Adopción del euro y retirada de la peseta.' },
+      { id: 'autonomias-extra3', tier: 'standard', prompt: 'El Tratado de Maastricht consolidó la UE; España adoptó el euro dentro de esa unión monetaria.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo pacto comercial', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Maastricht sentó las bases para la UEM y el euro.' },
+      { id: 'autonomias-extra4', tier: 'standard', prompt: 'En los años 80-90 se consolidó la Constitución de 1978 y avanzó la modernización social y económica.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo parte', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Profundización autonómica, europeización y reformas.' },
+      { id: 'autonomias-extra5', tier: 'standard', prompt: 'La integración europea influyó también en derechos sociales y ambientales, no solo en economía.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo economía', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Directivas europeas afectaron empleo, igualdad y medio ambiente.' },
     ] },
     { id: 'retos-actuales', title: 'Retos políticos, sociales y económicos actuales', questions: [
       { id: 'retos-q1', tier: 'standard', prompt: '¿Qué reto demográfico afecta especialmente a España?', options: [
@@ -1297,6 +1447,24 @@ export const historyES: Subject = {
         { id: 'c', label: 'Agraria y minera', isCorrect: false },
         { id: 'd', label: 'Nuclear y financiera', isCorrect: false },
       ], explanation: 'Transformación verde y digital como prioridad.' },
+      { id: 'retos-extra1', tier: 'standard', prompt: 'La crisis económica de 2008 afectó significativamente empleo, deuda y crecimiento en España.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo en 2010', isCorrect: false },
+        { id: 'd', label: 'No afectó', isCorrect: false },
+      ], explanation: 'Aumento del desempleo, ajustes fiscales y caída del PIB.' },
+      { id: 'retos-extra2', tier: 'standard', prompt: 'Autores como Kant, Marx, Nietzsche o Platón han sido referencia para debates políticos y sociales en España.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo Kant', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Influencia sobre educación, pensamiento político y cultura.' },
+      { id: 'retos-extra3', tier: 'standard', prompt: 'En la actualidad, España mantiene una democracia consolidada integrada en la UE y el euro.', options: [
+        { id: 'a', label: 'Verdadero', isCorrect: true },
+        { id: 'b', label: 'Falso', isCorrect: false },
+        { id: 'c', label: 'Solo UE', isCorrect: false },
+        { id: 'd', label: 'Ninguna', isCorrect: false },
+      ], explanation: 'Participación activa en la UE y marco democrático estable.' },
     ] },
   ],
 }

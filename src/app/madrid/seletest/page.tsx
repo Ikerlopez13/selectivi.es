@@ -23,6 +23,7 @@ export default function SeletestPage() {
   ]
   const mapId: Record<string, string> = {
     'Historia': 'historia-espana',
+    'Filosofía': 'filosofia',
   }
   return (
     <main className="min-h-screen flex flex-col">

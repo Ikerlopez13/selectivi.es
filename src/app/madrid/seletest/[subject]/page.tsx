@@ -1,11 +1,13 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { historyES } from '@/lib/seletest/history'
+import { philosophyES } from '@/lib/seletest/philosophy'
 import Seletest from '@/components/Seletest'
 import { cookies } from 'next/headers'
 
 const SUBJECTS = {
   'historia-espana': historyES,
+  'filosofia': philosophyES,
 }
 
 export default function SubjectPage({ params, searchParams }: { params: { subject: string }, searchParams: { premium?: string } }) {
