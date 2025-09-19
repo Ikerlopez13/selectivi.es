@@ -24,6 +24,7 @@ export default function SeletestPage() {
   const mapId: Record<string, string> = {
     'Historia': 'historia-espana',
     'Filosofía': 'filosofia',
+    'Economía de la empresa': 'economia-empresa',
   }
   return (
     <main className="min-h-screen flex flex-col">
