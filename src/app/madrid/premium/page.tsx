@@ -1,6 +1,5 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import WaitlistForm from '@/components/WaitlistForm'
 
 export default function PremiumPage() {
   return (
@@ -109,10 +108,7 @@ export default function PremiumPage() {
             </a>
           </div>
 
-          {/* Waitlist (por si acceden desde otra comunidad) */}
-          <div className="mt-16">
-            <WaitlistForm source="madrid-premium" />
-          </div>
+          {/* (Waitlist eliminada a petición) */}
         </div>
       </section>
       <Footer />

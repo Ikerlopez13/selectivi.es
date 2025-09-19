@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '@/lib/supabase/client'
 
 export default function Description() {
   const [email, setEmail] = useState('')
@@ -27,9 +28,28 @@ export default function Description() {
     'Melilla',
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false)
+  const [msg, setMsg] = useState<string | null>(null)
+  const [err, setErr] = useState<string | null>(null)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({ email, community })
+    setMsg(null)
+    setErr(null)
+    setLoading(true)
+    const { error } = await supabase.from('waitlist').insert({
+      email,
+      comunidad: community,
+      source: 'madrid-landing-desc'
+    })
+    setLoading(false)
+    if (error) {
+      setErr(error.message)
+    } else {
+      setMsg('¡Gracias! Te avisaremos en cuanto esté disponible.')
+      setEmail('')
+      setCommunity('')
+    }
   }
 
   return (
@@ -69,8 +89,10 @@ export default function Description() {
             ))}
           </select>
 
-          <button type="submit" className="w-full bg-[#FFB800] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#ffc835] transition-colors">
-            Enviar
+          {err && <p className="text-sm text-red-600">{err}</p>}
+          {msg && <p className="text-sm text-green-700">{msg}</p>}
+          <button type="submit" className="w-full bg-[#FFB800] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#ffc835] transition-colors disabled:opacity-60" disabled={loading}>
+            {loading ? 'Enviando…' : 'Enviar'}
           </button>
         </form>
       </div>

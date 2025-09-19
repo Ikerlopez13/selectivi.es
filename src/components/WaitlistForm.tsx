@@ -14,8 +14,8 @@ export default function WaitlistForm({ source = 'madrid-premium' }: { source?: s
   const [message, setMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault?.()
     setMessage(null)
     setError(null)
 
@@ -46,7 +46,7 @@ export default function WaitlistForm({ source = 'madrid-premium' }: { source?: s
 
   return (
     <div className="bg-white/70 backdrop-blur rounded-3xl p-6 md:p-8 border shadow-md grid md:grid-cols-2 gap-8 items-center">
-      <form onSubmit={onSubmit} className="order-2 md:order-1">
+      <form className="order-2 md:order-1">
         <h3 className="text-2xl md:text-3xl font-extrabold mb-2">Tu comunidad aún no está disponible</h3>
         <p className="text-gray-700 mb-6">Déjanos tu correo y comunidad y te avisaremos lo antes posible</p>
         <div className="space-y-3">
@@ -71,13 +71,13 @@ export default function WaitlistForm({ source = 'madrid-premium' }: { source?: s
           </select>
           {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
           {message && <p className="text-sm text-green-700" role="status">{message}</p>}
-          <button type="submit" disabled={loading} className="w-full bg-[#FFB800] hover:bg-[#ffc835] disabled:opacity-60 text-black font-semibold rounded-xl py-3">
+          <button type="button" onClick={() => onSubmit()} disabled={loading} className="w-full bg-[#FFB800] hover:bg-[#ffc835] disabled:opacity-60 text-black font-semibold rounded-xl py-3">
             {loading ? 'Enviando…' : message ? 'Enviado' : 'Enviar'}
           </button>
         </div>
       </form>
-      <div className="order-1 md:order-2 hidden md:flex justify-end">
-        <img src="/images/gato.svg" alt="Mascota" className="w-[260px] h-auto" />
+      <div className="order-1 md:order-2 hidden md:flex justify-end pointer-events-none select-none">
+        <img src="/images/gato.svg" alt="Mascota" className="w-[260px] h-auto pointer-events-none select-none" />
       </div>
     </div>
   )

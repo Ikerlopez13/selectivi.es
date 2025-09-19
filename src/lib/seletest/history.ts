@@ -137,6 +137,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Implantaron el feudalismo', isCorrect: false },
         { id: 'd', label: 'Eliminaron el Liber Iudiciorum', isCorrect: false },
       ], explanation: 'Los concilios establecieron normas canónicas y civiles con gran influencia política.' },
+      { id: 'visigodos-q6', tier: 'standard', prompt: '¿Qué rasgo caracteriza la relación entre la monarquía visigoda y la herencia romana?', options: [
+        { id: 'a', label: 'El derecho visigodo reemplazó completamente el derecho romano.', isCorrect: false },
+        { id: 'b', label: 'Se mantuvo la tradición jurídica romana a través del Liber Judiciorum (Fuero Juzgo).', isCorrect: true },
+        { id: 'c', label: 'Se adoptó la lengua germánica en toda la península.', isCorrect: false },
+        { id: 'd', label: 'Se creó un sistema parlamentarista.', isCorrect: false },
+      ], explanation: 'El derecho romano influyó en la legislación visigoda, codificada en el Liber Iudiciorum.' },
     ] },
     { id: 'edad-media', title: 'La Edad Media en la Península Ibérica', questions: [
       { id: 'medieval-q1', tier: 'standard', prompt: '¿Qué hecho marca el inicio de la Edad Media peninsular?', options: [
@@ -233,6 +239,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Dominio exclusivo de puertos', isCorrect: false },
         { id: 'd', label: 'Control del comercio atlántico', isCorrect: false },
       ], explanation: 'Órdenes como Santiago, Calatrava o Alcántara aseguraron territorios y colonos.' },
+      { id: 'reinos-q6', tier: 'standard', prompt: 'Durante la Edad Media, ¿qué objetivo tenía la repoblación en los reinos cristianos?', options: [
+        { id: 'a', label: 'Incrementar la población y reforzar la defensa de fronteras', isCorrect: true },
+        { id: 'b', label: 'Fomentar la herejía', isCorrect: false },
+        { id: 'c', label: 'Únicamente repoblar con mercaderes', isCorrect: false },
+        { id: 'd', label: 'Evitar el contacto con el Islam', isCorrect: false },
+      ], explanation: 'La repoblación buscó asegurar fronteras y ampliar recursos agrícolas y fiscales.' },
     ] },
     { id: 'baja-edad-media', title: 'Baja Edad Media: crisis y cambios (siglos XIV y XV)', questions: [
       { id: 'bajamed-q1', tier: 'standard', prompt: '¿Qué pandemia diezmó la población europea en 1348?', options: [
@@ -361,6 +373,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Cantonal', isCorrect: false },
         { id: 'd', label: 'Comuneros', isCorrect: false },
       ], explanation: 'Las Germanías fueron revueltas gremiales en Valencia y Mallorca (1519-1523).' },
+      { id: 'xvi-q6', tier: 'standard', prompt: '¿Qué monarca de los Austrias Mayores fijó Madrid como capital de la Monarquía Hispánica?', options: [
+        { id: 'a', label: 'Carlos I', isCorrect: false },
+        { id: 'b', label: 'Felipe II', isCorrect: true },
+        { id: 'c', label: 'Felipe III', isCorrect: false },
+        { id: 'd', label: 'Carlos II', isCorrect: false },
+      ], explanation: 'En 1561, Felipe II trasladó la corte a Madrid, consolidando su papel como capital.' },
     ] },
     { id: 'siglo-xvii', title: 'España del siglo XVII: crisis de los Austrias menores', questions: [
       { id: 'xvii-q1', tier: 'standard', prompt: '¿Qué valido de Felipe IV impulsó la Unión de Armas?', options: [
@@ -425,6 +443,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Biblioteca Nacional', isCorrect: false },
         { id: 'd', label: 'Real Academia de la Historia', isCorrect: false },
       ], explanation: 'La RAE nació para fijar y limpiar la lengua, reflejo del reformismo borbónico.' },
+      { id: 'borbones-q6', tier: 'standard', prompt: 'En la España del siglo XVIII, ¿qué enfoque definió las Reformas borbónicas y la Ilustración?', options: [
+        { id: 'a', label: 'Centralización administrativa y modernización del Estado', isCorrect: true },
+        { id: 'b', label: 'Descentralización regional y autonomía', isCorrect: false },
+        { id: 'c', label: 'Restauración del absolutismo sin reformas', isCorrect: false },
+        { id: 'd', label: 'Revolución agraria', isCorrect: false },
+      ], explanation: 'Las reformas borbónicas buscaron centralizar, modernizar y fortalecer el poder real.' },
     ] },
     { id: 'carlos-iii', title: 'Reformismo ilustrado de Carlos III', questions: [
       { id: 'carlos3-q1', tier: 'standard', prompt: '¿Qué motín popular cuestionó reformas en 1766?', options: [
@@ -521,6 +545,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Expansión colonial española', isCorrect: false },
         { id: 'd', label: 'Fortalecimiento del absolutismo', isCorrect: false },
       ], explanation: 'La guerra debilitó al Antiguo Régimen y favoreció ideas liberales.' },
+      { id: 'guerra1812-q6', tier: 'standard', prompt: '¿Qué hecho desencadenó la Guerra de Independencia en España (1808-1814)?', options: [
+        { id: 'a', label: 'La invasión francesa de 1808', isCorrect: false },
+        { id: 'b', label: 'La abdicación de Bayona de 1808', isCorrect: true },
+        { id: 'c', label: 'El Motín de Aranjuez 1808', isCorrect: false },
+        { id: 'd', label: 'La Constitución de Cádiz de 1812', isCorrect: false },
+      ], explanation: 'La abdicación de Carlos IV en Bayona y la imposición de José I precipitaron la guerra.' },
     ] },
     { id: 'fernando-vii', title: 'Reinado de Fernando VII', questions: [
       { id: 'fernando-q1', tier: 'standard', prompt: '¿Cómo se denomina el periodo 1820-1823?', options: [
@@ -617,6 +647,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Espartero', isCorrect: false },
         { id: 'd', label: 'Narváez', isCorrect: false },
       ], explanation: 'La Ley de Madoz afectó bienes de propios y comunales, ampliando privatizaciones.' },
+      { id: 'estadolib-q6', tier: 'standard', prompt: '¿Qué Constitución marcó el inicio del Estado Liberal en España (1812-1874)?', options: [
+        { id: 'a', label: 'Constitución de Cádiz de 1812', isCorrect: true },
+        { id: 'b', label: 'Constitución de 1837', isCorrect: false },
+        { id: 'c', label: 'Constitución de 1869', isCorrect: false },
+        { id: 'd', label: 'Constitución de 1978', isCorrect: false },
+      ], explanation: 'La Constitución de 1812 fue la primera carta liberal española.' },
     ] },
     { id: 'sexenio', title: 'Sexenio Democrático (1868-1874)', questions: [
       { id: 'sexenio-q1', tier: 'standard', prompt: '¿Qué revolución destronó a Isabel II en 1868?', options: [
@@ -681,6 +717,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Milicia nacional', isCorrect: false },
         { id: 'd', label: 'Juntas de Defensa', isCorrect: false },
       ], explanation: 'Redes clientelares y manipulación electoral aseguraban mayorías.' },
+      { id: 'restauracion-q6', tier: 'standard', prompt: '¿Qué sistema político caracterizó la Restauración borbónica (1874-1931)?', options: [
+        { id: 'a', label: 'Sistema canovista', isCorrect: true },
+        { id: 'b', label: 'Sistema federal', isCorrect: false },
+        { id: 'c', label: 'Monarquía absoluta', isCorrect: false },
+        { id: 'd', label: 'República parlamentaria', isCorrect: false },
+      ], explanation: 'La Restauración se basó en la alternancia de partidos y el caciquismo.' },
     ] },
     { id: 'economia-siglo-xix', title: 'Economía y sociedad en el siglo XIX', questions: [
       { id: 'eco19-q1', tier: 'standard', prompt: '¿Qué sector impulsó la industrialización temprana en Cataluña?', options: [
@@ -809,6 +851,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Unión Patriótica', isCorrect: false },
         { id: 'd', label: 'Consejo del Reino', isCorrect: false },
       ], explanation: 'Sustituyó al gobierno civil por una cúpula de generales.' },
+      { id: 'primo-q6', tier: 'standard', prompt: '¿En qué año Primo de Rivera instauró su dictadura en España?', options: [
+        { id: 'a', label: '1917', isCorrect: false },
+        { id: 'b', label: '1923', isCorrect: true },
+        { id: 'c', label: '1930', isCorrect: false },
+        { id: 'd', label: '1929', isCorrect: false },
+      ], explanation: 'El golpe de Estado de 1923 dio inicio a la dictadura de Primo de Rivera.' },
     ] },
     { id: 'segunda-republica', title: 'Segunda República (1931-1936)', questions: [
       { id: 'ii-rep-q1', tier: 'standard', prompt: '¿Qué constitución de 1931 definió a España como “República democrática de trabajadores”?', options: [
@@ -841,6 +889,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'FAI y PCE', isCorrect: false },
         { id: 'd', label: 'PSOE y PNV', isCorrect: false },
       ], explanation: 'CNT (anarcosindicalista) y UGT (socialista) fueron los principales sindicatos.' },
+      { id: 'ii-rep-q6', tier: 'standard', prompt: '¿En qué año comenzó la Segunda República española?', options: [
+        { id: 'a', label: '1931', isCorrect: true },
+        { id: 'b', label: '1936', isCorrect: false },
+        { id: 'c', label: '1940', isCorrect: false },
+        { id: 'd', label: '1929', isCorrect: false },
+      ], explanation: 'La proclamación de la Segunda República fue en 1931.' },
     ] },
     { id: 'guerra-civil', title: 'Guerra Civil (1936-1939): causas, etapas, consecuencias', questions: [
       { id: 'guerra36-q1', tier: 'standard', prompt: '¿Qué hecho de julio de 1936 inició el conflicto?', options: [
@@ -945,6 +999,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Intimidar a la población y ensayar bombardeo masivo', isCorrect: true },
         { id: 'd', label: 'Destruir grandes fábricas', isCorrect: false },
       ], explanation: 'Ensayo de tácticas de bombardeo de terror sobre población civil.' },
+      { id: 'guerra36-q12', tier: 'standard', prompt: '¿Qué evento marca el inicio de la Guerra Civil española (1936-1939)?', options: [
+        { id: 'a', label: 'La proclamación de la República', isCorrect: false },
+        { id: 'b', label: 'La sublevación militar de julio de 1936', isCorrect: true },
+        { id: 'c', label: 'La caída de la Junta de la República', isCorrect: false },
+        { id: 'd', label: 'La batalla de Madrid', isCorrect: false },
+      ], explanation: 'La sublevación militar de julio de 1936 dio inicio al conflicto.' },
     ] },
     { id: 'franquismo', title: 'Dictadura franquista (1939-1975): evolución y contexto', questions: [
       { id: 'franquismo-q1', tier: 'standard', prompt: '¿Cómo se denomina la etapa de autarquía y racionamiento?', options: [
@@ -977,6 +1037,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Ley de Sucesión', isCorrect: false },
         { id: 'd', label: 'Ley de Principios del Movimiento', isCorrect: false },
       ], explanation: 'Herramienta legal para perseguir a los vencidos y opositores.' },
+      { id: 'franquismo-q6', tier: 'standard', prompt: '¿Qué característica definió la economía y sociedad durante el franquismo (1939-1975)?', options: [
+        { id: 'a', label: 'Autarquía y fuerte control estatal', isCorrect: true },
+        { id: 'b', label: 'Liberalización económica y apertura al comercio', isCorrect: false },
+        { id: 'c', label: 'Democracia plural y libertades', isCorrect: false },
+        { id: 'd', label: 'Federalismo', isCorrect: false },
+      ], explanation: 'El franquismo promovió la autarquía económica y un régimen autoritario.' },
     ] },
     { id: 'transicion', title: 'Transición democrática y España actual (1975-hoy)', questions: [
       { id: 'transicion-q1', tier: 'standard', prompt: '¿Qué presidente impulsó la Ley para la Reforma Política (1976)?', options: [
@@ -1009,6 +1075,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Retroceso de libertades', isCorrect: false },
         { id: 'd', label: 'Implantación del socialismo de Estado', isCorrect: false },
       ], explanation: 'Integración plena en Europa occidental y apertura económica.' },
+      { id: 'transicion-q6', tier: 'standard', prompt: '¿Qué hito institucional marcó la consolidación de la Transición española hacia la democracia?', options: [
+        { id: 'a', label: 'Ley de Reforma Política (1977)', isCorrect: true },
+        { id: 'b', label: 'Constitución de 1978', isCorrect: false },
+        { id: 'c', label: 'Elecciones de 1982', isCorrect: false },
+        { id: 'd', label: 'Referéndum de 1986', isCorrect: false },
+      ], explanation: 'La Ley para la Reforma Política de 1977 abrió y consolidó el paso a la democracia.' },
     ] },
     { id: 'constitucion-1978', title: 'Constitución de 1978', questions: [
       { id: 'ce78-q1', tier: 'standard', prompt: '¿Qué forma política establece la Constitución?', options: [
@@ -1037,6 +1109,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Reglamento del Congreso', isCorrect: false },
         { id: 'd', label: 'Real Decreto-Ley', isCorrect: false },
       ], explanation: 'Cada comunidad se rige por su Estatuto aprobado por ley orgánica.' },
+      { id: 'autonomias-q3', tier: 'standard', prompt: '¿Qué hito significó la incorporación de España a la Unión Europea?', options: [
+        { id: 'a', label: '1986', isCorrect: true },
+        { id: 'b', label: '1992', isCorrect: false },
+        { id: 'c', label: '1996', isCorrect: false },
+        { id: 'd', label: '2000', isCorrect: false },
+      ], explanation: 'La entrada en la CEE (1986) consolidó a España como estado democrático europeo.' },
     ] },
     { id: 'retos-actuales', title: 'Retos políticos, sociales y económicos actuales', questions: [
       { id: 'retos-q1', tier: 'standard', prompt: '¿Qué reto demográfico afecta especialmente a España?', options: [
