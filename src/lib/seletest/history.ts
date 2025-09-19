@@ -67,6 +67,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Colonia griega', isCorrect: false },
         { id: 'd', label: 'Reino celta de la Meseta', isCorrect: false },
       ], explanation: 'Tartessos destacó por su riqueza en metales y sus contactos mediterráneos.' },
+      { id: 'prerromanos-q6', tier: 'standard', prompt: 'Entre los pueblos prerromanos de la Península Ibérica, ¿qué rasgo destaca de la cultura ibérica?', options: [
+        { id: 'a', label: 'Escritura ibérica como único rasgo definitorio', isCorrect: false },
+        { id: 'b', label: 'Urbanismo fortificado y producción metalúrgica avanzada', isCorrect: true },
+        { id: 'c', label: 'Organización en grandes imperios centralizados', isCorrect: false },
+        { id: 'd', label: 'Religión monoteísta estricta', isCorrect: false },
+      ], explanation: 'La cultura ibérica se caracteriza por su urbanismo fortificado y un notable desarrollo metalúrgico.' },
     ] },
     { id: 'hispania-romana', title: 'Hispania romana', questions: [
       { id: 'romana-q1', tier: 'standard', prompt: '¿En qué año comenzó la conquista romana de Hispania?', options: [
@@ -105,6 +111,30 @@ export const historyES: Subject = {
         { id: 'c', label: 'Vía Flaminia', isCorrect: false },
         { id: 'd', label: 'Vía Emerita', isCorrect: false },
       ], explanation: 'La Vía Augusta conectaba los Pirineos con Cádiz por la costa mediterránea.' },
+      { id: 'romana-q7', tier: 'standard', prompt: '¿Qué evento suele considerarse inicio de la romanización de Hispania?', options: [
+        { id: 'a', label: 'La batalla de Sagunto (219 a. C.)', isCorrect: false },
+        { id: 'b', label: 'La derrota de Viriato', isCorrect: false },
+        { id: 'c', label: 'La batalla de Ilipa (206 a. C.)', isCorrect: true },
+        { id: 'd', label: 'La fundación de Tarraco', isCorrect: false },
+      ], explanation: 'La batalla de Ilipa en 206 a. C. facilitó la consolidación del dominio romano en Hispania.' },
+      { id: 'romana-q8', tier: 'standard', prompt: 'Durante la conquista romana, ¿qué provincia romana llegó a ser la más extensa en Hispania?', options: [
+        { id: 'a', label: 'Hispania Baetica', isCorrect: false },
+        { id: 'b', label: 'Hispania Lusitania', isCorrect: false },
+        { id: 'c', label: 'Hispania Tarraconensis', isCorrect: true },
+        { id: 'd', label: 'Hispania Gallaecia', isCorrect: false },
+      ], explanation: 'La Tarraconensis fue la provincia más extensa durante buena parte del periodo imperial.' },
+      { id: 'romana-q9', tier: 'standard', prompt: '¿Qué factor facilitó la romanización de la península tras la conquista?', options: [
+        { id: 'a', label: 'La red de carreteras, puentes y ciudades romanas', isCorrect: true },
+        { id: 'b', label: 'El apoyo de aliados locales', isCorrect: false },
+        { id: 'c', label: 'La ausencia de resistencia', isCorrect: false },
+        { id: 'd', label: 'La lucha constante de los pueblos íberos', isCorrect: false },
+      ], explanation: 'La infraestructura romana permitió implantar instituciones, leyes y cultura con mayor eficacia.' },
+      { id: 'romana-q10', tier: 'standard', prompt: 'En la Hispania romana, ¿qué rasgo la caracterizó tras la conquista?', options: [
+        { id: 'a', label: 'Ciudades-estado independientes sin influencia romana', isCorrect: false },
+        { id: 'b', label: 'Integración progresiva en provincias romanas y romanización', isCorrect: true },
+        { id: 'c', label: 'Aparición de una escritura desconocida', isCorrect: false },
+        { id: 'd', label: 'Aislamiento cultural completo', isCorrect: false },
+      ], explanation: 'Hispania se integró en provincias y adoptó paulatinamente lengua, derecho y urbanismo romanos.' },
     ] },
     { id: 'monarquia-visigoda', title: 'Monarquía visigoda', questions: [
       { id: 'visigodos-q1', tier: 'standard', prompt: '¿Qué rey promulgó el Liber Iudiciorum unificando el derecho?', options: [
@@ -207,6 +237,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'La Peste Negra', isCorrect: false },
         { id: 'd', label: 'Derrota en Lepanto', isCorrect: false },
       ], explanation: 'Las luchas internas entre facciones provocaron la caída y el surgimiento de taifas.' },
+      { id: 'andalus-q6', tier: 'standard', prompt: 'En Al-Ándalus, ¿qué evento marca la transición de Emirato a Califato?', options: [
+        { id: 'a', label: 'La caída de Córdoba', isCorrect: false },
+        { id: 'b', label: 'La proclamación de Abderramán III como Califa en 929', isCorrect: true },
+        { id: 'c', label: 'La llegada de Almanzor', isCorrect: false },
+        { id: 'd', label: 'La fundación de Granada', isCorrect: false },
+      ], explanation: 'En 929, Abderramán III se proclamó califa, consolidando la independencia política.' },
+      { id: 'andalus-q7', tier: 'standard', prompt: 'La convivencia de culturas en Al-Ándalus se basó principalmente en:', options: [
+        { id: 'a', label: 'Total islamización de la población', isCorrect: false },
+        { id: 'b', label: 'Una política de dhimmi que permitió convivencia entre musulmanes, cristianos y judíos', isCorrect: true },
+        { id: 'c', label: 'Expulsión gradual de cristianos', isCorrect: false },
+        { id: 'd', label: 'Aislamiento total de comunidades religiosas', isCorrect: false },
+      ], explanation: 'El estatuto de dhimmi reguló la convivencia con derechos y limitaciones para no musulmanes.' },
     ] },
     { id: 'reinos-cristianos', title: 'Reinos cristianos medievales: expansión y repoblación', questions: [
       { id: 'reinos-q1', tier: 'standard', prompt: '¿Qué organización protegía la trashumancia en Castilla?', options: [
@@ -277,6 +319,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Desaparición de la nobleza', isCorrect: false },
         { id: 'd', label: 'Abolición del diezmo', isCorrect: false },
       ], explanation: 'Huelgas, revueltas y reajustes económicos y demográficos a largo plazo.' },
+      { id: 'bajamed-q6', tier: 'standard', prompt: 'La crisis del siglo XIV en Castilla se debió principalmente a…', options: [
+        { id: 'a', label: 'Peste negra y crisis demográfica', isCorrect: true },
+        { id: 'b', label: 'Prolongadas campañas de conquista', isCorrect: false },
+        { id: 'c', label: 'Economía plenamente estable', isCorrect: false },
+        { id: 'd', label: 'Unificación inmediata de reinos vecinos', isCorrect: false },
+      ], explanation: 'Peste y crisis económica y demográfica agudizaron la situación en la Corona de Castilla.' },
     ] },
     { id: 'edad-moderna', title: 'Edad Moderna (siglos XV-XVIII)', questions: [
       { id: 'moderna-q1', tier: 'standard', prompt: '¿Qué hecho de 1492 se considera inicio de la Edad Moderna?', options: [
@@ -341,6 +389,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Restaurar el feudalismo', isCorrect: false },
         { id: 'd', label: 'Suprimir la nobleza', isCorrect: false },
       ], explanation: 'Matrimonios de sus hijos con Portugal, Habsburgo e Inglaterra reforzaron su posición.' },
+      { id: 'rrcc-q6', tier: 'standard', prompt: 'La unión dinástica de Castilla y Aragón se consolidó con el matrimonio de Isabel y Fernando en…', options: [
+        { id: 'a', label: '1469', isCorrect: true },
+        { id: 'b', label: '1492', isCorrect: false },
+        { id: 'c', label: '1474', isCorrect: false },
+        { id: 'd', label: '1500', isCorrect: false },
+      ], explanation: 'El enlace de 1469 es la base de la unión dinástica que orientó la política posterior.' },
     ] },
     { id: 'siglo-xvi', title: 'España del siglo XVI: Carlos I y Felipe II', questions: [
       { id: 'xvi-q1', tier: 'standard', prompt: '¿Qué revuelta urbana castellana estalló en 1520-1521?', options: [
@@ -551,6 +605,24 @@ export const historyES: Subject = {
         { id: 'c', label: 'El Motín de Aranjuez 1808', isCorrect: false },
         { id: 'd', label: 'La Constitución de Cádiz de 1812', isCorrect: false },
       ], explanation: 'La abdicación de Carlos IV en Bayona y la imposición de José I precipitaron la guerra.' },
+      { id: 'guerra1812-q7', tier: 'standard', prompt: 'La Guerra de Independencia (1808-1814) surgió a raíz de…', options: [
+        { id: 'a', label: 'La invasión napoleónica de la Península', isCorrect: true },
+        { id: 'b', label: 'Conflictos internos de la corte', isCorrect: false },
+        { id: 'c', label: 'Un proceso revolucionario externo', isCorrect: false },
+        { id: 'd', label: 'Llegada de grandes colonias', isCorrect: false },
+      ], explanation: 'La invasión napoleónica desencadenó la guerra contra el dominio francés.' },
+      { id: 'guerra1812-q8', tier: 'standard', prompt: "La Constitución de 1812, 'La Pepa', introdujo…", options: [
+        { id: 'a', label: 'Soberanía nacional y división de poderes', isCorrect: true },
+        { id: 'b', label: 'Monarquía absoluta', isCorrect: false },
+        { id: 'c', label: 'Censura total de la prensa', isCorrect: false },
+        { id: 'd', label: 'Centralización del poder en la Corona', isCorrect: false },
+      ], explanation: 'Consagró la soberanía nacional y limitó el poder del monarca.' },
+      { id: 'guerra1812-q9', tier: 'standard', prompt: 'Tras la guerra, ¿qué medida restauró Fernando VII en 1814?', options: [
+        { id: 'a', label: 'La monarquía absoluta', isCorrect: true },
+        { id: 'b', label: 'La Constitución de 1812', isCorrect: false },
+        { id: 'c', label: 'La abolición de la monarquía', isCorrect: false },
+        { id: 'd', label: 'Un régimen liberal consolidado', isCorrect: false },
+      ], explanation: 'Fernando VII restauró el absolutismo, revirtiendo avances liberales.' },
     ] },
     { id: 'fernando-vii', title: 'Reinado de Fernando VII', questions: [
       { id: 'fernando-q1', tier: 'standard', prompt: '¿Cómo se denomina el periodo 1820-1823?', options: [
@@ -653,6 +725,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Constitución de 1869', isCorrect: false },
         { id: 'd', label: 'Constitución de 1978', isCorrect: false },
       ], explanation: 'La Constitución de 1812 fue la primera carta liberal española.' },
+      { id: 'estadolib-q7', tier: 'standard', prompt: 'El Sexenio Democrático (1868-1874) trajo como consecuencia principal…', options: [
+        { id: 'a', label: 'Restauración de la monarquía absoluta', isCorrect: false },
+        { id: 'b', label: 'Proclamación de la Primera República y reformas liberales', isCorrect: true },
+        { id: 'c', label: 'Continuidad del antiguo régimen', isCorrect: false },
+        { id: 'd', label: 'Independencia de las colonias', isCorrect: false },
+      ], explanation: 'Periodo de reformas e inestabilidad que culminó con la Restauración.' },
+      { id: 'estadolib-q8', tier: 'standard', prompt: 'Tras la Revolución de 1868, ¿qué régimen sucedió a Isabel II en primer lugar?', options: [
+        { id: 'a', label: 'Segunda República', isCorrect: false },
+        { id: 'b', label: 'Restauración borbónica', isCorrect: false },
+        { id: 'c', label: 'Reinado de Amadeo de Saboya', isCorrect: true },
+        { id: 'd', label: 'Dictadura de Primo de Rivera', isCorrect: false },
+      ], explanation: 'El breve reinado de Amadeo I siguió a la Gloriosa.' },
     ] },
     { id: 'sexenio', title: 'Sexenio Democrático (1868-1874)', questions: [
       { id: 'sexenio-q1', tier: 'standard', prompt: '¿Qué revolución destronó a Isabel II en 1868?', options: [
@@ -723,6 +807,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Monarquía absoluta', isCorrect: false },
         { id: 'd', label: 'República parlamentaria', isCorrect: false },
       ], explanation: 'La Restauración se basó en la alternancia de partidos y el caciquismo.' },
+      { id: 'restauracion-q7', tier: 'standard', prompt: 'La crisis del 98 impulsó el regeneracionismo, que buscaba…', options: [
+        { id: 'a', label: 'Mantener el status quo', isCorrect: false },
+        { id: 'b', label: 'Modernizar política, economía y educación', isCorrect: true },
+        { id: 'c', label: 'Aislar a España de Europa', isCorrect: false },
+        { id: 'd', label: 'Fortalecer el poder de la Iglesia sin cambios sociales', isCorrect: false },
+      ], explanation: 'El regeneracionismo propuso reformas para superar el desgaste del sistema.' },
     ] },
     { id: 'economia-siglo-xix', title: 'Economía y sociedad en el siglo XIX', questions: [
       { id: 'eco19-q1', tier: 'standard', prompt: '¿Qué sector impulsó la industrialización temprana en Cataluña?', options: [
@@ -857,6 +947,18 @@ export const historyES: Subject = {
         { id: 'c', label: '1930', isCorrect: false },
         { id: 'd', label: '1929', isCorrect: false },
       ], explanation: 'El golpe de Estado de 1923 dio inicio a la dictadura de Primo de Rivera.' },
+      { id: 'primo-q7', tier: 'standard', prompt: 'La dictadura de Primo de Rivera (1923-1930) se caracterizó por…', options: [
+        { id: 'a', label: 'Amplias libertades civiles', isCorrect: false },
+        { id: 'b', label: 'Intervención militar y un intento de orden', isCorrect: true },
+        { id: 'c', label: 'Descentralización administrativa', isCorrect: false },
+        { id: 'd', label: 'Pluralidad de partidos en el parlamento', isCorrect: false },
+      ], explanation: 'Régimen autoritario con control político y limitación de libertades.' },
+      { id: 'primo-q8', tier: 'standard', prompt: 'La caída de la monarquía en 1931 se produjo tras…', options: [
+        { id: 'a', label: 'La proclamación de la Segunda República', isCorrect: false },
+        { id: 'b', label: 'La abdicación de Alfonso XIII', isCorrect: true },
+        { id: 'c', label: 'Una guerra civil', isCorrect: false },
+        { id: 'd', label: 'La firma de un tratado internacional', isCorrect: false },
+      ], explanation: 'La abdicación de Alfonso XIII abrió paso a la Segunda República.' },
     ] },
     { id: 'segunda-republica', title: 'Segunda República (1931-1936)', questions: [
       { id: 'ii-rep-q1', tier: 'standard', prompt: '¿Qué constitución de 1931 definió a España como “República democrática de trabajadores”?', options: [
@@ -895,6 +997,18 @@ export const historyES: Subject = {
         { id: 'c', label: '1940', isCorrect: false },
         { id: 'd', label: '1929', isCorrect: false },
       ], explanation: 'La proclamación de la Segunda República fue en 1931.' },
+      { id: 'ii-rep-q7', tier: 'standard', prompt: 'La Segunda República promovió reformas en educación y derechos civiles; una característica fue…', options: [
+        { id: 'a', label: 'Separación Iglesia-Estado y expansión de libertades cívicas', isCorrect: true },
+        { id: 'b', label: 'Defensa del confesionalismo y privilegios eclesiásticos', isCorrect: false },
+        { id: 'c', label: 'Consolidación de una monarquía absoluta', isCorrect: false },
+        { id: 'd', label: 'Desmantelamiento de toda forma de voto', isCorrect: false },
+      ], explanation: 'Se impulsaron reformas civiles, educativas y de derechos de la mujer.' },
+      { id: 'ii-rep-q8', tier: 'standard', prompt: 'La Guerra Civil fue desencadenada por…', options: [
+        { id: 'a', label: 'Un golpe de Estado militar el 18 de julio de 1936', isCorrect: true },
+        { id: 'b', label: 'Un conflicto de clase estrictamente social', isCorrect: false },
+        { id: 'c', label: 'Una invasión extranjera', isCorrect: false },
+        { id: 'd', label: 'Una revolución obrera sin coordinación', isCorrect: false },
+      ], explanation: 'El levantamiento militar de julio de 1936 desencadenó la guerra.' },
     ] },
     { id: 'guerra-civil', title: 'Guerra Civil (1936-1939): causas, etapas, consecuencias', questions: [
       { id: 'guerra36-q1', tier: 'standard', prompt: '¿Qué hecho de julio de 1936 inició el conflicto?', options: [
@@ -1005,6 +1119,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'La caída de la Junta de la República', isCorrect: false },
         { id: 'd', label: 'La batalla de Madrid', isCorrect: false },
       ], explanation: 'La sublevación militar de julio de 1936 dio inicio al conflicto.' },
+      { id: 'guerra36-q13', tier: 'standard', prompt: 'La ayuda internacional al bando republicano incluyó…', options: [
+        { id: 'a', label: 'Apoyo de Alemania e Italia', isCorrect: false },
+        { id: 'b', label: 'Apoyo de la Unión Soviética y las Brigadas Internacionales', isCorrect: true },
+        { id: 'c', label: 'Apoyo total de Estados Unidos', isCorrect: false },
+        { id: 'd', label: 'Ninguna intervención externa', isCorrect: false },
+      ], explanation: 'La República recibió apoyo soviético y de brigadas internacionales.' },
+      { id: 'guerra36-q14', tier: 'standard', prompt: '¿Qué evento marca el fin de la Guerra Civil española?', options: [
+        { id: 'a', label: 'La caída de Madrid en 1939', isCorrect: false },
+        { id: 'b', label: 'La derrota de las tropas republicanas y la victoria del bando Nacional', isCorrect: true },
+        { id: 'c', label: 'La firma del Tratado de Paz de París', isCorrect: false },
+        { id: 'd', label: 'La rendición de Franco', isCorrect: false },
+      ], explanation: 'La victoria del bando nacional en 1939 cerró el conflicto.' },
     ] },
     { id: 'franquismo', title: 'Dictadura franquista (1939-1975): evolución y contexto', questions: [
       { id: 'franquismo-q1', tier: 'standard', prompt: '¿Cómo se denomina la etapa de autarquía y racionamiento?', options: [
@@ -1043,6 +1169,30 @@ export const historyES: Subject = {
         { id: 'c', label: 'Democracia plural y libertades', isCorrect: false },
         { id: 'd', label: 'Federalismo', isCorrect: false },
       ], explanation: 'El franquismo promovió la autarquía económica y un régimen autoritario.' },
+      { id: 'franquismo-q7', tier: 'standard', prompt: 'La política de autarquía económica inicial del franquismo se caracterizó por…', options: [
+        { id: 'a', label: 'Autosuficiencia y control de precios', isCorrect: true },
+        { id: 'b', label: 'Apertura al libre comercio internacional', isCorrect: false },
+        { id: 'c', label: 'Libre competencia empresarial', isCorrect: false },
+        { id: 'd', label: 'Descentralización administrativa', isCorrect: false },
+      ], explanation: 'Autosuficiencia, racionamiento y control de precios en los primeros años.' },
+      { id: 'franquismo-q8', tier: 'standard', prompt: 'La oposición al régimen se organizó principalmente desde…', options: [
+        { id: 'a', label: 'Las instituciones oficiales', isCorrect: false },
+        { id: 'b', label: 'El exilio y la clandestinidad interna', isCorrect: true },
+        { id: 'c', label: 'La prensa estatal', isCorrect: false },
+        { id: 'd', label: 'La fidelidad universal al régimen', isCorrect: false },
+      ], explanation: 'Se articuló desde el exilio y, dentro de España, de forma clandestina.' },
+      { id: 'franquismo-q9', tier: 'standard', prompt: 'La apertura internacional de España en 1959-60 vino impulsada por…', options: [
+        { id: 'a', label: 'El aislamiento total', isCorrect: false },
+        { id: 'b', label: 'El Plan de Estabilización de 1959 y acuerdos con EE. UU.', isCorrect: true },
+        { id: 'c', label: 'La reconexión con el comunismo internacional', isCorrect: false },
+        { id: 'd', label: 'La exclusión de inversiones extranjeras', isCorrect: false },
+      ], explanation: 'El Plan de Estabilización liberalizó parcialmente la economía y abrió al exterior.' },
+      { id: 'franquismo-q10', tier: 'standard', prompt: 'La censura durante el franquismo incidía en…', options: [
+        { id: 'a', label: 'Prensa, radio y cine', isCorrect: true },
+        { id: 'b', label: 'Solo libros científicos', isCorrect: false },
+        { id: 'c', label: 'Ningún medio impreso', isCorrect: false },
+        { id: 'd', label: 'Exclusivamente la radio', isCorrect: false },
+      ], explanation: 'El régimen mantuvo control estrecho de los medios mediante censura.' },
     ] },
     { id: 'transicion', title: 'Transición democrática y España actual (1975-hoy)', questions: [
       { id: 'transicion-q1', tier: 'standard', prompt: '¿Qué presidente impulsó la Ley para la Reforma Política (1976)?', options: [
@@ -1081,6 +1231,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Elecciones de 1982', isCorrect: false },
         { id: 'd', label: 'Referéndum de 1986', isCorrect: false },
       ], explanation: 'La Ley para la Reforma Política de 1977 abrió y consolidó el paso a la democracia.' },
+      { id: 'transicion-q7', tier: 'standard', prompt: 'La muerte de Franco favoreció la transición política liderada por…', options: [
+        { id: 'a', label: 'Adolfo Suárez', isCorrect: true },
+        { id: 'b', label: 'Felipe González', isCorrect: false },
+        { id: 'c', label: 'Santiago Carrillo', isCorrect: false },
+        { id: 'd', label: 'José María Aznar', isCorrect: false },
+      ], explanation: 'Adolfo Suárez encabezó la transición y promovió reformas y apertura política.' },
+      { id: 'transicion-q8', tier: 'standard', prompt: 'La Ley para la Reforma Política (1976) permitió…', options: [
+        { id: 'a', label: 'La prohibición de partidos', isCorrect: false },
+        { id: 'b', label: 'La legalización de partidos y la convocatoria de elecciones', isCorrect: true },
+        { id: 'c', label: 'La restauración de la monarquía absoluta', isCorrect: false },
+        { id: 'd', label: 'La instauración de una república', isCorrect: false },
+      ], explanation: 'Abrió el marco para la legalización de partidos y elecciones.' },
     ] },
     { id: 'constitucion-1978', title: 'Constitución de 1978', questions: [
       { id: 'ce78-q1', tier: 'standard', prompt: '¿Qué forma política establece la Constitución?', options: [
@@ -1115,6 +1277,12 @@ export const historyES: Subject = {
         { id: 'c', label: '1996', isCorrect: false },
         { id: 'd', label: '2000', isCorrect: false },
       ], explanation: 'La entrada en la CEE (1986) consolidó a España como estado democrático europeo.' },
+      { id: 'autonomias-q4', tier: 'standard', prompt: 'La pertenencia de España a la Unión Europea tuvo como efecto principal…', options: [
+        { id: 'a', label: 'Aislamiento económico', isCorrect: false },
+        { id: 'b', label: 'Modernización económica y acceso a fondos estructurales', isCorrect: true },
+        { id: 'c', label: 'Retirada de las políticas sociales', isCorrect: false },
+        { id: 'd', label: 'Descentralización completa de competencias', isCorrect: false },
+      ], explanation: 'La adhesión facilitó la modernización y el acceso a fondos de cohesión.' },
     ] },
     { id: 'retos-actuales', title: 'Retos políticos, sociales y económicos actuales', questions: [
       { id: 'retos-q1', tier: 'standard', prompt: '¿Qué reto demográfico afecta especialmente a España?', options: [
