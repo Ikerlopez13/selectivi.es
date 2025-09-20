@@ -41,19 +41,33 @@ export default function SeletestPage() {
   const [numQuestions, setNumQuestions] = useState(10)
   const [mixSubjects, setMixSubjects] = useState(true)
   const [isPremium, setIsPremium] = useState(false)
+  const [showGate, setShowGate] = useState(false)
 
   useEffect(() => {
     let mounted = true
     ;(async () => {
       const { data: auth } = await supabase.auth.getUser()
       const userId = auth.user?.id
-      if (!userId) { if (mounted) setIsPremium(false); return }
+      if (!userId) {
+        // Forzar inicio de sesión con Google y volver aquí
+        try {
+          await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: { redirectTo: `${window.location.origin}/madrid/seletest?autoCommunity=madrid` },
+          })
+        } catch {}
+        return
+      }
       const { data } = await supabase
         .from('usuarios')
         .select('es_premium')
         .eq('user_id', userId)
         .maybeSingle()
-      if (mounted) setIsPremium(!!data?.es_premium)
+      if (mounted) {
+        const premium = !!data?.es_premium
+        setIsPremium(premium)
+        setShowGate(!premium)
+      }
     })()
     return () => { mounted = false }
   }, [])
@@ -242,6 +256,58 @@ export default function SeletestPage() {
         </div>
       </div>
       <Footer />
+      {showGate && !isPremium && (
+        <div className="fixed inset-0 z-30 bg-black/50 flex items-stretch md:items-center justify-center p-2">
+          <div className="w-[calc(100vw-16px)] sm:max-w-[520px] bg-white rounded-2xl border shadow-2xl overflow-hidden h-[88vh] md:h-auto">
+            <div className="p-5 h-full flex flex-col">
+              <div className="flex justify-center mb-3">
+                <img src="/images/logoo.svg" alt="SelectiviES" width="36" height="36" />
+              </div>
+              <div className="rounded-xl overflow-hidden mb-4">
+                <video src="/images/IMG_0109.mp4" autoPlay muted loop playsInline className="w-full h-64 md:h-60 object-cover" />
+              </div>
+              <h2 className="text-xl md:text-2xl font-extrabold text-center mb-2">Hazte Premium para desbloquear todo</h2>
+              <p className="text-center text-gray-600 mb-3">Acceso ilimitado, filtros por subtemas y más.</p>
+              {/* Beneficios visuales */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3 text-[14px]">
+                <div className="flex items-start gap-2 bg-[#FFF7DA] rounded-xl p-3 border">
+                  <span className="text-[#FFB800]">⭐️</span>
+                  <div>
+                    <p className="font-semibold leading-tight">Preguntas ilimitadas</p>
+                    <p className="text-gray-600 leading-tight">Incluye preguntas exclusivas Premium.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 bg-[#F3F4F6] rounded-xl p-3 border">
+                  <span>🧠</span>
+                  <div>
+                    <p className="font-semibold leading-tight">Filtra por subtemas</p>
+                    <p className="text-gray-600 leading-tight">Practica justo lo que necesitas.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 bg-[#F3F4F6] rounded-xl p-3 border sm:col-span-2">
+                  <span>⚡️</span>
+                  <div>
+                    <p className="font-semibold leading-tight">Soporte prioritario</p>
+                    <p className="text-gray-600 leading-tight">Te ayudamos a llegar antes.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1 bg-[#FFF3C4] text-black/80 text-xs font-medium px-2.5 py-1 rounded-full border">
+                  ✨ 87% de alumnos logró su 1ª opción
+                </span>
+                <span className="hidden sm:inline-flex items-center gap-1 bg-gray-100 text-gray-800 text-xs px-2.5 py-1 rounded-full border">
+                  2,99€/mes · 14,99€ único
+                </span>
+              </div>
+              <div className="space-y-2 mt-auto">
+                <a href="/madrid/premium" className="w-full inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Hazte Premium ahora</a>
+                <button onClick={() => setShowGate(false)} className="w-full inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-3">Seguir con Standard</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

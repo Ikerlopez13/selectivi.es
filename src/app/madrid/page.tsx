@@ -129,8 +129,8 @@ export default function MadridPage() {
             />
           </div>
 
-          {/* Columna derecha: gato (oculto en todos los tamaños) */}
-          <div className="hidden">
+          {/* Columna derecha: gato (oculto en móvil, visible en escritorio) */}
+          <div className="hidden lg:block">
             <Image 
               src="/images/gato.svg" 
               alt="Mascota" 
