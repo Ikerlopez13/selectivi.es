@@ -11,16 +11,40 @@ export default function Navbar() {
   const isMadridBrand = pathname?.startsWith('/madrid')
   const isHome = pathname === '/'
   const isMadridSection = pathname?.startsWith('/madrid')
+  const isMadridDashboard = pathname?.startsWith('/madrid/dashboard')
   const [hasSession, setHasSession] = useState(false)
+  const [isPremium, setIsPremium] = useState(false)
 
   useEffect(() => {
     let mounted = true
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       if (!mounted) return
       setHasSession(!!data.session)
+      const userId = data.session?.user?.id
+      if (userId) {
+        const { data: row } = await supabase
+          .from('usuarios')
+          .select('es_premium')
+          .eq('user_id', userId)
+          .maybeSingle()
+        if (mounted) setIsPremium(!!row?.es_premium)
+      } else {
+        if (mounted) setIsPremium(false)
+      }
     })
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
       setHasSession(!!session)
+      const userId = session?.user?.id
+      if (userId) {
+        const { data: row } = await supabase
+          .from('usuarios')
+          .select('es_premium')
+          .eq('user_id', userId)
+          .maybeSingle()
+        setIsPremium(!!row?.es_premium)
+      } else {
+        setIsPremium(false)
+      }
     })
     return () => sub.subscription.unsubscribe()
   }, [])
@@ -40,7 +64,24 @@ export default function Navbar() {
           <Link href="/blog" className="text-gray-700 hover:text-gray-900">Blog</Link>
           {isMadridSection ? (
             <>
-              <Link href="/madrid/premium" className="bg-gray-100 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">Hazte Premium ⭐️</Link>
+              {!isPremium && (
+                <Link href="/madrid/premium" className="bg-gray-100 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">Hazte Premium ⭐️</Link>
+              )}
+              {hasSession && (
+                isMadridDashboard ? (
+                  <button
+                    onClick={async () => {
+                      await supabase.auth.signOut()
+                      window.location.href = '/madrid'
+                    }}
+                    className="text-gray-700 hover:text-gray-900"
+                  >
+                    Cerrar sesión
+                  </button>
+                ) : (
+                  <Link href="/madrid/dashboard" className="text-gray-700 hover:text-gray-900">Mi perfil</Link>
+                )
+              )}
               <button
                 onClick={async () => {
                   if (!hasSession) {

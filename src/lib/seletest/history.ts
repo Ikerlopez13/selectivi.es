@@ -47,6 +47,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Metalurgia y prácticas funerarias complejas', isCorrect: true },
         { id: 'd', label: 'Escritura lineal', isCorrect: false },
       ], explanation: 'El Argar destaca por su metalurgia del bronce y enterramientos característicos.' },
+      { id: 'prehistoria-antigua-q6', tier: 'standard', prompt: 'La transición de Paleolítico a Neolítico en la Península Ibérica se caracteriza por:', options: [
+        { id: 'a', label: 'La aparición de la escritura', isCorrect: false },
+        { id: 'b', label: 'El desarrollo de la agricultura y la ganadería', isCorrect: true },
+        { id: 'c', label: 'La construcción de grandes ciudades', isCorrect: false },
+        { id: 'd', label: 'La invención de la rueda', isCorrect: false },
+      ], explanation: 'El Neolítico se define por agricultura y domesticación animal, que permiten asentamientos.' },
+      { id: 'prehistoria-antigua-q7', tier: 'standard', prompt: 'La Península Ibérica en la Prehistoria se caracteriza principalmente por:', options: [
+        { id: 'a', label: 'El desarrollo de una escritura estandarizada', isCorrect: false },
+        { id: 'b', label: 'Pinturas rupestres destacadas, como las de Altamira', isCorrect: true },
+        { id: 'c', label: 'Grandes ciudades-estado similares a Mesopotamia', isCorrect: false },
+        { id: 'd', label: 'Una economía basada en la industria del hierro', isCorrect: false },
+      ], explanation: 'Las pinturas rupestres de Altamira son un testimonio icónico de la prehistoria peninsular.' },
     ] },
     { id: 'pueblos-prerromanos', title: 'Pueblos prerromanos', questions: [
       { id: 'prerromanos-q1', tier: 'standard', prompt: '¿Qué pueblo destacó en la Meseta y el noroeste por su metalurgia del hierro?', options: [
@@ -91,6 +103,30 @@ export const historyES: Subject = {
         { id: 'c', label: 'Griegos y cartagineses', isCorrect: false },
         { id: 'd', label: 'Visigodos', isCorrect: false },
       ], explanation: 'Íberos y celtas/celtíberos ocuparon diversas áreas de la península.' },
+      { id: 'prerromanos-q7', tier: 'standard', prompt: '¿Qué pueblo prerromano protagonizó la resistencia de Numancia frente a Roma?', options: [
+        { id: 'a', label: 'Íberos', isCorrect: false },
+        { id: 'b', label: 'Celtíberos', isCorrect: true },
+        { id: 'c', label: 'Fenicios', isCorrect: false },
+        { id: 'd', label: 'Griegos', isCorrect: false },
+      ], explanation: 'Numancia simboliza la resistencia celtíbera en el siglo II a. C.' },
+      { id: 'prerromanos-q8', tier: 'standard', prompt: 'Entre los prerromanos, ¿qué rasgo destaca en muchos asentamientos?', options: [
+        { id: 'a', label: 'Escritura cuneiforme generalizada', isCorrect: false },
+        { id: 'b', label: 'Castros y ciudades amuralladas', isCorrect: true },
+        { id: 'c', label: 'Red de calzadas romanas ya existente', isCorrect: false },
+        { id: 'd', label: 'Dominio exclusivo de la planicie interior', isCorrect: false },
+      ], explanation: 'Castros y oppida amurallados caracterizan a varios pueblos prerromanos.' },
+      { id: 'prerromanos-q9', tier: 'standard', prompt: '¿Qué cultura destaca por piezas como la Dama de Baza?', options: [
+        { id: 'a', label: 'Íbera', isCorrect: true },
+        { id: 'b', label: 'Celtíbera', isCorrect: false },
+        { id: 'c', label: 'Fenicia', isCorrect: false },
+        { id: 'd', label: 'Griega', isCorrect: false },
+      ], explanation: 'La escultura íbera es característica del levante y sur peninsular.' },
+      { id: 'prerromanos-q10', tier: 'standard', prompt: '¿Qué tipo de escritura empleaban algunas comunidades ibéricas en la Hispania prerromana?', options: [
+        { id: 'a', label: 'Jeroglíficos egipcios', isCorrect: false },
+        { id: 'b', label: 'Escritura Lineal I', isCorrect: false },
+        { id: 'c', label: 'Alfabeto ibérico', isCorrect: true },
+        { id: 'd', label: 'Cuneiforme', isCorrect: false },
+      ], explanation: 'Los íberos desarrollaron una escritura alfabética denominada escritura ibérica.' },
     ] },
     { id: 'hispania-romana', title: 'Hispania romana', questions: [
       { id: 'romana-q1', tier: 'standard', prompt: '¿En qué año comenzó la conquista romana de Hispania?', options: [
@@ -159,6 +195,30 @@ export const historyES: Subject = {
         { id: 'c', label: 'Depende de la época', isCorrect: false },
         { id: 'd', label: 'No existió', isCorrect: false },
       ], explanation: 'Ciudad augustea y capital administrativa de la provincia Lusitania.' },
+      { id: 'romana-q11', tier: 'standard', prompt: '¿Qué término describe colonias romanas fundadas para veteranos en Hispania?', options: [
+        { id: 'a', label: 'Coloniae', isCorrect: true },
+        { id: 'b', label: 'Municipia', isCorrect: false },
+        { id: 'c', label: 'Civitas', isCorrect: false },
+        { id: 'd', label: 'Provincia', isCorrect: false },
+      ], explanation: 'Coloniae servían para asentar veteranos y romanizar el territorio.' },
+      { id: 'romana-q12', tier: 'standard', prompt: 'La defensa de Numancia frente a Roma se sitúa en el siglo…', options: [
+        { id: 'a', label: 'III a. C.', isCorrect: false },
+        { id: 'b', label: 'II a. C.', isCorrect: true },
+        { id: 'c', label: 'I a. C.', isCorrect: false },
+        { id: 'd', label: 'I d. C.', isCorrect: false },
+      ], explanation: 'El asedio definitivo concluyó en 133 a. C.' },
+      { id: 'romana-q13', tier: 'standard', prompt: 'Durante la romanización, ¿cuál fue una de las provincias creadas para la organización de Hispania?', options: [
+        { id: 'a', label: 'Tarraconensis', isCorrect: true },
+        { id: 'b', label: 'Britannia', isCorrect: false },
+        { id: 'c', label: 'Gallia', isCorrect: false },
+        { id: 'd', label: 'Africa', isCorrect: false },
+      ], explanation: 'Tarraconensis fue una de las provincias romanas clave en Hispania tras la reorganización provincial.' },
+      { id: 'romana-q14', tier: 'standard', prompt: 'En la Hispania romana, ¿cuál fue una de las provincias que recibió reorganización administrativa?', options: [
+        { id: 'a', label: 'Baetica', isCorrect: true },
+        { id: 'b', label: 'Britannia', isCorrect: false },
+        { id: 'c', label: 'Siria', isCorrect: false },
+        { id: 'd', label: 'Mediolanum', isCorrect: false },
+      ], explanation: 'Bética fue una provincia destacada en la organización de Hispania.' },
     ] },
     { id: 'monarquia-visigoda', title: 'Monarquía visigoda', questions: [
       { id: 'visigodos-q1', tier: 'standard', prompt: '¿Qué rey promulgó el Liber Iudiciorum unificando el derecho?', options: [
@@ -197,6 +257,18 @@ export const historyES: Subject = {
         { id: 'c', label: 'Se adoptó la lengua germánica en toda la península.', isCorrect: false },
         { id: 'd', label: 'Se creó un sistema parlamentarista.', isCorrect: false },
       ], explanation: 'El derecho romano influyó en la legislación visigoda, codificada en el Liber Iudiciorum.' },
+      { id: 'visigodos-q7', tier: 'standard', prompt: 'Tras la caída del Imperio romano de Occidente, ¿qué monarquía gobierna en Hispania?', options: [
+        { id: 'a', label: 'Bizantina', isCorrect: false },
+        { id: 'b', label: 'Visigoda', isCorrect: true },
+        { id: 'c', label: 'Ostrogoda', isCorrect: false },
+        { id: 'd', label: 'Carolingia', isCorrect: false },
+      ], explanation: 'Los visigodos establecieron su reino con capital en Toledo.' },
+      { id: 'visigodos-q8', tier: 'standard', prompt: '¿Qué concilio (589) consolidó la conversión visigoda al catolicismo?', options: [
+        { id: 'a', label: 'Nicea', isCorrect: false },
+        { id: 'b', label: 'III Concilio de Toledo', isCorrect: true },
+        { id: 'c', label: 'Calcedonia', isCorrect: false },
+        { id: 'd', label: 'Braga II', isCorrect: false },
+      ], explanation: 'Recaredo abjuró del arrianismo y adoptó el catolicismo.' },
     ] },
     { id: 'edad-media', title: 'La Edad Media en la Península Ibérica', questions: [
       { id: 'medieval-q1', tier: 'standard', prompt: '¿Qué hecho marca el inicio de la Edad Media peninsular?', options: [
@@ -279,6 +351,12 @@ export const historyES: Subject = {
         { id: 'c', label: 'Expulsión gradual de cristianos', isCorrect: false },
         { id: 'd', label: 'Aislamiento total de comunidades religiosas', isCorrect: false },
       ], explanation: 'El estatuto de dhimmi reguló la convivencia con derechos y limitaciones para no musulmanes.' },
+      { id: 'andalus-q8', tier: 'standard', prompt: '¿Cuál fue la capital del Califato de Córdoba?', options: [
+        { id: 'a', label: 'Granada', isCorrect: false },
+        { id: 'b', label: 'Córdoba', isCorrect: true },
+        { id: 'c', label: 'Toledo', isCorrect: false },
+        { id: 'd', label: 'Sevilla', isCorrect: false },
+      ], explanation: 'Córdoba fue la capital política y cultural del Califato.' },
     ] },
     { id: 'reinos-cristianos', title: 'Reinos cristianos medievales: expansión y repoblación', questions: [
       { id: 'reinos-q1', tier: 'standard', prompt: '¿Qué organización protegía la trashumancia en Castilla?', options: [

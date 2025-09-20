@@ -3,6 +3,9 @@ import Footer from '@/components/Footer'
 import { historyES } from '@/lib/seletest/history'
 import { philosophyES } from '@/lib/seletest/philosophy'
 import { businessES } from '@/lib/seletest/business'
+import { geographyES } from '@/lib/seletest/geography'
+import { languageES } from '@/lib/seletest/language'
+import { englishES } from '@/lib/seletest/english'
 import Seletest from '@/components/Seletest'
 import { cookies } from 'next/headers'
 
@@ -10,6 +13,9 @@ const SUBJECTS = {
   'historia-espana': historyES,
   'filosofia': philosophyES,
   'economia-empresa': businessES,
+  'geografia': geographyES,
+  'lengua': languageES,
+  'ingles': englishES,
 }
 
 export default function SubjectPage({ params, searchParams }: { params: { subject: string }, searchParams: { premium?: string } }) {

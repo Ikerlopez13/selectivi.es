@@ -1,0 +1,177 @@
+"use client"
+
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import { useEffect, useMemo, useState } from 'react'
+import { supabase } from '@/lib/supabase/client'
+import Image from 'next/image'
+import { historyES } from '@/lib/seletest/history'
+import { philosophyES } from '@/lib/seletest/philosophy'
+import { businessES } from '@/lib/seletest/business'
+import { geographyES } from '@/lib/seletest/geography'
+import { languageES } from '@/lib/seletest/language'
+import { englishES } from '@/lib/seletest/english'
+import type { Question } from '@/lib/seletest/types'
+
+const ALL_SUBJECTS = {
+  'historia-espana': historyES,
+  'filosofia': philosophyES,
+  'economia-empresa': businessES,
+  'geografia': geographyES,
+  'lengua': languageES,
+  'ingles': englishES,
+} as const
+
+function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
+
+export default function QuizPage() {
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [idx, setIdx] = useState(0)
+  const [chosen, setChosen] = useState<string | null>(null)
+  const [correctCount, setCorrectCount] = useState(0)
+  const [finished, setFinished] = useState(false)
+  const [isPremium, setIsPremium] = useState(false)
+
+  useEffect(() => {
+    (async () => {
+      // Detectar premium
+      const { data: auth } = await supabase.auth.getUser()
+      const userId = auth.user?.id
+      let premium = false
+      if (userId) {
+        const { data } = await supabase
+          .from('usuarios')
+          .select('es_premium')
+          .eq('user_id', userId)
+          .maybeSingle()
+        premium = !!data?.es_premium
+      }
+      setIsPremium(premium)
+
+      // Construir pool
+      try {
+        const raw = localStorage.getItem('seletestPlan')
+        if (!raw) return
+        const { subjects, numQuestions, mixSubjects } = JSON.parse(raw)
+        let pool: Question[] = []
+        subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
+          const subj = ALL_SUBJECTS[s.id]
+          subj.topics.forEach((t) => {
+            if (!s.topics.includes(t.id)) return
+            pool = pool.concat(t.questions)
+          })
+        })
+        // Aplicar límite Standard: 1/4 del total si no es premium
+        const maxAllowed = premium ? numQuestions : Math.max(1, Math.floor(Math.min(numQuestions, pool.length) / 4))
+        if (!mixSubjects) {
+          const limited = pool.slice(0, maxAllowed)
+          setQuestions(limited)
+        } else {
+          const mixed = shuffle(pool).slice(0, maxAllowed)
+          setQuestions(mixed)
+        }
+      } catch {}
+    })()
+  }, [])
+
+  const q = questions[idx]
+  const total = questions.length
+
+  const next = () => {
+    if (q && chosen) {
+      const selected = q.options.find(o => o.id === chosen)
+      if (selected?.isCorrect) setCorrectCount(c => c + 1)
+    }
+    if (idx + 1 < total) {
+      setIdx((v) => v + 1)
+      setChosen(null)
+    } else {
+      setFinished(true)
+    }
+  }
+
+  const restart = () => {
+    setIdx(0)
+    setChosen(null)
+    setCorrectCount(0)
+    setFinished(false)
+  }
+
+  return (
+    <main className="min-h-screen flex flex-col">
+      <Navbar />
+      <section className="flex-1">
+        <div className="max-w-[1100px] mx-auto px-6 py-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm text-gray-600">Pregunta {Math.min(idx + 1, total)} de {total}</div>
+          </div>
+          <div className="rounded-2xl border bg-white p-6">
+            {finished ? (
+              <div className="text-center max-w-[700px] mx-auto">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFF3C4] flex items-center justify-center text-2xl">✨</div>
+                <h1 className="text-3xl font-extrabold mb-2">¡Test completado!</h1>
+                <p className="text-gray-700">Tu puntuación: {correctCount} de {total}</p>
+                <p className="text-gray-600 mb-4">Aciertos: {correctCount} • Fallos: {Math.max(total - correctCount, 0)}</p>
+                <div className="inline-block rounded-xl border-2 border-[#FFE08A] bg-[#FFF9E6] px-6 py-4 mb-4">
+                  <p className="text-sm text-gray-700 font-semibold mb-1">Nota simulada sobre 14:</p>
+                  <p className="text-3xl font-extrabold">{(total ? (correctCount / total) * 14 : 0).toFixed(2)} / 14</p>
+                </div>
+                <p className="text-gray-600 mb-6">¡Sigue practicando! Con más práctica lo conseguirás 💪</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[520px] mx-auto">
+                  <a
+                    className="inline-flex items-center justify-center bg-[#25D366] text-white rounded-xl py-3"
+                    href={
+                      `https://wa.me/?text=` + encodeURIComponent(
+                        `Acabo de hacer un test en SeleTest y mi nota simulada es ${(total ? (correctCount/total)*14 : 0).toFixed(2)} / 14 — https://selectivi.es/madrid/seletest`
+                      )
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Compartir por WhatsApp
+                  </a>
+                  <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Volver a empezar</button>
+                </div>
+                <div className="mt-8 pt-6 border-t flex items-center justify-center gap-3">
+                  <Image src="/images/WhatsApp Image 2025-09-20 at 13.46.52.jpeg" alt="Foto de perfil de Iker" width={56} height={56} className="rounded-full object-cover" />
+                  <p className="text-sm text-gray-600">Hecho por <a href="https://instagram.com/ikerlopezttp" target="_blank" rel="noopener noreferrer" className="text-[#FFB800] font-semibold">@ikerlopezttp</a>. Sígueme ❤️</p>
+                </div>
+              </div>
+            ) : !q ? (
+              <div>No hay preguntas seleccionadas.</div>
+            ) : (
+              <div className="space-y-5">
+                <h1 className="text-2xl font-extrabold">{q.prompt}</h1>
+                <div className="space-y-3">
+                  {q.options.map((opt) => {
+                    const isSelected = chosen === opt.id
+                    const correct = chosen && opt.isCorrect
+                    const incorrect = isSelected && !opt.isCorrect
+                    let cls = 'w-full text-left border rounded-xl px-4 py-3 hover:bg-gray-50'
+                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-3 bg-green-50 border-green-300'
+                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-3 bg-red-50 border-red-300'
+                    return (
+                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>{opt.label}</button>
+                    )
+                  })}
+                </div>
+                {chosen && (
+                  <div className="mt-2 text-sm text-gray-700">
+                    <p className="font-semibold mb-1">Explicación</p>
+                    <p>{q.explanation}</p>
+                  </div>
+                )}
+                <div className="pt-4">
+                  <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente pregunta</button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  )
+}
+
+

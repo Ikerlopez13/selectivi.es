@@ -1,5 +1,6 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { StripeButtons } from '@/components/StripeButtons'
 
 export default function PremiumPage() {
   return (
@@ -41,7 +42,7 @@ export default function PremiumPage() {
                 <li>✓ Estadísticas y progreso</li>
                 <li>✓ Soporte prioritario</li>
               </ul>
-              <button className="w-full mt-8 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Suscríbete 2,99€/mes</button>
+              <div className="mt-8"><StripeButtons plan="monthly" /></div>
             </div>
 
             {/* Plan Premium (Pago único) */}
@@ -56,7 +57,7 @@ export default function PremiumPage() {
                 <li>✓ Estadísticas y progreso</li>
                 <li>✓ Soporte prioritario</li>
               </ul>
-              <button className="w-full mt-8 bg-black hover:bg-gray-800 text-white font-semibold rounded-xl py-3">Comprar 14,99€</button>
+              <div className="mt-8"><StripeButtons plan="lifetime" /></div>
               <p className="text-xs text-gray-500 mt-3">Pago único • Acceso de por vida.</p>
             </div>
           </div>

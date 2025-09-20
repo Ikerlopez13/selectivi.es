@@ -1,12 +1,14 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Image from 'next/image'
 import type { Subject } from '@/lib/seletest/types'
 
 export default function Seletest({ subject, isPremium }: { subject: Subject; isPremium: boolean }) {
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null)
   const [qIndex, setQIndex] = useState(0)
   const [chosen, setChosen] = useState<string | null>(null)
+  const [showGate, setShowGate] = useState<boolean>(() => !isPremium)
 
   const topic = useMemo(() => subject.topics.find(t => t.id === selectedTopicId) ?? null, [subject, selectedTopicId])
   const questions = useMemo(() => {
@@ -90,6 +92,42 @@ export default function Seletest({ subject, isPremium }: { subject: Subject; isP
           <p className="text-sm text-gray-500 mt-3">Algunas preguntas son premium. Activa premium para verlas todas.</p>
         )}
       </div>
+
+      {showGate && !isPremium && (
+        <div className="fixed inset-0 z-[100] flex items-start md:items-center justify-center p-4 bg-black/40">
+          <div className="w-full max-w-[480px] bg-white border border-black/5 shadow-2xl rounded-2xl overflow-hidden">
+            <div className="p-4 sm:p-5">
+              <div className="flex justify-center mb-3">
+                <div className="bg-white rounded-full border shadow-sm p-1.5">
+                  <Image src="/images/logoo.svg" alt="SelectiviES" width={32} height={32} />
+                </div>
+              </div>
+              <div className="rounded-xl overflow-hidden mb-4">
+                <video src="/images/IMG_0109.mp4" autoPlay muted loop playsInline className="w-full h-40 sm:h-44 md:h-48 object-cover" />
+              </div>
+              <div className="flex justify-center">
+                <div className="inline-flex items-center justify-center bg-[#FFF3C4] text-black/80 rounded-full px-3 py-1 text-xs sm:text-sm mb-3">
+                  + de 1000 estudiantes ya son premium
+                </div>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-center mb-2">Desbloquea todo tu potencial</h2>
+              <p className="text-center text-gray-600 mb-4">Accede a la experiencia completa de SeleTest y prepárate para bordar la EvAU 2025.</p>
+
+              <ul className="space-y-2.5 mb-4 max-w-[460px] mx-auto text-left">
+                <li className="flex items-start gap-3"><span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span><div><p className="font-medium">Sin anuncios</p><p className="text-sm text-gray-600">Concéntrate en practicar, sin distracciones.</p></div></li>
+                <li className="flex items-start gap-3"><span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span><div><p className="font-medium">Preguntas ilimitadas</p><p className="text-sm text-gray-600">Acceso a todas las preguntas, sin límites.</p></div></li>
+                <li className="flex items-start gap-3"><span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span><div><p className="font-medium">Filtra por subtemas</p><p className="text-sm text-gray-600">Personaliza tu práctica según tus necesidades.</p></div></li>
+              </ul>
+
+              <div className="space-y-3 max-w-[460px] mx-auto">
+                <a href="/madrid/premium" className="w-full inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-2">Hazte Premium ahora</a>
+                <p className="text-center text-sm text-gray-600">Desde 2,99 €/mes o pago único.</p>
+                <button onClick={() => setShowGate(false)} className="w-full inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-2">Seguir con el plan estándar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -98,7 +98,7 @@ export default function MadridPage() {
                     <span className="text-lg" aria-hidden="true">📊</span>
                     Consulta las notas de corte
                   </a>
-                  <a href="#" className="flex items-center gap-2 bg-gray-100 text-black px-5 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors shadow-sm">
+                  <a href="/madrid/calculadora" className="flex items-center gap-2 bg-gray-100 text-black px-5 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors shadow-sm">
                     <span className="text-lg" aria-hidden="true">🧮</span>
                     Calcula tu nota
                   </a>
@@ -129,8 +129,8 @@ export default function MadridPage() {
             />
           </div>
 
-          {/* Columna derecha: gato */}
-          <div className="flex justify-end relative z-10 -translate-x-4 xl:-translate-x-6">
+          {/* Columna derecha: gato (oculto en todos los tamaños) */}
+          <div className="hidden">
             <Image 
               src="/images/gato.svg" 
               alt="Mascota" 
