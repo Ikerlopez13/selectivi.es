@@ -4,9 +4,11 @@ import Stripe from 'stripe'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-  apiVersion: '2025-08-27.basil',
-})
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) return null
+  return new Stripe(key, { apiVersion: '2025-08-27.basil' })
+}
 
 function getOriginFromRequest(req: Request) {
   try {
@@ -38,6 +40,11 @@ export async function POST(request: Request) {
     const selected = priceMap[plan]
     if (!selected || !selected.price) {
       return new NextResponse('Invalid plan or price not configured', { status: 400 })
+    }
+
+    const stripe = getStripe()
+    if (!stripe) {
+      return new NextResponse('Stripe no está configurado', { status: 500 })
     }
 
     const session = await stripe.checkout.sessions.create({

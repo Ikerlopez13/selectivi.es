@@ -1,13 +1,15 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { supabaseAdmin } from '@/lib/supabase/admin'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-  apiVersion: '2025-08-27.basil',
-})
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY
+  if (!key) return null
+  return new Stripe(key, { apiVersion: '2025-08-27.basil' })
+}
 
 export async function POST(request: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
@@ -19,6 +21,11 @@ export async function POST(request: Request) {
 
   let event: Stripe.Event
   const rawBody = await request.text()
+
+  const stripe = getStripe()
+  if (!stripe) {
+    return new NextResponse('Stripe not configured', { status: 500 })
+  }
 
   try {
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret)
@@ -35,16 +42,12 @@ export async function POST(request: Request) {
         const email = session.customer_email || ''
         if (!userId && !email) break
         // Marca premium
+        const supabaseAdmin = getSupabaseAdmin()
+        if (!supabaseAdmin) break
         if (userId) {
-          await supabaseAdmin
-            .from('usuarios')
-            .update({ es_premium: true })
-            .eq('user_id', userId)
+          await supabaseAdmin.from('usuarios').update({ es_premium: true }).eq('user_id', userId)
         } else if (email) {
-          await supabaseAdmin
-            .from('usuarios')
-            .update({ es_premium: true })
-            .eq('correo_electronico', email)
+          await supabaseAdmin.from('usuarios').update({ es_premium: true }).eq('correo_electronico', email)
         }
         break
       }
@@ -56,11 +59,10 @@ export async function POST(request: Request) {
         const sub = event.data.object as Stripe.Subscription
         const userId = (sub.metadata?.supabase_user_id as string) || ''
         const isActive = sub.status === 'active' || sub.status === 'trialing' || sub.status === 'past_due'
+        const supabaseAdmin = getSupabaseAdmin()
+        if (!supabaseAdmin) break
         if (userId) {
-          await supabaseAdmin
-            .from('usuarios')
-            .update({ es_premium: isActive })
-            .eq('user_id', userId)
+          await supabaseAdmin.from('usuarios').update({ es_premium: isActive }).eq('user_id', userId)
         }
         break
       }
