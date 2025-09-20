@@ -8,11 +8,26 @@ create table if not exists public.usuarios (
 );
 -- Index for email lookups
 create index if not exists usuarios_correo_idx on public.usuarios (correo_electronico);
--- Enable RLS and basic policies (optional to adjust later)
+-- Make comunidad_autonoma required
+alter table public.usuarios alter column comunidad_autonoma set not null;
+-- Enable RLS
 alter table public.usuarios enable row level security;
-create policy "Usuarios pueden ver su propio registro" on public.usuarios
-  for select using (auth.uid()::text = correo_electronico);
--- NOTE: Replace policy as needed when using auth.users mapping.
+-- Reset policies (idempotent)
+drop policy if exists "Usuarios pueden ver su propio registro" on public.usuarios;
+drop policy if exists "usuarios_select_own" on public.usuarios;
+drop policy if exists "usuarios_insert_own" on public.usuarios;
+drop policy if exists "usuarios_update_own" on public.usuarios;
+-- Policies: each user can manage only their own row
+create policy "usuarios_select_own" on public.usuarios
+  for select to authenticated
+  using (auth.uid() = user_id);
+create policy "usuarios_insert_own" on public.usuarios
+  for insert to authenticated
+  with check (auth.uid() = user_id);
+create policy "usuarios_update_own" on public.usuarios
+  for update to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
 
 -- Waitlist table
 create table if not exists public.waitlist (

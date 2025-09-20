@@ -157,9 +157,7 @@ export default function CalculadoraPage() {
               <p className="text-lg md:text-xl mb-4">Calcula tu nota de admisión (sobre 14) y comprueba si alcanzas la nota de corte.</p>
               <p className="mb-8 text-gray-700">Introduce tus calificaciones (0–10) y el grado. La calculadora aplica la fórmula oficial y ponderaciones de Madrid.</p>
               <div className="flex justify-start">
-                <Link href="/madrid/seletest" className="btn bg-white text-[#FFB800] hover:bg-white/90 border-2 border-[#FFB800] font-bold px-8 py-3 rounded-full transition-all shadow">
-                  Practica con SeleTest
-                </Link>
+                <Link href="#calculadora" className="inline-flex items-center bg-black text-white px-5 py-3 rounded-xl font-semibold">Empieza ahora</Link>
               </div>
             </div>
             <div className="lg:w-2/5 flex justify-center">
@@ -176,14 +174,15 @@ export default function CalculadoraPage() {
           <div className="space-y-6">
             {/* Formulario estilo tarjeta única */}
             <div className="bg-white rounded-2xl shadow p-6 border">
-              <h2 className="text-xl font-bold mb-4">Nota de Bachillerato</h2>
+              <h2 className="text-xl font-bold mb-1">Calcula tu nota</h2>
+              <p className="text-sm text-gray-600 mb-4">Introduce tus notas y pulsa Calcular.</p>
               <div className="space-y-4">
                 <div>
                   <label className="sr-only">Nota de Bachillerato (NMB)</label>
                   <div className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3">
                     <input placeholder="Nota de Bachillerato" type="number" step="0.01" min={0} max={10} value={nmb} onChange={(e) => setNmb(Number(e.target.value))} className="w-full bg-transparent outline-none" />
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">Entre 0 y 10. Se aplica 0,6×NMB.</p>
+                  <p className="text-xs text-gray-500 mt-1">0–10</p>
                 </div>
                 <h3 className="text-lg font-semibold mt-6">Fase General</h3>
                 <div className="grid md:grid-cols-2 gap-3">
@@ -218,27 +217,12 @@ export default function CalculadoraPage() {
                         <input placeholder={generalLabel} type="number" step="0.01" min={0} max={10} value={optativaNota} onChange={(e) => setOptativaNota(Number(e.target.value))} className="w-full bg-transparent outline-none" />
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">La CFG es la media de Lengua, Historia, Inglés y esta troncal.</p>
+                    <p className="text-xs text-gray-500 mt-1">Media con Lengua, Historia e Inglés</p>
                   </div>
                 </div>
 
                 {/* Avanzadas ocultas para parecerse al mockup */}
-                <details className="mt-2">
-                  <summary className="text-sm text-gray-600 cursor-pointer">Opcions avançades (ponderacions per grau)</summary>
-                  <div className="mt-3">
-                    <label className="block text-sm font-medium mb-1">Grau</label>
-                    <select value={degree} onChange={(e) => setDegree(e.target.value as DegreeKey)} className="select select-bordered w-full">
-                      {(Object.keys(degreeWeights) as DegreeKey[]).map((d) => (
-                        <option key={d}>{d}</option>
-                      ))}
-                    </select>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {Object.entries(weights).map(([s, w]) => (
-                        <span key={s} className="px-2 py-1 text-xs rounded-full border bg-gray-50">{s}: <span className="font-semibold">{w.toFixed(1)}</span></span>
-                      ))}
-                    </div>
-                  </div>
-                </details>
+                {/* Opciones avanzadas eliminadas para simplificar la UI */}
 
                 <div>
                   <label className="block text-sm font-medium mb-2">Fase específica</label>
@@ -297,8 +281,8 @@ export default function CalculadoraPage() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end pt-2">
-                  <a href="#resultado" className="btn bg-[#FFB800] hover:bg-[#ffc835] border-none text-black">Calcular nota</a>
+                <div className="flex justify-end pt-2 sticky bottom-0 md:static bg-white/90 backdrop-blur rounded-b-2xl">
+                  <a href="#resultado" className="w-full md:w-auto inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] border-none text-black font-semibold px-6 py-3 rounded-xl">Calcular nota</a>
                 </div>
               </div>
             </div>
@@ -316,78 +300,20 @@ export default function CalculadoraPage() {
                 </span>
               </div>
 
-              <div className="space-y-4 text-sm">
-
-                <div>
-                  <div className="font-semibold">Paso 1: Fase general (CFG)</div>
-                  <p>CFG = media(Lengua Castellana y Literatura II, Historia de España, Primera Lengua Extranjera II, {generalLabel}) = {cfg.toFixed(2)} / 10</p>
-                </div>
-
-                <div>
-                  <div className="font-semibold">Paso 2: Base</div>
-                  <p>
-                    Base = 0,6×NMB + 0,4×CFG = 0,6×{nmbClamped.toFixed(2)} + 0,4×{cfg.toFixed(2)} ={' '}
-                    {round3(0.6 * nmbClamped + 0.4 * cfg).toFixed(3)}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="font-semibold">Paso 3: Ponderación específica ({degree})</div>
-                  {boosters.top2.length === 0 ? (
-                    <p>No hay materias ≥ 5 con ponderación válida.</p>
-                  ) : (
-                    <ul className="list-disc ml-6">
-                      {boosters.top2.map((e, i) => (
-                        <li key={i}>
-                          {e.subject}: {e.grade.toFixed(2)} × ponderación {e.weight.toFixed(2)} = {e.contribution.toFixed(3)}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <p className="mt-1">Suma ponderada específica = {boosters.total.toFixed(3)}</p>
-                </div>
-
-                <div className="text-lg font-bold">
-                  Nota final (sobre 14) = {finalScore.toFixed(3)}
-                </div>
-
-                <div className="mt-2">
-                  <div className="font-semibold">Comparativa con nota de corte {degree} (último curso)</div>
-                  <p>
-                    Tu nota: <span className="font-semibold">{finalScore.toFixed(3)}</span> · Nota de corte: <span className="font-semibold">{cutoff.toFixed(2)}</span>
-                  </p>
-                  <p className={passes ? 'text-green-700 font-semibold' : 'text-red-700 font-semibold'}>
-                    {passes ? '✓ Con esta nota, accedes (igualas o superas la nota de corte).' : '✗ No alcanza la nota de corte.'}
-                  </p>
+              <div className="space-y-3 text-sm">
+                <div className="text-lg font-bold">Nota final (sobre 14) = {finalScore.toFixed(3)}</div>
+                <div className={passes ? 'text-green-700 font-semibold' : 'text-red-700 font-semibold'}>
+                  {passes ? '✓ Alcanzas la nota de corte' : '✗ No alcanzas la nota de corte'}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* Secciones informativas */}
-      <section className="py-16 px-4 md:px-8 bg-white">
-        <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-2xl font-bold mb-4">¿Cómo se calcula?</h2>
-            <div className="bg-gray-100 p-6 rounded-lg mb-6">
-              <p className="font-semibold text-lg mb-2">Nota de acceso = 0,6 × NMB + 0,4 × CFG</p>
-              <p className="text-sm mt-2 font-medium">Donde:</p>
-              <ul className="text-sm list-disc pl-6 space-y-1">
-                <li>NMB = Nota media de Bachillerato</li>
-                <li>CFG = Media de Lengua, Historia, Inglés y Optativa</li>
-              </ul>
-            </div>
-            <p>A esta nota se suman las específicas ponderadas: a×M1 + b×M2 (máx. +4 puntos).</p>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Fase específica</h2>
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>Se consideran las dos mejores específicas ≥ 5</li>
-              <li>Cada materia pondera 0,1 o 0,2 según el grado</li>
-              <li>Elige estratégicamente según las ponderaciones</li>
-            </ul>
-          </div>
+      {/* Sección informativa mínima */}
+      <section className="py-10 px-4 md:px-8 bg-white">
+        <div className="mx-auto max-w-3xl text-sm text-gray-600">
+          Nota de acceso = 0,6×NMB + 0,4×CFG + específicas ponderadas (máx. +4). Las ponderaciones varían por grado.
         </div>
       </section>
 

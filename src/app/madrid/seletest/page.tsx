@@ -135,7 +135,7 @@ export default function SeletestPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col pb-24 md:pb-0">
       <Navbar />
       <section className="flex-1">
         <div className="max-w-[900px] mx-auto px-6 py-10">
@@ -226,7 +226,7 @@ export default function SeletestPage() {
               </label>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 hidden md:block">
               <button onClick={startQuiz} disabled={maxQuestions === 0} className={`w-full rounded-xl py-3 font-semibold ${maxQuestions === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#FFB800] hover:bg-[#ffc835] text-black'}`}>Comenzar</button>
               {maxQuestions === 0 && (
                 <p className="text-center text-red-500 text-sm mt-3">Selecciona asignaturas y subtemas para continuar</p>
@@ -235,6 +235,12 @@ export default function SeletestPage() {
           </div>
         </div>
       </section>
+      {/* CTA fijo móvil */}
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+        <div className="max-w-[900px] mx-auto px-2">
+          <button onClick={startQuiz} disabled={maxQuestions === 0} className={`w-full rounded-xl py-3 font-semibold ${maxQuestions === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#FFB800] hover:bg-[#ffc835] text-black'}`}>Comenzar</button>
+        </div>
+      </div>
       <Footer />
     </main>
   )

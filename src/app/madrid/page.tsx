@@ -37,7 +37,7 @@ export default function MadridPage() {
       
       {/* Banner */}
       <div className="bg-[#FFB800] relative overflow-hidden -mt-8">
-        <div className="max-w-7xl mx-auto px-8 py-16 relative">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16 relative">
           {/* Logo */}
           <div className="bg-white rounded-2xl p-4 inline-flex items-center gap-2 mb-14 shadow-sm">
             <Image src="/images/logoo.svg" alt="SelectiviMAD" width={40} height={40} />
@@ -45,33 +45,33 @@ export default function MadridPage() {
           </div>
 
           {/* Título */}
-          <h1 className="text-[96px] leading-[0.95] font-bold whitespace-nowrap relative z-10">
+          <h1 className="text-5xl sm:text-7xl md:text-[96px] leading-[0.95] font-bold relative z-10">
             La sele <span className="text-white">fácil.</span>
           </h1>
 
           {/* Imagen de fondo recortada por el banner */}
-          <div className="absolute right-0 inset-y-[-80px] w-[58%] pointer-events-none">
+          <div className="absolute right-0 inset-y-[-40px] md:inset-y-[-80px] w-[65%] md:w-[58%] pointer-events-none">
             <Image 
               src="/images/madrid.svg" 
               alt="Madrid" 
               fill 
               className="object-contain"
               priority
-              sizes="(min-width: 1280px) 58vw, 70vw"
+              sizes="(min-width: 1280px) 58vw, 90vw"
             />
           </div>
         </div>
       </div>
 
       {/* Resto del contenido igual... */}
-      <section className="max-w-[1400px] mx-auto px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_420px_300px] gap-x-12 gap-y-12 items-center">
+      <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-12 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_420px_300px] gap-x-8 md:gap-x-12 gap-y-12 items-start">
           {/* Columna izquierda: texto + CTAs */}
           <div className="max-w-none">
-            <h2 className="text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Prueba SeleTest y permitete ser el dueño de tu destino
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-lg md:text-xl text-gray-600 mb-8">
               Olvídate de los dolores de cabeza con el acceso a la universidad.
             </p>
 
@@ -108,7 +108,7 @@ export default function MadridPage() {
           {/* end left column */}
 
           {/* Columna central: tarjetitas (100% código) */}
-          <div className="w-[420px] justify-self-end translate-x-8 xl:translate-x-12 z-20 space-y-5">
+          <div className="w-full lg:w-[420px] justify-self-end lg:translate-x-8 xl:translate-x-12 z-20 space-y-4 md:space-y-5 mt-6 lg:mt-0">
             <BenefitCard
               icon="✅"
               title="Sin suspensos"

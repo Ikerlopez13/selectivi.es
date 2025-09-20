@@ -98,11 +98,11 @@ export default function QuizPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex flex-col pb-24 md:pb-0">
       <Navbar />
       <section className="flex-1">
         <div className="max-w-[1100px] mx-auto px-6 py-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4 sticky top-0 bg-white/80 backdrop-blur z-10 py-2">
             <div className="text-sm text-gray-600">Pregunta {Math.min(idx + 1, total)} de {total}</div>
           </div>
           <div className="rounded-2xl border bg-white p-6">
@@ -147,9 +147,9 @@ export default function QuizPage() {
                     const isSelected = chosen === opt.id
                     const correct = chosen && opt.isCorrect
                     const incorrect = isSelected && !opt.isCorrect
-                    let cls = 'w-full text-left border rounded-xl px-4 py-3 hover:bg-gray-50'
-                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-3 bg-green-50 border-green-300'
-                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-3 bg-red-50 border-red-300'
+                    let cls = 'w-full text-left border rounded-xl px-4 py-4 hover:bg-gray-50'
+                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-green-50 border-green-300'
+                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-red-50 border-red-300'
                     return (
                       <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>{opt.label}</button>
                     )
@@ -161,7 +161,8 @@ export default function QuizPage() {
                     <p>{q.explanation}</p>
                   </div>
                 )}
-                <div className="pt-4">
+                {/* Botón desktop */}
+                <div className="pt-4 hidden md:block">
                   <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente pregunta</button>
                 </div>
               </div>
@@ -169,6 +170,14 @@ export default function QuizPage() {
           </div>
         </div>
       </section>
+      {/* Barra fija móvil */}
+      {!finished && (
+        <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+          <div className="max-w-[1100px] mx-auto px-2">
+            <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente</button>
+          </div>
+        </div>
+      )}
       <Footer />
     </main>
   )

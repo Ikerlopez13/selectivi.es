@@ -390,7 +390,7 @@ export default function HistoryQuiz() {
         <div className="mt-8 rounded-2xl bg-gray-50 p-5 flex items-center justify-between gap-4 border border-gray-100">
           <div>
             <p className="font-semibold mb-1">¿Cómo funciona SelectiviES?</p>
-            <p className="text-gray-600 text-sm">En 60 segundos: cuestionarios por temas, feedback inmediato y seguimiento de progreso.</p>
+            <p className="text-gray-600 text-sm hidden md:block">En 60 segundos: cuestionarios por temas, feedback inmediato y seguimiento de progreso.</p>
           </div>
           <a
             href="/onboarding"
