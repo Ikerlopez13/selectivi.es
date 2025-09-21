@@ -126,9 +126,11 @@ export default function Navbar() {
                 onClick={async () => {
                   if (!hasSession) {
                     const next = '/madrid/seletest'
+                    const origin = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
+                    const base = origin.includes('localhost') ? 'https://selectivi.es' : origin
                     await supabase.auth.signInWithOAuth({
                       provider: 'google',
-                      options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}` },
+                      options: { redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent(next)}` },
                     })
                   } else {
                     window.location.href = '/madrid/seletest'
@@ -175,9 +177,11 @@ export default function Navbar() {
                   onClick={async () => {
                     if (!hasSession) {
                       const next = '/madrid/seletest'
+                      const origin = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
+                      const base = origin.includes('localhost') ? 'https://selectivi.es' : origin
                       await supabase.auth.signInWithOAuth({
                         provider: 'google',
-                        options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}` },
+                        options: { redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent(next)}` },
                       })
                     } else {
                       window.location.href = '/madrid/seletest'

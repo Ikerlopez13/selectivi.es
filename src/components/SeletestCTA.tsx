@@ -28,10 +28,12 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
   const onClick = async () => {
     if (!hasSession) {
       const next = '/madrid/seletest'
+      const origin = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
+      const base = origin.includes('localhost') ? 'https://selectivi.es' : origin
       await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}`,
+          redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent(next)}`,
         },
       })
       return

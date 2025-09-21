@@ -62,9 +62,11 @@ export default function DashboardPage() {
   }, [])
 
   const onLogin = async () => {
+    const origin = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
+    const base = origin.includes('localhost') ? 'https://selectivi.es' : origin
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent('/madrid/dashboard')}` },
+      options: { redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent('/madrid/dashboard')}` },
     })
   }
 
