@@ -12,6 +12,7 @@ import { geographyES } from '@/lib/seletest/geography'
 import { languageES } from '@/lib/seletest/language'
 import { englishES } from '@/lib/seletest/english'
 import type { Question } from '@/lib/seletest/types'
+import MathText from '@/components/MathText'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyES,
@@ -141,7 +142,7 @@ export default function QuizPage() {
               <div>No hay preguntas seleccionadas.</div>
             ) : (
               <div className="space-y-5">
-                <h1 className="text-2xl font-extrabold">{q.prompt}</h1>
+                <h1 className="text-2xl font-extrabold"><MathText text={q.prompt} /></h1>
                 <div className="space-y-3">
                   {q.options.map((opt) => {
                     const isSelected = chosen === opt.id
@@ -151,7 +152,9 @@ export default function QuizPage() {
                     if (correct) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-green-50 border-green-300'
                     if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-red-50 border-red-300'
                     return (
-                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>{opt.label}</button>
+                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>
+                        <MathText text={opt.label} />
+                      </button>
                     )
                   })}
                 </div>

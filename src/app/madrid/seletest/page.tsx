@@ -10,6 +10,7 @@ import { businessES } from '@/lib/seletest/business'
 import { geographyES } from '@/lib/seletest/geography'
 import { languageES } from '@/lib/seletest/language'
 import { englishES } from '@/lib/seletest/english'
+import { mathematicsES } from '@/lib/seletest/mathematics'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyES,
@@ -18,10 +19,11 @@ const ALL_SUBJECTS = {
   'geografia': geographyES,
   'lengua': languageES,
   'ingles': englishES,
+  'matematicas': mathematicsES,
 } as const
 
 const DISPLAY_SUBJECTS: Array<{ label: string; id?: keyof typeof ALL_SUBJECTS }> = [
-  { label: 'Matemáticas' },
+  { label: 'Matemáticas', id: 'matematicas' },
   { label: 'Física' },
   { label: 'Filosofía', id: 'filosofia' },
   { label: 'Química' },

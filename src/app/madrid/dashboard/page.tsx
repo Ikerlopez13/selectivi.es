@@ -20,45 +20,49 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
-    supabase.auth.getUser().then(async ({ data }) => {
+    ;(async () => {
+      const { data } = await supabase.auth.getSession()
+      const session = data.session
+      const user = session?.user
       if (!mounted) return
-      const user = data.user
       if (!user) {
         setProfile(null)
         setLoading(false)
         return
       }
+      // Pinta el perfil inmediatamente desde la sesión
       const meta = (user.user_metadata || {}) as any
       setProfile({
         name: meta.full_name || meta.name || user.email?.split('@')[0],
         email: user.email || undefined,
         avatar_url: meta.avatar_url || meta.picture || undefined,
       })
-      // Leer plan (premium) con user_id y, si no hay fila, por correo
+
+      // Asegura una fila en public.usuarios (provisioning) y lee es_premium
       try {
-        const { data: row } = await supabase
+        const { data: existing } = await supabase
           .from('usuarios')
-          .select('es_premium')
+          .select('id, es_premium')
           .eq('user_id', user.id)
           .maybeSingle()
-        if (row && typeof row.es_premium === 'boolean') {
-          setIsPremium(row.es_premium)
-        } else if (user.email) {
-          const { data: byEmail } = await supabase
-            .from('usuarios')
-            .select('es_premium')
-            .eq('correo_electronico', user.email)
-            .maybeSingle()
-          setIsPremium(!!byEmail?.es_premium)
+        if (!existing) {
+          const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
+          await supabase.from('usuarios').insert({
+            user_id: user.id,
+            nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+            correo_electronico: user.email,
+            comunidad_autonoma: inferredCommunity,
+          })
+          setIsPremium(false)
+        } else {
+          setIsPremium(!!existing.es_premium)
         }
       } catch {
         setIsPremium(false)
       }
       setLoading(false)
-    })
-    return () => {
-      mounted = false
-    }
+    })()
+    return () => { mounted = false }
   }, [])
 
   const onLogin = async () => {
