@@ -27,10 +27,11 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
 
   const onClick = async () => {
     if (!hasSession) {
+      const next = '/madrid/seletest'
       await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/madrid/seletest?autoCommunity=madrid`,
+          redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}`,
         },
       })
       return

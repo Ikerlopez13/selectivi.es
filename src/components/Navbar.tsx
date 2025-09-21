@@ -125,9 +125,10 @@ export default function Navbar() {
               <button
                 onClick={async () => {
                   if (!hasSession) {
+                    const next = '/madrid/seletest'
                     await supabase.auth.signInWithOAuth({
                       provider: 'google',
-                      options: { redirectTo: `${window.location.origin}/madrid/seletest?autoCommunity=madrid` },
+                      options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}` },
                     })
                   } else {
                     window.location.href = '/madrid/seletest'
@@ -173,9 +174,10 @@ export default function Navbar() {
                 <button
                   onClick={async () => {
                     if (!hasSession) {
+                      const next = '/madrid/seletest'
                       await supabase.auth.signInWithOAuth({
                         provider: 'google',
-                        options: { redirectTo: `${window.location.origin}/madrid/seletest?autoCommunity=madrid` },
+                        options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent(next)}` },
                       })
                     } else {
                       window.location.href = '/madrid/seletest'

@@ -64,7 +64,7 @@ export default function DashboardPage() {
   const onLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/madrid/dashboard` },
+      options: { redirectTo: `${window.location.origin}/madrid/auth/return?next=${encodeURIComponent('/madrid/dashboard')}` },
     })
   }
 
