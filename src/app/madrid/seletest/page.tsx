@@ -51,9 +51,11 @@ export default function SeletestPage() {
       if (!userId) {
         // Forzar inicio de sesión con Google y volver aquí
         try {
+          const base = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
+          const next = '/madrid/seletest'
           await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: `${window.location.origin}/madrid/seletest?autoCommunity=madrid` },
+            options: { redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent(next)}` },
           })
         } catch {}
         return
