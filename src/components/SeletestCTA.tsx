@@ -27,15 +27,7 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
 
   const onClick = async () => {
     if (!hasSession) {
-      const next = '/madrid/seletest'
-      const origin = (typeof window !== 'undefined' && window.location.origin) || 'https://selectivi.es'
-      const base = origin.includes('localhost') ? 'https://selectivi.es' : origin
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${base}/madrid/auth/return?next=${encodeURIComponent(next)}`,
-        },
-      })
+      await supabase.auth.signInWithOAuth({ provider: 'google' })
       return
     }
     router.push('/madrid/seletest')

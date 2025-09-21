@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/react'
-import AuthHashRedirect from '@/components/AuthHashRedirect'
 
 export const metadata: Metadata = {
   title: 'SelectiviES',
@@ -19,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <AuthHashRedirect />
         {children}
         <Analytics />
       </body>
