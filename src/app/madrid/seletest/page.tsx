@@ -98,7 +98,8 @@ export default function SeletestPage() {
         if (topicFlags[t.id]) total += t.questions.length
       })
     })
-    const allowed = isPremium ? total : Math.max(1, Math.floor(total / 4))
+    // Evita 0 en Standard cuando hay preguntas: al menos 1 si total>0
+    const allowed = isPremium ? total : (total > 0 ? Math.max(1, Math.floor(total / 4)) : 0)
     return allowed
   }, [selectedSubjects, selectedTopics, openSubject, isPremium])
 
@@ -139,7 +140,7 @@ export default function SeletestPage() {
       const subj: any = (ALL_SUBJECTS as any)[sid]
       if (!subj) return
       let topics: string[] = []
-      if (openSubject !== sid) {
+      if (!isPremium || openSubject !== sid) {
         // Si no está abierto el desplegable, interpretamos todos los subtemas
         topics = subj.topics.map((t: any) => t.id)
       } else {
@@ -148,7 +149,10 @@ export default function SeletestPage() {
       }
       if (topics.length > 0) subjects.push({ id: sid, topics })
     })
-    if (subjects.length === 0) return
+    if (subjects.length === 0) {
+      alert('Selecciona al menos una asignatura con preguntas disponibles')
+      return
+    }
     const plan = { subjects, numQuestions, mixSubjects }
     try { localStorage.setItem('seletestPlan', JSON.stringify(plan)) } catch {}
     window.location.href = '/madrid/seletest/quiz'

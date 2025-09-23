@@ -65,11 +65,20 @@ export default function QuizPage() {
         let pool: Question[] = []
         subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
           const subj = ALL_SUBJECTS[s.id]
+          if (!subj) return
           subj.topics.forEach((t) => {
             if (!s.topics.includes(t.id)) return
             pool = pool.concat(t.questions)
           })
         })
+        // Fallback: si por cualquier motivo el filtrado por topic dejó vacío, usa todos los topics de los sujetos elegidos
+        if (pool.length === 0) {
+          subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
+            const subj = ALL_SUBJECTS[s.id]
+            if (!subj) return
+            subj.topics.forEach((t) => { pool = pool.concat(t.questions) })
+          })
+        }
         // Aplicar límite Standard: 1/4 del total si no es premium
         const maxAllowed = premium ? numQuestions : Math.max(1, Math.floor(Math.min(numQuestions, pool.length) / 4))
         if (!mixSubjects) {
