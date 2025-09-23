@@ -12,6 +12,13 @@ type Post = {
 
 const posts: Post[] = [
   {
+    slug: 'como-calcular-nota-de-corte-madrid-evau',
+    title: 'Cómo calcular tu nota de corte (Madrid) paso a paso',
+    excerpt: 'Fórmula, ponderaciones y ejemplos con la calculadora de SelectiviMAD.',
+    date: '14 de septiembre de 2025',
+    category: 'Notas de corte',
+  },
+  {
     slug: 'herramienta-que-me-cambio-la-forma-de-estudiar',
     title: 'No sabía si aprobaría la Selectividad… hasta que encontré la herramienta que me cambió la forma de estudiar.',
     excerpt:

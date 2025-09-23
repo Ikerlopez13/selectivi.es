@@ -19,6 +19,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-3">Blog</h4>
             <ul className="space-y-2 text-gray-700">
+              <li><a href="/blog/como-calcular-nota-de-corte-madrid-evau" className="hover:underline">Cómo calcular tu nota de corte (Madrid)</a></li>
               <li><a href="/blog/herramienta-que-me-cambio-la-forma-de-estudiar" className="hover:underline">La herramienta que me cambió la forma de estudiar</a></li>
               <li><a href="/blog/universidad-de-mis-suenos-imposible-hasta-este-metodo" className="hover:underline">Universidad de mis sueños: el método</a></li>
               <li><a href="/blog/de-perdido-a-seguro-para-la-evau-gracias-a-esto" className="hover:underline">De perdido a seguro para la EvAU</a></li>

@@ -108,7 +108,7 @@ export default function MadridPage() {
           {/* end left column */}
 
           {/* Columna central: tarjetitas (100% código) */}
-          <div className="w-full lg:w-[420px] justify-self-end lg:translate-x-8 xl:translate-x-12 z-20 space-y-4 md:space-y-5 mt-6 lg:mt-0">
+          <div className="w-full lg:w-[420px] justify-self-end lg:translate-x-8 xl:translate-x-12 z-10 space-y-4 md:space-y-5 mt-6 lg:mt-0">
             <BenefitCard
               icon="✅"
               title="Sin suspensos"
