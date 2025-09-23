@@ -18,6 +18,18 @@ export default function DashboardPage() {
   const [isPremium, setIsPremium] = useState<boolean>(false)
   const [hasSessionChecked, setHasSessionChecked] = useState<boolean>(false)
 
+  // Redirección inmediata a SeleTest si ya hay login (cookie) para evitar esperas perceptibles
+  useEffect(() => {
+    try {
+      const hasCookieLogin = typeof document !== 'undefined' && document.cookie.includes('logged_in=1')
+      if (hasCookieLogin) {
+        const cached = typeof window !== 'undefined' ? window.localStorage.getItem('es_premium') : null
+        if (cached === '1' || cached === 'true') setIsPremium(true)
+        window.location.replace('/madrid/seletest')
+      }
+    } catch {}
+  }, [])
+
   // Pinta el plan desde caché local inmediatamente si existe
   useEffect(() => {
     try {
