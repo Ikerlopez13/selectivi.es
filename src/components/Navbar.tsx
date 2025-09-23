@@ -137,16 +137,16 @@ export default function Navbar() {
                 )
               )}
               <button
-                onClick={async () => {
+                onClick={() => {
                   if (!hasSession) {
-                    await supabase.auth.signInWithOAuth({ provider: 'google' })
+                    window.location.href = '/madrid/login?next=/madrid/seletest'
                   } else {
                     window.location.href = '/madrid/seletest'
                   }
                 }}
                 className="bg-[#FFB800] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#ffc835] transition-colors"
               >
-                {hasSession ? 'Accede a SeleTest' : 'Regístrate'}
+                {hasSession ? 'Accede a SeleTest' : 'Entrar'}
               </button>
             </>
           ) : (
@@ -182,16 +182,12 @@ export default function Navbar() {
                   </>
                 ) : null}
                 <button
-                  onClick={async () => {
-                    if (!hasSession) {
-                      await supabase.auth.signInWithOAuth({ provider: 'google' })
-                    } else {
-                      window.location.href = '/madrid/seletest'
-                    }
+                  onClick={() => {
+                    if (!hasSession) window.location.href = '/madrid/login?next=/madrid/seletest'; else window.location.href = '/madrid/seletest'
                   }}
                   className="mt-2 bg-[#FFB800] text-black px-4 py-2 rounded-lg font-semibold"
                 >
-                  {hasSession ? 'Accede a SeleTest' : 'Regístrate'}
+                  {hasSession ? 'Accede a SeleTest' : 'Entrar'}
                 </button>
               </>
             ) : (

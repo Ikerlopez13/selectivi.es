@@ -58,10 +58,8 @@ export default function SeletestPage() {
       const { data: auth } = await supabase.auth.getUser()
       const userId = auth.user?.id
       if (!userId) {
-        // Requerir login: iniciar OAuth y cortar
-        try {
-          await supabase.auth.signInWithOAuth({ provider: 'google' })
-        } catch {}
+        // Redirige a login propio con next=/madrid/seletest
+        window.location.href = '/madrid/login?next=/madrid/seletest'
         return
       }
       const { data } = await supabase
