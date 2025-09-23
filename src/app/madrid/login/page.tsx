@@ -39,6 +39,12 @@ export default function LoginPage() {
     }
   }
 
+  const emailRedirectTo = useMemo(() => {
+    if (typeof window === 'undefined') return undefined
+    const origin = window.location.origin
+    return `${origin}/madrid/api/auth/return?next=${encodeURIComponent(nextUrl)}`
+  }, [nextUrl])
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -75,16 +81,50 @@ export default function LoginPage() {
         }
         setMessage('Inicia sesión correcta, redirigiendo…')
       } else {
-        const { data, error } = await supabase.auth.signUp({ email, password })
+        const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo } })
         if (error) throw error
         if (!data.session) {
-          setMessage('Registro iniciado. Revisa tu email para confirmar la cuenta.')
+          setMessage('Registro iniciado. Revisa tu email (y SPAM) para confirmar la cuenta. Puedes reenviar el email más abajo.')
         } else {
           window.location.replace(nextUrl)
         }
       }
     } catch (e: any) {
-      setMessage(e?.message || 'Ha ocurrido un error')
+      if (e?.message?.toLowerCase().includes('email not confirmed')) {
+        setMessage('Tu email no está confirmado. Revisa tu bandeja o reenvía el correo de verificación.')
+      } else {
+        setMessage(e?.message || 'Ha ocurrido un error')
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const resendConfirmation = async () => {
+    if (!email) { setMessage('Escribe tu email para reenviar el correo de verificación.'); return }
+    setLoading(true)
+    setMessage(null)
+    try {
+      const { error } = await supabase.auth.resend({ type: 'signup', email, options: { emailRedirectTo } })
+      if (error) throw error
+      setMessage('Correo de verificación reenviado. Revisa tu email y SPAM.')
+    } catch (e: any) {
+      setMessage(e?.message || 'No se pudo reenviar el correo')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const sendMagicLink = async () => {
+    if (!email) { setMessage('Escribe tu email para enviarte el enlace mágico.'); return }
+    setLoading(true)
+    setMessage(null)
+    try {
+      const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo } })
+      if (error) throw error
+      setMessage('Te enviamos un enlace de acceso. Revisa tu email (y SPAM).')
+    } catch (e: any) {
+      setMessage(e?.message || 'No se pudo enviar el enlace')
     } finally {
       setLoading(false)
     }
@@ -113,7 +153,11 @@ export default function LoginPage() {
                 {mode==='signin' ? 'Entrar' : 'Registrarme'}
               </button>
             </form>
-            {message && <p className="text-sm text-center mt-4 text-gray-700">{message}</p>}
+            <div className="mt-4 space-y-2">
+              <button onClick={resendConfirmation} disabled={loading} className="w-full text-sm bg-gray-100 hover:bg-gray-200 text-black rounded-lg py-2">Reenviar correo de verificación</button>
+              <button onClick={sendMagicLink} disabled={loading} className="w-full text-sm bg-gray-100 hover:bg-gray-200 text-black rounded-lg py-2">Enviarme enlace mágico</button>
+              {message && <p className="text-sm text-center text-gray-700">{message}</p>}
+            </div>
           </div>
         </div>
       </section>
