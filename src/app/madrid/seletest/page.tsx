@@ -62,13 +62,32 @@ export default function SeletestPage() {
         window.location.href = '/madrid/login?next=/madrid/seletest'
         return
       }
-      const { data } = await supabase
-        .from('usuarios')
-        .select('es_premium')
-        .eq('user_id', userId)
-        .maybeSingle()
+      // Provisiona fila si no existe y lee es_premium
+      let premiumRow: { es_premium: boolean } | null = null
+      try {
+        const { data: existing } = await supabase
+          .from('usuarios')
+          .select('id, es_premium')
+          .eq('user_id', userId)
+          .maybeSingle()
+        if (!existing) {
+          const email = auth.user?.email || ''
+          const meta = (auth.user?.user_metadata || {}) as any
+          await supabase.from('usuarios').insert({
+            user_id: userId,
+            nombre: meta.full_name || meta.name || email.split('@')[0] || 'Usuario',
+            correo_electronico: email,
+            comunidad_autonoma: 'madrid',
+          })
+          premiumRow = { es_premium: false }
+        } else {
+          premiumRow = { es_premium: !!existing.es_premium }
+        }
+      } catch (e) {
+        premiumRow = { es_premium: false }
+      }
       if (mounted) {
-        const premium = !!data?.es_premium
+        const premium = !!premiumRow?.es_premium
         setIsPremium(premium)
         setShowGate(!premium)
       }
