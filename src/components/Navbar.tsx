@@ -21,6 +21,14 @@ export default function Navbar() {
     supabase.auth.getSession().then(async ({ data }) => {
       if (!mounted) return
       setHasSession(!!data.session)
+      // Persist simple cookie about logged state
+      try {
+        if (data.session) {
+          document.cookie = 'logged_in=1; path=/; max-age=31536000'
+        } else {
+          document.cookie = 'logged_in=; Max-Age=0; path=/'
+        }
+      } catch {}
       const userId = data.session?.user?.id
       if (userId) {
         // Asegura que exista fila en public.usuarios para este usuario (provisioning tras OAuth)
@@ -48,12 +56,17 @@ export default function Navbar() {
           .eq('user_id', userId)
           .maybeSingle()
         if (mounted) setIsPremium(!!row?.es_premium)
+        try { localStorage.setItem('es_premium', row?.es_premium ? '1' : '0') } catch {}
       } else {
         if (mounted) setIsPremium(false)
       }
     })
     const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
       setHasSession(!!session)
+      try {
+        if (session) document.cookie = 'logged_in=1; path=/; max-age=31536000'
+        else document.cookie = 'logged_in=; Max-Age=0; path=/'
+      } catch {}
       const userId = session?.user?.id
       if (userId) {
         // Provisioning en cambios de sesión
@@ -81,6 +94,7 @@ export default function Navbar() {
           .eq('user_id', userId)
           .maybeSingle()
         setIsPremium(!!row?.es_premium)
+        try { localStorage.setItem('es_premium', row?.es_premium ? '1' : '0') } catch {}
       } else {
         setIsPremium(false)
       }

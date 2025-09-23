@@ -30,6 +30,7 @@ export default function DashboardPage() {
         setLoading(false)
         return
       }
+      try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
       // Pinta el perfil inmediatamente desde la sesión
       const meta = (user.user_metadata || {}) as any
       setProfile({

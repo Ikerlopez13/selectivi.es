@@ -1,12 +1,14 @@
 import type { Subject } from './types'
 
+// Matemáticas CCSS (Madrid)
+// Bloques: 1) Álgebra y Matemática financiera  2) Análisis  3) Probabilidad y Estadística
 export const mathematicsES: Subject = {
-  id: 'matematicas',
-  name: 'Matemáticas',
+  id: 'matematicas-ccss',
+  name: 'Matemáticas CCSS',
   topics: [
     {
-      id: 'algebra',
-      title: 'Álgebra',
+      id: 'algebra-financiera',
+      title: 'Álgebra y Matemática financiera',
       questions: [
         {
           id: 'mat-alg-q1',
@@ -32,6 +34,30 @@ export const mathematicsES: Subject = {
           ],
           explanation: 'Sumando: 3x=6 ⇒ x=2; luego y=3.'
         },
+        {
+          id: 'mat-fin-q1',
+          tier: 'standard',
+          prompt: 'Interés simple: A = P(1+rt). Con P=1000, r=0,05 y t=3, ¿A?',
+          options: [
+            { id: 'a', label: '1150', isCorrect: true },
+            { id: 'b', label: '1050', isCorrect: false },
+            { id: 'c', label: '1200', isCorrect: false },
+            { id: 'd', label: '1100', isCorrect: false },
+          ],
+          explanation: 'A=1000[1+0,05·3]=1150.'
+        },
+        {
+          id: 'mat-fin-q2',
+          tier: 'standard',
+          prompt: 'Valor presente de una renta vencida: PV = R[1-(1+i)^{-n}]/i. Con R=100, i=0,04, n=5, ¿PV?',
+          options: [
+            { id: 'a', label: '≈ 445,2', isCorrect: true },
+            { id: 'b', label: '≈ 500,0', isCorrect: false },
+            { id: 'c', label: '≈ 350,3', isCorrect: false },
+            { id: 'd', label: '≈ 600,5', isCorrect: false },
+          ],
+          explanation: 'PV≈100[1-(1,04)^{-5}]/0,04≈445,2.'
+        },
       ],
     },
     {
@@ -49,24 +75,6 @@ export const mathematicsES: Subject = {
             { id: 'd', label: 'no existe', isCorrect: false },
           ],
           explanation: 'Límite clásico: vale 1.'
-        },
-      ],
-    },
-    {
-      id: 'geometria',
-      title: 'Geometría',
-      questions: [
-        {
-          id: 'mat-geo-q31',
-          tier: 'standard',
-          prompt: 'Distancia de P(1,2,3) al plano 2x−y+z−4=0',
-          options: [
-            { id: 'a', label: '1/√6', isCorrect: true },
-            { id: 'b', label: '√6', isCorrect: false },
-            { id: 'c', label: '1/2', isCorrect: false },
-            { id: 'd', label: '2/√6', isCorrect: false },
-          ],
-          explanation: 'Distancia = |2·1 −2 +3 −4| / √(2^2+1+1) = 1/√6.'
         },
       ],
     },
