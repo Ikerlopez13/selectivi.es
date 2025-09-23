@@ -58,7 +58,7 @@ export default function SeletestPage() {
       const { data: auth } = await supabase.auth.getUser()
       const userId = auth.user?.id
       if (!userId) {
-        // Forzar inicio de sesión con Google y volver aquí
+        // Requerir login: iniciar OAuth y cortar
         try {
           await supabase.auth.signInWithOAuth({ provider: 'google' })
         } catch {}

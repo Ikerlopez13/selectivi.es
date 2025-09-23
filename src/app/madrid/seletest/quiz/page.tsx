@@ -11,6 +11,10 @@ import { businessES } from '@/lib/seletest/business'
 import { geographyES } from '@/lib/seletest/geography'
 import { languageES } from '@/lib/seletest/language'
 import { englishES } from '@/lib/seletest/english'
+import { mathematicsES } from '@/lib/seletest/mathematics'
+import { physicsES } from '@/lib/seletest/physics'
+import { biologyES } from '@/lib/seletest/biology'
+import { chemistryES } from '@/lib/seletest/chemistry'
 import type { Question } from '@/lib/seletest/types'
 import MathText from '@/components/MathText'
 
@@ -21,6 +25,10 @@ const ALL_SUBJECTS = {
   'geografia': geographyES,
   'lengua': languageES,
   'ingles': englishES,
+  'matematicas': mathematicsES,
+  'fisica': physicsES,
+  'biologia': biologyES,
+  'quimica': chemistryES,
 } as const
 
 function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
