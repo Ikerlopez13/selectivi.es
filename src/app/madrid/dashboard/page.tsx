@@ -18,17 +18,7 @@ export default function DashboardPage() {
   const [isPremium, setIsPremium] = useState<boolean>(false)
   const [hasSessionChecked, setHasSessionChecked] = useState<boolean>(false)
 
-  // Redirección inmediata a SeleTest si ya hay login (cookie) para evitar esperas perceptibles
-  useEffect(() => {
-    try {
-      const hasCookieLogin = typeof document !== 'undefined' && document.cookie.includes('logged_in=1')
-      if (hasCookieLogin) {
-        const cached = typeof window !== 'undefined' ? window.localStorage.getItem('es_premium') : null
-        if (cached === '1' || cached === 'true') setIsPremium(true)
-        window.location.replace('/madrid/seletest')
-      }
-    } catch {}
-  }, [])
+  // Quitamos redirección inmediata: dejamos que el dashboard cargue y pinte sin bloquear
 
   // Pinta el plan desde caché local inmediatamente si existe
   useEffect(() => {
@@ -43,7 +33,10 @@ export default function DashboardPage() {
   useEffect(() => {
     let mounted = true
     ;(async () => {
-      const { data } = await supabase.auth.getSession()
+      const { data, error } = await supabase.auth.getSession()
+      if (error) {
+        console.warn('supabase.getSession error', error.message)
+      }
       const session = data.session
       const user = session?.user
       if (!mounted) return
@@ -88,7 +81,8 @@ export default function DashboardPage() {
             setIsPremium(premium)
             try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
           }
-        } catch {
+        } catch (e: any) {
+          console.warn('usuarios read/insert error', e?.message || e)
           if (!mounted) return
           setIsPremium(false)
         }
