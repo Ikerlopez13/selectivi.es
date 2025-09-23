@@ -14,9 +14,19 @@ type Profile = {
 }
 
 export default function DashboardPage() {
-  const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isPremium, setIsPremium] = useState<boolean>(false)
+  const [hasSessionChecked, setHasSessionChecked] = useState<boolean>(false)
+
+  // Pinta el plan desde caché local inmediatamente si existe
+  useEffect(() => {
+    try {
+      const cached = typeof window !== 'undefined' ? window.localStorage.getItem('es_premium') : null
+      if (cached === '1' || cached === 'true') {
+        setIsPremium(true)
+      }
+    } catch {}
+  }, [])
 
   useEffect(() => {
     let mounted = true
@@ -27,7 +37,7 @@ export default function DashboardPage() {
       if (!mounted) return
       if (!user) {
         setProfile(null)
-        setLoading(false)
+        setHasSessionChecked(true)
         return
       }
       try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
@@ -39,29 +49,38 @@ export default function DashboardPage() {
         avatar_url: meta.avatar_url || meta.picture || undefined,
       })
 
-      // Asegura una fila en public.usuarios (provisioning) y lee es_premium
-      try {
-        const { data: existing } = await supabase
-          .from('usuarios')
-          .select('id, es_premium')
-          .eq('user_id', user.id)
-          .maybeSingle()
-        if (!existing) {
-          const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
-          await supabase.from('usuarios').insert({
-            user_id: user.id,
-            nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
-            correo_electronico: user.email,
-            comunidad_autonoma: inferredCommunity,
-          })
+      // Marca que ya sabemos el estado de sesión
+      setHasSessionChecked(true)
+
+      // Asegura una fila en public.usuarios (provisioning) y lee es_premium sin bloquear la primera pintura
+      ;(async () => {
+        try {
+          const { data: existing } = await supabase
+            .from('usuarios')
+            .select('id, es_premium')
+            .eq('user_id', user.id)
+            .maybeSingle()
+          if (!mounted) return
+          if (!existing) {
+            const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
+            await supabase.from('usuarios').insert({
+              user_id: user.id,
+              nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+              correo_electronico: user.email,
+              comunidad_autonoma: inferredCommunity,
+            })
+            setIsPremium(false)
+            try { window.localStorage.setItem('es_premium', '0') } catch {}
+          } else {
+            const premium = !!existing.es_premium
+            setIsPremium(premium)
+            try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
+          }
+        } catch {
+          if (!mounted) return
           setIsPremium(false)
-        } else {
-          setIsPremium(!!existing.es_premium)
         }
-      } catch {
-        setIsPremium(false)
-      }
-      setLoading(false)
+      })()
     })()
     return () => { mounted = false }
   }, [])
@@ -77,9 +96,19 @@ export default function DashboardPage() {
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-extrabold mb-6">Tu panel de SeleTest</h1>
 
-          {loading ? (
-            <div className="bg-white rounded-2xl border shadow p-6">Cargando…</div>
-          ) : !profile ? (
+          {!profile && !hasSessionChecked ? (
+            // Skeleton instantáneo mientras comprobamos sesión
+            <div className="bg-white rounded-2xl border shadow p-6 animate-pulse">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gray-200" />
+                <div className="flex-1">
+                  <div className="h-4 bg-gray-200 rounded w-40 mb-2" />
+                  <div className="h-3 bg-gray-200 rounded w-64" />
+                </div>
+                <div className="h-6 bg-gray-200 rounded w-28" />
+              </div>
+            </div>
+          ) : !profile && hasSessionChecked ? (
             <div className="bg-white rounded-2xl border shadow p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <p className="text-gray-700">Para ver tu panel, inicia sesión.</p>
               <button onClick={onLogin} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-6 py-3">Iniciar sesión con Google</button>
@@ -89,15 +118,15 @@ export default function DashboardPage() {
               {/* Perfil */}
               <div className="bg-white rounded-2xl border shadow p-6 flex items-center justify-between gap-4 mb-8">
                 <div className="w-16 h-16 rounded-full bg-[#FFE08A] overflow-hidden flex items-center justify-center">
-                  {profile.avatar_url ? (
-                    <Image src={profile.avatar_url} alt={profile.name || 'Avatar'} width={64} height={64} className="object-cover w-16 h-16" />
+                  {profile!.avatar_url ? (
+                    <Image src={profile!.avatar_url} alt={profile!.name || 'Avatar'} width={64} height={64} className="object-cover w-16 h-16" />
                   ) : (
-                    <span className="text-xl font-bold">{(profile.name || 'U')[0]}</span>
+                    <span className="text-xl font-bold">{(profile!.name || 'U')[0]}</span>
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="text-lg font-semibold">{profile.name}</div>
-                  <div className="text-gray-600 text-sm">{profile.email}</div>
+                  <div className="text-lg font-semibold">{profile!.name}</div>
+                  <div className="text-gray-600 text-sm">{profile!.email}</div>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${isPremium ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>
                   {isPremium ? 'Premium activo' : 'Standard'}
