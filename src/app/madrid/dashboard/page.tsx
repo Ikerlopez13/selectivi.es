@@ -32,6 +32,12 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
+    // Fallback: si tarda demasiado, no bloquees la UI
+    const slowTimer = setTimeout(() => {
+      if (mounted && !hasSessionChecked) {
+        setHasSessionChecked(true)
+      }
+    }, 1500)
     ;(async () => {
       const { data, error } = await supabase.auth.getSession()
       if (error) {
@@ -88,7 +94,25 @@ export default function DashboardPage() {
         }
       })()
     })()
-    return () => { mounted = false }
+    // Suscripción para reflejar login/logout instantáneo
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!mounted) return
+      const user = session?.user
+      if (!user) {
+        setProfile(null)
+        setIsPremium(false)
+        setHasSessionChecked(true)
+        return
+      }
+      const meta = (user.user_metadata || {}) as any
+      setProfile({
+        name: meta.full_name || meta.name || user.email?.split('@')[0],
+        email: user.email || undefined,
+        avatar_url: meta.avatar_url || meta.picture || undefined,
+      })
+      setHasSessionChecked(true)
+    })
+    return () => { mounted = false; clearTimeout(slowTimer); sub.subscription.unsubscribe() }
   }, [])
 
   const onLogin = async () => {
