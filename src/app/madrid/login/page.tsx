@@ -34,7 +34,10 @@ export default function LoginPage() {
     setLoading(true)
     setMessage(null)
     try {
-      await supabase.auth.signInWithOAuth({ provider: 'google' })
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: emailRedirectTo }
+      })
     } catch (e: any) {
       setMessage(e?.message || 'Error iniciando sesión con Google')
     } finally {
