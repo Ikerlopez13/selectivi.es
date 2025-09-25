@@ -119,14 +119,14 @@ export default function AuthCallback() {
           addDebug('Usuario guardado correctamente')
         }
 
-        // 6) Redirigir
+        // 6) Redirigir: si el destino es seletest, ve primero al dashboard para estabilizar sesión
+        if (next.startsWith('/madrid/seletest')) {
+          addDebug('Destino es seletest: forzamos paso previo por /madrid/dashboard')
+          next = '/madrid/dashboard'
+        }
         setStatus('Redirigiendo…')
         addDebug(`Redirigiendo a: ${next}`)
-        
-        // Pequeño delay para asegurar que todo se completó
-        setTimeout(() => {
-          window.location.replace(next)
-        }, 500)
+        window.location.replace(next)
 
       } catch (e: any) {
         const errorMsg = e?.message || 'No se pudo completar el inicio de sesión.'

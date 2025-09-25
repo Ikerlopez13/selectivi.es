@@ -139,7 +139,7 @@ export default function Navbar() {
               <button
                 onClick={() => {
                   if (!hasSession) {
-                    window.location.href = '/madrid/login?next=/madrid/seletest'
+                    window.location.href = '/madrid/login?next=/madrid/dashboard'
                   } else {
                     window.location.href = '/madrid/seletest'
                   }
@@ -183,7 +183,7 @@ export default function Navbar() {
                 ) : null}
                 <button
                   onClick={() => {
-                    if (!hasSession) window.location.href = '/madrid/login?next=/madrid/seletest'; else window.location.href = '/madrid/seletest'
+                    if (!hasSession) window.location.href = '/madrid/login?next=/madrid/dashboard'; else window.location.href = '/madrid/seletest'
                   }}
                   className="mt-2 bg-[#FFB800] text-black px-4 py-2 rounded-lg font-semibold"
                 >
