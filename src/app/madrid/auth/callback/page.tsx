@@ -6,8 +6,10 @@ import { supabase } from '@/lib/supabase/client'
 export default function AuthCallback() {
   const [status, setStatus] = useState('Procesando inicio de sesión…')
   const [debugInfo, setDebugInfo] = useState<string[]>([])
+  const [debugEnabled, setDebugEnabled] = useState(false)
 
   const addDebug = (msg: string) => {
+    if (!debugEnabled) return
     console.log('AuthCallback:', msg)
     setDebugInfo(prev => [...prev, msg])
   }
@@ -16,6 +18,7 @@ export default function AuthCallback() {
     (async () => {
       try {
         const url = new URL(window.location.href)
+        setDebugEnabled(url.searchParams.get('debug') === '1')
         // A partir de ahora, ignoramos cualquier next y vamos SIEMPRE al dashboard
         let next = '/madrid/dashboard'
         addDebug(`URL actual: ${url.href}`)
@@ -132,14 +135,14 @@ export default function AuthCallback() {
     <main className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <div className="text-gray-700 text-lg mb-4">{status}</div>
-        
-        {/* Debug info - quitar en producción */}
-        <div className="max-w-md mx-auto text-xs text-gray-500 bg-gray-50 p-4 rounded">
-          <div className="font-bold mb-2">Debug:</div>
-          {debugInfo.map((info, i) => (
-            <div key={i} className="mb-1">{i + 1}. {info}</div>
-          ))}
-        </div>
+        {debugEnabled && (
+          <div className="max-w-md mx-auto text-xs text-gray-500 bg-gray-50 p-4 rounded">
+            <div className="font-bold mb-2">Debug:</div>
+            {debugInfo.map((info, i) => (
+              <div key={i} className="mb-1">{i + 1}. {info}</div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )
