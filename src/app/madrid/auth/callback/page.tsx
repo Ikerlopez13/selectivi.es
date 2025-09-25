@@ -61,6 +61,8 @@ export default function AuthCallback() {
             }
             sessionSet = true
             addDebug('Sesión configurada desde code')
+            // limpia parámetro code
+            try { url.searchParams.delete('code'); history.replaceState(null,'',url.toString()) } catch {}
           }
         }
 
