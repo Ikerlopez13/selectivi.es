@@ -34,6 +34,18 @@ export default function DashboardPage() {
     ;(async () => {
       try {
         if (typeof window !== 'undefined') {
+          // Fallback Magic Link: si vienen tokens en el hash, establecer sesión aquí
+          const hash = window.location.hash?.replace(/^#/, '') || ''
+          if (hash) {
+            const hp = new URLSearchParams(hash)
+            const access_token = hp.get('access_token')
+            const refresh_token = hp.get('refresh_token')
+            if (access_token && refresh_token) {
+              try { await supabase.auth.setSession({ access_token, refresh_token }) } catch {}
+              // Limpia hash de la URL
+              try { window.history.replaceState(null, '', window.location.pathname + window.location.search) } catch {}
+            }
+          }
           const url = new URL(window.location.href)
           const code = url.searchParams.get('code')
           if (code) {
