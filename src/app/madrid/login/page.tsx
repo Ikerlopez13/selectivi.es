@@ -30,7 +30,7 @@ export default function LoginPage() {
   const onGoogle = async () => {
     setLoading(true); setMsg(null)
     try {
-      await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } })
+      await supabase.auth.signInWithOAuth({ provider: 'google' })
     } catch (e: any) {
       setMsg(e?.message || 'No se pudo iniciar sesión con Google')
     } finally {
