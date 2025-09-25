@@ -20,39 +20,30 @@ export default function DashboardPage() {
 
   // Quitamos redirección inmediata: dejamos que el dashboard cargue y pinte sin bloquear
 
-  // Pinta el plan desde caché local inmediatamente si existe
+  // Pinta hint de plan si hay caché
   useEffect(() => {
     try {
       const cached = typeof window !== 'undefined' ? window.localStorage.getItem('es_premium') : null
-      if (cached === '1' || cached === 'true') {
-        setIsPremium(true)
-      }
+      if (cached === '1' || cached === 'true') setIsPremium(true)
     } catch {}
   }, [])
 
   useEffect(() => {
     let mounted = true
-    // Fallback: si tarda demasiado, no bloquees la UI
-    const slowTimer = setTimeout(() => {
-      if (mounted && !hasSessionChecked) {
-        setHasSessionChecked(true)
-      }
-    }, 1500)
     ;(async () => {
+      // 1) Sesión
       const { data, error } = await supabase.auth.getSession()
-      if (error) {
-        console.warn('supabase.getSession error', error.message)
-      }
-      const session = data.session
-      const user = session?.user
+      if (error) console.warn('supabase.getSession error', error.message)
+      const user = data.session?.user
       if (!mounted) return
       if (!user) {
-        setProfile(null)
+        // fuerza login
         setHasSessionChecked(true)
+        window.location.href = '/madrid/login?next=/madrid/dashboard'
         return
       }
+
       try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
-      // Pinta el perfil inmediatamente desde la sesión
       const meta = (user.user_metadata || {}) as any
       setProfile({
         name: meta.full_name || meta.name || user.email?.split('@')[0],
@@ -60,59 +51,33 @@ export default function DashboardPage() {
         avatar_url: meta.avatar_url || meta.picture || undefined,
       })
 
-      // Marca que ya sabemos el estado de sesión
-      setHasSessionChecked(true)
-
-      // Asegura una fila en public.usuarios (provisioning) y lee es_premium sin bloquear la primera pintura
-      ;(async () => {
-        try {
-          const { data: existing } = await supabase
-            .from('usuarios')
-            .select('id, es_premium')
-            .eq('user_id', user.id)
-            .maybeSingle()
-          if (!mounted) return
-          if (!existing) {
-            const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
-            await supabase.from('usuarios').insert({
-              user_id: user.id,
-              nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
-              correo_electronico: user.email,
-              comunidad_autonoma: inferredCommunity,
-            })
-            setIsPremium(false)
-            try { window.localStorage.setItem('es_premium', '0') } catch {}
-          } else {
-            const premium = !!existing.es_premium
-            setIsPremium(premium)
-            try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
-          }
-        } catch (e: any) {
-          console.warn('usuarios read/insert error', e?.message || e)
-          if (!mounted) return
-          setIsPremium(false)
-        }
-      })()
-    })()
-    // Suscripción para reflejar login/logout instantáneo
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (!mounted) return
-      const user = session?.user
-      if (!user) {
-        setProfile(null)
+      // 2) Upsert seguro + lectura de es_premium
+      const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
+      try {
+        await supabase
+          .from('usuarios')
+          .upsert({
+            user_id: user.id,
+            nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+            correo_electronico: user.email,
+            comunidad_autonoma: inferredCommunity,
+          }, { onConflict: 'user_id', ignoreDuplicates: false })
+        const { data: row } = await supabase
+          .from('usuarios')
+          .select('es_premium')
+          .eq('user_id', user.id)
+          .maybeSingle()
+        const premium = !!row?.es_premium
+        setIsPremium(premium)
+        try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
+      } catch (e: any) {
+        console.warn('usuarios upsert/select error', e?.message || e)
         setIsPremium(false)
-        setHasSessionChecked(true)
-        return
       }
-      const meta = (user.user_metadata || {}) as any
-      setProfile({
-        name: meta.full_name || meta.name || user.email?.split('@')[0],
-        email: user.email || undefined,
-        avatar_url: meta.avatar_url || meta.picture || undefined,
-      })
+
       setHasSessionChecked(true)
-    })
-    return () => { mounted = false; clearTimeout(slowTimer); sub.subscription.unsubscribe() }
+    })()
+    return () => { mounted = false }
   }, [])
 
   const onLogin = async () => {
