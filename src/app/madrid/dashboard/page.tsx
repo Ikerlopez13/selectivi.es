@@ -55,7 +55,10 @@ export default function DashboardPage() {
       if (!user) {
         // fuerza login
         setHasSessionChecked(true)
-        window.location.href = '/madrid/login?next=/madrid/dashboard'
+        if (typeof window !== 'undefined') {
+          const origin = window.location.origin
+          window.location.href = `${origin}/madrid/login?next=/madrid/dashboard`
+        }
         return
       }
 

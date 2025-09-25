@@ -16,7 +16,14 @@ export default function AuthCallback() {
     (async () => {
       try {
         const url = new URL(window.location.href)
-        const next = url.searchParams.get('next') || '/madrid/dashboard'
+        let next = url.searchParams.get('next') || '/madrid/dashboard'
+        // Normaliza dominios: fuerza a permanecer en el mismo origin del callback
+        try {
+          const nextUrl = new URL(next, window.location.origin)
+          if (nextUrl.origin !== window.location.origin) {
+            next = '/madrid/dashboard'
+          }
+        } catch { next = '/madrid/dashboard' }
         addDebug(`URL actual: ${url.href}`)
         addDebug(`Destino: ${next}`)
 
