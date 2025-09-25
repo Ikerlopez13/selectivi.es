@@ -16,14 +16,8 @@ export default function AuthCallback() {
     (async () => {
       try {
         const url = new URL(window.location.href)
-        let next = url.searchParams.get('next') || '/madrid/dashboard'
-        // Normaliza dominios: fuerza a permanecer en el mismo origin del callback
-        try {
-          const nextUrl = new URL(next, window.location.origin)
-          if (nextUrl.origin !== window.location.origin) {
-            next = '/madrid/dashboard'
-          }
-        } catch { next = '/madrid/dashboard' }
+        // A partir de ahora, ignoramos cualquier next y vamos SIEMPRE al dashboard
+        let next = '/madrid/dashboard'
         addDebug(`URL actual: ${url.href}`)
         addDebug(`Destino: ${next}`)
 
@@ -119,11 +113,7 @@ export default function AuthCallback() {
           addDebug('Usuario guardado correctamente')
         }
 
-        // 6) Redirigir: si el destino es seletest, ve primero al dashboard para estabilizar sesión
-        if (next.startsWith('/madrid/seletest')) {
-          addDebug('Destino es seletest: forzamos paso previo por /madrid/dashboard')
-          next = '/madrid/dashboard'
-        }
+        // 6) Redirigir siempre al dashboard (evita bucles y asegura sesión)
         setStatus('Redirigiendo…')
         addDebug(`Redirigiendo a: ${next}`)
         window.location.replace(next)
