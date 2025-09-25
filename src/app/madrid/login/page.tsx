@@ -25,6 +25,10 @@ export default function LoginPage() {
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) window.location.replace(nextUrl)
     })
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session) window.location.replace(nextUrl)
+    })
+    return () => sub.subscription.unsubscribe()
   }, [nextUrl])
 
   const onGoogle = async () => {
