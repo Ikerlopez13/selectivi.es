@@ -30,6 +30,22 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
+    // Si llegamos aquí con ?code=... (OAuth), completa la sesión y limpia la URL
+    ;(async () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const url = new URL(window.location.href)
+          const code = url.searchParams.get('code')
+          if (code) {
+            const { error } = await supabase.auth.exchangeCodeForSession(code)
+            if (!error) {
+              url.searchParams.delete('code')
+              window.history.replaceState(null, '', url.toString())
+            }
+          }
+        }
+      } catch {}
+    })()
     ;(async () => {
       // 1) Sesión
       const { data, error } = await supabase.auth.getSession()
