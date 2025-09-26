@@ -20,18 +20,34 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
+    let retryCount = 0
+    const maxRetries = 3
+    const retryDelay = 2000 // 2 segundos entre reintentos
+
+    async function checkPremiumStatus(email: string): Promise<boolean> {
+      console.log(`🔍 Intento ${retryCount + 1}/${maxRetries} de verificación premium para:`, email)
+      
+      try {
+        const { data: isPremium, error: premiumError } = await supabase
+          .rpc('check_premium_status', { p_email: email })
+        
+        if (premiumError) {
+          console.error('❌ Error al verificar premium:', premiumError)
+          return false
+        }
+
+        console.log('📊 Estado premium:', isPremium)
+        return !!isPremium
+      } catch (e) {
+        console.error('❌ Error inesperado al verificar premium:', e)
+        return false
+      }
+    }
 
     async function loadProfile() {
       try {
-        // 1. Forzar refresco si tarda más de 2 segundos
-        const refreshTimeout = setTimeout(() => {
-          console.log('🔄 Forzando refresco...')
-          window.location.reload()
-        }, 2000)
-
-        // 2. Obtener sesión
+        // 1. Obtener sesión
         const { data: { session }, error } = await supabase.auth.getSession()
-        clearTimeout(refreshTimeout)
 
         if (error) throw error
         if (!session?.user) {
@@ -53,31 +69,40 @@ export default function DashboardPage() {
           })
         }
 
-        // 3. Cargar estado premium
-        console.log('🔍 Comprobando estado premium para:', user.email)
-        
-        // Primer intento: función directa
-        const { data: isPremium, error: premiumError } = await supabase
-          .rpc('check_premium_status', {
-            p_email: user.email!
-          })
-        console.log('📊 Estado premium:', { isPremium, error: premiumError })
+        // 3. Verificar premium con reintentos
+        if (user.email) {
+          let premium = false
+          
+          while (retryCount < maxRetries) {
+            premium = await checkPremiumStatus(user.email)
+            
+            if (premium || !mounted) break
+            
+            retryCount++
+            if (retryCount < maxRetries) {
+              console.log(`⏳ Esperando ${retryDelay}ms antes del siguiente intento...`)
+              await new Promise(resolve => setTimeout(resolve, retryDelay))
+            }
+          }
 
-        // Segundo intento: consulta directa (por si acaso)
-        const { data: rows, error: rowsError } = await supabase
-          .from('usuarios')
-          .select('es_premium')
-          .eq('correo_electronico', user.email!)
-        console.log('📊 Filas encontradas:', { rows, error: rowsError })
+          if (mounted) {
+            setIsPremium(premium)
+            try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
 
-        // Determinar estado final
-        const premium = isPremium || rows?.some((row: any) => row.es_premium) || false
-        console.log('⭐️ Estado premium final:', premium)
-
-        if (mounted) {
-          setIsPremium(premium)
-          setIsLoading(false)
+            // Asegurar que existe fila en public.usuarios si es premium
+            if (premium) {
+              const { error: upsertError } = await supabase.rpc('ensure_usuario_exists', {
+                p_user_id: user.id,
+                p_email: user.email,
+                p_name: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+                p_community: location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
+              })
+              if (upsertError) console.error('❌ Error al asegurar usuario:', upsertError)
+            }
+          }
         }
+
+        if (mounted) setIsLoading(false)
       } catch (e) {
         console.error('Error loading profile:', e)
         if (mounted) {

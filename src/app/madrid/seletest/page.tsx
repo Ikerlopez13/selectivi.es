@@ -8,13 +8,14 @@ import { historyES } from '@/lib/seletest/history'
 import { philosophyES } from '@/lib/seletest/philosophy'
 import { businessES } from '@/lib/seletest/business'
 import { geographyES } from '@/lib/seletest/geography'
-import { languageES } from '@/lib/seletest/language'
 import { englishES } from '@/lib/seletest/english'
 import { mathematicsES } from '@/lib/seletest/mathematics'
 import { physicsES } from '@/lib/seletest/physics'
 import { biologyES } from '@/lib/seletest/biology'
 import { chemistryES } from '@/lib/seletest/chemistry'
 import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
+import { languageES } from '@/lib/seletest/language'
+import { Subject, Topic } from '@/lib/seletest/types'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyES,
@@ -216,7 +217,7 @@ export default function SeletestPage() {
                     )}
                     {active && isPremium && open && (
                       <div className="mt-3 space-y-2">
-                        {subj.topics.map((t) => {
+                        {subj.topics.map((t: Topic) => {
                           const checked = !!selectedTopics[id]?.[t.id]
                           return (
                             <label key={t.id} className="flex items-center gap-2 text-sm">
