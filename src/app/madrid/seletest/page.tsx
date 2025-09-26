@@ -55,41 +55,29 @@ export default function SeletestPage() {
   useEffect(() => {
     let mounted = true
     ;(async () => {
-      const { data: auth } = await supabase.auth.getUser()
-      const userId = auth.user?.id
-      if (!userId) {
-        // Redirige a login propio con next=/madrid/seletest
+      const { data: { session }, error } = await supabase.auth.getSession()
+      if (error || !session?.user) {
         window.location.href = '/madrid/login?next=/madrid/seletest'
         return
       }
-      // Provisiona fila si no existe y lee es_premium
-      let premiumRow: { es_premium: boolean } | null = null
-      try {
-        const { data: existing } = await supabase
-          .from('usuarios')
-          .select('id, es_premium')
-          .eq('user_id', userId)
-          .maybeSingle()
-        if (!existing) {
-          const email = auth.user?.email || ''
-          const meta = (auth.user?.user_metadata || {}) as any
-          await supabase.from('usuarios').insert({
-            user_id: userId,
-            nombre: meta.full_name || meta.name || email.split('@')[0] || 'Usuario',
-            correo_electronico: email,
-            comunidad_autonoma: 'madrid',
-          })
-          premiumRow = { es_premium: false }
-        } else {
-          premiumRow = { es_premium: !!existing.es_premium }
+
+      // Comprobar estado premium por email
+      const email = session.user.email
+      if (!email) {
+        if (mounted) {
+          setIsPremium(false)
+          setShowGate(true)
         }
-      } catch (e) {
-        premiumRow = { es_premium: false }
+        return
       }
+
+      // Usar la función RPC que ignora RLS
+      const { data: isPremium } = await supabase.rpc('check_premium_status', { p_email: email })
       if (mounted) {
-        const premium = !!premiumRow?.es_premium
+        const premium = !!isPremium
         setIsPremium(premium)
         setShowGate(!premium)
+        try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
       }
     })()
     return () => { mounted = false }

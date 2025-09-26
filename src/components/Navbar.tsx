@@ -50,13 +50,13 @@ export default function Navbar() {
             })
           }
         } catch {}
-        const { data: row } = await supabase
-          .from('usuarios')
-          .select('es_premium')
-          .eq('user_id', userId)
-          .maybeSingle()
-        if (mounted) setIsPremium(!!row?.es_premium)
-        try { localStorage.setItem('es_premium', row?.es_premium ? '1' : '0') } catch {}
+        // Comprobar estado premium por email
+        const email = data.session?.user?.email
+        if (email) {
+          const { data: isPremium } = await supabase.rpc('check_premium_status', { p_email: email })
+          if (mounted) setIsPremium(!!isPremium)
+          try { localStorage.setItem('es_premium', isPremium ? '1' : '0') } catch {}
+        }
       } else {
         if (mounted) setIsPremium(false)
       }
@@ -88,13 +88,13 @@ export default function Navbar() {
             })
           }
         } catch {}
-        const { data: row } = await supabase
-          .from('usuarios')
-          .select('es_premium')
-          .eq('user_id', userId)
-          .maybeSingle()
-        setIsPremium(!!row?.es_premium)
-        try { localStorage.setItem('es_premium', row?.es_premium ? '1' : '0') } catch {}
+        // Comprobar estado premium por email
+        const email = session?.user?.email
+        if (email) {
+          const { data: isPremium } = await supabase.rpc('check_premium_status', { p_email: email })
+          if (mounted) setIsPremium(!!isPremium)
+          try { localStorage.setItem('es_premium', isPremium ? '1' : '0') } catch {}
+        }
       } else {
         setIsPremium(false)
       }
@@ -118,7 +118,7 @@ export default function Navbar() {
           <Link href="/blog" className="text-gray-700 hover:text-gray-900">Blog</Link>
           {isMadridSection ? (
             <>
-              {!isPremium && (
+              {hasSession && !isPremium && (
                 <Link href="/madrid/premium" className="bg-gray-100 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors">Hazte Premium ⭐️</Link>
               )}
               {hasSession && (
@@ -172,7 +172,7 @@ export default function Navbar() {
             <Link href="/blog" className="py-2" onClick={() => setMobileOpen(false)}>Blog</Link>
             {isMadridSection ? (
               <>
-                {!isPremium && (
+                {hasSession && !isPremium && (
                   <Link href="/madrid/premium" className="py-2" onClick={() => setMobileOpen(false)}>Hazte Premium ⭐️</Link>
                 )}
                 {hasSession ? (
