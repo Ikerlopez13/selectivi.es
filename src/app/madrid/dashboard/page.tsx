@@ -155,6 +155,27 @@ export default function DashboardPage() {
               <div className="text-center text-gray-500">
                 <div className="inline-block animate-spin mr-2">⚡️</div>
                 Cargando tu perfil...
+                <button 
+                  onClick={async () => {
+                    try {
+                      const { data: { session } } = await supabase.auth.getSession();
+                      if (!session?.user?.email) {
+                        console.log('❌ No hay email en la sesión');
+                        return;
+                      }
+                      console.log('📧 Email:', session.user.email);
+                      const { data, error } = await supabase.rpc('check_premium_status', { 
+                        p_email: session.user.email 
+                      });
+                      console.log('📊 Resultado:', { data, error });
+                    } catch (e) {
+                      console.error('❌ Error:', e);
+                    }
+                  }}
+                  className="block mx-auto mt-4 px-4 py-2 bg-gray-200 rounded-lg"
+                >
+                  Probar Premium Status
+                </button>
               </div>
             </div>
           ) : !profile ? (
