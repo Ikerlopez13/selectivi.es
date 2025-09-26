@@ -6,6 +6,54 @@ export const geographyES: Subject = {
   topics: [
     // El medio físico
     { id: 'relieve-peninsular', title: 'El relieve peninsular: unidades morfoestructurales.', questions: [
+        {
+          id: 'geo-rel-q1',
+          tier: 'standard',
+          prompt: '¿Qué rasgo caracteriza principalmente la Meseta Central, gran unidad morfoestructural del interior peninsular?',
+          options: [
+            { id: 'a', label: 'Altas montañas kársticas', isCorrect: false },
+            { id: 'b', label: 'Altiplanos y mesetas con relieve suavemente ondulado', isCorrect: true },
+            { id: 'c', label: 'Desiertos', isCorrect: false },
+            { id: 'd', label: 'Valles glaciales', isCorrect: false },
+          ],
+          explanation: 'La Meseta Central es una gran llanura elevada con relieve relativamente llano y ondulado, característica clave de su morfología.'
+        },
+        {
+          id: 'geo-rel-q2',
+          tier: 'standard',
+          prompt: 'La sierra de Guadarrama es parte de qué unidad morfoestructural?',
+          options: [
+            { id: 'a', label: 'Cordillera Cantábrica', isCorrect: false },
+            { id: 'b', label: 'Sistema Central', isCorrect: true },
+            { id: 'c', label: 'Cordillera Ibérica', isCorrect: false },
+            { id: 'd', label: 'Cordillera Bética', isCorrect: false },
+          ],
+          explanation: 'La sierra de Guadarrama forma parte del Sistema Central, una cadena montañosa que delimita la Meseta Central al norte.'
+        },
+        {
+          id: 'geo-rel-q3',
+          tier: 'standard',
+          prompt: '¿Qué unidad morfoestructural se ubica al norte de la Península y da lugar a paisajes montañosos y ríos caudalosos?',
+          options: [
+            { id: 'a', label: 'Cordillera Ibérica', isCorrect: false },
+            { id: 'b', label: 'Cordillera Cantábrica', isCorrect: true },
+            { id: 'c', label: 'Sierra Morena', isCorrect: false },
+            { id: 'd', label: 'Sistema Central', isCorrect: false },
+          ],
+          explanation: 'La Cordillera Cantábrica es la principal unidad morfoestructural del norte peninsular, caracterizada por montañas y ríos caudalosos.'
+        },
+        {
+          id: 'geo-rel-q4',
+          tier: 'standard',
+          prompt: 'La Cordillera Bética se localiza principalmente en:',
+          options: [
+            { id: 'a', label: 'Norte', isCorrect: false },
+            { id: 'b', label: 'Centro', isCorrect: false },
+            { id: 'c', label: 'Sur y Este', isCorrect: true },
+            { id: 'd', label: 'Islas', isCorrect: false },
+          ],
+          explanation: 'La Cordillera Bética se sitúa mayoritariamente en el extremo sur y este de la Península, delimitando la Meseta por su vertiente mediterránea.'
+        },
       { id: 'geo-relpen-q1', tier: 'standard', prompt: 'En el medio físico de la Península Ibérica, ¿qué caracteriza la Meseta Central?', options: [
         { id: 'a', label: 'Se sitúa a lo largo de la costa atlántica.', isCorrect: false },
         { id: 'b', label: 'Es una meseta interior rodeada por cordilleras.', isCorrect: true },
@@ -106,6 +154,54 @@ export const geographyES: Subject = {
       ], explanation: 'Procesos tectónicos y marinos de larga duración.' },
     ] },
     { id: 'climas-espana', title: 'Climas de España: rasgos y dominios climáticos.', questions: [
+        {
+          id: 'geo-clima-q1',
+          tier: 'standard',
+          prompt: '¿Qué rasgo caracteriza al clima mediterráneo en España?',
+          options: [
+            { id: 'a', label: 'Invierno suave y veranos secos', isCorrect: true },
+            { id: 'b', label: 'Invierno frío y veranos lluviosos', isCorrect: false },
+            { id: 'c', label: 'Uniforme todo el año', isCorrect: false },
+            { id: 'd', label: 'Inviernos fríos y veranos cálidos', isCorrect: false },
+          ],
+          explanation: 'El clima mediterráneo se caracteriza por inviernos suaves y veranos secos, con variaciones regionales.'
+        },
+        {
+          id: 'geo-clima-q2',
+          tier: 'standard',
+          prompt: 'En la España atlántica, el clima se caracteriza por',
+          options: [
+            { id: 'a', label: 'sequía estival', isCorrect: false },
+            { id: 'b', label: 'lluvia abundante durante todo el año', isCorrect: true },
+            { id: 'c', label: 'inviernos extremos', isCorrect: false },
+            { id: 'd', label: 'veranos muy calurosos', isCorrect: false },
+          ],
+          explanation: 'La España atlántica recibe precipitaciones relativamente abundantes durante todo el año, con inviernos frescos y veranos suaves.'
+        },
+        {
+          id: 'geo-clima-q3',
+          tier: 'standard',
+          prompt: '¿Qué dominio climático predomina en Canarias?',
+          options: [
+            { id: 'a', label: 'Mediterráneo', isCorrect: false },
+            { id: 'b', label: 'Subtropical árido', isCorrect: true },
+            { id: 'c', label: 'Continental húmedo', isCorrect: false },
+            { id: 'd', label: 'Tropical húmedo', isCorrect: false },
+          ],
+          explanation: 'Canarias presenta un clima subtropical árido, con temperaturas suaves anualmente y variaciones según la altitud.'
+        },
+        {
+          id: 'geo-clima-q4',
+          tier: 'standard',
+          prompt: 'La Meseta suele presentar un clima interior de tipo Mediterráneo continental, con inviernos fríos y veranos calurosos.',
+          options: [
+            { id: 'a', label: 'Verdadero', isCorrect: true },
+            { id: 'b', label: 'Falso', isCorrect: false },
+            { id: 'c', label: 'No aplica', isCorrect: false },
+            { id: 'd', label: 'Sin datos', isCorrect: false },
+          ],
+          explanation: 'La Meseta posee un régimen climático interior, con inviernos fríos y veranos muy calurosos, típico del Mediterráneo continental.'
+        },
       { id: 'geo-clima-q1', tier: 'standard', prompt: '¿Qué dominio climático predomina en la costa mediterránea?', options: [
         { id: 'a', label: 'Oceánico', isCorrect: false },
         { id: 'b', label: 'Mediterráneo', isCorrect: true },
@@ -180,6 +276,54 @@ export const geographyES: Subject = {
       ], explanation: 'Grandes contrastes entre verano e invierno en la Meseta.' },
     ] },
     { id: 'aguas-cuencas', title: 'Las aguas y cuencas hidrográficas.', questions: [
+        {
+          id: 'geo-agua-q1',
+          tier: 'standard',
+          prompt: '¿En cuál mar desemboca la cuenca hidrográfica del Ebro?',
+          options: [
+            { id: 'a', label: 'Mar Cantábrico', isCorrect: false },
+            { id: 'b', label: 'Mar Mediterráneo', isCorrect: true },
+            { id: 'c', label: 'Océano Atlántico', isCorrect: false },
+            { id: 'd', label: 'Mar Rojo', isCorrect: false },
+          ],
+          explanation: 'El Ebro desemboca en el mar Mediterráneo, formando un delta cercano a la desembocadura.'
+        },
+        {
+          id: 'geo-agua-q2',
+          tier: 'standard',
+          prompt: 'El río Duero nace en la Meseta Norte y desemboca en',
+          options: [
+            { id: 'a', label: 'Atlántico', isCorrect: true },
+            { id: 'b', label: 'Mediterráneo', isCorrect: false },
+            { id: 'c', label: 'Mar Cantábrico', isCorrect: false },
+            { id: 'd', label: 'Mar Adriático', isCorrect: false },
+          ],
+          explanation: 'El Duero nace en la Meseta Norte y desemboca en el océano Atlántico, principalmente en Portugal.'
+        },
+        {
+          id: 'geo-agua-q3',
+          tier: 'standard',
+          prompt: 'La cuenca del Guadalquivir drena principalmente la región',
+          options: [
+            { id: 'a', label: 'Este', isCorrect: false },
+            { id: 'b', label: 'Oeste', isCorrect: false },
+            { id: 'c', label: 'Norte', isCorrect: false },
+            { id: 'd', label: 'Sur', isCorrect: true },
+          ],
+          explanation: 'El Guadalquivir drena la vertiente atlántica del sur de la Península, en Andalucía.'
+        },
+        {
+          id: 'geo-agua-q4',
+          tier: 'standard',
+          prompt: '¿Qué río forma un delta importante en el Mediterráneo?',
+          options: [
+            { id: 'a', label: 'Duero', isCorrect: false },
+            { id: 'b', label: 'Ebro', isCorrect: true },
+            { id: 'c', label: 'Tajo', isCorrect: false },
+            { id: 'd', label: 'Guadalquivir', isCorrect: false },
+          ],
+          explanation: 'El río Ebro forma uno de los deltas más destacados del Mediterráneo español.'
+        },
       { id: 'geo-aguas-q1', tier: 'standard', prompt: '¿En cuál cuenca hidrográfica se agrupa la mayor parte de la población y se dirige al Atlántico?', options: [
         { id: 'a', label: 'Duero', isCorrect: true },
         { id: 'b', label: 'Ebro', isCorrect: false },
@@ -212,6 +356,42 @@ export const geographyES: Subject = {
       ], explanation: 'El Ebro forma un destacado delta en el Mediterráneo (Delta del Ebro).' },
     ] },
     { id: 'paisajes-naturales', title: 'Los paisajes naturales de España: vegetación y suelos.', questions: [
+        {
+          id: 'geo-pais-q1',
+          tier: 'standard',
+          prompt: '¿Qué tipo de bosque es típico del Mediterráneo español?',
+          options: [
+            { id: 'a', label: 'Bosques boreales', isCorrect: false },
+            { id: 'b', label: 'Bosque mediterráneo de encinas y alcornoques', isCorrect: true },
+            { id: 'c', label: 'Selva lluviosa', isCorrect: false },
+            { id: 'd', label: 'Taiga', isCorrect: false },
+          ],
+          explanation: 'El bosque mediterráneo se caracteriza por encinas y alcornoques, adaptados a sequía estival y inviernos suaves.'
+        },
+        {
+          id: 'geo-pais-q2',
+          tier: 'standard',
+          prompt: 'En zonas cálidas y secas del sur de España predominan los suelos calcáreos, conocidos como calcisoles.',
+          options: [
+            { id: 'a', label: 'Aluviales', isCorrect: false },
+            { id: 'b', label: 'Calcisoles', isCorrect: true },
+            { id: 'c', label: 'Organomóficos', isCorrect: false },
+            { id: 'd', label: 'Podzoles', isCorrect: false },
+          ],
+          explanation: 'Los calcisoles son suelos calcáreos comunes en zonas cálidas y secas, con perfil calcáreo característico.'
+        },
+        {
+          id: 'geo-pais-q3',
+          tier: 'standard',
+          prompt: '¿Qué vegetación domina en las montañas de la España peninsular por su altitud?',
+          options: [
+            { id: 'a', label: 'Bosques mediterráneos', isCorrect: false },
+            { id: 'b', label: 'Prados alpinos', isCorrect: true },
+            { id: 'c', label: 'Desiertos', isCorrect: false },
+            { id: 'd', label: 'Selvas tropicales', isCorrect: false },
+          ],
+          explanation: 'A mayores altitudes predomina la vegetación de prados y bloques alpinos, propia de zonas montañosas.'
+        },
       { id: 'geo-pais-q1', tier: 'standard', prompt: '¿Qué tipo de vegetación domina principalmente en el bosque mediterráneo?', options: [
         { id: 'a', label: 'Bosques boreales', isCorrect: false },
         { id: 'b', label: 'Matorral y encinas', isCorrect: true },
@@ -246,6 +426,78 @@ export const geographyES: Subject = {
 
     // La población
     { id: 'poblacion-evolucion', title: 'Evolución de la población española.', questions: [
+        {
+          id: 'geo-pob-q1',
+          tier: 'standard',
+          prompt: '¿Qué tendencia describe mejor la evolución de la población española desde los años 60 hasta la actualidad?',
+          options: [
+            { id: 'a', label: 'Crecimiento constante sin fluctuaciones', isCorrect: false },
+            { id: 'b', label: 'Población joven en aumento y alta natalidad', isCorrect: false },
+            { id: 'c', label: 'Envejecimiento progresivo y baja natalidad', isCorrect: true },
+            { id: 'd', label: 'Inmigración neta cero', isCorrect: false },
+          ],
+          explanation: 'La población española ha envejecido progresivamente y la natalidad se mantiene baja en buena parte del siglo XXI.'
+        },
+        {
+          id: 'geo-pob-q2',
+          tier: 'standard',
+          prompt: 'La distribución de la población en España es mayoritariamente',
+          options: [
+            { id: 'a', label: 'concentrada en núcleos rurales', isCorrect: false },
+            { id: 'b', label: 'en la Sierra Bética', isCorrect: false },
+            { id: 'c', label: 'concentrada en ciudades y áreas metropolitanas de la fachada costera y grandes ejes de comunicación', isCorrect: true },
+            { id: 'd', label: 'uniformemente repartida', isCorrect: false },
+          ],
+          explanation: 'La población se concentra especialmente en áreas de costa y grandes ciudades, siguiendo los ejes de comunicación y la oferta de empleo.'
+        },
+        {
+          id: 'geo-pob-q3',
+          tier: 'standard',
+          prompt: 'La población activa en España se concentra principalmente en',
+          options: [
+            { id: 'a', label: 'zonas rurales', isCorrect: false },
+            { id: 'b', label: 'áreas urbanas e industriales', isCorrect: true },
+            { id: 'c', label: 'latitudes altas', isCorrect: false },
+            { id: 'd', label: 'islas', isCorrect: false },
+          ],
+          explanation: 'La actividad económica y la población activa se concentran en áreas urbanas y en nodos industriales.'
+        },
+        {
+          id: 'geo-pob-q4',
+          tier: 'standard',
+          prompt: 'El proceso de envejecimiento de la población se refleja en un aumento de',
+          options: [
+            { id: 'a', label: 'la tasa de natalidad', isCorrect: false },
+            { id: 'b', label: 'la esperanza de vida y el porcentaje de mayores de 65 años', isCorrect: true },
+            { id: 'c', label: 'la migración neta', isCorrect: false },
+            { id: 'd', label: 'la población infantil', isCorrect: false },
+          ],
+          explanation: 'El envejecimiento demográfico se manifiesta por mayor esperanza de vida y un incremento de la población de 65 años o más.'
+        },
+        {
+          id: 'geo-pob-q5',
+          tier: 'standard',
+          prompt: 'La densidad de población tiende a concentrarse principalmente en',
+          options: [
+            { id: 'a', label: 'zonas interiores', isCorrect: false },
+            { id: 'b', label: 'zonas de costa y grandes ciudades', isCorrect: true },
+            { id: 'c', label: 'montañas', isCorrect: false },
+            { id: 'd', label: 'desiertos', isCorrect: false },
+          ],
+          explanation: 'La mayor concentración de población se registra en la fachada costera y en las grandes áreas urbanas.'
+        },
+        {
+          id: 'geo-pob-q6',
+          tier: 'standard',
+          prompt: 'Movimientos migratorios internos y externos en las últimas décadas se caracterizan por',
+          options: [
+            { id: 'a', label: 'salida masiva del país hacia el exterior', isCorrect: false },
+            { id: 'b', label: 'migración neta positiva en polos y crecimiento de ciudades, junto a flujos internos', isCorrect: true },
+            { id: 'c', label: 'cero', isCorrect: false },
+            { id: 'd', label: 'todos los movimientos igualitarios', isCorrect: false },
+          ],
+          explanation: 'Se observan flujos de inmigración y movimientos internos hacia ciudades, generando dinamismo demográfico en ciertos polos.'
+        },
       { id: 'geo-pob-ev-q1', tier: 'standard', prompt: '¿Qué factor principal explica el fuerte crecimiento de la población española en la segunda mitad del siglo XX?', options: [
         { id: 'a', label: 'Migración externa masiva', isCorrect: false },
         { id: 'b', label: 'Alta natalidad y reducción de la mortalidad', isCorrect: true },
@@ -328,6 +580,54 @@ export const geographyES: Subject = {
 
     // Espacio rural y sector primario
     { id: 'espacios-agrarios', title: 'Espacios agrarios: agricultura, ganadería y pesca.', questions: [
+        {
+          id: 'geo-agr-q1',
+          tier: 'standard',
+          prompt: 'En el espacio rural, la mecanización y el regadío han permitido',
+          options: [
+            { id: 'a', label: 'estancamiento', isCorrect: false },
+            { id: 'b', label: 'mayor productividad', isCorrect: true },
+            { id: 'c', label: 'abandono', isCorrect: false },
+            { id: 'd', label: 'desertificación', isCorrect: false },
+          ],
+          explanation: 'La modernización agraria y el riego han aumentado la productividad y la diversificación de cultivos.'
+        },
+        {
+          id: 'geo-agr-q2',
+          tier: 'standard',
+          prompt: 'La pesca en España se concentra principalmente en',
+          options: [
+            { id: 'a', label: 'ríos', isCorrect: false },
+            { id: 'b', label: 'mares', isCorrect: true },
+            { id: 'c', label: 'lagos', isCorrect: false },
+            { id: 'd', label: 'interior', isCorrect: false },
+          ],
+          explanation: 'La pesca española está centrada en las grandes masas de agua costera y plataformas marinas.'
+        },
+        {
+          id: 'geo-agr-q3',
+          tier: 'standard',
+          prompt: 'Un problema del medio rural es',
+          options: [
+            { id: 'a', label: 'despoblación y envejecimiento', isCorrect: true },
+            { id: 'b', label: 'superpoblación', isCorrect: false },
+            { id: 'c', label: 'crecimiento de bosques', isCorrect: false },
+            { id: 'd', label: 'urbanización', isCorrect: false },
+          ],
+          explanation: 'La despoblación y el envejecimiento de las zonas rurales son desafíos recurrentes para el medio rural.'
+        },
+        {
+          id: 'geo-agr-q4',
+          tier: 'standard',
+          prompt: 'La aparición de las cooperativas agrarias ha favorecido',
+          options: [
+            { id: 'a', label: 'mejora de la organización y comercialización', isCorrect: true },
+            { id: 'b', label: 'desaparición de la agricultura', isCorrect: false },
+            { id: 'c', label: 'destrucción del suelo', isCorrect: false },
+            { id: 'd', label: 'ninguna de las anteriores', isCorrect: false },
+          ],
+          explanation: 'Las cooperativas agrarias impulsan organización, compra de insumos y comercialización de productos, mejorando la rentabilidad.'
+        },
       { id: 'geo-rural-q1', tier: 'standard', prompt: 'La agricultura de secano mediterránea se caracteriza por…', options: [
         { id: 'a', label: 'riego intensivo', isCorrect: false },
         { id: 'b', label: 'uso limitado de riego con cultivos como olivo y viñedo', isCorrect: true },
@@ -370,6 +670,78 @@ export const geographyES: Subject = {
 
     // Industria
     { id: 'industrializacion', title: 'Proceso de industrialización en España.', questions: [
+        {
+          id: 'geo-ind-q1',
+          tier: 'standard',
+          prompt: 'La industrialización española se caracteriza por',
+          options: [
+            { id: 'a', label: 'desarrollo temprano, con gran peso de la industria pesada', isCorrect: false },
+            { id: 'b', label: 'tardío con especialización en sectores manufactureros en Madrid y Cataluña', isCorrect: true },
+            { id: 'c', label: 'sin cambios', isCorrect: false },
+            { id: 'd', label: 'excesiva dependencia agraria', isCorrect: false },
+          ],
+          explanation: 'España se industrializó de forma relativamente tardía y concentró su crecimiento en sectores manufactureros, con capital humano en Madrid y Cataluña.'
+        },
+        {
+          id: 'geo-ind-q2',
+          tier: 'standard',
+          prompt: 'Entre los factores de localización industrial se encuentran',
+          options: [
+            { id: 'a', label: 'cercanía a mercados y recursos energéticos', isCorrect: true },
+            { id: 'b', label: 'lejanía de infraestructuras', isCorrect: false },
+            { id: 'c', label: 'clima extremo', isCorrect: false },
+            { id: 'd', label: 'aislamiento', isCorrect: false },
+          ],
+          explanation: 'La proximidad a mercados, recursos y buena conectividad favorece la localización de la industria.'
+        },
+        {
+          id: 'geo-ind-q3',
+          tier: 'standard',
+          prompt: 'Entre los sectores industriales estratégicos en España se destacan',
+          options: [
+            { id: 'a', label: 'automoción, aeronáutica y química', isCorrect: true },
+            { id: 'b', label: 'textil y alimentación', isCorrect: false },
+            { id: 'c', label: 'pesca', isCorrect: false },
+            { id: 'd', label: 'turismo', isCorrect: false },
+          ],
+          explanation: 'Automoción, aeronáutica y química son sectores industriales estratégicos por su peso en empleo y desarrollo tecnológico.'
+        },
+        {
+          id: 'geo-ind-q4',
+          tier: 'standard',
+          prompt: 'La deslocalización industrial ha generado',
+          options: [
+            { id: 'a', label: 'equilibrios espaciales', isCorrect: false },
+            { id: 'b', label: 'desequilibrios territoriales y concentración en áreas metropolitanas', isCorrect: true },
+            { id: 'c', label: 'reducción de empleo', isCorrect: false },
+            { id: 'd', label: 'ninguna', isCorrect: false },
+          ],
+          explanation: 'La deslocalización tiende a concentrar la actividad en ciertas zonas y generar desequilibrios territoriales.'
+        },
+        {
+          id: 'geo-ind-q5',
+          tier: 'standard',
+          prompt: 'La industria automotriz en España se localiza principalmente en',
+          options: [
+            { id: 'a', label: 'Madrid y Cataluña', isCorrect: true },
+            { id: 'b', label: 'Andalucía', isCorrect: false },
+            { id: 'c', label: 'Galicia', isCorrect: false },
+            { id: 'd', label: 'Castilla y León', isCorrect: false },
+          ],
+          explanation: 'La concentración de producción automotriz se sitúa principalmente en Madrid y Cataluña, con redes de proveedores y servicios.'
+        },
+        {
+          id: 'geo-ind-q6',
+          tier: 'standard',
+          prompt: 'La política de especialización regional ha favorecido',
+          options: [
+            { id: 'a', label: 'uniformidad', isCorrect: false },
+            { id: 'b', label: 'diversificación de sectores en distintas comunidades autónomas', isCorrect: true },
+            { id: 'c', label: 'parálisis', isCorrect: false },
+            { id: 'd', label: 'pérdida de peso tecnológico', isCorrect: false },
+          ],
+          explanation: 'La especialización regional ha permitido potenciar sectores diferentes en distintas comunidades, aumentando la producción y la cohesión territorial.'
+        },
       { id: 'geo-ind-q1', tier: 'standard', prompt: 'El proceso de industrialización en España se inició principalmente en…', options: [
         { id: 'a', label: 'siglo XIX', isCorrect: false },
         { id: 'b', label: 'entre 1950 y 1970', isCorrect: true },
@@ -440,6 +812,66 @@ export const geographyES: Subject = {
       ], explanation: 'El AVE facilita desplazamientos rápidos entre núcleos urbanos.' },
     ] },
     { id: 'turismo', title: 'El turismo: evolución, impactos y tipologías.', questions: [
+        {
+          id: 'geo-tur-q1',
+          tier: 'standard',
+          prompt: 'El turismo de sol y playa es típico de',
+          options: [
+            { id: 'a', label: 'Pirineos', isCorrect: false },
+            { id: 'b', label: 'Costa mediterránea', isCorrect: true },
+            { id: 'c', label: 'Castilla y León', isCorrect: false },
+            { id: 'd', label: 'Extremadura', isCorrect: false },
+          ],
+          explanation: 'El turismo de costa y playa es característico de la fachada mediterránea y zonas costeras.'
+        },
+        {
+          id: 'geo-tur-q2',
+          tier: 'standard',
+          prompt: 'El turismo cultural se desarrolla principalmente en',
+          options: [
+            { id: 'a', label: 'zonas rurales', isCorrect: false },
+            { id: 'b', label: 'ciudades con patrimonio y museos', isCorrect: true },
+            { id: 'c', label: 'zonas industriales', isCorrect: false },
+            { id: 'd', label: 'desiertos', isCorrect: false },
+          ],
+          explanation: 'El turismo cultural se concentra en ciudades y lugares con patrimonio, museos y centros históricos.'
+        },
+        {
+          id: 'geo-tur-q3',
+          tier: 'standard',
+          prompt: 'Los impactos negativos del turismo pueden incluir',
+          options: [
+            { id: 'a', label: 'empleo', isCorrect: false },
+            { id: 'b', label: 'degradación ambiental', isCorrect: true },
+            { id: 'c', label: 'crecimiento económico', isCorrect: false },
+            { id: 'd', label: 'mejora de infraestructuras', isCorrect: false },
+          ],
+          explanation: 'Aunque genera empleo y economía, puede conllevar degradación ambiental y presión sobre recursos si mal gestionado.'
+        },
+        {
+          id: 'geo-tur-q4',
+          tier: 'standard',
+          prompt: 'El comercio exterior español se caracteriza por',
+          options: [
+            { id: 'a', label: 'déficit constante', isCorrect: false },
+            { id: 'b', label: 'peso de exportaciones de bienes y servicios, especialmente turismo', isCorrect: true },
+            { id: 'c', label: 'ausencia de servicios', isCorrect: false },
+            { id: 'd', label: 'proteccionismo extremo', isCorrect: false },
+          ],
+          explanation: 'España combina exportaciones industriales y servicios (turismo) con importaciones, influyendo en su balanza comercial.'
+        },
+        {
+          id: 'geo-tur-q5',
+          tier: 'standard',
+          prompt: 'El papel de las infraestructuras de transporte en los servicios se refleja en',
+          options: [
+            { id: 'a', label: 'reducción del turismo', isCorrect: false },
+            { id: 'b', label: 'mejora de conectividad y distribución regional', isCorrect: true },
+            { id: 'c', label: 'desigualdad geográfica extrema', isCorrect: false },
+            { id: 'd', label: 'ninguna', isCorrect: false },
+          ],
+          explanation: 'Buenas infraestructuras facilitan la movilidad, la accesibilidad y la distribución de servicios, especialmente turismo y comercio.'
+        },
       { id: 'geo-serv-tur-q1', tier: 'standard', prompt: 'El turismo en España abarca tipologías que incluyen…', options: [
         { id: 'a', label: 'turismo de sol y playa, turismo urbano y turismo de naturaleza', isCorrect: true },
         { id: 'b', label: 'solo turismo de sol y playa', isCorrect: false },
@@ -496,6 +928,66 @@ export const geographyES: Subject = {
       ], explanation: 'Aceleración urbana en la segunda mitad del siglo XX.' },
     ] },
     { id: 'jerarquia-red', title: 'Jerarquía urbana y red de ciudades.', questions: [
+        {
+          id: 'geo-urb-q1',
+          tier: 'standard',
+          prompt: 'La jerarquía urbana se refiere a la distribución de ciudades en función de su tamaño y funciones. ¿Qué ciudades están en la cúspide de la jerarquía?',
+          options: [
+            { id: 'a', label: 'ciudades medias', isCorrect: false },
+            { id: 'b', label: 'grandes ciudades y metrópolis', isCorrect: true },
+            { id: 'c', label: 'pueblos', isCorrect: false },
+            { id: 'd', label: 'villas', isCorrect: false },
+          ],
+          explanation: 'La jerarquía urbana sitúa a las grandes ciudades y metrópolis en la cúspide por su peso demográfico, económico y de servicios.'
+        },
+        {
+          id: 'geo-urb-q2',
+          tier: 'standard',
+          prompt: 'La morfología urbana describe',
+          options: [
+            { id: 'a', label: 'número de habitantes', isCorrect: false },
+            { id: 'b', label: 'forma y distribución de calles y barrios', isCorrect: true },
+            { id: 'c', label: 'clima', isCorrect: false },
+            { id: 'd', label: 'topografía', isCorrect: false },
+          ],
+          explanation: 'La morfología urbana estudia la forma de la ciudad, la distribución de usos del suelo y la organización de calles.'
+        },
+        {
+          id: 'geo-urb-q3',
+          tier: 'standard',
+          prompt: 'Uno de los problemas de las ciudades españolas actuales es',
+          options: [
+            { id: 'a', label: 'falta de población', isCorrect: false },
+            { id: 'b', label: 'congestión del tráfico y contaminación', isCorrect: true },
+            { id: 'c', label: 'exceso de vivienda barata', isCorrect: false },
+            { id: 'd', label: 'ausencia de infraestructuras', isCorrect: false },
+          ],
+          explanation: 'La congestión de tráfico y la contaminación son problemas destacados en varias áreas urbanas.'
+        },
+        {
+          id: 'geo-urb-q4',
+          tier: 'standard',
+          prompt: 'La expansión de la vivienda unifamiliar en las periferias urbanas se asocia con',
+          options: [
+            { id: 'a', label: 'movilidad sostenible', isCorrect: false },
+            { id: 'b', label: 'expansión urbana (urban sprawl)', isCorrect: true },
+            { id: 'c', label: 'mayor densidad', isCorrect: false },
+            { id: 'd', label: 'deterioro del transporte público', isCorrect: false },
+          ],
+          explanation: 'La proliferación de viviendas unifamiliares en periferias favorece la expansión urbana y la dispersión de asentamientos.'
+        },
+        {
+          id: 'geo-urb-q5',
+          tier: 'standard',
+          prompt: 'La red de ciudades españolas se organiza en una jerarquía con nodos que concentran servicios. ¿Verdadero o Falso?',
+          options: [
+            { id: 'a', label: 'Verdadero', isCorrect: true },
+            { id: 'b', label: 'Falso', isCorrect: false },
+            { id: 'c', label: 'Depende', isCorrect: false },
+            { id: 'd', label: 'No especificado', isCorrect: false },
+          ],
+          explanation: 'La red urbana se organiza jerárquicamente, con nodos que concentran servicios y funciones estratégicas.'
+        },
       { id: 'geo-urb-jer-q1', tier: 'standard', prompt: 'La jerarquía urbana y la red de ciudades en España se caracterizan por…', options: [
         { id: 'a', label: 'una jerarquía de grandes ciudades y nodos regionales', isCorrect: true },
         { id: 'b', label: 'una red de ciudades homogénea', isCorrect: false },
@@ -540,6 +1032,54 @@ export const geographyES: Subject = {
 
     // Territorio y organización espacial
     { id: 'organizacion-estado', title: 'La organización territorial del Estado.', questions: [
+        {
+          id: 'geo-org-q1',
+          tier: 'standard',
+          prompt: 'La organización territorial del Estado está formada por',
+          options: [
+            { id: 'a', label: '17 comunidades autónomas y 2 ciudades autónomas', isCorrect: true },
+            { id: 'b', label: '12 comunidades autónomas', isCorrect: false },
+            { id: 'c', label: '60 provincias', isCorrect: false },
+            { id: 'd', label: '4 grandes regiones', isCorrect: false },
+          ],
+          explanation: 'España está organizada en 17 comunidades autónomas y las dos ciudades autónomas de Ceuta y Melilla.'
+        },
+        {
+          id: 'geo-org-q2',
+          tier: 'standard',
+          prompt: 'Las comunidades autónomas tienen competencias en materias de educación, sanidad y transporte. ¿Verdadero o Falso?',
+          options: [
+            { id: 'a', label: 'Verdadero', isCorrect: true },
+            { id: 'b', label: 'Falso', isCorrect: false },
+            { id: 'c', label: 'Solo educación', isCorrect: false },
+            { id: 'd', label: 'Solo sanidad', isCorrect: false },
+          ],
+          explanation: 'Las comunidades autónomas poseen competencias en educación, sanidad, transporte y otras áreas, dentro del marco estatutario.'
+        },
+        {
+          id: 'geo-org-q3',
+          tier: 'standard',
+          prompt: 'España en la Unión Europea y en la globalización: ¿qué relación describe mejor su posición?',
+          options: [
+            { id: 'a', label: 'España no participa en estructuras europeas', isCorrect: false },
+            { id: 'b', label: 'España participa en la UE y se beneficia de fondos de cohesión, integrándose en la globalización', isCorrect: true },
+            { id: 'c', label: 'España está aislada de la globalización', isCorrect: false },
+            { id: 'd', label: 'España depende exclusivamente de asociaciones regionales', isCorrect: false },
+          ],
+          explanation: 'España forma parte de la Unión Europea y recibe fondos de cohesión; su economía está integrada en la economía global.'
+        },
+        {
+          id: 'geo-org-q4',
+          tier: 'standard',
+          prompt: 'España en la globalización ha actuado como puerta de entrada a:',
+          options: [
+            { id: 'a', label: 'Europa y África', isCorrect: true },
+            { id: 'b', label: 'Asia', isCorrect: false },
+            { id: 'c', label: 'Oceanía', isCorrect: false },
+            { id: 'd', label: 'Antártida', isCorrect: false },
+          ],
+          explanation: 'La posición geográfica peninsular facilita la conexión con Europa y África, reforzando su papel en la globalización.'
+        },
       { id: 'geo-terr-org-q1', tier: 'standard', prompt: 'La organización territorial del Estado en España se basa en…', options: [
         { id: 'a', label: 'un Estado centralizado sin autonomías', isCorrect: false },
         { id: 'b', label: 'un Estado de las Autonomías', isCorrect: true },
@@ -568,6 +1108,18 @@ export const geographyES: Subject = {
         { id: 'c', label: 'Gobierno de España', isCorrect: false },
         { id: 'd', label: 'Naciones Unidas', isCorrect: false },
       ], explanation: 'Los fondos estructurales los gestiona la UE, con implementación nacional y regional.' },
+      { id: 'geo-terr-ue-q3', tier: 'standard', prompt: '¿Cuál es la situación de España en el contexto de la globalización?', options: [
+        { id: 'a', label: 'España no participa en estructuras europeas', isCorrect: false },
+        { id: 'b', label: 'España participa en la UE y se beneficia de fondos de cohesión, integrándose en la globalización', isCorrect: true },
+        { id: 'c', label: 'España está aislada de la globalización', isCorrect: false },
+        { id: 'd', label: 'España depende exclusivamente de asociaciones regionales', isCorrect: false },
+      ], explanation: 'España forma parte de la Unión Europea y recibe fondos de cohesión; su economía está integrada en la economía global.' },
+      { id: 'geo-terr-ue-q4', tier: 'standard', prompt: 'España en la globalización ha actuado como puerta de entrada a:', options: [
+        { id: 'a', label: 'Europa y África', isCorrect: true },
+        { id: 'b', label: 'Asia', isCorrect: false },
+        { id: 'c', label: 'Oceanía', isCorrect: false },
+        { id: 'd', label: 'Antártida', isCorrect: false },
+      ], explanation: 'La posición geográfica peninsular facilita la conexión con Europa y África, reforzando su papel en la globalización.' },
     ] },
   ],
 }

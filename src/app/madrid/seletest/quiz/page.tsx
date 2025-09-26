@@ -15,6 +15,7 @@ import { mathematicsES } from '@/lib/seletest/mathematics'
 import { physicsES } from '@/lib/seletest/physics'
 import { biologyES } from '@/lib/seletest/biology'
 import { chemistryES } from '@/lib/seletest/chemistry'
+import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
 import type { Question } from '@/lib/seletest/types'
 import MathText from '@/components/MathText'
 
@@ -29,6 +30,7 @@ const ALL_SUBJECTS = {
   'fisica': physicsES,
   'biologia': biologyES,
   'quimica': chemistryES,
+  'matematicas-ccss': mathematicsCCSS,
 } as const
 
 function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
@@ -42,53 +44,53 @@ export default function QuizPage() {
   const [isPremium, setIsPremium] = useState(false)
 
   useEffect(() => {
-    (async () => {
-      // Detectar premium
+    // Construir pool inmediatamente desde localStorage
+    try {
+      const raw = localStorage.getItem('seletestPlan')
+      if (!raw) return
+      const { subjects, numQuestions, mixSubjects } = JSON.parse(raw)
+      let pool: Question[] = []
+      subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
+        const subj = ALL_SUBJECTS[s.id]
+        if (!subj) return
+        subj.topics.forEach((t) => {
+          if (!s.topics.includes(t.id)) return
+          pool = pool.concat(t.questions)
+        })
+      })
+      // Fallback: si por cualquier motivo el filtrado por topic dejó vacío, usa todos los topics de los sujetos elegidos
+      if (pool.length === 0) {
+        subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
+          const subj = ALL_SUBJECTS[s.id]
+          if (!subj) return
+          subj.topics.forEach((t) => { pool = pool.concat(t.questions) })
+        })
+      }
+      // Usar hint de premium de localStorage para carga instantánea
+      const isPremiumHint = localStorage.getItem('es_premium') === '1'
+      setIsPremium(isPremiumHint)
+      // Aplicar límite Standard: 1/4 del total si no es premium
+      const maxAllowed = isPremiumHint ? numQuestions : Math.max(1, Math.floor(Math.min(numQuestions, pool.length) / 4))
+      if (!mixSubjects) {
+        const limited = pool.slice(0, maxAllowed)
+        setQuestions(limited)
+      } else {
+        const mixed = shuffle(pool).slice(0, maxAllowed)
+        setQuestions(mixed)
+      }
+    } catch {}
+
+    // Verificar premium en background
+    ;(async () => {
       const { data: auth } = await supabase.auth.getUser()
       const userId = auth.user?.id
       let premium = false
       if (userId) {
-        const { data } = await supabase
-          .from('usuarios')
-          .select('es_premium')
-          .eq('user_id', userId)
-          .maybeSingle()
-        premium = !!data?.es_premium
+        const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email! })
+        premium = !!data
       }
       setIsPremium(premium)
-
-      // Construir pool
-      try {
-        const raw = localStorage.getItem('seletestPlan')
-        if (!raw) return
-        const { subjects, numQuestions, mixSubjects } = JSON.parse(raw)
-        let pool: Question[] = []
-        subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
-          const subj = ALL_SUBJECTS[s.id]
-          if (!subj) return
-          subj.topics.forEach((t) => {
-            if (!s.topics.includes(t.id)) return
-            pool = pool.concat(t.questions)
-          })
-        })
-        // Fallback: si por cualquier motivo el filtrado por topic dejó vacío, usa todos los topics de los sujetos elegidos
-        if (pool.length === 0) {
-          subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
-            const subj = ALL_SUBJECTS[s.id]
-            if (!subj) return
-            subj.topics.forEach((t) => { pool = pool.concat(t.questions) })
-          })
-        }
-        // Aplicar límite Standard: 1/4 del total si no es premium
-        const maxAllowed = premium ? numQuestions : Math.max(1, Math.floor(Math.min(numQuestions, pool.length) / 4))
-        if (!mixSubjects) {
-          const limited = pool.slice(0, maxAllowed)
-          setQuestions(limited)
-        } else {
-          const mixed = shuffle(pool).slice(0, maxAllowed)
-          setQuestions(mixed)
-        }
-      } catch {}
+      try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
     })()
   }, [])
 
@@ -135,7 +137,7 @@ export default function QuizPage() {
                   <p className="text-3xl font-extrabold">{(total ? (correctCount / total) * 14 : 0).toFixed(2)} / 14</p>
                 </div>
                 <p className="text-gray-600 mb-6">¡Sigue practicando! Con más práctica lo conseguirás 💪</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[520px] mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[720px] mx-auto">
                   <a
                     className="inline-flex items-center justify-center bg-[#25D366] text-white rounded-xl py-3"
                     href={
@@ -149,6 +151,7 @@ export default function QuizPage() {
                     Compartir por WhatsApp
                   </a>
                   <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Volver a empezar</button>
+                  <a href="/madrid/seletest" className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-3">Volver a SeleTest</a>
                 </div>
                 <div className="mt-8 pt-6 border-t flex items-center justify-center gap-3">
                   <Image src="/images/WhatsApp Image 2025-09-20 at 13.46.52.jpeg" alt="Foto de perfil de Iker" width={56} height={56} className="rounded-full object-cover" />
@@ -156,7 +159,14 @@ export default function QuizPage() {
                 </div>
               </div>
             ) : !q ? (
-              <div>No hay preguntas seleccionadas.</div>
+              <div className="space-y-5 animate-pulse">
+                <div className="h-8 bg-gray-200 rounded-lg w-3/4"></div>
+                <div className="space-y-3">
+                  {[1,2,3,4].map((i) => (
+                    <div key={i} className="w-full h-16 bg-gray-200 rounded-xl"></div>
+                  ))}
+                </div>
+              </div>
             ) : (
               <div className="space-y-5">
                 <h1 className="text-2xl font-extrabold"><MathText text={q.prompt} /></h1>

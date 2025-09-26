@@ -12,7 +12,7 @@ export default function MathText({ text }: { text: string }) {
         p.kind === 'inline' ? (
           <InlineMath key={i} math={p.content} />
         ) : p.kind === 'block' ? (
-          <div key={i} className="my-2">
+          <div key={i} className="my-4 flex justify-center overflow-x-auto">
             <BlockMath math={p.content} />
           </div>
         ) : (

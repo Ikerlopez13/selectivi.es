@@ -14,6 +14,7 @@ import { mathematicsES } from '@/lib/seletest/mathematics'
 import { physicsES } from '@/lib/seletest/physics'
 import { biologyES } from '@/lib/seletest/biology'
 import { chemistryES } from '@/lib/seletest/chemistry'
+import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyES,
@@ -26,16 +27,16 @@ const ALL_SUBJECTS = {
   'fisica': physicsES,
   'biologia': biologyES,
   'quimica': chemistryES,
+  'matematicas-ccss': mathematicsCCSS,
 } as const
 
 const DISPLAY_SUBJECTS: Array<{ label: string; id?: keyof typeof ALL_SUBJECTS }> = [
   { label: 'Matemáticas', id: 'matematicas' },
   { label: 'Física', id: 'fisica' },
   { label: 'Filosofía', id: 'filosofia' },
-  { label: 'Química' },
   { label: 'Química', id: 'quimica' },
   { label: 'Biología', id: 'biologia' },
-  { label: 'Matemáticas CCSS' },
+  { label: 'Matemáticas CCSS', id: 'matematicas-ccss' },
   { label: 'Geografía', id: 'geografia' },
   { label: 'Economía de la empresa', id: 'economia-empresa' },
   { label: 'Historia', id: 'historia-espana' },
