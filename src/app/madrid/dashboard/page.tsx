@@ -30,6 +30,10 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
+    // Fallback: si algo se atasca, no dejes el skeleton infinito
+    const slow = setTimeout(() => {
+      if (mounted) setHasSessionChecked((v) => (v ? v : true))
+    }, 2000)
     // Si llegamos aquí con ?code=... (OAuth), completa la sesión y limpia la URL
     ;(async () => {
       try {
@@ -108,7 +112,7 @@ export default function DashboardPage() {
 
       setHasSessionChecked(true)
     })()
-    return () => { mounted = false }
+    return () => { mounted = false; clearTimeout(slow) }
   }, [])
 
   const onLogin = async () => {
