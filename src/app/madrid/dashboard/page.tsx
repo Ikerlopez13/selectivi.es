@@ -112,11 +112,40 @@ export default function DashboardPage() {
 
       setHasSessionChecked(true)
     })()
-    return () => { mounted = false; clearTimeout(slow) }
+    // Suscripción: si la sesión llega tarde, actualiza el panel
+    const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (!mounted) return
+      const user = session?.user
+      if (!user) return
+      try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
+      const meta = (user.user_metadata || {}) as any
+      setProfile({
+        name: meta.full_name || meta.name || user.email?.split('@')[0],
+        email: user.email || undefined,
+        avatar_url: meta.avatar_url || meta.picture || undefined,
+      })
+      try {
+        await supabase.from('usuarios').upsert({
+          user_id: user.id,
+          nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+          correo_electronico: user.email,
+          comunidad_autonoma: 'madrid',
+        }, { onConflict: 'user_id', ignoreDuplicates: false })
+        const { data: row } = await supabase.from('usuarios').select('es_premium').eq('user_id', user.id).maybeSingle()
+        const premium = !!row?.es_premium
+        setIsPremium(premium)
+        try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
+      } catch {}
+      setHasSessionChecked(true)
+    })
+    return () => { mounted = false; clearTimeout(slow); sub.subscription.unsubscribe() }
   }, [])
 
   const onLogin = async () => {
-    await supabase.auth.signInWithOAuth({ provider: 'google' })
+    try {
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${origin}/madrid/auth/callback` } })
+    } catch {}
   }
 
   return (
