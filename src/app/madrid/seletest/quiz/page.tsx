@@ -80,17 +80,34 @@ export default function QuizPage() {
       }
     } catch {}
 
-    // Verificar premium en background
+    // Verificar premium en background con reintentos
     ;(async () => {
-      const { data: auth } = await supabase.auth.getUser()
-      const userId = auth.user?.id
-      let premium = false
-      if (userId && auth.user?.email) {
-        const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email })
-        premium = !!data
+      let retryCount = 0;
+      const maxRetries = 3;
+      const retryDelay = 1000; // 1 segundo entre reintentos
+
+      const checkPremiumStatus = async () => {
+        const { data: auth } = await supabase.auth.getUser()
+        const userId = auth.user?.id
+        let premium = false
+        
+        if (userId && auth.user?.email) {
+          const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email })
+          premium = !!data
+          
+          if (!premium && retryCount < maxRetries) {
+            retryCount++;
+            console.log(`Reintento ${retryCount} de verificación premium...`);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+            return checkPremiumStatus();
+          }
+        }
+        
+        setIsPremium(premium)
+        try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
       }
-      setIsPremium(premium)
-      try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
+
+      await checkPremiumStatus()
     })()
   }, [])
 
