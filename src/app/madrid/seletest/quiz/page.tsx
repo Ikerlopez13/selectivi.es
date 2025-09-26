@@ -85,8 +85,8 @@ export default function QuizPage() {
       const { data: auth } = await supabase.auth.getUser()
       const userId = auth.user?.id
       let premium = false
-      if (userId) {
-        const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email! })
+      if (userId && auth.user?.email) {
+        const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email })
         premium = !!data
       }
       setIsPremium(premium)
