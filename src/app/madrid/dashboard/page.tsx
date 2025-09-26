@@ -34,50 +34,47 @@ export default function DashboardPage() {
     const slow = setTimeout(() => {
       if (mounted) setHasSessionChecked((v) => (v ? v : true))
     }, 2000)
-    // Si llegamos aquí con ?code=... (OAuth), completa la sesión y limpia la URL
+
+    // 1) Procesa código de OAuth o hash de Magic Link
     ;(async () => {
       try {
         if (typeof window !== 'undefined') {
-          // Fallback Magic Link: si vienen tokens en el hash, establecer sesión aquí
+          // Magic Link: tokens en el hash
           const hash = window.location.hash?.replace(/^#/, '') || ''
           if (hash) {
             const hp = new URLSearchParams(hash)
             const access_token = hp.get('access_token')
             const refresh_token = hp.get('refresh_token')
             if (access_token && refresh_token) {
-              try { await supabase.auth.setSession({ access_token, refresh_token }) } catch {}
-              // Limpia hash de la URL
-              try { window.history.replaceState(null, '', window.location.pathname + window.location.search) } catch {}
+              await supabase.auth.setSession({ access_token, refresh_token })
+              window.history.replaceState(null, '', window.location.pathname + window.location.search)
             }
           }
+          // OAuth: código en query
           const url = new URL(window.location.href)
           const code = url.searchParams.get('code')
           if (code) {
-            const { error } = await supabase.auth.exchangeCodeForSession(code)
-            if (!error) {
-              url.searchParams.delete('code')
-              window.history.replaceState(null, '', url.toString())
-            }
+            await supabase.auth.exchangeCodeForSession(code)
+            url.searchParams.delete('code')
+            window.history.replaceState(null, '', url.toString())
           }
         }
       } catch {}
     })()
-    ;(async () => {
-      // 1) Sesión
-      const { data, error } = await supabase.auth.getSession()
-      if (error) console.warn('supabase.getSession error', error.message)
-      const user = data.session?.user
+
+    // 2) Escucha cambios de sesión
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (!mounted) return
+      const user = session?.user
       if (!user) {
-        // fuerza login
         setHasSessionChecked(true)
         if (typeof window !== 'undefined') {
-          const origin = window.location.origin
-          window.location.href = `${origin}/madrid/login?next=/madrid/dashboard`
+          window.location.href = `${window.location.origin}/madrid/login?next=/madrid/dashboard`
         }
         return
       }
 
+      // Pinta perfil
       try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
       const meta = (user.user_metadata || {}) as any
       setProfile({
@@ -86,17 +83,14 @@ export default function DashboardPage() {
         avatar_url: meta.avatar_url || meta.picture || undefined,
       })
 
-      // 2) Upsert seguro + lectura de es_premium
-      const inferredCommunity = typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
+      // Upsert usuario y lee premium
       try {
-        await supabase
-          .from('usuarios')
-          .upsert({
-            user_id: user.id,
-            nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
-            correo_electronico: user.email,
-            comunidad_autonoma: inferredCommunity,
-          }, { onConflict: 'user_id', ignoreDuplicates: false })
+        await supabase.rpc('ensure_usuario_exists', {
+          p_user_id: user.id,
+          p_email: user.email!,
+          p_nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
+          p_comunidad: 'madrid',
+        })
         const { data: row } = await supabase
           .from('usuarios')
           .select('es_premium')
@@ -105,40 +99,15 @@ export default function DashboardPage() {
         const premium = !!row?.es_premium
         setIsPremium(premium)
         try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
-      } catch (e: any) {
-        console.warn('usuarios upsert/select error', e?.message || e)
-        setIsPremium(false)
-      }
-
-      setHasSessionChecked(true)
-    })()
-    // Suscripción: si la sesión llega tarde, actualiza el panel
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (!mounted) return
-      const user = session?.user
-      if (!user) return
-      try { document.cookie = 'logged_in=1; path=/; max-age=31536000' } catch {}
-      const meta = (user.user_metadata || {}) as any
-      setProfile({
-        name: meta.full_name || meta.name || user.email?.split('@')[0],
-        email: user.email || undefined,
-        avatar_url: meta.avatar_url || meta.picture || undefined,
-      })
-      try {
-        await supabase.from('usuarios').upsert({
-          user_id: user.id,
-          nombre: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
-          correo_electronico: user.email,
-          comunidad_autonoma: 'madrid',
-        }, { onConflict: 'user_id', ignoreDuplicates: false })
-        const { data: row } = await supabase.from('usuarios').select('es_premium').eq('user_id', user.id).maybeSingle()
-        const premium = !!row?.es_premium
-        setIsPremium(premium)
-        try { window.localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
       } catch {}
       setHasSessionChecked(true)
     })
-    return () => { mounted = false; clearTimeout(slow); sub.subscription.unsubscribe() }
+
+    return () => {
+      mounted = false
+      clearTimeout(slow)
+      subscription.unsubscribe()
+    }
   }, [])
 
   const onLogin = async () => {
