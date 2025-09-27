@@ -46,8 +46,10 @@ export default function DashboardPage() {
 
     async function loadProfile() {
       try {
+        console.log('🔍 Cargando perfil...')
         // 1. Obtener sesión
         const { data: { session }, error } = await supabase.auth.getSession()
+        console.log('📱 Sesión:', session ? 'Activa' : 'No hay sesión', error || '')
 
         if (error) throw error
         if (!session?.user) {
