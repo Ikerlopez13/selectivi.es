@@ -48,18 +48,44 @@ export default function DashboardPage() {
       console.log('🔍 Cargando perfil...')
       
       try {
-        // Intentar obtener sesión
+        // 1. Verificar si hay sesión en localStorage
+        const storedSession = localStorage.getItem('supabase.auth.token')
+        console.log('💾 Sesión almacenada:', storedSession ? 'Sí' : 'No')
+
+        // 2. Intentar obtener sesión
         console.log('🔐 Intentando obtener sesión...')
-        const { data, error } = await supabase.auth.getSession()
-        console.log('📱 Resultado getSession:', {
+        let { data: { session }, error } = await supabase.auth.getSession()
+        
+        console.log('📱 Estado de sesión inicial:', {
           success: !error,
-          hasSession: !!data?.session,
-          userId: data?.session?.user?.id,
-          email: data?.session?.user?.email,
+          hasSession: !!session,
+          userId: session?.user?.id,
+          email: session?.user?.email,
           error: error?.message || 'ninguno'
         })
 
-        const session = data?.session
+        // 3. Si no hay sesión, intentar refrescarla
+        if (!session) {
+          console.log('🔄 Intentando refrescar sesión...')
+          const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession()
+          
+          if (refreshError) {
+            console.error('❌ Error al refrescar sesión:', refreshError)
+            throw refreshError
+          }
+
+          if (refreshData.session) {
+            console.log('✅ Sesión refrescada correctamente')
+            session = refreshData.session
+            
+            console.log('📱 Estado de sesión después de refrescar:', {
+              userId: session.user?.id,
+              email: session.user?.email
+            })
+          } else {
+            console.log('⚠️ No se pudo obtener una sesión nueva')
+          }
+        }
 
         // Log del estado final
         console.log('🔑 Estado final:', {
