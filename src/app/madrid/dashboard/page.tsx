@@ -1,96 +1,71 @@
 "use client"
 
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase/client'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { supabase } from '@/lib/supabase/client'
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 type Profile = {
-  name?: string
-  email?: string
-  avatar_url?: string
+  email: string
+  isPremium: boolean
 }
 
 export default function DashboardPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
-  const [isPremium, setIsPremium] = useState<boolean>(false)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let mounted = true
-
-    async function loadProfile() {
+    const loadProfile = async () => {
       try {
-        // 1. Verificar sesión
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-        console.log('📱 Sesión:', {
-          existe: !!session,
-          email: session?.user?.email,
-          error: sessionError?.message
-        })
-
-        if (sessionError) throw sessionError
+        // 1. Obtener sesión
+        const { data: { session } } = await supabase.auth.getSession()
+        
         if (!session?.user) {
           window.location.href = '/madrid/login'
           return
         }
 
-        // 2. Cargar perfil básico aunque falle premium
-        const user = session.user
-        const meta = user.user_metadata || {}
-        
-        if (mounted) {
-          setProfile({
-            name: meta.full_name || meta.name || user.email?.split('@')[0],
-            email: user.email,
-            avatar_url: meta.avatar_url || meta.picture
-          })
+        const baseProfile: Profile = {
+          email: session.user.email || '',
+          isPremium: false
         }
 
-        // 3. Intentar verificar premium
-        try {
-          console.log('⭐ Verificando estado premium...')
-          const { data: isPremium, error: premiumError } = await supabase
-            .rpc('check_premium_status', { p_email: user.email })
+        setProfile(baseProfile)
 
-          console.log('💫 Estado premium:', { isPremium, error: premiumError?.message })
-          
+        // 2. Consultar directamente la tabla usuarios usando el user_id
+        if (baseProfile.email) {
+          const { data: premiumData, error: premiumError } = await supabase
+            .rpc('check_premium_status', { p_email: baseProfile.email })
+
           if (premiumError) {
-            console.error('Error al verificar premium:', premiumError)
-            // No redirigimos si falla premium, solo lo marcamos como false
-            if (mounted) setIsPremium(false)
-          } else {
-            if (mounted) setIsPremium(!!isPremium)
+            console.error('Error al verificar estado premium:', premiumError)
+          } else if (premiumData === true) {
+            setProfile({ ...baseProfile, isPremium: true })
           }
-        } catch (e) {
-          console.error('Error inesperado al verificar premium:', e)
-          if (mounted) setIsPremium(false)
         }
-      } catch (e) {
-        console.error('Error al cargar perfil:', e)
-        if (mounted) {
-          setProfile(null)
-          setIsPremium(false)
+      } catch (error) {
+        console.error('Error:', error)
+        // Solo redirigimos si es un error de autenticación
+        if (error?.message?.includes('auth')) {
+          window.location.href = '/madrid/login'
         }
       } finally {
-        if (mounted) setIsLoading(false)
+        setLoading(false)
       }
     }
 
     loadProfile()
-    return () => { mounted = false }
   }, [])
 
-  if (isLoading) {
+  if (loading) {
     return (
       <main className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
         <div className="flex-1 flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="inline-block animate-spin text-4xl">⚡️</div>
-            <div className="text-gray-600">Cargando tu perfil...</div>
+          <div className="text-center">
+            <div className="inline-block animate-spin text-4xl mb-4">⚡️</div>
+            <div className="text-gray-600">Cargando...</div>
           </div>
         </div>
         <Footer />
@@ -98,94 +73,100 @@ export default function DashboardPage() {
     )
   }
 
+  // Si no es premium, mostrar versión básica
+  if (!profile || !profile.isPremium) {
+    return (
+      <main className="min-h-screen flex flex-col bg-gray-50">
+        <Navbar />
+        <div className="flex-1 p-6">
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Card de perfil */}
+            <div className="bg-white rounded-2xl shadow p-6">
+              <div className="flex items-center gap-3">
+                <div>
+                  <div className="font-medium">Plan estándar</div>
+                  <div className="text-gray-600">{profile.email}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card Upgrade */}
+            <div className="bg-gray-100 rounded-2xl shadow p-8 text-center">
+              <h2 className="text-2xl font-bold mb-2">Sube a Premium</h2>
+              <p className="mb-6">Accede a todas las preguntas y funcionalidades exclusivas</p>
+              <Link 
+                href="/madrid/premium"
+                className="inline-block bg-[#FFB800] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#ffc835]"
+              >
+                Ver planes Premium →
+              </Link>
+            </div>
+
+            {/* Botón de cerrar sesión */}
+            <div className="text-center">
+              <button
+                onClick={async () => {
+                  await supabase.auth.signOut()
+                  window.location.href = '/madrid/login'
+                }}
+                className="text-gray-400 text-sm hover:text-gray-600"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    )
+  }
+
+  // Versión Premium
   return (
     <main className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
-      <section className="flex-1 py-10 px-6">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-6">Tu panel de SeleTest</h1>
-          
-          <button
-            onClick={async () => {
-              await supabase.auth.signOut()
-              localStorage.clear()
-              window.location.href = '/madrid/login'
-            }}
-            className="bg-red-500 text-white px-4 py-2 rounded mb-4"
-          >
-            Cerrar sesión
-          </button>
-
-          {!profile ? (
-            <div className="bg-white rounded-2xl border shadow p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <p className="text-gray-700">Error al cargar el perfil. Por favor, inicia sesión de nuevo.</p>
-              <Link href="/madrid/login" className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-6 py-3">
-                Iniciar sesión
-              </Link>
-            </div>
-          ) : (
-            <>
-              {/* Perfil */}
-              <div className="bg-white rounded-2xl border shadow p-6 flex items-center justify-between gap-4 mb-8">
-                <div className="w-16 h-16 rounded-full bg-[#FFE08A] overflow-hidden flex items-center justify-center">
-                  {profile.avatar_url ? (
-                    <Image src={profile.avatar_url} alt={profile.name || 'Avatar'} width={64} height={64} className="object-cover w-16 h-16" />
-                  ) : (
-                    <span className="text-xl font-bold">{(profile.name || 'U')[0]}</span>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="text-lg font-semibold">{profile.name}</div>
-                  <div className="text-gray-600 text-sm">{profile.email}</div>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${isPremium ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>
-                  {isPremium ? 'Premium activo' : 'Standard'}
-                </span>
+      <div className="flex-1 p-6">
+        <div className="max-w-4xl mx-auto space-y-6">
+          {/* Card de perfil */}
+          <div className="bg-white rounded-2xl shadow p-6">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 flex items-center justify-center">
+                <span className="text-2xl">⭐️</span>
               </div>
+              <div>
+                <div className="font-medium">Premium</div>
+                <div className="text-gray-600">{profile.email}</div>
+              </div>
+            </div>
+          </div>
 
-              {/* Planes */}
-              {isPremium ? (
-                <div className="w-full">
-                  <div className="rounded-3xl shadow p-8 md:p-12 border bg-gradient-to-br from-[#FFD451] to-[#FFB800] text-black flex flex-col items-center text-center">
-                    <div className="text-4xl mb-2">⭐️</div>
-                    <h2 className="text-3xl md:text-4xl font-extrabold mb-2">Tu acceso Premium</h2>
-                    <p className="text-base md:text-lg opacity-90 mb-6">Acceso ilimitado a todas las preguntas y funcionalidades exclusivas.</p>
-                    <Link href="/madrid/seletest" className="inline-flex items-center gap-2 bg-white/95 hover:bg-white text-black font-semibold rounded-xl px-6 py-3">
-                      Acceder a SeleTest Premium ➜
-                    </Link>
-                  </div>
-                </div>
-              ) : (
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-gradient-to-br from-[#FFCF4A] to-[#FFB800] text-black rounded-2xl shadow p-6 border">
-                    <h2 className="text-2xl font-bold mb-4">Plan Premium</h2>
-                    <ul className="space-y-2 mb-6">
-                      <li>✓ Acceso ilimitado a todas las preguntas</li>
-                      <li>✓ Preguntas premium exclusivas</li>
-                      <li>✓ Soporte prioritario</li>
-                    </ul>
-                    <Link href="/madrid/premium" className="block w-full text-center bg-white/90 hover:bg-white text-black font-semibold rounded-xl py-3">
-                      Obtener Premium
-                    </Link>
-                  </div>
+          {/* Card Premium */}
+          <div className="bg-[#FFB800] rounded-2xl shadow p-8 text-center">
+            <div className="text-4xl mb-4">⭐️</div>
+            <h2 className="text-2xl font-bold mb-2">Tu acceso Premium</h2>
+            <p className="mb-6">Disfruta de acceso ilimitado a todas las preguntas y funcionalidades exclusivas</p>
+            <Link 
+              href="/madrid/seletest"
+              className="inline-block bg-white text-black px-6 py-3 rounded-xl font-medium hover:bg-gray-50"
+            >
+              Acceder a SeleTest Premium →
+            </Link>
+          </div>
 
-                  <div className="bg-white rounded-2xl shadow p-6 border">
-                    <h2 className="text-2xl font-bold mb-4">Plan Standard</h2>
-                    <ul className="space-y-2 mb-6 text-gray-700">
-                      <li>✓ Acceso a preguntas básicas</li>
-                      <li>✓ Práctica limitada</li>
-                      <li>✓ Soporte básico</li>
-                    </ul>
-                    <Link href="/madrid/seletest" className="block w-full text-center bg-gray-100 hover:bg-gray-200 text-black font-semibold rounded-xl py-3">
-                      Continuar con Standard
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+          {/* Botón de cerrar sesión */}
+          <div className="text-center">
+            <button
+              onClick={async () => {
+                await supabase.auth.signOut()
+                window.location.href = '/madrid/login'
+              }}
+              className="text-gray-400 text-sm hover:text-gray-600"
+            >
+              Cerrar sesión
+            </button>
+          </div>
         </div>
-      </section>
+      </div>
       <Footer />
     </main>
   )
