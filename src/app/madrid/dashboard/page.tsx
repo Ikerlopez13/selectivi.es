@@ -54,13 +54,35 @@ export default function DashboardPage() {
         console.log('🔑 Parámetros:', Object.fromEntries(params.entries()))
         
         // 1. Obtener sesión
-        const { data: { session }, error } = await supabase.auth.getSession()
-        console.log('📱 Estado de sesión:', {
-          activa: !!session,
+        console.log('🔐 Intentando obtener sesión...')
+        const { data, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('❌ Error al obtener sesión:', error)
+        } else {
+          console.log('📱 Datos de sesión completos:', data)
+        }
+        
+        const session = data?.session
+        console.log('🔑 Estado final:', {
+          tieneSession: !!session,
           userId: session?.user?.id,
           email: session?.user?.email,
-          error: error || 'ninguno'
+          error: error?.message || 'ninguno'
         })
+        
+        // Si no hay sesión pero hay código, intentar establecer sesión
+        if (!session && window.location.search.includes('code=')) {
+          console.log('🔄 Intentando establecer sesión con código...')
+          try {
+            const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(
+              new URLSearchParams(window.location.search).get('code') || ''
+            )
+            console.log('📦 Resultado del intercambio:', { data: exchangeData, error: exchangeError })
+          } catch (e) {
+            console.error('❌ Error al intercambiar código:', e)
+          }
+        }
 
         if (error) throw error
         if (!session?.user) {
