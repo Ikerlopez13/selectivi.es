@@ -45,44 +45,55 @@ export default function DashboardPage() {
     }
 
     async function loadProfile() {
+      console.log('🔍 Cargando perfil...')
+      
       try {
-        console.log('🔍 Cargando perfil...')
-        
         // Debug: Verificar URL y parámetros
         console.log('📍 URL actual:', window.location.href)
         const params = new URLSearchParams(window.location.search)
-        console.log('🔑 Parámetros:', Object.fromEntries(params.entries()))
+        const paramsObj = Object.fromEntries(params.entries())
+        console.log('🔑 Parámetros:', paramsObj)
         
-        // 1. Obtener sesión
-        console.log('🔐 Intentando obtener sesión...')
-        const { data, error } = await supabase.auth.getSession()
-        
-        if (error) {
-          console.error('❌ Error al obtener sesión:', error)
-        } else {
-          console.log('📱 Datos de sesión completos:', data)
+        // Si hay código, intentar establecer sesión primero
+        if (paramsObj.code) {
+          console.log('🔄 Intentando establecer sesión con código...')
+          try {
+            const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(paramsObj.code)
+            console.log('📦 Resultado del intercambio:', {
+              success: !!exchangeData && !exchangeError,
+              session: !!exchangeData?.session,
+              error: exchangeError?.message || 'ninguno'
+            })
+          } catch (e) {
+            console.error('❌ Error al intercambiar código:', e)
+          }
         }
-        
+
+        // Intentar obtener sesión
+        console.log('🔐 Intentando obtener sesión...')
+        let sessionResult
+        try {
+          sessionResult = await supabase.auth.getSession()
+          console.log('📱 Resultado getSession:', {
+            success: !!sessionResult && !sessionResult.error,
+            hasData: !!sessionResult?.data,
+            error: sessionResult?.error?.message || 'ninguno'
+          })
+        } catch (e) {
+          console.error('❌ Error inesperado en getSession:', e)
+          sessionResult = { data: null, error: e as Error }
+        }
+
+        const { data, error } = sessionResult
         const session = data?.session
+
+        // Log del estado final
         console.log('🔑 Estado final:', {
           tieneSession: !!session,
           userId: session?.user?.id,
           email: session?.user?.email,
           error: error?.message || 'ninguno'
         })
-        
-        // Si no hay sesión pero hay código, intentar establecer sesión
-        if (!session && window.location.search.includes('code=')) {
-          console.log('🔄 Intentando establecer sesión con código...')
-          try {
-            const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(
-              new URLSearchParams(window.location.search).get('code') || ''
-            )
-            console.log('📦 Resultado del intercambio:', { data: exchangeData, error: exchangeError })
-          } catch (e) {
-            console.error('❌ Error al intercambiar código:', e)
-          }
-        }
 
         if (error) throw error
         if (!session?.user) {
