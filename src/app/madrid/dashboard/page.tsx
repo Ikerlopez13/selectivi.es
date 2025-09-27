@@ -48,43 +48,17 @@ export default function DashboardPage() {
       console.log('🔍 Cargando perfil...')
       
       try {
-        // Debug: Verificar URL y parámetros
-        console.log('📍 URL actual:', window.location.href)
-        const params = new URLSearchParams(window.location.search)
-        const paramsObj = Object.fromEntries(params.entries())
-        console.log('🔑 Parámetros:', paramsObj)
-        
-        // Si hay código, intentar establecer sesión primero
-        if (paramsObj.code) {
-          console.log('🔄 Intentando establecer sesión con código...')
-          try {
-            const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(paramsObj.code)
-            console.log('📦 Resultado del intercambio:', {
-              success: !!exchangeData && !exchangeError,
-              session: !!exchangeData?.session,
-              error: exchangeError?.message || 'ninguno'
-            })
-          } catch (e) {
-            console.error('❌ Error al intercambiar código:', e)
-          }
-        }
-
         // Intentar obtener sesión
         console.log('🔐 Intentando obtener sesión...')
-        let sessionResult
-        try {
-          sessionResult = await supabase.auth.getSession()
-          console.log('📱 Resultado getSession:', {
-            success: !!sessionResult && !sessionResult.error,
-            hasData: !!sessionResult?.data,
-            error: sessionResult?.error?.message || 'ninguno'
-          })
-        } catch (e) {
-          console.error('❌ Error inesperado en getSession:', e)
-          sessionResult = { data: null, error: e as Error }
-        }
+        const { data, error } = await supabase.auth.getSession()
+        console.log('📱 Resultado getSession:', {
+          success: !error,
+          hasSession: !!data?.session,
+          userId: data?.session?.user?.id,
+          email: data?.session?.user?.email,
+          error: error?.message || 'ninguno'
+        })
 
-        const { data, error } = sessionResult
         const session = data?.session
 
         // Log del estado final
