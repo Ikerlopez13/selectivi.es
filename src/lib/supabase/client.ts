@@ -19,15 +19,27 @@ if (!supabaseUrl || !supabaseAnonKey) {
   })
 }
 
+const storage = typeof window !== 'undefined' ? window.localStorage : undefined
+const flowType = 'pkce'
+
+console.log('🔧 Verificando entorno:', {
+  hasWindow: typeof window !== 'undefined',
+  hasLocalStorage: !!storage,
+  flowType
+})
+
 const clientOptions = {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    flowType: 'pkce',
+    flowType,
     debug: true,
-    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    storage,
     storageKey: 'supabase.auth.token',
+    // Aumentar timeouts
+    retryAttempts: 3,
+    retryInterval: 2000,
   },
 }
 

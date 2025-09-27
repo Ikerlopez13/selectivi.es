@@ -31,15 +31,30 @@ export default function AuthCallback() {
         // 3. Intentar intercambiar código
         console.log('🔑 Intentando intercambiar código por sesión...')
         
+        let exchangePromise
         try {
-          const result = await supabase.auth.exchangeCodeForSession(code)
-          console.log('📦 Resultado completo:', result)
+          console.log('📤 Iniciando petición de intercambio...')
+          exchangePromise = supabase.auth.exchangeCodeForSession(code)
           
-          if (result.error) {
+          console.log('⏳ Esperando respuesta...')
+          const result = await Promise.race([
+            exchangePromise,
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Timeout después de 10s')), 10000)
+            )
+          ])
+          
+          console.log('📥 Respuesta recibida:', {
+            success: !!result && !result.error,
+            hasData: !!result?.data,
+            error: result?.error?.message || 'ninguno'
+          })
+
+          if (result?.error) {
             throw result.error
           }
 
-          if (!result.data?.session) {
+          if (!result?.data?.session) {
             throw new Error('No se recibió sesión después del intercambio')
           }
 
@@ -48,13 +63,17 @@ export default function AuthCallback() {
           const { data: { session: finalSession } } = await supabase.auth.getSession()
           
           if (finalSession) {
-            console.log('🎉 Sesión establecida correctamente')
+            console.log('🎉 Sesión establecida correctamente, redirigiendo...')
+            // Pequeña pausa para asegurar que los logs se muestran
+            await new Promise(resolve => setTimeout(resolve, 500))
             window.location.replace('/madrid/dashboard')
           } else {
             throw new Error('No se pudo establecer la sesión después del intercambio')
           }
         } catch (e) {
           console.error('❌ Error durante el intercambio:', e)
+          // Pequeña pausa para asegurar que los logs se muestran
+          await new Promise(resolve => setTimeout(resolve, 500))
           window.location.replace('/madrid/login')
         }
       } catch (error) {
