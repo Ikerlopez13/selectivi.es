@@ -75,6 +75,7 @@ export default function DashboardPage() {
 
   // Si no es premium, mostrar versión básica
   if (!profile || !profile.isPremium) {
+    const email = profile?.email ?? ''
     return (
       <main className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
@@ -85,7 +86,7 @@ export default function DashboardPage() {
               <div className="flex items-center gap-3">
                 <div>
                   <div className="font-medium">Plan estándar</div>
-                  <div className="text-gray-600">{profile.email}</div>
+                    <div className="text-gray-600">{email}</div>
                 </div>
               </div>
             </div>
