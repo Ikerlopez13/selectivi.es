@@ -20,132 +20,82 @@ export default function DashboardPage() {
 
   useEffect(() => {
     let mounted = true
-    let retryCount = 0
-    const maxRetries = 3
-    const retryDelay = 2000 // 2 segundos entre reintentos
-
-    async function checkPremiumStatus(email: string): Promise<boolean> {
-      console.log(`🔍 Intento ${retryCount + 1}/${maxRetries} de verificación premium para:`, email)
-      
-      try {
-        const { data: isPremium, error: premiumError } = await supabase
-          .rpc('check_premium_status', { p_email: email })
-        
-        if (premiumError) {
-          console.error('❌ Error al verificar premium:', premiumError)
-          return false
-        }
-
-        console.log('📊 Estado premium:', isPremium)
-        return !!isPremium
-      } catch (e) {
-        console.error('❌ Error inesperado al verificar premium:', e)
-        return false
-      }
-    }
 
     async function loadProfile() {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession()
-
-        if (error) throw error
-        if (!session?.user) {
-          if (mounted) {
-            setIsLoading(false)
-            window.location.href = '/madrid/login?next=/madrid/dashboard'
-          }
-          return
-        }
-
-        // Log del estado final
-        console.log('🔑 Estado final:', {
-          tieneSession: !!session,
-          userId: session?.user?.id,
+        // 1. Verificar sesión
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+        console.log('📱 Sesión:', {
+          existe: !!session,
           email: session?.user?.email,
-          error: error?.message || 'ninguno'
+          error: sessionError?.message
         })
 
-        if (error) throw error
+        if (sessionError) throw sessionError
         if (!session?.user) {
-          if (mounted) {
-            setIsLoading(false)
-            window.location.href = '/madrid/login?next=/madrid/dashboard'
-          }
+          window.location.href = '/madrid/login'
           return
         }
 
-        // 2. Cargar perfil inmediatamente
+        // 2. Cargar perfil básico aunque falle premium
         const user = session.user
-        const meta = (user.user_metadata || {}) as any
+        const meta = user.user_metadata || {}
+        
         if (mounted) {
           setProfile({
             name: meta.full_name || meta.name || user.email?.split('@')[0],
-            email: user.email || undefined,
-            avatar_url: meta.avatar_url || meta.picture || undefined,
+            email: user.email,
+            avatar_url: meta.avatar_url || meta.picture
           })
         }
 
-        // 3. Verificar premium con reintentos
-        if (user.email) {
-          let premium = false
+        // 3. Intentar verificar premium
+        try {
+          console.log('⭐ Verificando estado premium...')
+          const { data: isPremium, error: premiumError } = await supabase
+            .rpc('check_premium_status', { p_email: user.email })
+
+          console.log('💫 Estado premium:', { isPremium, error: premiumError?.message })
           
-          while (retryCount < maxRetries) {
-            premium = await checkPremiumStatus(user.email)
-            
-            if (premium || !mounted) break
-            
-            retryCount++
-            if (retryCount < maxRetries) {
-              console.log(`⏳ Esperando ${retryDelay}ms antes del siguiente intento...`)
-              await new Promise(resolve => setTimeout(resolve, retryDelay))
-            }
+          if (premiumError) {
+            console.error('Error al verificar premium:', premiumError)
+            // No redirigimos si falla premium, solo lo marcamos como false
+            if (mounted) setIsPremium(false)
+          } else {
+            if (mounted) setIsPremium(!!isPremium)
           }
-
-          if (mounted) {
-            setIsPremium(premium)
-            try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
-
-            // Asegurar que existe fila en public.usuarios si es premium
-            if (premium) {
-              const { error: upsertError } = await supabase.rpc('ensure_usuario_exists', {
-                p_user_id: user.id,
-                p_email: user.email,
-                p_name: meta.full_name || meta.name || user.email?.split('@')[0] || 'Usuario',
-                p_community: location.pathname.startsWith('/madrid') ? 'madrid' : 'desconocida'
-              })
-              if (upsertError) console.error('❌ Error al asegurar usuario:', upsertError)
-            }
-          }
+        } catch (e) {
+          console.error('Error inesperado al verificar premium:', e)
+          if (mounted) setIsPremium(false)
         }
-
-        if (mounted) setIsLoading(false)
       } catch (e) {
-        console.error('Error loading profile:', e)
+        console.error('Error al cargar perfil:', e)
         if (mounted) {
-          // Si falla, al menos muestra el perfil básico
-          setIsLoading(false)
+          setProfile(null)
           setIsPremium(false)
         }
+      } finally {
+        if (mounted) setIsLoading(false)
       }
     }
 
     loadProfile()
-
-    return () => {
-      mounted = false
-    }
+    return () => { mounted = false }
   }, [])
 
-  const onLogin = async () => {
-    try {
-      const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: `${origin}/madrid/auth/callback` }
-      })
-    } catch (e) {
-      console.error('Error initiating login:', e)
-    }
+  if (isLoading) {
+    return (
+      <main className="min-h-screen flex flex-col bg-gray-50">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="inline-block animate-spin text-4xl">⚡️</div>
+            <div className="text-gray-600">Cargando tu perfil...</div>
+          </div>
+        </div>
+        <Footer />
+      </main>
+    )
   }
 
   return (
@@ -154,50 +104,24 @@ export default function DashboardPage() {
       <section className="flex-1 py-10 px-6">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-extrabold mb-6">Tu panel de SeleTest</h1>
+          
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut()
+              localStorage.clear()
+              window.location.href = '/madrid/login'
+            }}
+            className="bg-red-500 text-white px-4 py-2 rounded mb-4"
+          >
+            Cerrar sesión
+          </button>
 
-          {isLoading ? (
-            // Skeleton instantáneo mientras comprobamos sesión
-            <div className="space-y-6">
-              <div className="bg-white rounded-2xl border shadow p-6 animate-pulse">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-gray-200" />
-                  <div className="flex-1">
-                    <div className="h-4 bg-gray-200 rounded w-40 mb-2" />
-                    <div className="h-3 bg-gray-200 rounded w-64" />
-                  </div>
-                  <div className="h-6 bg-gray-200 rounded w-28" />
-                </div>
-              </div>
-              <div className="text-center text-gray-500">
-                <div className="inline-block animate-spin mr-2">⚡️</div>
-                Cargando tu perfil...
-                <button 
-                  onClick={async () => {
-                    try {
-                      const { data: { session } } = await supabase.auth.getSession();
-                      if (!session?.user?.email) {
-                        console.log('❌ No hay email en la sesión');
-                        return;
-                      }
-                      console.log('📧 Email:', session.user.email);
-                      const { data, error } = await supabase.rpc('check_premium_status', { 
-                        p_email: session.user.email 
-                      });
-                      console.log('📊 Resultado:', { data, error });
-                    } catch (e) {
-                      console.error('❌ Error:', e);
-                    }
-                  }}
-                  className="block mx-auto mt-4 px-4 py-2 bg-gray-200 rounded-lg"
-                >
-                  Probar Premium Status
-                </button>
-              </div>
-            </div>
-          ) : !profile ? (
+          {!profile ? (
             <div className="bg-white rounded-2xl border shadow p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-              <p className="text-gray-700">Para ver tu panel, inicia sesión.</p>
-              <button onClick={onLogin} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-6 py-3">Iniciar sesión con Google</button>
+              <p className="text-gray-700">Error al cargar el perfil. Por favor, inicia sesión de nuevo.</p>
+              <Link href="/madrid/login" className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-6 py-3">
+                Iniciar sesión
+              </Link>
             </div>
           ) : (
             <>
@@ -226,7 +150,9 @@ export default function DashboardPage() {
                     <div className="text-4xl mb-2">⭐️</div>
                     <h2 className="text-3xl md:text-4xl font-extrabold mb-2">Tu acceso Premium</h2>
                     <p className="text-base md:text-lg opacity-90 mb-6">Acceso ilimitado a todas las preguntas y funcionalidades exclusivas.</p>
-                    <Link href="/madrid/seletest" className="inline-flex items-center gap-2 bg-white/95 hover:bg-white text-black font-semibold rounded-xl px-6 py-3">Acceder a SeleTest Premium ➜</Link>
+                    <Link href="/madrid/seletest" className="inline-flex items-center gap-2 bg-white/95 hover:bg-white text-black font-semibold rounded-xl px-6 py-3">
+                      Acceder a SeleTest Premium ➜
+                    </Link>
                   </div>
                 </div>
               ) : (
@@ -238,7 +164,9 @@ export default function DashboardPage() {
                       <li>✓ Preguntas premium exclusivas</li>
                       <li>✓ Soporte prioritario</li>
                     </ul>
-                    <Link href="/madrid/premium" className="block w-full text-center bg-white/90 hover:bg-white text-black font-semibold rounded-xl py-3">Obtener Premium</Link>
+                    <Link href="/madrid/premium" className="block w-full text-center bg-white/90 hover:bg-white text-black font-semibold rounded-xl py-3">
+                      Obtener Premium
+                    </Link>
                   </div>
 
                   <div className="bg-white rounded-2xl shadow p-6 border">
@@ -248,7 +176,9 @@ export default function DashboardPage() {
                       <li>✓ Práctica limitada</li>
                       <li>✓ Soporte básico</li>
                     </ul>
-                    <Link href="/madrid/seletest" className="block w-full text-center bg-gray-100 hover:bg-gray-200 text-black font-semibold rounded-xl py-3">Continuar con Standard</Link>
+                    <Link href="/madrid/seletest" className="block w-full text-center bg-gray-100 hover:bg-gray-200 text-black font-semibold rounded-xl py-3">
+                      Continuar con Standard
+                    </Link>
                   </div>
                 </div>
               )}
