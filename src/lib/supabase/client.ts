@@ -1,5 +1,6 @@
 "use client"
 import { createClient } from '@supabase/supabase-js'
+import type { AuthFlowType } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
@@ -20,7 +21,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 const storage = typeof window !== 'undefined' ? window.localStorage : undefined
-const flowType = 'pkce'
+const flowType: AuthFlowType = 'pkce'
 
 console.log('🔧 Verificando entorno:', {
   hasWindow: typeof window !== 'undefined',
@@ -37,15 +38,11 @@ const clientOptions = {
     debug: true,
     storage,
     storageKey: 'supabase.auth.token',
-    // Configuración específica para auth
     retryAttempts: 3,
     retryInterval: 2000,
-    // Usar el callback por defecto de Supabase
     redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/madrid/dashboard` : undefined
   },
-}
-
-console.log('🛠 Opciones de cliente:', clientOptions)
+} as const
 
 export const supabase = createClient(
   supabaseUrl,
