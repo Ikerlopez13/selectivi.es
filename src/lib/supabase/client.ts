@@ -19,16 +19,22 @@ if (!supabaseUrl || !supabaseAnonKey) {
   })
 }
 
+const clientOptions = {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    flowType: 'pkce',
+    debug: true,
+    storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    storageKey: 'supabase.auth.token',
+  },
+}
+
+console.log('🛠 Opciones de cliente:', clientOptions)
+
 export const supabase = createClient(
   supabaseUrl,
   supabaseAnonKey,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-      flowType: 'pkce',
-      debug: true
-    },
-  }
+  clientOptions
 )
