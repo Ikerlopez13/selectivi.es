@@ -44,10 +44,10 @@ export default function DashboardPage() {
             setProfile({ ...baseProfile, isPremium: true })
           }
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Error:', error)
         // Solo redirigimos si es un error de autenticación
-        if (error?.message?.includes('auth')) {
+        if (error instanceof Error && error.message.includes('auth')) {
           window.location.href = '/madrid/login'
         }
       } finally {
