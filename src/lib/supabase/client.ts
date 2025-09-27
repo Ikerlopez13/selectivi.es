@@ -37,9 +37,12 @@ const clientOptions = {
     debug: true,
     storage,
     storageKey: 'supabase.auth.token',
-    // Aumentar timeouts
+    // Configuración específica para auth
     retryAttempts: 3,
     retryInterval: 2000,
+    autoRefreshToken: true,
+    // Usar el callback por defecto de Supabase
+    redirectTo: typeof window !== 'undefined' ? `${window.location.origin}/madrid/dashboard` : undefined
   },
 }
 

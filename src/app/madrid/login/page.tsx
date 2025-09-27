@@ -18,7 +18,8 @@ export default function LoginPage() {
 
   const redirectTo = useMemo(() => {
     if (typeof window === 'undefined') return undefined
-    return `${window.location.origin}/madrid/auth/callback?next=${encodeURIComponent(nextUrl)}`
+    // Usar el callback de Supabase directamente
+    return `${window.location.origin}/madrid/dashboard`
   }, [nextUrl])
 
   useEffect(() => {
