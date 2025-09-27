@@ -45,46 +45,16 @@ export default function DashboardPage() {
     }
 
     async function loadProfile() {
-      console.log('🔍 Cargando perfil...')
-      
       try {
-        // 1. Verificar si hay sesión en localStorage
-        const storedSession = localStorage.getItem('supabase.auth.token')
-        console.log('💾 Sesión almacenada:', storedSession ? 'Sí' : 'No')
+        const { data: { session }, error } = await supabase.auth.getSession()
 
-        // 2. Intentar obtener sesión
-        console.log('🔐 Intentando obtener sesión...')
-        let { data: { session }, error } = await supabase.auth.getSession()
-        
-        console.log('📱 Estado de sesión inicial:', {
-          success: !error,
-          hasSession: !!session,
-          userId: session?.user?.id,
-          email: session?.user?.email,
-          error: error?.message || 'ninguno'
-        })
-
-        // 3. Si no hay sesión, intentar refrescarla
-        if (!session) {
-          console.log('🔄 Intentando refrescar sesión...')
-          const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession()
-          
-          if (refreshError) {
-            console.error('❌ Error al refrescar sesión:', refreshError)
-            throw refreshError
+        if (error) throw error
+        if (!session?.user) {
+          if (mounted) {
+            setIsLoading(false)
+            window.location.href = '/madrid/login?next=/madrid/dashboard'
           }
-
-          if (refreshData.session) {
-            console.log('✅ Sesión refrescada correctamente')
-            session = refreshData.session
-            
-            console.log('📱 Estado de sesión después de refrescar:', {
-              userId: session.user?.id,
-              email: session.user?.email
-            })
-          } else {
-            console.log('⚠️ No se pudo obtener una sesión nueva')
-          }
+          return
         }
 
         // Log del estado final
