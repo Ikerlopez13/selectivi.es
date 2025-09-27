@@ -47,9 +47,20 @@ export default function DashboardPage() {
     async function loadProfile() {
       try {
         console.log('🔍 Cargando perfil...')
+        
+        // Debug: Verificar URL y parámetros
+        console.log('📍 URL actual:', window.location.href)
+        const params = new URLSearchParams(window.location.search)
+        console.log('🔑 Parámetros:', Object.fromEntries(params.entries()))
+        
         // 1. Obtener sesión
         const { data: { session }, error } = await supabase.auth.getSession()
-        console.log('📱 Sesión:', session ? 'Activa' : 'No hay sesión', error || '')
+        console.log('📱 Estado de sesión:', {
+          activa: !!session,
+          userId: session?.user?.id,
+          email: session?.user?.email,
+          error: error || 'ninguno'
+        })
 
         if (error) throw error
         if (!session?.user) {

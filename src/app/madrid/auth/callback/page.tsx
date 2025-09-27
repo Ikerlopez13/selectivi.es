@@ -4,12 +4,25 @@ import { useEffect } from 'react'
 
 export default function AuthCallback() {
   useEffect(() => {
-    // Debug info
-    console.log('🔄 Callback URL:', window.location.href)
-    console.log('🎯 Redirecting to:', '/madrid/dashboard' + window.location.search + window.location.hash)
-    
-    // Redirige al dashboard preservando código/hash para que complete la sesión allí
-    window.location.replace('/madrid/dashboard' + window.location.search + window.location.hash)
+    const handleCallback = async () => {
+      try {
+        console.log('🔄 Callback iniciado')
+        console.log('📍 URL actual:', window.location.href)
+        
+        const searchParams = new URLSearchParams(window.location.search)
+        const code = searchParams.get('code')
+        console.log('🎫 Código recibido:', code ? '✅' : '❌')
+        
+        const nextUrl = '/madrid/dashboard' + window.location.search + window.location.hash
+        console.log('🎯 Redirigiendo a:', nextUrl)
+        
+        window.location.replace(nextUrl)
+      } catch (error) {
+        console.error('❌ Error en callback:', error)
+      }
+    }
+
+    handleCallback()
   }, [])
 
   return (
