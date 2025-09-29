@@ -33,7 +33,27 @@ export default function DashboardPage() {
 
         setProfile(baseProfile)
 
-        // 2. Consultar directamente la tabla usuarios usando el user_id
+        try {
+          const metadata = session.user.user_metadata as Record<string, unknown>
+          const nombre =
+            (typeof metadata?.full_name === 'string' && metadata.full_name) ||
+            (typeof metadata?.name === 'string' && metadata.name) ||
+            baseProfile.email.split('@')[0] || ''
+
+          await supabase
+            .from('usuarios')
+            .upsert(
+              {
+                user_id: session.user.id,
+                correo_electronico: baseProfile.email,
+                nombre
+              },
+              { onConflict: 'user_id' }
+            )
+        } catch (syncError) {
+          console.error('No se pudo sincronizar el usuario en la tabla usuarios:', syncError)
+        }
+
         if (baseProfile.email) {
           const { data: premiumData, error: premiumError } = await supabase
             .rpc('check_premium_status', { p_email: baseProfile.email })
