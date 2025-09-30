@@ -63,6 +63,36 @@ export const philosophyES: Subject = {
           explanation: 'La sustancia es la unión de materia y forma (hylemorfismo): lo que subsiste.'
         }
       ]
+    },
+    {
+      id: 'hannah-arendt',
+      title: 'Hannah Arendt',
+      questions: [
+        {
+          id: 'fil-aren-q1',
+          tier: 'standard',
+          prompt: '¿Cómo concibe Hannah Arendt la relación entre libertad y acción política?',
+          options: [
+            { id: 'a', label: 'La libertad se experimenta únicamente en la vida privada del individuo.', isCorrect: false },
+            { id: 'b', label: 'La libertad se realiza cuando actuamos con otros en el espacio público.', isCorrect: true },
+            { id: 'c', label: 'La acción política es irrelevante para la libertad.', isCorrect: false },
+            { id: 'd', label: 'La libertad se fundamenta en la obediencia a la ley.', isCorrect: false },
+          ],
+          explanation: 'Arendt vincula libertad y acción en el espacio público, donde la pluralidad permite coincidir y deliberar.'
+        },
+        {
+          id: 'fil-aren-q2',
+          tier: 'standard',
+          prompt: '¿Qué entiende Arendt por "pluralidad" en la política?',
+          options: [
+            { id: 'a', label: 'La uniformidad de pensamiento como garantía de cohesión social.', isCorrect: false },
+            { id: 'b', label: 'La diversidad de opiniones y de seres humanos que se expresan en el espacio público.', isCorrect: true },
+            { id: 'c', label: 'La hegemonía de una sola ideología.', isCorrect: false },
+            { id: 'd', label: 'La imposibilidad de coordinar acciones políticas.', isCorrect: false },
+          ],
+          explanation: 'Para Arendt, la pluralidad es condición necesaria de la libertad y de la acción política auténtica.'
+        }
+      ]
     }
   ]
 }
