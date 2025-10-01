@@ -39,17 +39,35 @@ export default function DashboardPage() {
             (typeof metadata?.full_name === 'string' && metadata.full_name) ||
             (typeof metadata?.name === 'string' && metadata.name) ||
             baseProfile.email.split('@')[0] || ''
+          const comunidadAuto =
+            typeof window !== 'undefined' && window.location.pathname.startsWith('/madrid')
+              ? 'madrid'
+              : 'general'
+          const avatarUrl =
+            typeof metadata?.avatar_url === 'string'
+              ? metadata.avatar_url
+              : typeof metadata?.picture === 'string'
+                ? metadata.picture
+                : null
 
-          await supabase
+          const { error: upsertError } = await supabase
             .from('usuarios')
             .upsert(
               {
                 user_id: session.user.id,
                 correo_electronico: baseProfile.email,
-                nombre
+                nombre,
+                comunidad_autonoma: comunidadAuto,
+                avatar_url: avatarUrl
               },
               { onConflict: 'user_id' }
             )
+            .select('user_id')
+            .single()
+
+          if (upsertError) {
+            console.error('Error al crear/actualizar usuario:', upsertError)
+          }
         } catch (syncError) {
           console.error('No se pudo sincronizar el usuario en la tabla usuarios:', syncError)
         }

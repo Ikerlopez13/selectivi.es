@@ -69,15 +69,14 @@ export default function QuizPage() {
       // Usar hint de premium de localStorage para carga instantánea
       const isPremiumHint = localStorage.getItem('es_premium') === '1'
       setIsPremium(isPremiumHint)
-      // Aplicar límite Standard: 1/4 del total si no es premium
-      const maxAllowed = isPremiumHint ? numQuestions : Math.max(1, Math.floor(Math.min(numQuestions, pool.length) / 4))
-      if (!mixSubjects) {
-        const limited = pool.slice(0, maxAllowed)
-        setQuestions(limited)
-      } else {
-        const mixed = shuffle(pool).slice(0, maxAllowed)
-        setQuestions(mixed)
-      }
+
+      // Respetar exactamente las preguntas solicitadas (ya limitadas en la pantalla previa)
+      const desiredCount = typeof numQuestions === 'number' ? numQuestions : 1
+      const cappedCount = Math.max(1, Math.min(desiredCount, pool.length))
+      const selectedPool = mixSubjects
+        ? shuffle(pool).slice(0, cappedCount)
+        : pool.slice(0, cappedCount)
+      setQuestions(selectedPool)
     } catch {}
 
     // Verificar premium en background con reintentos
@@ -158,8 +157,9 @@ export default function QuizPage() {
                   <a
                     className="inline-flex items-center justify-center bg-[#25D366] text-white rounded-xl py-3"
                     href={
-                      `https://wa.me/?text=` + encodeURIComponent(
-                        `Acabo de hacer un test en SeleTest y mi nota simulada es ${(total ? (correctCount/total)*14 : 0).toFixed(2)} / 14 — https://selectivi.es/madrid/seletest`
+                      'https://wa.me/?text=' +
+                      encodeURIComponent(
+                        `Acabo de hacer un test en SeleTest y mi nota simulada es ${(total ? (correctCount / total) * 14 : 0).toFixed(2)} / 14 — https://selectivi.es/madrid/seletest`
                       )
                     }
                     target="_blank"
@@ -168,66 +168,44 @@ export default function QuizPage() {
                     Compartir por WhatsApp
                   </a>
                   <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Volver a empezar</button>
-                  <a href="/madrid/seletest" className="inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-3">Volver a SeleTest</a>
-                </div>
-                <div className="mt-8 pt-6 border-t flex items-center justify-center gap-3">
-                  <Image src="/images/WhatsApp Image 2025-09-20 at 13.46.52.jpeg" alt="Foto de perfil de Iker" width={56} height={56} className="rounded-full object-cover" />
-                  <p className="text-sm text-gray-600">Hecho por <a href="https://instagram.com/ikerlopezttp" target="_blank" rel="noopener noreferrer" className="text-[#FFB800] font-semibold">@ikerlopezttp</a>. Sígueme ❤️</p>
-                </div>
-              </div>
-            ) : !q ? (
-              <div className="space-y-5 animate-pulse">
-                <div className="h-8 bg-gray-200 rounded-lg w-3/4"></div>
-                <div className="space-y-3">
-                  {[1,2,3,4].map((i) => (
-                    <div key={i} className="w-full h-16 bg-gray-200 rounded-xl"></div>
-                  ))}
                 </div>
               </div>
             ) : (
-              <div className="space-y-5">
-                <h1 className="text-2xl font-extrabold"><MathText text={q.prompt} /></h1>
-                <div className="space-y-3">
-                  {q.options.map((opt) => {
-                    const isSelected = chosen === opt.id
-                    const correct = chosen && opt.isCorrect
-                    const incorrect = isSelected && !opt.isCorrect
-                    let cls = 'w-full text-left border rounded-xl px-4 py-4 hover:bg-gray-50'
-                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-green-50 border-green-300'
-                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-red-50 border-red-300'
-                    return (
-                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>
-                        <MathText text={opt.label} />
-                      </button>
-                    )
-                  })}
+              <div className="flex flex-col items-center">
+                <h1 className="text-3xl font-extrabold mb-4">
+                  {q.question}
+                  {q.questionType === 'math' && <MathText text={q.question} />}
+                </h1>
+                <div className="w-full max-w-[720px] mx-auto">
+                  {q.options.map((option) => (
+                    <button
+                      key={option.id}
+                      onClick={() => setChosen(option.id)}
+                      className={`w-full text-left p-4 mb-3 rounded-xl border transition-colors ${
+                        chosen === option.id
+                          ? option.isCorrect
+                            ? 'bg-green-500 text-white border-green-500'
+                            : 'bg-red-500 text-white border-red-500'
+                          : 'bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200'
+                      }`}
+                    >
+                      {option.option}
+                      {option.optionType === 'math' && <MathText text={option.option} />}
+                    </button>
+                  ))}
                 </div>
-                {chosen && (
-                  <div className="mt-2 text-sm text-gray-700">
-                    <p className="font-semibold mb-1">Explicación</p>
-                    <p>{q.explanation}</p>
-                  </div>
-                )}
-                {/* Botón desktop */}
-                <div className="pt-4 hidden md:block">
-                  <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente pregunta</button>
-                </div>
+                <button
+                  onClick={next}
+                  className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3 mt-6"
+                >
+                  {idx + 1 < total ? 'Siguiente pregunta' : 'Finalizar test'}
+                </button>
               </div>
             )}
           </div>
         </div>
       </section>
-      {/* Barra fija móvil */}
-      {!finished && (
-        <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-          <div className="max-w-[1100px] mx-auto px-2">
-            <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente</button>
-          </div>
-        </div>
-      )}
       <Footer />
     </main>
   )
 }
-
-

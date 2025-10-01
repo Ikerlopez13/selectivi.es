@@ -147,6 +147,36 @@ export const businessES: Subject = {
           explanation: 'El ROE mide la rentabilidad obtenida por los accionistas sobre sus fondos invertidos.'
         }
       ]
+    },
+    {
+      id: 'crecimiento-desarrollo',
+      title: 'Crecimiento y desarrollo de la empresa',
+      questions: [
+        {
+          id: 'bus-crec-q1',
+          tier: 'standard',
+          prompt: '¿Cuál es un beneficio clave de las alianzas estratégicas entre empresas?',
+          options: [
+            { id: 'a', label: 'Acceder a sinergias y recursos complementarios', isCorrect: true },
+            { id: 'b', label: 'Aumentar costes', isCorrect: false },
+            { id: 'c', label: 'Disminuir la competencia', isCorrect: false },
+            { id: 'd', label: 'No hay efectos', isCorrect: false },
+          ],
+          explanation: 'Las alianzas estratégicas permiten lograr sinergias y acceder a capacidades complementarias.'
+        },
+        {
+          id: 'bus-crec-q2',
+          tier: 'standard',
+          prompt: '¿Qué se entiende por concentración horizontal?',
+          options: [
+            { id: 'a', label: 'Unión de empresas del mismo sector para aumentar cuota de mercado', isCorrect: true },
+            { id: 'b', label: 'Compra de proveedores', isCorrect: false },
+            { id: 'c', label: 'Colaboración en investigación', isCorrect: false },
+            { id: 'd', label: 'Fusión con competidores de otro sector', isCorrect: false },
+          ],
+          explanation: 'La concentración horizontal implica fusionarse o adquirir a competidores del mismo sector para crecer en el mercado.'
+        }
+      ]
     }
   ]
 }
