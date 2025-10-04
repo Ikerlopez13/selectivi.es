@@ -66,14 +66,14 @@ export default function Onboarding() {
 
   // Tarjeta consistente estilo “teléfono”
   const Card = ({ children }: { children: React.ReactNode }) => (
-    <div className="mx-auto w-[380px] min-w-[380px] max-w-[380px] shrink-0">
+    <div className="mx-auto w-full max-w-[380px] shrink-0 md:w-[380px]">
       <div className="relative flex flex-col items-center">
         {/* Badge icono arriba */}
         <div className="absolute -top-7 z-10 bg-white rounded-2xl shadow p-2 border">
           <Image src="/images/logoo.svg" alt="selectiviES" width={32} height={32} className="w-8 h-8" />
         </div>
         {/* Cuerpo */}
-        <div className="pt-10 rounded-2xl bg-white border border-black/5 shadow-xl overflow-hidden h-[640px] flex flex-col">
+        <div className="pt-10 rounded-2xl bg-white border border-black/5 shadow-xl overflow-hidden h-[520px] md:h-[640px] flex flex-col">
           {children}
         </div>
       </div>
@@ -110,7 +110,7 @@ export default function Onboarding() {
                   {s.kind === 'image' ? (
                     <Card>
                       <div className="px-6 pb-8 flex flex-col h-full">
-                        <div className={`flex items-center justify-center mt-2 mb-4 ${i === 1 ? 'h-[280px]' : 'h-[340px]'}`}>
+                        <div className={`flex items-center justify-center mt-2 mb-4 ${i === 1 ? 'h-[220px] md:h-[280px]' : 'h-[260px] md:h-[340px]'}`}>
                           <Image src={s.src} alt={s.alt} width={400} height={200} className={i === 1 ? 'max-h-[200px] w-auto' : 'max-h-full w-auto'} />
                         </div>
                         {i === 0 ? (
