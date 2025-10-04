@@ -25,8 +25,10 @@ export default function Navbar() {
       try {
         if (data.session) {
           document.cookie = 'logged_in=1; path=/; max-age=31536000'
+          document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`
         } else {
           document.cookie = 'logged_in=; Max-Age=0; path=/'
+          document.cookie = 'recent_login=; Max-Age=0; path=/'
         }
       } catch {}
       const userId = data.session?.user?.id
@@ -64,8 +66,13 @@ export default function Navbar() {
     const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
       setHasSession(!!session)
       try {
-        if (session) document.cookie = 'logged_in=1; path=/; max-age=31536000'
-        else document.cookie = 'logged_in=; Max-Age=0; path=/'
+        if (session) {
+          document.cookie = 'logged_in=1; path=/; max-age=31536000'
+          document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`
+        } else {
+          document.cookie = 'logged_in=; Max-Age=0; path=/'
+          document.cookie = 'recent_login=; Max-Age=0; path=/'
+        }
       } catch {}
       const userId = session?.user?.id
       if (userId) {

@@ -4,6 +4,7 @@ import SpainMap from '@/components/SpainMap'
 import Navbar from '@/components/Navbar'
 import Description from '@/components/Description'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -13,8 +14,7 @@ export default function Home() {
       <section className="w-full flex flex-col items-center">
         <div className="max-w-4xl w-full flex flex-col items-center text-center py-12 px-4">
           <div className="flex items-center gap-3 mb-4">
-          <img src="/images/logoo.svg" alt="logo" className="w-12 h-12" />
-
+            <Image src="/images/logoo.svg" alt="logo" width={48} height={48} className="w-12 h-12" />
             <h1 className="text-6xl font-bold">selectivi<span className="text-[#FFB800]">ES</span></h1>
           </div>
           <h2 className="text-2xl md:text-3xl font-medium">

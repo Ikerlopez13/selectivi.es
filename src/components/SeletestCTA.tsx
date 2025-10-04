@@ -25,13 +25,9 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
     }
   }, [])
 
-  const onClick = async () => {
+  const onClick = () => {
     if (!hasSession) {
-      const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: `${origin}/madrid/seletest` },
-      })
+      router.push('/madrid/login?next=/madrid/seletest')
       return
     }
     router.push('/madrid/seletest')

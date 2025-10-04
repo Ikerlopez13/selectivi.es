@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { supabase } from '@/lib/supabase/client'
 
 const comunidades = [
@@ -46,6 +47,10 @@ export default function RegisterUserForm() {
       setError(insertError.message)
       return
     }
+    try {
+      document.cookie = `logged_in=1; path=/; max-age=31536000`
+      document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`
+    } catch {}
     setMessage('Usuario registrado correctamente.')
     setNombre('')
     setCorreo('')

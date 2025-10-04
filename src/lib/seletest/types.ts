@@ -14,6 +14,11 @@ export type Question = {
   explanation: string
 }
 
+export type QuestionWithSubject = Question & {
+  subjectId: string
+  subjectName: string
+}
+
 export type Topic = {
   id: string
   title: string

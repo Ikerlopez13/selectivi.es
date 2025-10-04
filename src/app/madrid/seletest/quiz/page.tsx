@@ -2,9 +2,9 @@
 
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import MathText from '@/components/MathText'
 import { supabase } from '@/lib/supabase/client'
-import Image from 'next/image'
 import { historyES } from '@/lib/seletest/history'
 import { philosophyES } from '@/lib/seletest/philosophy'
 import { businessES } from '@/lib/seletest/business'
@@ -16,8 +16,7 @@ import { physicsES } from '@/lib/seletest/physics'
 import { biologyES } from '@/lib/seletest/biology'
 import { chemistryES } from '@/lib/seletest/chemistry'
 import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
-import type { Question } from '@/lib/seletest/types'
-import MathText from '@/components/MathText'
+import type { Question, QuestionWithSubject } from '@/lib/seletest/types'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyES,
@@ -36,26 +35,33 @@ const ALL_SUBJECTS = {
 function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
 
 export default function QuizPage() {
-  const [questions, setQuestions] = useState<Question[]>([])
+  const [questions, setQuestions] = useState<QuestionWithSubject[]>([])
+  const [subjectMap, setSubjectMap] = useState<Record<string, string>>({})
   const [idx, setIdx] = useState(0)
   const [chosen, setChosen] = useState<string | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
   const [finished, setFinished] = useState(false)
   const [isPremium, setIsPremium] = useState(false)
+  const [planLoaded, setPlanLoaded] = useState(false)
 
   useEffect(() => {
     // Construir pool inmediatamente desde localStorage
     try {
       const raw = localStorage.getItem('seletestPlan')
-      if (!raw) return
-      const { subjects, numQuestions, mixSubjects } = JSON.parse(raw)
-      let pool: Question[] = []
+      if (!raw) {
+        setPlanLoaded(true)
+        return
+      }
+      const { subjects = [], numQuestions, mixSubjects } = JSON.parse(raw)
+      const subjectDisplay: Record<string, string> = {}
+      let pool: QuestionWithSubject[] = []
       subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
         const subj = ALL_SUBJECTS[s.id]
         if (!subj) return
+        subjectDisplay[subj.id] = subj.name
         subj.topics.forEach((t) => {
           if (!s.topics.includes(t.id)) return
-          pool = pool.concat(t.questions)
+          pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
         })
       })
       // Fallback: si por cualquier motivo el filtrado por topic dejó vacío, usa todos los topics de los sujetos elegidos
@@ -63,7 +69,8 @@ export default function QuizPage() {
         subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
           const subj = ALL_SUBJECTS[s.id]
           if (!subj) return
-          subj.topics.forEach((t) => { pool = pool.concat(t.questions) })
+          subjectDisplay[subj.id] = subj.name
+          subj.topics.forEach((t) => { pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))) })
         })
       }
       // Usar hint de premium de localStorage para carga instantánea
@@ -73,17 +80,55 @@ export default function QuizPage() {
       // Respetar exactamente las preguntas solicitadas (ya limitadas en la pantalla previa)
       const desiredCount = typeof numQuestions === 'number' ? numQuestions : 1
       const cappedCount = Math.max(1, Math.min(desiredCount, pool.length))
-      const selectedPool = mixSubjects
-        ? shuffle(pool).slice(0, cappedCount)
-        : pool.slice(0, cappedCount)
-      setQuestions(selectedPool)
+
+      const perSubject = new Map<string, QuestionWithSubject[]>()
+      subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
+        const subj = ALL_SUBJECTS[s.id]
+        if (!subj) return
+        const subjectQuestions: QuestionWithSubject[] = []
+        subj.topics.forEach((t) => {
+          if (!s.topics.includes(t.id)) return
+          subjectQuestions.push(...t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
+        })
+        if (subjectQuestions.length === 0) {
+          subjectQuestions.push(...subj.topics.flatMap((t) => t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))))
+        }
+        if (subjectQuestions.length > 0) perSubject.set(subj.id, subjectQuestions)
+      })
+
+      const selection: QuestionWithSubject[] = []
+      if (mixSubjects) {
+        const subjectIds = Array.from(perSubject.keys())
+        const decks = subjectIds.map((sid) => shuffle(perSubject.get(sid) || []))
+        while (selection.length < cappedCount) {
+          const nextRound = decks
+            .map((deck, index) => ({ deck, index }))
+            .filter(({ deck }) => deck.length > 0)
+            .map(({ deck }) => deck.shift()!)
+          if (nextRound.length === 0) break
+          for (const item of nextRound) {
+            if (selection.length >= cappedCount) break
+            selection.push(item)
+          }
+        }
+      } else {
+        const subjectIds = Array.from(perSubject.keys())
+        if (subjectIds.length > 0) {
+          const target = shuffle(perSubject.get(subjectIds[0]) || [])
+          selection.push(...target.slice(0, cappedCount))
+        }
+      }
+
+      setQuestions(selection.slice(0, cappedCount))
+      setSubjectMap(subjectDisplay)
+      setPlanLoaded(true)
     } catch {}
 
     // Verificar premium en background con reintentos
     ;(async () => {
       let retryCount = 0;
       const maxRetries = 3;
-      const retryDelay = 1000; // 1 segundo entre reintentos
+      const retryDelay = 1000 // 1 segundo entre reintentos
 
       const checkPremiumStatus = async () => {
         const { data: auth } = await supabase.auth.getUser()
@@ -95,10 +140,10 @@ export default function QuizPage() {
           premium = !!data
           
           if (!premium && retryCount < maxRetries) {
-            retryCount++;
-            console.log(`Reintento ${retryCount} de verificación premium...`);
-            await new Promise(resolve => setTimeout(resolve, retryDelay));
-            return checkPremiumStatus();
+            retryCount++
+            console.log(`Reintento ${retryCount} de verificación premium...`)
+            await new Promise(resolve => setTimeout(resolve, retryDelay))
+            return checkPremiumStatus()
           }
         }
         
@@ -110,11 +155,13 @@ export default function QuizPage() {
     })()
   }, [])
 
-  const q = questions[idx]
+  const q = questions[idx] ?? null
   const total = questions.length
+  const showEmptyState = planLoaded && total === 0
 
   const next = () => {
-    if (q && chosen) {
+    if (!q) return
+    if (chosen) {
       const selected = q.options.find(o => o.id === chosen)
       if (selected?.isCorrect) setCorrectCount(c => c + 1)
     }
@@ -142,7 +189,20 @@ export default function QuizPage() {
             <div className="text-sm text-gray-600">Pregunta {Math.min(idx + 1, total)} de {total}</div>
           </div>
           <div className="rounded-2xl border bg-white p-6">
-            {finished ? (
+            {!planLoaded ? (
+              <div className="text-center py-20 text-gray-500">Cargando SeleTest…</div>
+            ) : showEmptyState ? (
+              <div className="text-center py-20 space-y-4">
+                <h1 className="text-2xl font-bold">Configura un plan para empezar</h1>
+                <p className="text-gray-600">No encontramos preguntas configuradas. Vuelve a SeleTest y selecciona tus asignaturas.</p>
+                <button
+                  className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-5 py-3"
+                  onClick={() => { window.location.href = '/madrid/seletest' }}
+                >
+                  Volver a SeleTest
+                </button>
+              </div>
+            ) : finished ? (
               <div className="text-center max-w-[700px] mx-auto">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFF3C4] flex items-center justify-center text-2xl">✨</div>
                 <h1 className="text-3xl font-extrabold mb-2">¡Test completado!</h1>
@@ -171,40 +231,52 @@ export default function QuizPage() {
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center">
-                <h1 className="text-3xl font-extrabold mb-4">
-                  {q.question}
-                  {q.questionType === 'math' && <MathText text={q.question} />}
-                </h1>
-                <div className="w-full max-w-[720px] mx-auto">
-                  {q.options.map((option) => (
-                    <button
-                      key={option.id}
-                      onClick={() => setChosen(option.id)}
-                      className={`w-full text-left p-4 mb-3 rounded-xl border transition-colors ${
-                        chosen === option.id
-                          ? option.isCorrect
-                            ? 'bg-green-500 text-white border-green-500'
-                            : 'bg-red-500 text-white border-red-500'
-                          : 'bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200'
-                      }`}
-                    >
-                      {option.option}
-                      {option.optionType === 'math' && <MathText text={option.option} />}
-                    </button>
-                  ))}
+              <div className="space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <h1 className="text-2xl font-extrabold"><MathText text={q.prompt} /></h1>
+                  <span className="inline-flex items-center gap-2 bg-[#FFF3C4] text-black/80 rounded-full px-3 py-1 text-xs font-medium border border-[#FFE08A]">
+                    <span aria-hidden>📚</span>
+                    {subjectMap[q.subjectId] || q.subjectName || 'SeleTest'}
+                  </span>
                 </div>
-                <button
-                  onClick={next}
-                  className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3 mt-6"
-                >
-                  {idx + 1 < total ? 'Siguiente pregunta' : 'Finalizar test'}
-                </button>
+                <div className="space-y-3">
+                  {q.options.map((opt) => {
+                    const isSelected = chosen === opt.id
+                    const correct = chosen && opt.isCorrect
+                    const incorrect = isSelected && !opt.isCorrect
+                    let cls = 'w-full text-left border rounded-xl px-4 py-4 hover:bg-gray-50'
+                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-green-50 border-green-300'
+                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-red-50 border-red-300'
+                    return (
+                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>
+                        <MathText text={opt.label} />
+                      </button>
+                    )
+                  })}
+                </div>
+                {chosen && (
+                  <div className="mt-2 text-sm text-gray-700">
+                    <p className="font-semibold mb-1">Explicación</p>
+                    <p><MathText text={q.explanation} /></p>
+                  </div>
+                )}
+                {/* Botón desktop */}
+                <div className="pt-4 hidden md:block">
+                  <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente pregunta</button>
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
+      {/* Barra fija móvil */}
+      {!finished && (
+        <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+          <div className="max-w-[1100px] mx-auto px-2">
+            <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente</button>
+          </div>
+        </div>
+      )}
       <Footer />
     </main>
   )

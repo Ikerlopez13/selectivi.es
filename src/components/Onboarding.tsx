@@ -1,6 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase/client'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 type Slide =
   | { kind: 'image'; src: string; alt: string }
@@ -20,30 +25,35 @@ export default function Onboarding() {
   const touchStartX = useRef<number | null>(null)
   const auto = useRef<NodeJS.Timeout | null>(null)
 
-  const goTo = (i: number) => {
+  const restartAuto = useCallback(() => {
+    if (auto.current) clearInterval(auto.current)
+    auto.current = setInterval(() => {
+      setIndex(prev => (prev + 1) % slides.length)
+    }, 5000)
+  }, [])
+
+  const goTo = useCallback((i: number) => {
     if (animating) return
     setAnimating(true)
-    const next = (i + slides.length) % slides.length
-    setIndex(next)
+    const nextIndex = (i + slides.length) % slides.length
+    setIndex(nextIndex)
     setTimeout(() => setAnimating(false), 320)
-  }
+    restartAuto()
+  }, [animating, restartAuto])
 
-  const next = () => goTo(index + 1)
-  const prev = () => goTo(index - 1)
+  const next = useCallback(() => goTo(index + 1), [goTo, index])
+  const prev = useCallback(() => goTo(index - 1), [goTo, index])
 
   useEffect(() => {
-    auto.current && clearInterval(auto.current)
-    auto.current = setInterval(() => {
-      next()
-    }, 5000)
+    restartAuto()
     return () => {
-      auto.current && clearInterval(auto.current)
+      if (auto.current) clearInterval(auto.current)
+      auto.current = null
     }
-  }, [index])
+  }, [restartAuto])
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX
-    auto.current && clearInterval(auto.current)
   }
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current == null) return
@@ -60,7 +70,7 @@ export default function Onboarding() {
       <div className="relative flex flex-col items-center">
         {/* Badge icono arriba */}
         <div className="absolute -top-7 z-10 bg-white rounded-2xl shadow p-2 border">
-          <img src="/images/logoo.svg" alt="selectiviES" className="w-8 h-8" />
+          <Image src="/images/logoo.svg" alt="selectiviES" width={32} height={32} className="w-8 h-8" />
         </div>
         {/* Cuerpo */}
         <div className="pt-10 rounded-2xl bg-white border border-black/5 shadow-xl overflow-hidden h-[640px] flex flex-col">
@@ -101,7 +111,7 @@ export default function Onboarding() {
                     <Card>
                       <div className="px-6 pb-8 flex flex-col h-full">
                         <div className={`flex items-center justify-center mt-2 mb-4 ${i === 1 ? 'h-[280px]' : 'h-[340px]'}`}>
-                          <img src={s.src} alt={s.alt} className={i === 1 ? 'max-h-[200px] w-auto' : 'max-h-full w-auto'} />
+                          <Image src={s.src} alt={s.alt} width={400} height={200} className={i === 1 ? 'max-h-[200px] w-auto' : 'max-h-full w-auto'} />
                         </div>
                         {i === 0 ? (
                           <>

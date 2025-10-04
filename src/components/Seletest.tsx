@@ -2,9 +2,16 @@
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
-import type { Subject } from '@/lib/seletest/types'
+import MathText from '@/components/MathText'
+import type { QuestionWithSubject, Subject } from '@/lib/seletest/types'
 
-export default function Seletest({ subject, isPremium }: { subject: Subject; isPremium: boolean }) {
+type SeletestProps = {
+  subject: Subject
+  isPremium: boolean
+  showSubjectBadge?: boolean
+}
+
+export default function Seletest({ subject, isPremium, showSubjectBadge = false }: SeletestProps) {
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null)
   const [qIndex, setQIndex] = useState(0)
   const [chosen, setChosen] = useState<string | null>(null)
@@ -13,8 +20,10 @@ export default function Seletest({ subject, isPremium }: { subject: Subject; isP
   const topic = useMemo(() => subject.topics.find(t => t.id === selectedTopicId) ?? null, [subject, selectedTopicId])
   const questions = useMemo(() => {
     if (!topic) return []
-    return topic.questions.filter(q => isPremium || q.tier === 'standard')
-  }, [topic, isPremium])
+    return topic.questions
+      .filter(q => isPremium || q.tier === 'standard')
+      .map((question) => ({ ...question, subjectId: subject.id, subjectName: subject.name } as QuestionWithSubject))
+  }, [topic, isPremium, subject.id, subject.name])
   const question = questions[qIndex]
 
   const selectTopic = (id: string) => {
@@ -57,10 +66,16 @@ export default function Seletest({ subject, isPremium }: { subject: Subject; isP
             <div className="m-auto text-gray-500">Selecciona un tema para empezar</div>
           ) : (
             <>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                 <div className="inline-flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1 text-sm">{qIndex + 1} / {questions.length}</div>
+                {showSubjectBadge && (
+                  <span className="inline-flex items-center gap-2 bg-[#FFF3C4] text-black/80 rounded-full px-3 py-1 text-xs font-medium border border-[#FFE08A]">
+                    <span aria-hidden>📚</span>
+                    {subject.name}
+                  </span>
+                )}
               </div>
-              <h2 className="text-xl font-bold mb-4">{question.prompt}</h2>
+              <h2 className="text-xl font-bold mb-4"><MathText text={question.prompt} /></h2>
               <div className="space-y-3">
                 {question.options.map(opt => {
                   const isSelected = chosen === opt.id
@@ -71,7 +86,7 @@ export default function Seletest({ subject, isPremium }: { subject: Subject; isP
                   if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-3 bg-red-50 border-red-300'
                   return (
                     <button key={opt.id} onClick={() => onSelectOption(opt.id)} className={cls}>
-                      {opt.label}
+                      <MathText text={opt.label} />
                     </button>
                   )
                 })}
@@ -79,7 +94,7 @@ export default function Seletest({ subject, isPremium }: { subject: Subject; isP
               {chosen && (
                 <div className="mt-4 text-sm text-gray-700">
                   <p className="font-semibold mb-1">Explicación</p>
-                  <p>{question.explanation}</p>
+                  <p><MathText text={question.explanation} /></p>
                 </div>
               )}
               <div className="mt-auto pt-6">

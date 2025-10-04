@@ -2,6 +2,7 @@
 
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
 import { historyES } from '@/lib/seletest/history'
@@ -114,7 +115,7 @@ export default function SeletestPage() {
     if (maxQuestions > 0 && numQuestions > maxQuestions) {
       setNumQuestions(maxQuestions)
     }
-  }, [maxQuestions])
+  }, [maxQuestions, numQuestions])
 
   const toggleSubject = (id: string) => {
     setSelectedSubjects(prev => {
@@ -278,7 +279,7 @@ export default function SeletestPage() {
           <div className="w-[calc(100vw-16px)] sm:max-w-[520px] bg-white rounded-2xl border shadow-2xl overflow-hidden h-[88vh] md:h-auto">
             <div className="p-5 h-full flex flex-col">
               <div className="flex justify-center mb-3">
-                <img src="/images/logoo.svg" alt="SelectiviES" width="36" height="36" />
+                <Image src="/images/logoo.svg" alt="SelectiviES" width={36} height={36} />
               </div>
               <div className="rounded-xl overflow-hidden mb-4">
                 <video src="/images/IMG_0109.mp4" autoPlay muted loop playsInline className="w-full h-64 md:h-60 object-cover" />

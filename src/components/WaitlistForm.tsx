@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { supabase } from '@/lib/supabase/client'
 
 const comunidades = [
@@ -77,7 +78,7 @@ export default function WaitlistForm({ source = 'madrid-premium' }: { source?: s
         </div>
       </form>
       <div className="order-1 md:order-2 hidden md:flex justify-end pointer-events-none select-none">
-        <img src="/images/gato.svg" alt="Mascota" className="w-[260px] h-auto pointer-events-none select-none" />
+        <Image src="/images/gato.svg" alt="Mascota" width={260} height={260} className="w-[260px] h-auto pointer-events-none select-none" />
       </div>
     </div>
   )
