@@ -25,9 +25,23 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
     }
   }, [])
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!hasSession) {
-      router.push('/madrid/login?next=/madrid/seletest')
+      try {
+        setLoading(true)
+        const origin = typeof window !== 'undefined' ? window.location.origin : ''
+        await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: origin ? `${origin}/madrid/auth/return?next=/madrid/seletest` : undefined,
+          },
+        })
+      } catch (error) {
+        console.error('OAuth error', error)
+        router.push('/madrid/login?next=/madrid/seletest')
+      } finally {
+        setLoading(false)
+      }
       return
     }
     router.push('/madrid/seletest')
