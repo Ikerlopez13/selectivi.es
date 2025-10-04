@@ -133,12 +133,20 @@ export default function DashboardPage() {
             <div className="bg-gray-100 rounded-2xl shadow p-8 text-center">
               <h2 className="text-2xl font-bold mb-2">Sube a Premium</h2>
               <p className="mb-6">Accede a todas las preguntas y funcionalidades exclusivas</p>
+              <div className="flex flex-col gap-3 items-center">
+                <Link
+                  href="/madrid/seletest"
+                  className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-xl font-medium border hover:bg-gray-50"
+                >
+                  Ir a SeleTest estándar
+                </Link>
               <Link 
                 href="/madrid/premium"
-                className="inline-block bg-[#FFB800] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#ffc835]"
+                  className="inline-block bg-[#FFB800] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#ffc835]"
               >
                 Ver planes Premium →
               </Link>
+              </div>
             </div>
 
             {/* Botón de cerrar sesión */}

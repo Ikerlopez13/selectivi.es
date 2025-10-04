@@ -43,6 +43,7 @@ export default function QuizPage() {
   const [finished, setFinished] = useState(false)
   const [isPremium, setIsPremium] = useState(false)
   const [planLoaded, setPlanLoaded] = useState(false)
+  const [showGate, setShowGate] = useState(false)
 
   useEffect(() => {
     // Construir pool inmediatamente desde localStorage
@@ -76,6 +77,7 @@ export default function QuizPage() {
       // Usar hint de premium de localStorage para carga instantánea
       const isPremiumHint = localStorage.getItem('es_premium') === '1'
       setIsPremium(isPremiumHint)
+      setShowGate(!isPremiumHint)
 
       // Respetar exactamente las preguntas solicitadas (ya limitadas en la pantalla previa)
       const desiredCount = typeof numQuestions === 'number' ? numQuestions : 1
@@ -148,6 +150,7 @@ export default function QuizPage() {
         }
         
         setIsPremium(premium)
+        if (!premium) setShowGate(true)
         try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
       }
 
@@ -191,6 +194,25 @@ export default function QuizPage() {
           <div className="rounded-2xl border bg-white p-6">
             {!planLoaded ? (
               <div className="text-center py-20 text-gray-500">Cargando SeleTest…</div>
+            ) : showGate && !isPremium ? (
+              <div className="text-center py-20 space-y-4">
+                <h1 className="text-2xl font-bold">Hazte Premium para seguir</h1>
+                <p className="text-gray-600">Las preguntas premium están bloqueadas para el plan estándar.</p>
+                <div className="flex flex-col gap-3 items-center">
+                  <a
+                    href="/madrid/premium"
+                    className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-5 py-3"
+                  >
+                    Ver planes premium
+                  </a>
+                  <button
+                    onClick={() => setShowGate(false)}
+                    className="inline-flex items-center justify-center px-5 py-3 border rounded-xl text-gray-700 hover:bg-gray-50"
+                  >
+                    Seguir con Standard
+                  </button>
+                </div>
+              </div>
             ) : showEmptyState ? (
               <div className="text-center py-20 space-y-4">
                 <h1 className="text-2xl font-bold">Configura un plan para empezar</h1>
@@ -228,6 +250,12 @@ export default function QuizPage() {
                     Compartir por WhatsApp
                   </a>
                   <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Volver a empezar</button>
+                  <a
+                    href="/madrid/seletest"
+                    className="inline-flex items-center justify-center border rounded-xl py-3 font-semibold text-gray-700 hover:bg-gray-50"
+                  >
+                    Configurar nuevo test
+                  </a>
                 </div>
               </div>
             ) : (
@@ -261,8 +289,16 @@ export default function QuizPage() {
                   </div>
                 )}
                 {/* Botón desktop */}
-                <div className="pt-4 hidden md:block">
-                  <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente pregunta</button>
+                <div className="pt-4 hidden md:flex gap-3">
+                  <button onClick={next} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
+                    {idx + 1 < total ? 'Siguiente pregunta' : 'Finalizar test'}
+                  </button>
+                  <a
+                    href="/madrid/seletest"
+                    className="inline-flex items-center justify-center px-4 py-3 font-semibold rounded-xl border bg-white text-gray-700 hover:bg-gray-50"
+                  >
+                    Ver SeleTest
+                  </a>
                 </div>
               </div>
             )}
@@ -270,13 +306,25 @@ export default function QuizPage() {
         </div>
       </section>
       {/* Barra fija móvil */}
-      {!finished && (
-        <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-          <div className="max-w-[1100px] mx-auto px-2">
-            <button onClick={next} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Siguiente</button>
-          </div>
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+        <div className="max-w-[1100px] mx-auto px-2 flex gap-2">
+          {!finished ? (
+            <button onClick={next} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
+              {idx + 1 < total ? 'Siguiente' : 'Finalizar'}
+            </button>
+          ) : (
+            <button onClick={restart} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
+              Volver a empezar
+            </button>
+          )}
+          <a
+            href="/madrid/seletest"
+            className="inline-flex items-center justify-center px-4 py-3 font-semibold rounded-xl border bg-white text-gray-700 hover:bg-gray-50"
+          >
+            SeleTest
+          </a>
         </div>
-      )}
+      </div>
       <Footer />
     </main>
   )
