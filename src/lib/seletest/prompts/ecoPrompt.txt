@@ -1,0 +1,121 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Economía de la Empresa, adaptadas al currículo de la Comunidad de Madrid.
+
+con el siguiente formato JSON 
+{
+      id: 'concepto-funciones',
+      title: 'Concepto de empresa y funciones',
+      questions: [
+        {
+          id: 'bus-con-q1',
+          tier: 'standard',
+          prompt: 'El objetivo central de la empresa es generar valor para sus propietarios y partes interesadas.',
+          options: [
+            { id: 'a', label: 'Verdadero', isCorrect: true },
+            { id: 'b', label: 'Falso', isCorrect: false },
+            { id: 'c', label: 'Depende', isCorrect: false },
+            { id: 'd', label: 'Ninguno', isCorrect: false },
+          ],
+          explanation: 'La creación de valor reside en aportar beneficios a diversos actores.'
+        }
+      ]
+    },
+
+    empresa-entorno → bus-emp-q1, bus-emp-q2, entorno-q1…entorno-q5
+concepto-funciones → bus-con-q1, funciones-q1…funciones-q5
+produccion-costes → bus-pro-q1, bus-pro-q2
+marketing → bus-mkt-q1, marketing-q1…marketing-q5
+financiacion → bus-fin-q1, bus-fin-q2
+contabilidad → bus-cont-q1
+crecimiento-desarrollo → bus-crec-q1, bus-crec-q2
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+La empresa y su entorno
+
+Concepto de empresa y funciones.
+
+Tipos de empresas según distintos criterios.
+
+Responsabilidad social corporativa y objetivos empresariales.
+
+Organización y dirección
+4. Funciones del directivo.
+5. Liderazgo, estilos de dirección y motivación.
+6. Estructuras organizativas.
+
+Producción y costes
+7. Proceso productivo y eficiencia.
+8. Productividad, costes y umbral de rentabilidad.
+
+Marketing
+9. Concepto de marketing.
+10. Investigación de mercados.
+11. Estrategias de producto, precio, distribución y comunicación.
+
+Recursos humanos
+12. Selección y formación de personal.
+13. Motivación, incentivos y relaciones laborales.
+
+Financiación e inversión
+14. Fuentes de financiación internas y externas.
+15. Análisis de inversiones: VAN, TIR y plazo de recuperación.
+16. Plan de financiación y autofinanciación.
+
+Contabilidad y análisis económico-financiero
+17. Concepto y objetivos de la contabilidad.
+18. Masas patrimoniales: activo, pasivo y patrimonio neto.
+19. Cuenta de pérdidas y ganancias, balance de situación.
+20. Ratios económicos y financieros.
+
+Crecimiento y desarrollo de la empresa
+21. Estrategias de crecimiento interno y externo.
+22. Fusiones, adquisiciones y concentración empresarial.
+23. Internacionalización y globalización.
+
+Cada pregunta debe incluir:
+
+Enunciado claro.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máximo 3 líneas).
+
+Si aparece alguna fórmula matemática o financiera, exprésala siempre en formato LaTeX (por ejemplo: 
+𝑉
+𝐴
+𝑁
+=
+∑
+𝐹
+𝑡
+(
+1
++
+𝑖
+)
+𝑡
+−
+𝐼
+0
+VAN=∑
+(1+i)
+t
+F
+t
+	​
+
+	​
+
+−I
+0
+	​
+
+).
+
+Distribuye las preguntas de manera equilibrada: al menos 4-5 por cada bloque temático, asegurando que los más importantes para la EvAU (financiación, inversión, marketing y contabilidad) tengan mayor presencia.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (no siempre A o B, también C y D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

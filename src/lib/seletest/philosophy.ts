@@ -132,6 +132,126 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'Conocimiento verdadero de las Ideas', isCorrect: true },
         { id: 'd', label: 'Solo percepción sensible', isCorrect: false },
       ], explanation: 'El conocimiento verdadero es el que alcanza las Ideas, no las sombras.' },
+      {
+        id: 'platon-q01',
+        tier: 'standard',
+        prompt: 'Según Platón, ¿qué relación existe entre el mundo sensible y el mundo inteligible?',
+        options: [
+          { id: 'a', label: 'El mundo sensible es una copia imperfecta del mundo de las Ideas', isCorrect: true },
+          { id: 'b', label: 'Ambos mundos son independientes y no se relacionan entre sí', isCorrect: false },
+          { id: 'c', label: 'El mundo inteligible es una abstracción del mundo sensible', isCorrect: false },
+          { id: 'd', label: 'El mundo sensible es superior al mundo inteligible', isCorrect: false }
+        ],
+        explanation: 'El mundo sensible imita de forma imperfecta al mundo inteligible, donde se encuentran las Ideas eternas.'
+      },
+      {
+        id: 'platon-q02',
+        tier: 'standard',
+        prompt: 'En el mito de la caverna, ¿qué representa el proceso de salida del prisionero hacia el exterior?',
+        options: [
+          { id: 'a', label: 'La muerte física del individuo', isCorrect: false },
+          { id: 'b', label: 'El ascenso del alma hacia el conocimiento verdadero', isCorrect: true },
+          { id: 'c', label: 'El rechazo de la filosofía', isCorrect: false },
+          { id: 'd', label: 'La aceptación de la realidad sensible como única verdad', isCorrect: false }
+        ],
+        explanation: 'El viaje del prisionero simboliza la liberación de la ignorancia mediante la dialéctica y la contemplación de las Ideas.'
+      },
+      {
+        id: 'platon-q03',
+        tier: 'standard',
+        prompt: '¿Qué tipo de conocimiento proporciona la doxa según Platón?',
+        options: [
+          { id: 'a', label: 'Conocimiento científico y universal', isCorrect: false },
+          { id: 'b', label: 'Conocimiento intuitivo de las Ideas', isCorrect: false },
+          { id: 'c', label: 'Opinión basada en lo sensible, cambiante e imperfecto', isCorrect: true },
+          { id: 'd', label: 'Conocimiento matemático puro', isCorrect: false }
+        ],
+        explanation: 'La doxa es una opinión cambiante referida al mundo sensible, inferior al conocimiento de las Ideas.'
+      },
+      {
+        id: 'platon-q04',
+        tier: 'standard',
+        prompt: 'Según Platón, ¿qué caracteriza a los gobernantes-filósofos en la ciudad ideal?',
+        options: [
+          { id: 'a', label: 'Poseen riquezas materiales para gobernar con autoridad', isCorrect: false },
+          { id: 'b', label: 'Han contemplado la Idea de Bien y poseen sabiduría', isCorrect: true },
+          { id: 'c', label: 'Son elegidos democráticamente por el pueblo', isCorrect: false },
+          { id: 'd', label: 'Provienen exclusivamente de familias nobles', isCorrect: false }
+        ],
+        explanation: 'Solo quienes conocen la Idea de Bien están capacitados para gobernar con justicia.'
+      },
+      {
+        id: 'platon-q05',
+        tier: 'standard',
+        prompt: '¿Qué papel juega la reminiscencia (anamnesis) en la teoría del conocimiento platónica?',
+        options: [
+          { id: 'a', label: 'Es el olvido total de las experiencias pasadas', isCorrect: false },
+          { id: 'b', label: 'Es el recuerdo de las Ideas contempladas por el alma antes de encarnarse', isCorrect: true },
+          { id: 'c', label: 'Es la memorización de datos empíricos', isCorrect: false },
+          { id: 'd', label: 'Es la capacidad de crear nuevas ideas', isCorrect: false }
+        ],
+        explanation: 'La anamnesis explica cómo el alma recuerda las Ideas eternas que conoció antes de unirse al cuerpo.'
+      },
+      {
+        id: 'platon-q01',
+        tier: 'standard',
+        prompt: 'Según Platón, ¿qué relación existe entre el mundo sensible y el mundo inteligible?',
+        options: [
+          { id: 'a', label: 'El mundo sensible es una copia imperfecta del mundo de las Ideas', isCorrect: true },
+          { id: 'b', label: 'Ambos mundos son independientes y no se relacionan entre sí', isCorrect: false },
+          { id: 'c', label: 'El mundo inteligible es una abstracción del mundo sensible', isCorrect: false },
+          { id: 'd', label: 'El mundo sensible es superior al mundo inteligible', isCorrect: false }
+        ],
+        explanation: 'Para Platón, el mundo sensible es una imitación imperfecta del mundo inteligible, donde residen las Ideas eternas y perfectas.'
+      },
+      {
+        id: 'platon-q02',
+        tier: 'standard',
+        prompt: 'En el mito de la caverna, ¿qué representa el proceso de salida del prisionero hacia el exterior?',
+        options: [
+          { id: 'a', label: 'La muerte física del individuo', isCorrect: false },
+          { id: 'b', label: 'El ascenso del alma hacia el conocimiento verdadero', isCorrect: true },
+          { id: 'c', label: 'El rechazo de la filosofía', isCorrect: false },
+          { id: 'd', label: 'La aceptación de la realidad sensible como única verdad', isCorrect: false }
+        ],
+        explanation: 'La salida de la caverna simboliza el proceso dialéctico de ascenso del alma desde la ignorancia hacia el conocimiento de las Ideas.'
+      },
+      {
+        id: 'platon-q03',
+        tier: 'standard',
+        prompt: '¿Qué tipo de conocimiento proporciona la doxa según Platón?',
+        options: [
+          { id: 'a', label: 'Conocimiento científico y universal', isCorrect: false },
+          { id: 'b', label: 'Conocimiento intuitivo de las Ideas', isCorrect: false },
+          { id: 'c', label: 'Opinión basada en lo sensible, cambiante e imperfecto', isCorrect: true },
+          { id: 'd', label: 'Conocimiento matemático puro', isCorrect: false }
+        ],
+        explanation: 'La doxa es opinión, un conocimiento inferior referido al mundo sensible, que no alcanza la verdad absoluta de las Ideas.'
+      },
+      {
+        id: 'platon-q04',
+        tier: 'standard',
+        prompt: 'Según Platón, ¿qué caracteriza a los gobernantes-filósofos en la ciudad ideal?',
+        options: [
+          { id: 'a', label: 'Poseen riquezas materiales para gobernar con autoridad', isCorrect: false },
+          { id: 'b', label: 'Han contemplado la Idea de Bien y poseen sabiduría', isCorrect: true },
+          { id: 'c', label: 'Son elegidos democráticamente por el pueblo', isCorrect: false },
+          { id: 'd', label: 'Provienen exclusivamente de familias nobles', isCorrect: false }
+        ],
+        explanation: 'Los gobernantes-filósofos han alcanzado el conocimiento de las Ideas, especialmente del Bien, lo que les capacita para gobernar.'
+      },
+      {
+        id: 'platon-q05',
+        tier: 'standard',
+        prompt: '¿Qué papel juega la reminiscencia (anamnesis) en la teoría del conocimiento platónica?',
+        options: [
+          { id: 'a', label: 'Es el olvido total de las experiencias pasadas', isCorrect: false },
+          { id: 'b', label: 'Es el recuerdo de las Ideas contempladas por el alma antes de encarnarse', isCorrect: true },
+          { id: 'c', label: 'Es la memorización de datos empíricos', isCorrect: false },
+          { id: 'd', label: 'Es la capacidad de crear nuevas ideas', isCorrect: false }
+        ],
+        explanation: 'La anamnesis es el proceso por el cual el alma recuerda las Ideas que contempló antes de unirse al cuerpo.'
+      },
     ] },
     { id: 'aristoteles', title: 'Aristóteles: metafísica, ética y política.', questions: [
       { id: 'aristoteles-q1', tier: 'standard', prompt: 'Para Aristóteles, la sustancia es...', options: [
@@ -248,6 +368,78 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'La riqueza', isCorrect: false },
         { id: 'd', label: 'La gloria', isCorrect: false },
       ], explanation: 'La eudaimonía se consigue mediante la unión de virtud y razonamiento práctico.' },
+      {
+        id: 'aristoteles-q01',
+        tier: 'standard',
+        prompt: '¿Qué entiende Aristóteles por sustancia primera?',
+        options: [
+          { id: 'a', label: 'La forma universal separada de la materia', isCorrect: false },
+          { id: 'b', label: 'El individuo concreto, compuesto de materia y forma', isCorrect: true },
+          { id: 'c', label: 'La materia indeterminada sin forma alguna', isCorrect: false },
+          { id: 'd', label: 'Las categorías lógicas universales', isCorrect: false }
+        ],
+        explanation: 'La sustancia primera es el individuo concreto (sínolo) resultante de la unión hilemórfica de materia y forma.'
+      },
+      {
+        id: 'aristoteles-q02',
+        tier: 'standard',
+        prompt: '¿Cuáles son las cuatro causas según Aristóteles?',
+        options: [
+          { id: 'a', label: 'Material, formal, eficiente y final', isCorrect: true },
+          { id: 'b', label: 'Sustancial, accidental, potencial y actual', isCorrect: false },
+          { id: 'c', label: 'Física, metafísica, lógica y ética', isCorrect: false },
+          { id: 'd', label: 'Sensible, inteligible, divina y humana', isCorrect: false }
+        ],
+        explanation: 'El análisis causal aristotélico distingue causa material, formal, eficiente y final.'
+      },
+      {
+        id: 'aristoteles-q03',
+        tier: 'standard',
+        prompt: 'Según Aristóteles, ¿qué es el acto puro?',
+        options: [
+          { id: 'a', label: 'La materia prima sin forma', isCorrect: false },
+          { id: 'b', label: 'El movimiento perpetuo del cosmos', isCorrect: false },
+          { id: 'c', label: 'Dios como pensamiento que se piensa a sí mismo, sin potencialidad', isCorrect: true },
+          { id: 'd', label: 'El alma humana en su estado perfecto', isCorrect: false }
+        ],
+        explanation: 'El acto puro es el Motor Inmóvil, pensamiento pensándose a sí mismo que mueve como causa final sin recibir movimiento.'
+      },
+      {
+        id: 'aristoteles-q04',
+        tier: 'standard',
+        prompt: '¿En qué consiste la virtud ética según Aristóteles?',
+        options: [
+          { id: 'a', label: 'En seguir normas morales absolutas e innatas', isCorrect: false },
+          { id: 'b', label: 'En el término medio entre dos extremos viciosos', isCorrect: true },
+          { id: 'c', label: 'En la contemplación pura de las Ideas', isCorrect: false },
+          { id: 'd', label: 'En el placer moderado y la ausencia de dolor', isCorrect: false }
+        ],
+        explanation: 'La virtud ética es un hábito adquirido que elige el justo medio relativo a nosotros entre exceso y defecto.'
+      },
+      {
+        id: 'aristoteles-q05',
+        tier: 'standard',
+        prompt: '¿Qué tipo de gobierno considera Aristóteles como el más conveniente en la práctica?',
+        options: [
+          { id: 'a', label: 'La monarquía absoluta', isCorrect: false },
+          { id: 'b', label: 'La democracia directa sin restricciones', isCorrect: false },
+          { id: 'c', label: 'La politeia o república mixta', isCorrect: true },
+          { id: 'd', label: 'La aristocracia hereditaria', isCorrect: false }
+        ],
+        explanation: 'Aristóteles defiende la politeia como régimen mixto sustentado en una amplia clase media.'
+      },
+      {
+        id: 'aristoteles-q06',
+        tier: 'standard',
+        prompt: '¿Qué relación establece Aristóteles entre potencia y acto?',
+        options: [
+          { id: 'a', label: 'Son realidades completamente separadas e independientes', isCorrect: false },
+          { id: 'b', label: 'El acto es la realización de lo que está en potencia', isCorrect: true },
+          { id: 'c', label: 'La potencia es superior al acto', isCorrect: false },
+          { id: 'd', label: 'Solo existe el acto; la potencia es una ilusión', isCorrect: false }
+        ],
+        explanation: 'Potencia y acto describen la actualización: el movimiento es el paso de la potencia al acto.'
+      },
     ] },
 
     // Filosofía Medieval
@@ -336,6 +528,54 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'La revelación sin historia', isCorrect: false },
         { id: 'd', label: 'Un destino ya escrito', isCorrect: false },
       ], explanation: 'La historia es la lucha entre dos ciudades: la de Dios y la terrena.' },
+      {
+        id: 'sanagustin-q01',
+        tier: 'standard',
+        prompt: 'Según San Agustín, ¿dónde debe buscar el ser humano la verdad?',
+        options: [
+          { id: 'a', label: 'En la experiencia sensible externa', isCorrect: false },
+          { id: 'b', label: 'En la interioridad del alma, donde habita Dios', isCorrect: true },
+          { id: 'c', label: 'En las estructuras lógicas de la razón pura', isCorrect: false },
+          { id: 'd', label: 'En el consenso social y las tradiciones', isCorrect: false }
+        ],
+        explanation: 'La verdad se halla en el interior del alma iluminada por Dios, no en lo meramente sensible.'
+      },
+      {
+        id: 'sanagustin-q02',
+        tier: 'standard',
+        prompt: '¿Cómo resuelve San Agustín el problema del mal en el mundo?',
+        options: [
+          { id: 'a', label: 'El mal es una sustancia creada por un dios maligno', isCorrect: false },
+          { id: 'b', label: 'El mal no tiene existencia propia, es ausencia de bien', isCorrect: true },
+          { id: 'c', label: 'El mal es necesario para el equilibrio cósmico', isCorrect: false },
+          { id: 'd', label: 'Dios es responsable directo del mal', isCorrect: false }
+        ],
+        explanation: 'El mal es privación de bien; no posee entidad positiva, sino que surge de la libertad creada.'
+      },
+      {
+        id: 'sanagustin-q03',
+        tier: 'standard',
+        prompt: '¿Qué relación establece San Agustín entre fe y razón?',
+        options: [
+          { id: 'a', label: 'Son completamente incompatibles y opuestas', isCorrect: false },
+          { id: 'b', label: 'La razón es suficiente sin necesidad de fe', isCorrect: false },
+          { id: 'c', label: 'La fe busca comprender y la razón necesita la fe para verdades superiores', isCorrect: true },
+          { id: 'd', label: 'La fe anula el uso de la razón', isCorrect: false }
+        ],
+        explanation: 'Credo ut intelligam: la fe impulsa a la razón, y la razón ilumina la fe.'
+      },
+      {
+        id: 'sanagustin-q04',
+        tier: 'standard',
+        prompt: 'En la filosofía de San Agustín, ¿qué papel tiene el tiempo?',
+        options: [
+          { id: 'a', label: 'El tiempo es eterno y no fue creado', isCorrect: false },
+          { id: 'b', label: 'El tiempo es una distensión del alma y creado junto al mundo', isCorrect: true },
+          { id: 'c', label: 'El tiempo es una medida objetiva independiente de la conciencia', isCorrect: false },
+          { id: 'd', label: 'El tiempo es una ilusión sin realidad', isCorrect: false }
+        ],
+        explanation: 'El tiempo surge con la creación y se experimenta como distensión del alma (memoria, atención, expectativa).'
+      },
     ] },
     { id: 'santo-tomas', title: 'Santo Tomás de Aquino: escolástica, relación entre fe y razón.', questions: [
       { id: 'tomas-q1', tier: 'standard', prompt: 'En Tomás de Aquino, la relación entre fe y razón es...', options: [
@@ -428,6 +668,42 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'La razón puede demostrar a Dios a través de sus pruebas naturales', isCorrect: true },
         { id: 'd', label: 'La existencia de Dios es una opinión', isCorrect: false },
       ], explanation: 'Tomás presenta cinco vías que demuestran la existencia de Dios mediante la razón.' },
+      {
+        id: 'santotomas-q01',
+        tier: 'standard',
+        prompt: '¿Cómo concibe Santo Tomás de Aquino la relación entre fe y razón?',
+        options: [
+          { id: 'a', label: 'La fe y la razón son contradictorias entre sí', isCorrect: false },
+          { id: 'b', label: 'Son autónomas pero armónicas, no pueden contradecirse', isCorrect: true },
+          { id: 'c', label: 'La razón es superior a la fe', isCorrect: false },
+          { id: 'd', label: 'La fe debe rechazar todo uso de la razón', isCorrect: false }
+        ],
+        explanation: 'Fe y razón son distintas pero compatibles: la verdad no puede contradecirse a sí misma.'
+      },
+      {
+        id: 'santotomas-q02',
+        tier: 'standard',
+        prompt: '¿Cuál es el punto de partida de las cinco vías tomistas para demostrar la existencia de Dios?',
+        options: [
+          { id: 'a', label: 'La idea innata de Dios en la mente humana', isCorrect: false },
+          { id: 'b', label: 'La experiencia sensible del mundo', isCorrect: true },
+          { id: 'c', label: 'La pura intuición intelectual', isCorrect: false },
+          { id: 'd', label: 'La revelación bíblica exclusivamente', isCorrect: false }
+        ],
+        explanation: 'Las vías son argumentos a posteriori que parten del mundo sensible para llegar a Dios.'
+      },
+      {
+        id: 'santotomas-q03',
+        tier: 'standard',
+        prompt: 'Según Santo Tomás, ¿qué distingue la esencia de la existencia?',
+        options: [
+          { id: 'a', label: 'En Dios esencia y existencia se identifican; en las criaturas se distinguen', isCorrect: true },
+          { id: 'b', label: 'En todos los seres esencia y existencia son idénticas', isCorrect: false },
+          { id: 'c', label: 'La existencia es una ilusión, solo existe la esencia', isCorrect: false },
+          { id: 'd', label: 'No existe distinción real entre esencia y existencia', isCorrect: false }
+        ],
+        explanation: 'Solo en Dios esencia y existencia coinciden; en los seres creados se distinguen realmente.'
+      },
     ] },
 
     // Filosofía Moderna
@@ -528,6 +804,66 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'Kant', isCorrect: false },
         { id: 'd', label: 'Spinoza', isCorrect: false },
       ], explanation: 'Descartes propone ideas claras y distintas como criterio de verdad.' },
+      {
+        id: 'descartes-q01',
+        tier: 'standard',
+        prompt: '¿Cuál es el objetivo de la duda metódica cartesiana?',
+        options: [
+          { id: 'a', label: 'Demostrar que no existe ninguna certeza posible', isCorrect: false },
+          { id: 'b', label: 'Alcanzar un fundamento indudable para el conocimiento', isCorrect: true },
+          { id: 'c', label: 'Rechazar definitivamente todo conocimiento sensible', isCorrect: false },
+          { id: 'd', label: 'Justificar el escepticismo radical', isCorrect: false }
+        ],
+        explanation: 'La duda es un procedimiento provisional para eliminar lo dudoso y descubrir una verdad absolutamente cierta.'
+      },
+      {
+        id: 'descartes-q02',
+        tier: 'standard',
+        prompt: '¿Qué significa el cogito ergo sum cartesiano?',
+        options: [
+          { id: 'a', label: 'El cuerpo existe independientemente del pensamiento', isCorrect: false },
+          { id: 'b', label: 'La existencia del yo pensante es la primera certeza indudable', isCorrect: true },
+          { id: 'c', label: 'El pensamiento es una ilusión de los sentidos', isCorrect: false },
+          { id: 'd', label: 'Solo existe el pensamiento, no el sujeto que piensa', isCorrect: false }
+        ],
+        explanation: 'El acto de pensar prueba la existencia del sujeto pensante incluso cuando todo lo demás se pone en duda.'
+      },
+      {
+        id: 'descartes-q03',
+        tier: 'standard',
+        prompt: 'Según Descartes, ¿qué garantiza la correspondencia entre nuestras ideas claras y distintas y la realidad?',
+        options: [
+          { id: 'a', label: 'La verificación experimental constante', isCorrect: false },
+          { id: 'b', label: 'La existencia de un Dios veraz que no nos engaña', isCorrect: true },
+          { id: 'c', label: 'El consenso de la comunidad científica', isCorrect: false },
+          { id: 'd', label: 'La coherencia lógica interna de las ideas', isCorrect: false }
+        ],
+        explanation: 'La garantía última del conocimiento reside en un Dios perfecto, incapaz de engañar a las criaturas.'
+      },
+      {
+        id: 'descartes-q04',
+        tier: 'standard',
+        prompt: '¿Qué son las ideas innatas según Descartes?',
+        options: [
+          { id: 'a', label: 'Ideas formadas a partir de la experiencia sensible', isCorrect: false },
+          { id: 'b', label: 'Ideas que el entendimiento posee por su propia naturaleza', isCorrect: true },
+          { id: 'c', label: 'Ideas creadas arbitrariamente por la imaginación', isCorrect: false },
+          { id: 'd', label: 'Ideas transmitidas culturalmente', isCorrect: false }
+        ],
+        explanation: 'Las ideas innatas pertenecen al entendimiento por naturaleza, como la idea de Dios o las nociones matemáticas.'
+      },
+      {
+        id: 'descartes-q05',
+        tier: 'standard',
+        prompt: '¿Cómo explica Descartes la relación entre mente y cuerpo?',
+        options: [
+          { id: 'a', label: 'Son una única sustancia indivisible', isCorrect: false },
+          { id: 'b', label: 'Son dos sustancias distintas unidas en la glándula pineal', isCorrect: true },
+          { id: 'c', label: 'El cuerpo es una ilusión de la mente', isCorrect: false },
+          { id: 'd', label: 'La mente es producto del funcionamiento cerebral', isCorrect: false }
+        ],
+        explanation: 'El dualismo cartesiano distingue res cogitans y res extensa, que interactúan a través de la glándula pineal.'
+      },
     ] },
     { id: 'hume', title: 'Hume: empirismo, crítica a la causalidad.', questions: [
       { id: 'hume-q1', tier: 'standard', prompt: 'Para Hume, la causalidad se funda en...', options: [
@@ -614,6 +950,54 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'La revelación divina', isCorrect: false },
         { id: 'd', label: 'El utilitarismo', isCorrect: false },
       ], explanation: 'La moral emana de los sentimientos y la simpatía.' },
+      {
+        id: 'hume-q01',
+        tier: 'standard',
+        prompt: 'Según Hume, ¿cuál es el origen de todas nuestras ideas?',
+        options: [
+          { id: 'a', label: 'Las impresiones sensibles y la experiencia', isCorrect: true },
+          { id: 'b', label: 'Ideas innatas presentes desde el nacimiento', isCorrect: false },
+          { id: 'c', label: 'La razón pura independiente de la experiencia', isCorrect: false },
+          { id: 'd', label: 'La revelación divina', isCorrect: false }
+        ],
+        explanation: 'Todas las ideas son copias debilitadas de impresiones sensibles previas.'
+      },
+      {
+        id: 'hume-q02',
+        tier: 'standard',
+        prompt: '¿Qué crítica hace Hume al principio de causalidad?',
+        options: [
+          { id: 'a', label: 'La causalidad es una conexión necesaria demostrable racionalmente', isCorrect: false },
+          { id: 'b', label: 'La causalidad es solo una asociación mental basada en la costumbre', isCorrect: true },
+          { id: 'c', label: 'La causalidad es una verdad matemática evidente', isCorrect: false },
+          { id: 'd', label: 'La causalidad solo existe en el mundo físico', isCorrect: false }
+        ],
+        explanation: 'La relación causal no se observa; la mente la proyecta tras percibir repeticiones.'
+      },
+      {
+        id: 'hume-q03',
+        tier: 'standard',
+        prompt: '¿Qué distingue Hume entre relaciones de ideas y cuestiones de hecho?',
+        options: [
+          { id: 'a', label: 'Las relaciones de ideas son empíricas; las cuestiones de hecho son lógicas', isCorrect: false },
+          { id: 'b', label: 'Las relaciones de ideas son necesarias y a priori; las cuestiones de hecho son contingentes y a posteriori', isCorrect: true },
+          { id: 'c', label: 'Ambas son igualmente ciertas y demostrables', isCorrect: false },
+          { id: 'd', label: 'Ambas dependen exclusivamente de la experiencia', isCorrect: false }
+        ],
+        explanation: 'Las relaciones de ideas se descubren por simple análisis; las cuestiones de hecho requieren experiencia.'
+      },
+      {
+        id: 'hume-q04',
+        tier: 'standard',
+        prompt: '¿Qué concepción tiene Hume del yo o identidad personal?',
+        options: [
+          { id: 'a', label: 'El yo es una sustancia permanente e inmutable', isCorrect: false },
+          { id: 'b', label: 'El yo es un haz de percepciones cambiantes sin sustrato permanente', isCorrect: true },
+          { id: 'c', label: 'El yo es una idea innata evidente por sí misma', isCorrect: false },
+          { id: 'd', label: 'El yo es creado por Dios', isCorrect: false }
+        ],
+        explanation: 'No encontramos un yo estable sino una sucesión de impresiones relacionadas por la imaginación.'
+      },
     ] },
     { id: 'kant', title: 'Kant: criticismo, revolución copernicana, ética del deber.', questions: [
       { id: 'kant-q1', tier: 'standard', prompt: 'La revolución copernicana de Kant sostiene que...', options: [
@@ -742,6 +1126,66 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'la experiencia sensorial no estructurada', isCorrect: false },
         { id: 'd', label: 'la fe', isCorrect: false },
       ], explanation: 'Espacio y tiempo como condiciones a priori.' },
+      {
+        id: 'kant-q01',
+        tier: 'standard',
+        prompt: '¿En qué consiste la revolución copernicana de Kant en el conocimiento?',
+        options: [
+          { id: 'a', label: 'El sujeto se adapta pasivamente a los objetos', isCorrect: false },
+          { id: 'b', label: 'Los objetos se conforman a las estructuras a priori del sujeto', isCorrect: true },
+          { id: 'c', label: 'El conocimiento procede únicamente de la experiencia', isCorrect: false },
+          { id: 'd', label: 'La razón puede conocer las cosas en sí mismas', isCorrect: false }
+        ],
+        explanation: 'El sujeto aporta formas y categorías que estructuran los fenómenos, invirtiendo el enfoque tradicional.'
+      },
+      {
+        id: 'kant-q02',
+        tier: 'standard',
+        prompt: '¿Qué son los juicios sintéticos a priori según Kant?',
+        options: [
+          { id: 'a', label: 'Juicios que dependen únicamente de la experiencia', isCorrect: false },
+          { id: 'b', label: 'Juicios universales y necesarios que amplían el conocimiento', isCorrect: true },
+          { id: 'c', label: 'Juicios analíticos que no aportan información nueva', isCorrect: false },
+          { id: 'd', label: 'Juicios imposibles en la filosofía kantiana', isCorrect: false }
+        ],
+        explanation: 'Constituyen el fundamento de las ciencias al ser necesarios y extensivos sin apelar a la experiencia.'
+      },
+      {
+        id: 'kant-q03',
+        tier: 'standard',
+        prompt: 'Según Kant, ¿qué son los noúmenos?',
+        options: [
+          { id: 'a', label: 'Los objetos tal como los percibimos a través de los sentidos', isCorrect: false },
+          { id: 'b', label: 'Las cosas en sí, incognoscibles para la razón teórica', isCorrect: true },
+          { id: 'c', label: 'Las categorías del entendimiento', isCorrect: false },
+          { id: 'd', label: 'Los principios morales universales', isCorrect: false }
+        ],
+        explanation: 'Lo en sí trasciende la experiencia posible y permanece fuera del alcance del conocimiento teórico.'
+      },
+      {
+        id: 'kant-q04',
+        tier: 'standard',
+        prompt: '¿En qué consiste el imperativo categórico kantiano?',
+        options: [
+          { id: 'a', label: 'Actuar según mandatos condicionados a fines particulares', isCorrect: false },
+          { id: 'b', label: 'Actuar según una máxima que pueda ser ley universal', isCorrect: true },
+          { id: 'c', label: 'Buscar la felicidad personal como fin último', isCorrect: false },
+          { id: 'd', label: 'Obedecer las leyes del Estado', isCorrect: false }
+        ],
+        explanation: 'Manda obrar solo de acuerdo con máximas susceptibles de universalización.'
+      },
+      {
+        id: 'kant-q05',
+        tier: 'standard',
+        prompt: '¿Qué papel juega la libertad en la ética kantiana?',
+        options: [
+          { id: 'a', label: 'Es la capacidad de elegir según los deseos', isCorrect: false },
+          { id: 'b', label: 'Es la autonomía de la voluntad para darse la ley moral', isCorrect: true },
+          { id: 'c', label: 'Es la ausencia de leyes y normas', isCorrect: false },
+          { id: 'd', label: 'Es irrelevante para la moralidad', isCorrect: false }
+        ],
+        explanation: 'La libertad práctica consiste en autolegislación racional conforme al deber.'
+      },
     ] },
 
     // Filosofía Contemporánea
@@ -830,6 +1274,30 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'La religión es irrelevante', isCorrect: false },
         { id: 'd', label: 'La religión es la fuente de la ciencia', isCorrect: false },
       ], explanation: 'Consolida la desigualdad y la justifica.' },
+      {
+        id: 'marx-q01',
+        tier: 'standard',
+        prompt: 'Según Marx, ¿qué determina la superestructura de una sociedad?',
+        options: [
+          { id: 'a', label: 'Las ideas y la conciencia colectiva', isCorrect: false },
+          { id: 'b', label: 'La estructura económica o base material', isCorrect: true },
+          { id: 'c', label: 'Las instituciones políticas democráticas', isCorrect: false },
+          { id: 'd', label: 'Los valores religiosos predominantes', isCorrect: false }
+        ],
+        explanation: 'La base económica (modo de producción y relaciones de producción) condiciona la superestructura ideológica y política.'
+      },
+      {
+        id: 'marx-q02',
+        tier: 'standard',
+        prompt: '¿En qué consiste la alienación del trabajador según Marx?',
+        options: [
+          { id: 'a', label: 'En la falta de educación del proletariado', isCorrect: false },
+          { id: 'b', label: 'En la separación del trabajador respecto al producto, proceso, especie y comunidad', isCorrect: true },
+          { id: 'c', label: 'En la influencia de la religión', isCorrect: false },
+          { id: 'd', label: 'En la inflación económica', isCorrect: false }
+        ],
+        explanation: 'El trabajo asalariado convierte al trabajador en extraño a lo que produce, a la actividad productiva, a su naturaleza y a los demás.'
+      },
     ] },
     { id: 'nietzsche', title: 'Nietzsche: crítica a la moral, voluntad de poder, superhombre.', questions: [
       { id: 'nietzsche-q1', tier: 'standard', prompt: 'La "voluntad de poder" en Nietzsche se entiende como...', options: [
@@ -1100,6 +1568,8 @@ export const philosophyES: Subject = {
         { id: 'c', label: 'El aislamiento', isCorrect: false },
         { id: 'd', label: 'La obediencia', isCorrect: false },
       ], explanation: 'Se manifiesta en la participación pública.' },
+      
+      
     ] },
   ],
 }

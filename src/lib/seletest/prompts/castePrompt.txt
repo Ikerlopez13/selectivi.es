@@ -1,0 +1,58 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Lengua Castellana y Literatura, adaptadas al currículo de la Comunidad de Madrid.
+
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+Lengua
+
+La comunicación y las funciones del lenguaje.
+
+Las variedades de la lengua: dialectos y registros.
+
+El léxico: formación de palabras, neologismos, extranjerismos.
+
+Morfología: categorías gramaticales.
+
+Sintaxis: análisis de oraciones simples y compuestas.
+
+Modalidades oracionales y valores del subjuntivo.
+
+Cohesión y coherencia textual.
+
+Los géneros discursivos: narración, descripción, argumentación, exposición, diálogo.
+
+Comentario lingüístico de un texto.
+
+Literatura
+10. La literatura medieval: jarchas, cantares de gesta, Mío Cid, lírica culta y popular.
+11. La poesía del siglo XV: Jorge Manrique y el marqués de Santillana.
+12. Renacimiento: Garcilaso de la Vega y fray Luis de León.
+13. Barroco: Góngora, Quevedo y Lope de Vega.
+14. Ilustración y Neoclasicismo: Feijoo y Moratín.
+15. Romanticismo: Espronceda, Bécquer, Rosalía de Castro.
+16. Realismo y Naturalismo: Galdós y Clarín.
+17. Modernismo y Generación del 98: Rubén Darío, Unamuno, Machado, Valle-Inclán, Azorín, Baroja.
+18. Generación del 14 y del 27: Juan Ramón Jiménez, Ortega y Gasset, Lorca, Alberti, Cernuda.
+19. Literatura del franquismo: Camilo José Cela, Carmen Laforet, Antonio Buero Vallejo.
+20. Literatura de la democracia y la actualidad: tendencias y autores contemporáneos.
+
+Comentario de texto literario y no literario
+21. Identificación del tema, estructura y género.
+22. Recursos literarios.
+23. Explicación del contexto histórico y cultural del autor y la obra.
+
+Cada pregunta debe incluir:
+
+Enunciado claro.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máximo 3 líneas).
+
+Distribuye las preguntas de manera equilibrada: al menos 4-5 por cada bloque temático, asegurando que los autores más relevantes de la EvAU (Machado, Lorca, Unamuno, Cela, etc.) tengan mayor presencia.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

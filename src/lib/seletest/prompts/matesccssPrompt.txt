@@ -1,0 +1,62 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Matemáticas aplicadas a las Ciencias Sociales II, adaptadas al currículo de la Comunidad de Madrid.
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+        {
+          id: 'mat-ccss-alg-q3',
+          tier: 'standard',
+          prompt: 'Dada el sistema $\\begin{cases}2x+ y=4\\\\ x- y=1\\end{cases}$, obtenga la solución mediante método matricial.',
+          options: [
+            { id: 'a', label: '$\\left(x,y\\right)=\\left(\\frac{4}{5},\\frac{9}{5}\\right)$', isCorrect: true },
+            { id: 'b', label: '$\\left(x,y\\right)=(2,0)$', isCorrect: false },
+            { id: 'c', label: '$\\left(x,y\\right)=(1,3)$', isCorrect: false },
+            { id: 'd', label: '$\\left(x,y\\right)=(0,2)$', isCorrect: false },
+          ],
+          explanation: 'El sistema tiene matriz coeficiente $A=\\begin{pmatrix}2 & 1\\\\1 & -1\\end{pmatrix}$; resolver con inversa da la solución indicada.'
+        },
+
+1. Álgebra y Matemática financiera
+
+Matrices y determinantes: resolución de sistemas de ecuaciones lineales.
+
+Programación lineal: problemas con restricciones y optimización gráfica.
+
+Interés simple y compuesto, rentas financieras.
+
+2. Análisis
+
+Funciones elementales y sus propiedades.
+
+Límite y continuidad de funciones.
+
+Derivadas: definición, reglas de derivación y aplicaciones a la economía (elasticidad, coste, ingreso y beneficio).
+
+Integrales: cálculo de primitivas e integral definida, aplicaciones a áreas y problemas económicos.
+
+3. Probabilidad y Estadística
+
+Probabilidad: sucesos, probabilidad condicionada, independencia y teorema de Bayes.
+
+Variables aleatorias discretas y continuas (binomial, normal).
+
+Estadística descriptiva: medidas de centralización, dispersión y posición.
+
+Inferencia: intervalos de confianza y contrastes básicos de hipótesis.
+
+Cada pregunta debe incluir:
+
+Enunciado claro en LaTeX.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máx. 3 líneas).
+
+Todas las fórmulas y expresiones matemáticas deben ir en formato LaTeX.
+
+Distribuye las preguntas de manera equilibrada: al menos 12-13 por cada bloque temático.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

@@ -637,7 +637,404 @@ export const mathematicsES: Subject = {
             { id: 'd', label: '$\\lambda_1 = \\lambda_2 = 5$', isCorrect: false },
           ],
           explanation: 'Los valores propios se obtienen resolviendo $|A-\\lambda I| = 0$, que da $\\lambda^2-5\\lambda-2=0$.'
-        }
+        },
+
+  {
+    "id": "mat-alg-q1",
+    "tier": "standard",
+    "prompt": "Dada la matriz $A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$, calcula $\\det(A)$.",
+    "options": [
+      { "id": "a", "label": "5", "isCorrect": false },
+      { "id": "b", "label": "6", "isCorrect": true },
+      { "id": "c", "label": "3", "isCorrect": false },
+      { "id": "d", "label": "2", "isCorrect": false }
+    ],
+    "explanation": "El determinante de una matriz $2\\times 2$ es $\\det(A) = 2\\cdot 3 - 1\\cdot 0 = 6$."
+  },
+  {
+    "id": "mat-alg-q2",
+    "tier": "standard",
+    "prompt": "Si $A$ es una matriz cuadrada de orden 3 con $\\det(A) = 4$, entonces $\\det(2A) = $",
+    "options": [
+      { "id": "a", "label": "8", "isCorrect": false },
+      { "id": "b", "label": "16", "isCorrect": false },
+      { "id": "c", "label": "32", "isCorrect": true },
+      { "id": "d", "label": "4", "isCorrect": false }
+    ],
+    "explanation": "$\\det(kA) = k^n \\det(A)$ para matriz de orden $n$. Aquí $\\det(2A) = 2^3 \\cdot 4 = 32$."
+  },
+  {
+    "id": "mat-alg-q3",
+    "tier": "standard",
+    "prompt": "El rango de la matriz $\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 4 & 6 \\\\ 0 & 0 & 0 \\end{pmatrix}$ es:",
+    "options": [
+      { "id": "a", "label": "3", "isCorrect": false },
+      { "id": "b", "label": "2", "isCorrect": false },
+      { "id": "c", "label": "1", "isCorrect": true },
+      { "id": "d", "label": "0", "isCorrect": false }
+    ],
+    "explanation": "La segunda fila es el doble de la primera y la tercera es nula, por tanto todas las filas son proporcionales a la primera. $\\text{rg}(A) = 1$."
+  },
+  {
+    "id": "mat-alg-q4",
+    "tier": "standard",
+    "prompt": "Si $A$ y $B$ son matrices cuadradas del mismo orden, ¿cuál de las siguientes afirmaciones es siempre cierta?",
+    "options": [
+      { "id": "a", "label": "$AB = BA$", "isCorrect": false },
+      { "id": "b", "label": "$\\det(AB) = \\det(A)\\det(B)$", "isCorrect": true },
+      { "id": "c", "label": "$(A+B)^2 = A^2 + 2AB + B^2$", "isCorrect": false },
+      { "id": "d", "label": "$\\text{rg}(A+B) = \\text{rg}(A) + \\text{rg}(B)$", "isCorrect": false }
+    ],
+    "explanation": "La propiedad del determinante del producto siempre se cumple: $\\det(AB) = \\det(A)\\det(B)$."
+  },
+  {
+    "id": "mat-alg-q5",
+    "tier": "standard",
+    "prompt": "La matriz inversa de $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ es:",
+    "options": [
+      { "id": "a", "label": "$\\begin{pmatrix} -2 & 1 \\\\ 3/2 & -1/2 \\end{pmatrix}$", "isCorrect": true },
+      { "id": "b", "label": "$\\begin{pmatrix} 4 & -2 \\\\ -3 & 1 \\end{pmatrix}$", "isCorrect": false },
+      { "id": "c", "label": "$\\begin{pmatrix} 1 & -2 \\\\ -3 & 4 \\end{pmatrix}$", "isCorrect": false },
+      { "id": "d", "label": "$\\begin{pmatrix} -1/2 & 1 \\\\ 3/2 & -2 \\end{pmatrix}$", "isCorrect": false }
+    ],
+    "explanation": "$\\det(A) = -2$, $A^{-1} = \\frac{1}{-2}\\begin{pmatrix} 4 & -2 \\\\ -3 & 1 \\end{pmatrix} = \\begin{pmatrix} -2 & 1 \\\\ 3/2 & -1/2 \\end{pmatrix}$."
+  },
+  {
+    "id": "mat-alg-q6",
+    "tier": "standard",
+    "prompt": "El sistema $\\begin{cases} x+y=2 \\\\ 2x+2y=4 \\end{cases}$ es:",
+    "options": [
+      { "id": "a", "label": "Compatible determinado", "isCorrect": false },
+      { "id": "b", "label": "Incompatible", "isCorrect": false },
+      { "id": "c", "label": "Compatible indeterminado", "isCorrect": true },
+      { "id": "d", "label": "Imposible de clasificar", "isCorrect": false }
+    ],
+    "explanation": "La segunda ecuación es múltiplo de la primera: ambas representan la misma recta. Sistema con infinitas soluciones (compatible indeterminado)."
+  },
+  {
+    "id": "mat-alg-q7",
+    "tier": "standard",
+    "prompt": "Si los valores propios de una matriz $A$ son $\\lambda_1=2$ y $\\lambda_2=5$, entonces $\\det(A) = $",
+    "options": [
+      { "id": "a", "label": "7", "isCorrect": false },
+      { "id": "b", "label": "3", "isCorrect": false },
+      { "id": "c", "label": "10", "isCorrect": true },
+      { "id": "d", "label": "25", "isCorrect": false }
+    ],
+    "explanation": "El determinante de una matriz es el producto de sus valores propios: $\\det(A) = 2 \\cdot 5 = 10$."
+  },
+  {
+    "id": "mat-alg-q8",
+    "tier": "standard",
+    "prompt": "Para que el sistema $\\begin{cases} x+2y=3 \\\\ 2x+ky=6 \\end{cases}$ sea incompatible, el valor de $k$ debe ser:",
+    "options": [
+      { "id": "a", "label": "$k=4$", "isCorrect": true },
+      { "id": "b", "label": "$k=2$", "isCorrect": false },
+      { "id": "c", "label": "$k\\neq 4$", "isCorrect": false },
+      { "id": "d", "label": "$k=0$", "isCorrect": false }
+    ],
+    "explanation": "Para ser incompatible, las rectas deben ser paralelas pero no coincidentes: $k=4$ hace que los coeficientes sean proporcionales pero no los términos independientes."
+  },
+  {
+    "id": "mat-alg-q9",
+    "tier": "standard",
+    "prompt": "La traza de la matriz $A = \\begin{pmatrix} 3 & 1 & 2 \\\\ 0 & -1 & 4 \\\\ 5 & 2 & 6 \\end{pmatrix}$ es:",
+    "options": [
+      { "id": "a", "label": "11", "isCorrect": false },
+      { "id": "b", "label": "8", "isCorrect": true },
+      { "id": "c", "label": "15", "isCorrect": false },
+      { "id": "d", "label": "6", "isCorrect": false }
+    ],
+    "explanation": "La traza es la suma de los elementos de la diagonal principal: $\\text{tr}(A) = 3 + (-1) + 6 = 8$."
+  },
+  {
+    "id": "mat-alg-q10",
+    "tier": "standard",
+    "prompt": "Si $A$ es una matriz $3\\times 2$ y $B$ es una matriz $2\\times 4$, ¿cuál es el orden de la matriz $AB$?",
+    "options": [
+      { "id": "a", "label": "$2\\times 2$", "isCorrect": false },
+      { "id": "b", "label": "$3\\times 4$", "isCorrect": true },
+      { "id": "c", "label": "$4\\times 3$", "isCorrect": false },
+      { "id": "d", "label": "$3\\times 2$", "isCorrect": false }
+    ],
+    "explanation": "El producto $AB$ tiene dimensión $3\\times 4$, tomando el número de filas de $A$ y columnas de $B$."
+  },
+  {
+    "id": "mat-alg-q11",
+    "tier": "standard",
+    "prompt": "Una matriz $A$ de orden $n$ es ortogonal si:",
+    "options": [
+      { "id": "a", "label": "$A^T = A$", "isCorrect": false },
+      { "id": "b", "label": "$A^T A = I$", "isCorrect": true },
+      { "id": "c", "label": "$\\det(A) = 1$", "isCorrect": false },
+      { "id": "d", "label": "$A = -A^T$", "isCorrect": false }
+    ],
+    "explanation": "Una matriz es ortogonal si su traspuesta es igual a su inversa: $A^T A = I$."
+  },
+  {
+    "id": "mat-alg-q12",
+    "tier": "standard",
+    "prompt": "El método de Gauss para resolver sistemas de ecuaciones lineales consiste en:",
+    "options": [
+      { "id": "a", "label": "Calcular la matriz inversa", "isCorrect": false },
+      { "id": "b", "label": "Triangularizar la matriz ampliada mediante operaciones elementales", "isCorrect": true },
+      { "id": "c", "label": "Calcular el determinante del sistema", "isCorrect": false },
+      { "id": "d", "label": "Aplicar la regla de Cramer", "isCorrect": false }
+    ],
+    "explanation": "El método de Gauss transforma el sistema en uno triangular mediante operaciones elementales por filas sobre la matriz ampliada."
+  },
+  {
+    "id": "mat-ana-q1",
+    "tier": "standard",
+    "prompt": "$\\lim_{x\\to 0} \\frac{\\sin x}{x} = $",
+    "options": [
+      { "id": "a", "label": "0", "isCorrect": false },
+      { "id": "b", "label": "1", "isCorrect": true },
+      { "id": "c", "label": "$\\infty$", "isCorrect": false },
+      { "id": "d", "label": "No existe", "isCorrect": false }
+    ],
+    "explanation": "Es un límite notable fundamental: $\\lim_{x\\to 0} \\frac{\\sin x}{x} = 1$."
+  },
+  {
+    "id": "mat-ana-q2",
+    "tier": "standard",
+    "prompt": "Si $f(x) = x^3 - 5x$, entonces $f'(2) = $",
+    "options": [
+      { "id": "a", "label": "3", "isCorrect": false },
+      { "id": "b", "label": "7", "isCorrect": true },
+      { "id": "c", "label": "9", "isCorrect": false },
+      { "id": "d", "label": "-5", "isCorrect": false }
+    ],
+    "explanation": "$f'(x) = 3x^2 - 5$, por tanto $f'(2) = 3(4) - 5 = 12 - 5 = 7$."
+  },
+  {
+    "id": "mat-ana-q3",
+    "tier": "standard",
+    "prompt": "La función $f(x) = \\frac{1}{x-2}$ es continua en:",
+    "options": [
+      { "id": "a", "label": "$\\mathbb{R}$", "isCorrect": false },
+      { "id": "b", "label": "$\\mathbb{R} - \\{0\\}$", "isCorrect": false },
+      { "id": "c", "label": "$\\mathbb{R} - \\{2\\}$", "isCorrect": true },
+      { "id": "d", "label": "$[0, +\\infty)$", "isCorrect": false }
+    ],
+    "explanation": "La función tiene una discontinuidad inevitable en $x=2$ donde el denominador se anula."
+  },
+  {
+    "id": "mat-ana-q4",
+    "tier": "standard",
+    "prompt": "$\\int x e^x \\, dx = $",
+    "options": [
+      { "id": "a", "label": "$e^x(x-1) + C$", "isCorrect": true },
+      { "id": "b", "label": "$xe^x + C$", "isCorrect": false },
+      { "id": "c", "label": "$\\frac{x^2 e^x}{2} + C$", "isCorrect": false },
+      { "id": "d", "label": "$e^x + C$", "isCorrect": false }
+    ],
+    "explanation": "Por integración por partes: $u=x$, $dv=e^x dx$, resulta $xe^x - e^x + C = e^x(x-1) + C$."
+  },
+  {
+    "id": "mat-ana-q5",
+    "tier": "standard",
+    "prompt": "Si $f''(x) > 0$ en un intervalo, la función $f$ es:",
+    "options": [
+      { "id": "a", "label": "Creciente", "isCorrect": false },
+      { "id": "b", "label": "Decreciente", "isCorrect": false },
+      { "id": "c", "label": "Cóncava", "isCorrect": false },
+      { "id": "d", "label": "Convexa", "isCorrect": true }
+    ],
+    "explanation": "Si la segunda derivada es positiva, la función tiene curvatura hacia arriba (convexa o cóncava hacia arriba)."
+  },
+  {
+    "id": "mat-ana-q6",
+    "tier": "standard",
+    "prompt": "El Teorema de Rolle afirma que si $f$ es continua en $[a,b]$, derivable en $(a,b)$ y $f(a)=f(b)$, entonces:",
+    "options": [
+      { "id": "a", "label": "Existe $c\\in(a,b)$ tal que $f'(c)=0$", "isCorrect": true },
+      { "id": "b", "label": "$f$ es constante en $[a,b]$", "isCorrect": false },
+      { "id": "c", "label": "$f$ alcanza su máximo en $(a,b)$", "isCorrect": false },
+      { "id": "d", "label": "$f''(c)=0$ para algún $c\\in(a,b)$", "isCorrect": false }
+    ],
+    "explanation": "El Teorema de Rolle garantiza la existencia de al menos un punto donde la derivada se anula."
+  },
+  {
+    "id": "mat-ana-q7",
+    "tier": "standard",
+    "prompt": "$\\lim_{x\\to +\\infty} \\frac{3x^2 + 5x - 1}{x^2 - 2x + 4} = $",
+    "options": [
+      { "id": "a", "label": "0", "isCorrect": false },
+      { "id": "b", "label": "3", "isCorrect": true },
+      { "id": "c", "label": "$+\\infty$", "isCorrect": false },
+      { "id": "d", "label": "5", "isCorrect": false }
+    ],
+    "explanation": "Límite de cociente de polinomios con igual grado: cociente de coeficientes principales $3/1 = 3$."
+  },
+  {
+    "id": "mat-ana-q8",
+    "tier": "standard",
+    "prompt": "La regla de L'Hôpital se aplica para resolver indeterminaciones del tipo:",
+    "options": [
+      { "id": "a", "label": "$\\frac{0}{0}$ y $\\frac{\\infty}{\\infty}$", "isCorrect": true },
+      { "id": "b", "label": "$0\\cdot\\infty$", "isCorrect": false },
+      { "id": "c", "label": "$\\infty - \\infty$", "isCorrect": false },
+      { "id": "d", "label": "$1^\\infty$", "isCorrect": false }
+    ],
+    "explanation": "La regla de L'Hôpital se aplica directamente a indeterminaciones $\\frac{0}{0}$ y $\\frac{\\infty}{\\infty}$."
+  },
+  {
+    "id": "mat-ana-q9",
+    "tier": "standard",
+    "prompt": "Si $f(x) = \\ln(x^2 + 1)$, entonces $f'(x) = $",
+    "options": [
+      { "id": "a", "label": "$\\frac{1}{x^2+1}$", "isCorrect": false },
+      { "id": "b", "label": "$\\frac{2x}{x^2+1}$", "isCorrect": true },
+      { "id": "c", "label": "$2x\\ln(x^2+1)$", "isCorrect": false },
+      { "id": "d", "label": "$\\frac{x}{x^2+1}$", "isCorrect": false }
+    ],
+    "explanation": "Por la regla de la cadena: $f'(x) = \\frac{1}{x^2+1} \\cdot 2x = \\frac{2x}{x^2+1}$."
+  },
+  {
+    "id": "mat-ana-q10",
+    "tier": "standard",
+    "prompt": "$\\int_0^{\\pi} \\sin x \\, dx = $",
+    "options": [
+      { "id": "a", "label": "0", "isCorrect": false },
+      { "id": "b", "label": "1", "isCorrect": false },
+      { "id": "c", "label": "2", "isCorrect": true },
+      { "id": "d", "label": "$\\pi$", "isCorrect": false }
+    ],
+    "explanation": "$\\int_0^{\\pi} \\sin x \\, dx = [-\\cos x]_0^{\\pi} = -\\cos(\\pi) + \\cos(0) = 1 + 1 = 2$."
+  },
+  {
+    "id": "mat-ana-q11",
+    "tier": "standard",
+    "prompt": "Una función $f$ tiene un máximo relativo en $x=a$ si:",
+    "options": [
+      { "id": "a", "label": "$f'(a)=0$ y $f''(a)<0$", "isCorrect": true },
+      { "id": "b", "label": "$f'(a)=0$ y $f''(a)>0$", "isCorrect": false },
+      { "id": "c", "label": "$f'(a)>0$", "isCorrect": false },
+      { "id": "d", "label": "$f(a)$ es el mayor valor de $f$", "isCorrect": false }
+    ],
+    "explanation": "Criterio de la segunda derivada: si $f'(a)=0$ y $f''(a)<0$, entonces $f$ tiene un máximo relativo en $x=a$."
+  },
+  {
+    "id": "mat-ana-q12",
+    "tier": "standard",
+    "prompt": "El área bajo la curva $y=x^2$ entre $x=0$ y $x=2$ es:",
+    "options": [
+      { "id": "a", "label": "$\\frac{4}{3}$", "isCorrect": false },
+      { "id": "b", "label": "$\\frac{8}{3}$", "isCorrect": true },
+      { "id": "c", "label": "4", "isCorrect": false },
+      { "id": "d", "label": "2", "isCorrect": false }
+    ],
+    "explanation": "$\\int_0^2 x^2 dx = \\left[\\frac{x^3}{3}\\right]_0^2 = \\frac{8}{3} - 0 = \\frac{8}{3}$."
+  },
+  {
+    "id": "mat-geo-q1",
+    "tier": "standard",
+    "prompt": "La distancia entre los puntos $P(1,2,3)$ y $Q(4,6,3)$ es:",
+    "options": [
+      { "id": "a", "label": "5", "isCorrect": true },
+      { "id": "b", "label": "7", "isCorrect": false },
+      { "id": "c", "label": "$\\sqrt{41}$", "isCorrect": false },
+      { "id": "d", "label": "6", "isCorrect": false }
+    ],
+    "explanation": "$d = \\sqrt{(4-1)^2 + (6-2)^2 + (3-3)^2} = \\sqrt{9+16+0} = \\sqrt{25} = 5$."
+  },
+  {
+    "id": "mat-geo-q2",
+    "tier": "standard",
+    "prompt": "El producto escalar de los vectores $\\vec{u}=(2,1,-1)$ y $\\vec{v}=(1,0,2)$ es:",
+    "options": [
+      { "id": "a", "label": "4", "isCorrect": false },
+      { "id": "b", "label": "0", "isCorrect": true },
+      { "id": "c", "label": "2", "isCorrect": false },
+      { "id": "d", "label": "-2", "isCorrect": false }
+    ],
+    "explanation": "$\\vec{u}\\cdot\\vec{v} = 2(1) + 1(0) + (-1)(2) = 2 + 0 - 2 = 0$. Son vectores perpendiculares."
+  },
+  {
+    "id": "mat-geo-q3",
+    "tier": "standard",
+    "prompt": "¿Cuál es la ecuación del plano que pasa por $P(1,2,3)$ y es perpendicular al vector $\\vec{n}=(1,2,-2)$?",
+    "options": [
+      { "id": "a", "label": "$x+2y-2z=5$", "isCorrect": false },
+      { "id": "b", "label": "$x+2y-2z=1$", "isCorrect": true },
+      { "id": "c", "label": "$x+2y-2z=-1$", "isCorrect": false },
+      { "id": "d", "label": "$x+2y-2z=0$", "isCorrect": false }
+    ],
+    "explanation": "Ecuación: $1(x-1) + 2(y-2) - 2(z-3) = 0$, simplificando: $x+2y-2z = 1$."
+  },
+  {
+    "id": "mat-geo-q4",
+    "tier": "standard",
+    "prompt": "El módulo del vector $\\vec{v}=(3,4,0)$ es:",
+    "options": [
+      { "id": "a", "label": "7", "isCorrect": false },
+      { "id": "b", "label": "5", "isCorrect": true },
+      { "id": "c", "label": "$\\sqrt{7}$", "isCorrect": false },
+      { "id": "d", "label": "25", "isCorrect": false }
+    ],
+    "explanation": "$|\\vec{v}| = \\sqrt{3^2 + 4^2 + 0^2} = \\sqrt{9+16} = \\sqrt{25} = 5$."
+  },
+  {
+    "id": "mat-geo-q5",
+    "tier": "standard",
+    "prompt": "El producto vectorial de $\\vec{i}=(1,0,0)$ y $\\vec{j}=(0,1,0)$ es:",
+    "options": [
+      { "id": "a", "label": "$(0,0,1)$", "isCorrect": true },
+      { "id": "b", "label": "$(1,1,0)$", "isCorrect": false },
+      { "id": "c", "label": "$(0,0,-1)$", "isCorrect": false },
+      { "id": "d", "label": "$(1,0,1)$", "isCorrect": false }
+    ],
+    "explanation": "$\\vec{i}\\times\\vec{j} = \\vec{k} = (0,0,1)$ según las propiedades de la base canónica."
+  },
+  {
+    "id": "mat-geo-q6",
+    "tier": "standard",
+    "prompt": "La recta que pasa por $P(1,2,3)$ con vector director $\\vec{v}=(2,-1,3)$ tiene por ecuación paramétrica:",
+    "options": [
+      { "id": "a", "label": "$(x,y,z) = (1,2,3) + t(2,-1,3)$", "isCorrect": true },
+      { "id": "b", "label": "$(x,y,z) = (2,-1,3) + t(1,2,3)$", "isCorrect": false },
+      { "id": "c", "label": "$(x,y,z) = t(2,-1,3)$", "isCorrect": false },
+      { "id": "d", "label": "$(x,y,z) = (1,2,3) - t(2,-1,3)$", "isCorrect": false }
+    ],
+    "explanation": "La ecuación paramétrica es $(x,y,z) = P + t\\vec{v} = (1,2,3) + t(2,-1,3)$."
+  },
+  {
+    "id": "mat-geo-q7",
+    "tier": "standard",
+    "prompt": "Dos planos son paralelos si:",
+    "options": [
+      { "id": "a", "label": "Sus vectores normales son paralelos", "isCorrect": true },
+      { "id": "b", "label": "Sus vectores normales son perpendiculares", "isCorrect": false },
+      { "id": "c", "label": "Tienen el mismo término independiente", "isCorrect": false },
+      { "id": "d", "label": "Se cortan en una recta", "isCorrect": false }
+    ],
+    "explanation": "Dos planos son paralelos si y solo si sus vectores normales son paralelos (proporcionales)."
+  },
+  {
+    "id": "mat-geo-q8",
+    "tier": "standard",
+    "prompt": "La distancia de un punto $P(x_0,y_0,z_0)$ a un plano $ax+by+cz+d=0$ se calcula como:",
+    "options": [
+      { "id": "a", "label": "$\\frac{|ax_0+by_0+cz_0+d|}{\\sqrt{a^2+b^2+c^2}}$", "isCorrect": true },
+      { "id": "b", "label": "$|ax_0+by_0+cz_0+d|$", "isCorrect": false },
+      { "id": "c", "label": "$\\sqrt{(x_0-a)^2+(y_0-b)^2+(z_0-c)^2}$", "isCorrect": false },
+      { "id": "d", "label": "$ax_0+by_0+cz_0$", "isCorrect": false }
+    ],
+    "explanation": "Fórmula estándar: distancia = $\\frac{|ax_0+by_0+cz_0+d|}{\\sqrt{a^2+b^2+c^2}}$."
+  },
+  {
+    "id": "mat-geo-q9",
+    "tier": "standard",
+    "prompt": "El ángulo entre dos vectores $\\vec{u}$ y $\\vec{v}$ se calcula mediante:",
+    "options": [
+      { "id": "a", "label": "$\\cos\\theta = \\frac{\\vec{u}\\cdot\\vec{v}}{|\\vec{u}||\\vec{v}|}$", "isCorrect": true },
+      { "id": "b", "label": "$\\cos\\theta = \\vec{u}\\cdot\\vec{v}$", "isCorrect": false },
+      { "id": "c", "label": "$\\sin\\theta = \\frac{\\vec{u}\\times\\vec{v}}{|\\vec{u}||\\vec{v}|}$", "isCorrect": false },
+      { "id": "d", "label": "$\\theta = \\frac{\\vec{u}}{\\vec{v}}$", "isCorrect": false }
+    ],
+    "explanation": "El coseno del ángulo entre vectores: $\\cos\\theta = \\frac{\\vec{u}\\cdot\\vec{v}}{|\\vec{u}||\\vec{v}|}$."
+  }
       ]
     }
   ]

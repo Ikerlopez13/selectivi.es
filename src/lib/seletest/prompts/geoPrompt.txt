@@ -1,0 +1,79 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Geografía de España, adaptadas al currículo de la Comunidad de Madrid.
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+hazlo con este estilo de JSON 
+{
+          id: 'geo-rel-q4',
+          tier: 'standard',
+          prompt: 'La Cordillera Bética se localiza principalmente en:',
+          options: [
+            { id: 'a', label: 'Norte', isCorrect: false },
+            { id: 'b', label: 'Centro', isCorrect: false },
+            { id: 'c', label: 'Sur y Este', isCorrect: true },
+            { id: 'd', label: 'Islas', isCorrect: false },
+          ],
+          explanation: 'La Cordillera Bética se sitúa mayoritariamente en el extremo sur y este de la Península, delimitando la Meseta por su vertiente mediterránea.'
+        },
+
+El medio físico
+
+El relieve peninsular: unidades morfoestructurales.
+
+El relieve insular: Canarias y Baleares.
+
+Climas de España: rasgos y dominios climáticos.
+
+Las aguas y cuencas hidrográficas.
+
+Los paisajes naturales de España: vegetación y suelos.
+
+La población
+6. Evolución de la población española.
+7. Distribución espacial y densidad.
+8. Movimientos migratorios internos y externos.
+9. Estructura de la población: edad, sexo y actividad.
+
+El espacio rural y las actividades del sector primario
+10. Espacios agrarios: agricultura, ganadería y pesca.
+11. Usos y sistemas agrarios tradicionales y actuales.
+12. Problemas y transformaciones del medio rural.
+
+La industria
+13. Proceso de industrialización en España.
+14. Localización industrial y desequilibrios territoriales.
+15. Sectores industriales estratégicos.
+
+Los servicios
+16. El transporte y las comunicaciones en España.
+17. El turismo: evolución, impactos y tipologías.
+18. El comercio: interior y exterior.
+
+El espacio urbano
+19. El proceso de urbanización en España.
+20. Jerarquía urbana y red de ciudades.
+21. Morfología y funciones urbanas.
+22. Problemas de las ciudades españolas.
+
+Territorio y organización espacial
+23. La organización territorial del Estado.
+24. Comunidades Autónomas y desequilibrios regionales.
+25. España en la Unión Europea y en la globalización.
+
+Cada pregunta debe incluir:
+
+Enunciado claro.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máximo 3 líneas).
+
+Si se necesita incluir algún dato numérico, tabla o fórmula sencilla (como densidad de población), exprésala en LaTeX.
+
+Distribuye las preguntas de manera equilibrada: al menos 5 por cada bloque temático, priorizando población, clima, industria, servicios y urbanismo, que son más frecuentes en la EvAU.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

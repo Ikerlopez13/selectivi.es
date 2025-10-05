@@ -1,0 +1,108 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Química, adaptadas al currículo de la Comunidad de Madrid.
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+Hazlo en este formato JSON        
+        {
+          id: 'quim-atom-q2',
+          tier: 'premium',
+          prompt: '¿La configuración electrónica del anión fluoruro F⁻, en su estado fundamental, puede escribirse como $[$He$]\\,2s^2 2p^6$?',
+          options: [
+            { id: 'a', label: '[He] 2s^2 2p^5', isCorrect: false },
+            { id: 'b', label: '[He] 2s^2 2p^6', isCorrect: true },
+            { id: 'c', label: '[Ne] 2s^2 2p^5', isCorrect: false },
+            { id: 'd', label: '[Ne] 3s^2 3p^6', isCorrect: false },
+          ],
+          explanation: 'F⁻ tiene 10 electrones con configuración neutra de He más 2s^2 2p^6.'
+        },
+
+        estructura-atomica → quim-atom-q1, quim-atom-q2, quim-atom-q3
+enlace-quimico → quim-enl-q1, quim-enl-q2, quim-enl-q3
+termodinamica → quim-term-q1, quim-term-q2
+disoluciones → quim-dis-q1, quim-dis-q2
+cinetica-equilibrio → quim-cin-q1, quim-cin-q2
+acido-base → quim-acid-q1, quim-acid-q2
+redox → quim-redox-q1, quim-redox-q2
+organica
+
+1. Estructura atómica y sistema periódico
+
+Modelos atómicos y configuración electrónica.
+
+Propiedades periódicas de los elementos.
+
+2. Enlace químico
+
+Enlace iónico, covalente y metálico.
+
+Geometría molecular (VSEPR).
+
+Polaridad y fuerzas intermoleculares.
+
+3. Estado sólido, líquido y gaseoso
+
+Gases ideales y reales: ecuación de estado $PV = nRT$.
+
+Cambios de estado y diagramas de fases.
+
+4. Disoluciones
+
+Concentraciones: molaridad, molalidad, % en masa y volumen.
+
+Propiedades coligativas.
+
+5. Termoquímica y cinética
+
+Energía interna, entalpía y entropía.
+
+Ley de Hess y cálculos energéticos.
+
+Velocidad de reacción y factores que la afectan.
+
+6. Equilibrio químico
+
+Constante de equilibrio $K_c$, $K_p$.
+
+Principio de Le Châtelier.
+
+7. Equilibrio ácido-base
+
+Definiciones de Arrhenius, Brønsted-Lowry y Lewis.
+
+pH, pOH y disociación.
+
+Disoluciones tampón y titulaciones.
+
+8. Redox y electroquímica
+
+Reacciones de oxidación-reducción.
+
+Pilas galvánicas y potenciales de electrodo.
+
+Electrólisis y aplicaciones.
+
+9. Química orgánica
+
+Grupos funcionales: alcanos, alquenos, alquinos, alcoholes, aldehídos, cetonas, ácidos carboxílicos, ésteres, aminas.
+
+Reacciones orgánicas básicas: sustitución, adición, eliminación, esterificación.
+
+Isomería estructural y geométrica.
+
+Cada pregunta debe incluir:
+
+Enunciado claro en LaTeX.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máx. 3 líneas).
+
+Todas las fórmulas, ecuaciones y expresiones químicas deben ir en formato LaTeX (ej. $H_2O$, $CH_3-CH_2-OH$, $E^\circ = -\frac{RT}{nF} \ln K$).
+
+Distribuye las preguntas de manera equilibrada: al menos 5-6 por cada bloque temático.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

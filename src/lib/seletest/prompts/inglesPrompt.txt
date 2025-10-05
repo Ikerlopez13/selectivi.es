@@ -1,0 +1,45 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Inglés (Lengua Extranjera II), adaptadas al currículo de la Comunidad de Madrid y al modelo de la EvAU.
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+Hazlo con este estilo de JSON 
+{ id: 'eng-tenses-q2', tier: 'standard', prompt: 'When I arrived, the train __ already left.', options: [
+        { id: 'a', label: 'left', isCorrect: false },
+        { id: 'b', label: 'had left', isCorrect: true },
+        { id: 'c', label: 'was leaving', isCorrect: false },
+        { id: 'd', label: 'has left', isCorrect: false },
+      ], explanation: 'Past perfect for an action completed before another past action.' },] },
+
+Grammar & Use of English.
+
+Vocabulary.
+
+Reading comprehension (breve texto y pregunta sobre él).
+
+Writing (teoría sobre tipos de textos, conectores, formalidad).
+
+Culture & Literature.
+
+Cada pregunta debe incluir:
+
+Enunciado claro en inglés.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada en español (máximo 2-3 líneas).
+
+Distribuye las preguntas de forma equilibrada:
+
+Al menos 20 de Grammar & Use of English.
+
+Al menos 10 de Vocabulary.
+
+Al menos 10 de Reading comprehension.
+
+El resto repartido entre Writing y Culture & Literature.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un nivel B2–C1 de inglés, adaptado a estudiantes de segundo de bachillerato.

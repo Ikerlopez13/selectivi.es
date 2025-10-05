@@ -1,0 +1,58 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Historia de España, adaptadas al currículo de la Comunidad de Madrid.
+
+en el siguiente formato JSON 
+{ id: 'espacio-rural-q2', tier: 'standard', prompt: 'La pesca en España se concentra principalmente en', options: [
+        { id: 'a', label: 'Ríos', isCorrect: false },
+        { id: 'b', label: 'Mares', isCorrect: true },
+        { id: 'c', label: 'Lagos', isCorrect: false },
+        { id: 'd', label: 'Interior', isCorrect: false },
+      ], explanation: 'La pesca española está centrada en las grandes masas de agua costera y plataformas marinas.' },
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+Prehistoria y Edad Antigua
+
+La Península Ibérica desde la Prehistoria hasta la romanización.
+
+Los pueblos prerromanos y la Hispania romana.
+
+La monarquía visigoda y la herencia romana.
+
+Edad Media
+4. Al-Ándalus: conquista, Emirato y Califato.
+5. Reinos cristianos en la Edad Media: expansión y repoblación.
+6. La Baja Edad Media: crisis del siglo XIV, unión dinástica de Castilla y Aragón, y los Reyes Católicos.
+
+Edad Moderna
+7. Los Austrias Mayores: Carlos I y Felipe II.
+8. Los Austrias Menores y la crisis del siglo XVII.
+9. La España del siglo XVIII: reformas de los Borbones e Ilustración.
+
+Edad Contemporánea
+10. La crisis del Antiguo Régimen: Carlos IV y la Guerra de Independencia (1808-1814).
+11. La construcción del Estado Liberal (1812-1874): constituciones, reinados de Fernando VII e Isabel II, el Sexenio Democrático.
+12. La Restauración borbónica (1874-1931): sistema canovista, caciquismo, regeneracionismo, crisis del 98.
+13. La dictadura de Primo de Rivera y la caída de la monarquía.
+14. La Segunda República (1931-1936).
+15. La Guerra Civil (1936-1939).
+16. El franquismo (1939-1975): política, economía, sociedad y oposición al régimen.
+17. La transición a la democracia (1975-1982).
+18. España desde 1982 hasta la actualidad: democracia consolidada, integración en Europa y cambios sociales.
+
+Cada pregunta debe incluir:
+
+Enunciado claro.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar cuál es la respuesta correcta.
+
+Una breve explicación razonada (máximo 3 líneas).
+
+Distribuye las preguntas de manera equilibrada: al menos 2 o 3 por cada bloque temático, y más en los apartados de Edad Contemporánea, que son prioritarios en la EvAU.
+
+Distribuye las preguntas de manera equilibrada: mínimo 4 por cada autor, asegurando que los más relevantes para la EvAU (Platón, Aristóteles, Kant, Marx, Nietzsche) tengan más presencia.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (a veces A, otras B, C o D) para evitar patrones.
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

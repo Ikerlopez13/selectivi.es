@@ -1,0 +1,91 @@
+Genera 50 preguntas tipo test en formato JSON para estudiantes de 2º de Bachillerato sobre Historia de la Filosofía, siguiendo el currículo oficial de la Comunidad de Madrid. Las preguntas deben distribuirse equitativamente entre los siguientes pensadores y bloques temáticos, siguiendo orden cronológico: Platón (teoría de las Ideas y conocimiento), Aristóteles (metafísica, ética y política), San Agustín (fe y razón, interioridad), Santo Tomás de Aquino (escolástica, relación entre fe y razón), Descartes (racionalismo, duda metódica, cogito), Hume (empirismo, crítica a la causalidad), Kant (criticismo, revolución copernicana, ética del deber), Marx (materialismo histórico, alienación), Nietzsche (crítica a la moral, voluntad de poder, superhombre), Ortega y Gasset (perspectivismo, razón vital e histórica), Hannah Arendt (totalitarismo, acción política y libertad), incluyendo hasta la filosofía contemporánea.
+
+### Instrucciones detalladas
+
+- Crea exactamente 50 preguntas, con al menos 4 preguntas por cada autor o autora.
+- Para los autores clave en la EvAU (Platón, Aristóteles, Kant, Marx, Nietzsche), incluye más preguntas para asegurar una presencia superior.
+- Cada pregunta tendrá:
+  - Un objeto JSON donde:
+    - `id`: identificador único con prefijo del autor (platon-q..., aristoteles-q..., etc.).
+    - `tier`: siempre "standard".
+    - `prompt`: enunciado claro y académico, adaptado a estudiantes de 2º de Bachillerato.
+    - `options`: lista de 4 opciones con campos: `id` (a, b, c, d), `label` (texto de la opción), `isCorrect` (true solo para la correcta, false para las incorrectas). La posición correcta debe variar aleatoriamente.
+    - `explanation`: breve justificación razonada de la respuesta correcta, máximo 3 líneas.
+    - `themeBlock`: uno de los siguientes bloques (usa exactamente estos nombres): "Filosofía Antigua", "Filosofía Medieval", "Filosofía Moderna", "Filosofía Contemporánea".
+    - `author`: nombre breve del autor (por ejemplo, "Platón").
+- NO repitas preguntas ni opciones entre autores.
+- Varía la temática de las preguntas para cada autor.
+- Usa un lenguaje claro, riguroso y académico.
+- No incluyas explicaciones ni información superflua fuera de cada objeto JSON.
+- Cada respuesta correcta debe estar posicionada aleatoriamente (A, B, C o D).
+- Sigue este formato para cada pregunta:
+
+```
+{
+  id: '[autor]-q[NN]',
+  tier: 'standard',
+  prompt: '[Enunciado claro]',
+  options: [
+    { id: 'a', label: '[Opción A]', isCorrect: true/false },
+    { id: 'b', label: '[Opción B]', isCorrect: true/false },
+    { id: 'c', label: '[Opción C]', isCorrect: true/false },
+    { id: 'd', label: '[Opción D]', isCorrect: true/false }
+  ],
+  explanation: '[Breve explicación, máximo 3 líneas.]',
+  themeBlock: '[Bloque temático]',
+  author: '[Autor/a]'
+}
+```
+
+### Ejemplos
+
+#### Ejemplo 1
+
+{
+  id: "aristoteles-q02",
+  tier: "standard",
+  prompt: "¿Cuáles son las cuatro causas según Aristóteles?",
+  options: [
+    { id: "a", label: "Materia, forma, eficiente, final", isCorrect: true },
+    { id: "b", label: "Materia, forma, ser, conocimiento", isCorrect: false },
+    { id: "c", label: "Raza, clase, género, destino", isCorrect: false },
+    { id: "d", label: "Acción, pasión, razón, voluntad", isCorrect: false }
+  ],
+  explanation: "Las cuatro causas en Aristóteles son material, formal, eficiente y final.",
+  themeBlock: "Filosofía Antigua",
+  author: "Aristóteles"
+}
+
+#### Ejemplo 2
+
+{
+  id: "platon-q01",
+  tier: "standard",
+  prompt: "¿Qué caracteriza la teoría de las Ideas de Platón?",
+  options: [
+    { id: "a", label: "Las Ideas son realidades trascendentes y perfectas.", isCorrect: true },
+    { id: "b", label: "Las Ideas están formadas por experiencia sensible.", isCorrect: false },
+    { id: "c", label: "Las Ideas solo existen en la mente divina.", isCorrect: false },
+    { id: "d", label: "Las Ideas cambian constantemente.", isCorrect: false }
+  ],
+  explanation: "Para Platón, las Ideas son realidades trascendentes, eternas y perfectas, independientes del mundo sensible.",
+  themeBlock: "Filosofía Antigua",
+  author: "Platón"
+}
+
+### Formato y Consideraciones
+
+- Devuelve las preguntas como una lista JSON, cada elemento según el ejemplo.  
+- No incluyas textos introductorios ni explicaciones fuera de la lista.
+- Cada pregunta debe ser autocontenida y rigurosa.
+- Asegúrate de alternar la posición de la respuesta correcta.
+- Usa identificadores únicos y consistentes por autor.
+- Ejemplos proporcionados deben servir de guía en longitud y nivel.
+
+---
+
+**Resumen de Instrucciones Importantes:**  
+- Genera 50 preguntas tipo test, en JSON, adaptadas al currículo y bloque temático correcto.  
+- Cumple la distribución por autor según la EvAU.  
+- Sigue el formato ejemplo y varía la posición de la respuesta correcta.  
+- Lenguaje claro, académico y autocontenido.

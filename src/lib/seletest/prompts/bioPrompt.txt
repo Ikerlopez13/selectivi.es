@@ -1,0 +1,82 @@
+Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Biología, adaptadas al currículo de la Comunidad de Madrid.
+
+Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
+
+        {
+          id: 'bio-mol-q2',
+          tier: 'standard',
+          prompt: '¿Cuál es el polisacárido de reserva principal en las plantas?',
+          options: [
+            { id: 'a', label: 'Almidón', isCorrect: true },
+            { id: 'b', label: 'Celulosa', isCorrect: false },
+            { id: 'c', label: 'Quitina', isCorrect: false },
+            { id: 'd', label: 'Glucógeno', isCorrect: false },
+          ],
+          explanation: 'En plantas predomina el almidón como reserva de glúcidos.'
+        },
+
+1. Biomoléculas
+
+Bioelementos y compuestos inorgánicos.
+
+Glúcidos, lípidos, proteínas y ácidos nucleicos.
+
+Enzimas y metabolismo.
+
+2. Genética y Biología molecular
+
+Replicación, transcripción y traducción.
+
+Código genético y mutaciones.
+
+Ingeniería genética y biotecnología.
+
+3. Citología
+
+La célula procariota y eucariota.
+
+Orgánulos celulares y funciones.
+
+Ciclo celular, mitosis y meiosis.
+
+4. Microbiología e Inmunología
+
+Virus, bacterias, protozoos y hongos.
+
+Respuesta inmunitaria: inmunidad innata y adquirida.
+
+Vacunas y su aplicación.
+
+5. Anatomía y fisiología humanas
+
+Sistemas de nutrición: digestivo, respiratorio, circulatorio y excretor.
+
+Coordinación: sistema nervioso y endocrino.
+
+Reproducción y gametogénesis.
+
+6. Ecología y Medioambiente
+
+Poblaciones, comunidades y ecosistemas.
+
+Ciclos biogeoquímicos.
+
+Impacto humano y sostenibilidad.
+
+Cada pregunta debe incluir:
+
+Enunciado claro.
+
+Cuatro alternativas de respuesta (A, B, C, D).
+
+Indicar explícitamente cuál es la respuesta correcta.
+
+Una breve explicación razonada (máx. 3 líneas).
+
+Fórmulas químicas o bioquímicas deben expresarse en LaTeX (ej. $H_2O$, $C_6H_{12}O_6$).
+
+Distribuye las preguntas de manera equilibrada: al menos 7-8 por cada bloque temático.
+
+La posición de la respuesta correcta debe ser variada de forma aleatoria (A, B, C o D).
+
+Usa un lenguaje claro y académico, adaptado a estudiantes de segundo de bachillerato.

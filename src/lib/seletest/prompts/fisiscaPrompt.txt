@@ -1,0 +1,77 @@
+Genera 50 preguntas tipo test de Física para estudiantes de 2º de Bachillerato, de acuerdo al currículo de la Comunidad de Madrid y los siguientes bloques temáticos: Campo gravitatorio, Campo eléctrico, Campo magnético, Ondas, Óptica geométrica y Física moderna. Antes de formular cada pregunta, clasifícala con el identificador de bloque y el formato id siguiendo la estructura indicada en los ejemplos. Asegúrate de:
+
+- Incluir exactamente 50 preguntas, distribuidas de manera equilibrada, con al menos 7-8 preguntas por bloque.
+- Cada pregunta debe estar estructurada en un objeto JSON con:
+  - id: identificador único siguiendo el patrón del bloque y número (ej., fis-grav-q1)
+  - tier: siempre “standard”
+  - prompt: enunciado en LaTeX, claro y académico, ajustado al nivel de 2º de Bachillerato
+  - options: cuatro opciones (A, B, C, D), cada una con:
+      - id: [a-d]
+      - label: enunciado de la opción
+      - isCorrect: true/false
+  - explanation: breve justificación (máx. 3 líneas), en español. Fórmulas en LaTeX
+- Formularios y expresiones matemáticas siempre en LaTeX.
+- Aleatoriza la posición de la respuesta correcta.
+- Utiliza lenguaje académico adecuado para el nivel. 
+- Ejemplo de objeto para cada pregunta:
+
+{
+  id: 'fis-grav-q1',
+  tier: 'standard',
+  prompt: 'Sean \\(m_1\\) y \\(m_2\\) dos masas separadas por distancia \\(r\\). La magnitud de la fuerza gravitatoria entre ellas es \\(F = G\\frac{m_1 m_2}{r^2}\\). Si la distancia \\(r\\) se duplica, ¿cómo cambia \\(F\\)?',
+  options: [
+    { id: 'a', label: 'Se duplica.', isCorrect: false },
+    { id: 'b', label: 'Se mantiene igual.', isCorrect: false },
+    { id: 'c', label: 'Disminuye a la cuarta parte.', isCorrect: true },
+    { id: 'd', label: 'Disminuye a la mitad.', isCorrect: false }
+  ],
+  explanation: 'La ley de gravitación es inversa al cuadrado de la distancia, \\(F\' = F/4\\) al doblar \\(r\\).'
+}
+
+Clasifica cada pregunta en uno de estos bloques e identifica explícitamente su bloque y código:
+- Campo gravitatorio → ids: fis-grav-q1, fis-grav-q2, … fis-grav-q8
+- Campo eléctrico → ids: fis-elec-q1, … fis-elec-q8
+- Campo magnético → ids: fis-mag-q1, … fis-mag-q8
+- Ondas → ids: fis-ond-q1, … fis-ond-q8
+- Óptica geométrica → ids: fis-opt-q1, … fis-opt-q8
+- Física moderna → ids: fis-cuan-q1, … fis-cuan-q10
+
+Formato de salida:  
+- Lista JSON (sin bloques de código, directamente los objetos separados por comas entre corchetes).
+- Cada objeto debe estar completo y autocontenida.
+- Escribe solo la lista JSON final con los 50 objetos.
+
+IMPORTANTE (razonamiento previo antes de respuesta):  
+1. Antes de escribir cada pregunta, razona internamente qué aspecto del currículo cubre, para asegurar variedad y pertinencia.  
+2. Varía la dificultad y los temas dentro de cada bloque.  
+3. Piensa detenidamente en cada distractor para que sea plausible.  
+4. SOLO tras ese razonamiento, formula pregunta, opciones, explicación y marca la respuesta correcta.
+
+EJEMPLOS (usa estos como referencia de formato y nivel, adaptando en longitud y complejidad real según corresponda; reales deben cubrir TODOS los bloques y tener extensión real):
+
+Ejemplo INPUT (estructura interna a seguir):
+- bloque: Campo gravitatorio
+- id: fis-grav-q1
+
+Ejemplo OUTPUT:
+{
+  id: 'fis-grav-q1',
+  tier: 'standard',
+  prompt: 'Sean \\(m_1\\) y \\(m_2\\) dos masas separadas por distancia \\(r\\). La magnitud de la fuerza gravitatoria entre ellas es \\(F = G\\frac{m_1 m_2}{r^2}\\). Si la distancia \\(r\\) se duplica, ¿cómo cambia \\(F\\)?',
+  options: [
+    { id: 'a', label: 'Se duplica.', isCorrect: false },
+    { id: 'b', label: 'Se mantiene igual.', isCorrect: false },
+    { id: 'c', label: 'Disminuye a la cuarta parte.', isCorrect: true },
+    { id: 'd', label: 'Disminuye a la mitad.', isCorrect: false }
+  ],
+  explanation: 'La ley de gravitación es inversa al cuadrado de la distancia, \\(F\' = F/4\\) al doblar \\(r\\).'
+}
+(Ejemplo orientativo; las preguntas reales cubrirán todos los bloques temáticos y serán variadas en dificultad y formulación.)
+
+Recuerda: 
+- El razonamiento sobre el contenido y el porqué de cada pregunta debe producirse antes de enunciarla; la respuesta nunca debe ir la primera.
+- No respondas fuera del formato de ejemplo, ni incluyas explicaciones adicionales ni código markdown.
+- Solo la lista JSON de objetos de preguntas, completa y lista para uso en una base de datos.
+
+Importante:  
+- PRINCIPAL OBJETIVO: Generar 50 preguntas tipo test para 2º de Bachillerato con clasificación temática, en el formato JSON descrito, manteniendo variedad, corrección curricular y calidad pedagógica.
