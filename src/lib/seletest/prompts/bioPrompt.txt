@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Biología, adaptadas al currículo de la Comunidad de Madrid.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 
         {
@@ -14,6 +16,13 @@ Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de for
           ],
           explanation: 'En plantas predomina el almidón como reserva de glúcidos.'
         },
+
+        biomoleculas → bio-mol-q1, bio-mol-q2, bio-mol-q3, bio-mol-q4, bio-mol-q5
+genetica-molecular → bio-gen-q1, bio-gen-q2, bio-gen-q3
+citologia → bio-cit-q1, bio-cit-q2
+microbiologia-inmunologia → bio-mic-q1, bio-mic-q2
+anatomia-fisiologia → bio-ana-q1, bio-ana-q2
+ecologia-medioambiente → bio-eco-q1, bio-eco-q2, bio-mol-q1…bio-mol-q8, gen-q1…gen-q8, cit-q1…cit-q8, micro-q1…micro-q8, anat-q1…anat-q8
 
 1. Biomoléculas
 
