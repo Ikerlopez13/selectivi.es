@@ -3,13 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-
-type CachedProfile = {
-  email: string;
-  isPremium: boolean;
-};
+import { useAuth } from "@/contexts/AuthContext";
 
 const clearCachedSession = () => {
   try {
@@ -24,196 +20,37 @@ const clearCachedSession = () => {
   } catch {}
 };
 
-const updateCachedPremium = (isPremiumUser: boolean) => {
-  try {
-    localStorage.setItem("es_premium", isPremiumUser ? "1" : "0");
-    const cachedProfileRaw = localStorage.getItem("dashboard_profile");
-    if (cachedProfileRaw) {
-      const parsed = JSON.parse(cachedProfileRaw) as CachedProfile;
-      localStorage.setItem(
-        "dashboard_profile",
-        JSON.stringify({ ...parsed, isPremium: isPremiumUser }),
-      );
-    }
-  } catch {}
-};
-
-const seedStateFromCache = () => {
-  if (typeof window === "undefined")
-    return { hasSession: false, isPremium: false };
-  try {
-    const cachedProfileRaw = localStorage.getItem("dashboard_profile");
-    const cachedProfile = cachedProfileRaw
-      ? (JSON.parse(cachedProfileRaw) as CachedProfile)
-      : null;
-    const cachedPremium = localStorage.getItem("es_premium") === "1";
-    const loggedFlag = localStorage.getItem("logged_in") === "1";
-    return {
-      hasSession: Boolean(loggedFlag || cachedProfile?.email),
-      isPremium: cachedPremium || Boolean(cachedProfile?.isPremium),
-    };
-  } catch {
-    return { hasSession: false, isPremium: false };
-  }
-};
-
 export default function Navbar() {
   const pathname = usePathname();
+  const { hasSession, isPremium } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [nationalLoginLoading, setNationalLoginLoading] = useState(false);
+
   const isMadridBrand = pathname?.startsWith("/madrid");
   const isAndaluciaBrand = pathname?.startsWith("/andalucia");
-  const isGeneralBrand = !isMadridBrand && !isAndaluciaBrand;
-  const isHome = pathname === "/";
   const isMadridSection = pathname?.startsWith("/madrid");
   const isMadridDashboard = pathname?.startsWith("/madrid/dashboard");
   const isAndaluciaSection = pathname?.startsWith("/andalucia");
   const isAndaluciaDashboard = pathname?.startsWith("/andalucia/dashboard");
-  const isGeneralDashboard = pathname?.startsWith("/dashboard");
-  const [hasSession, setHasSession] = useState(false);
-  const [isPremium, setIsPremium] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [nationalLoginLoading, setNationalLoginLoading] = useState(false);
-
-  useEffect(() => {
-    let mounted = true;
-
-    const { hasSession: cachedSession, isPremium: cachedPremium } =
-      seedStateFromCache();
-    setHasSession(cachedSession);
-    setIsPremium(cachedPremium);
-
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (!mounted) return;
-      const sessionFound = Boolean(data.session);
-      setHasSession(sessionFound);
-      try {
-        if (sessionFound) {
-          document.cookie = "logged_in=1; path=/; max-age=31536000";
-          document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`;
-          localStorage.setItem("logged_in", "1");
-        } else {
-          clearCachedSession();
-        }
-      } catch {}
-      const userId = data.session?.user?.id;
-      if (userId) {
-        try {
-          const { data: existing, error: selErr } = await supabase
-            .from("usuarios")
-            .select("id, comunidad_autonoma, es_premium")
-            .eq("user_id", userId)
-            .maybeSingle();
-          if (!existing && !selErr) {
-            const email = data.session?.user?.email || "";
-            const name =
-              (data.session?.user?.user_metadata as any)?.full_name ||
-              email.split("@")[0] ||
-              "Usuario";
-            let inferredCommunity = "general";
-            if (location.pathname.startsWith("/madrid"))
-              inferredCommunity = "madrid";
-            else if (location.pathname.startsWith("/andalucia"))
-              inferredCommunity = "andalucia";
-            await supabase.from("usuarios").insert({
-              user_id: userId,
-              nombre: name,
-              correo_electronico: email,
-              comunidad_autonoma: inferredCommunity,
-            });
-          }
-        } catch {}
-        const email = data.session?.user?.email;
-        if (email) {
-          const { data: premiumResult } = await supabase.rpc(
-            "check_premium_status",
-            { p_email: email },
-          );
-          const isPremiumUser = Boolean(premiumResult);
-          if (mounted) setIsPremium(isPremiumUser);
-          updateCachedPremium(isPremiumUser);
-        }
-      } else {
-        if (mounted) setIsPremium(false);
-      }
-    });
-
-    const { data: sub } = supabase.auth.onAuthStateChange(
-      async (_e, session) => {
-        const sessionActive = Boolean(session);
-        setHasSession(sessionActive);
-        try {
-          if (sessionActive) {
-            document.cookie = "logged_in=1; path=/; max-age=31536000";
-            document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`;
-            localStorage.setItem("logged_in", "1");
-          } else {
-            clearCachedSession();
-          }
-        } catch {}
-        const userId = session?.user?.id;
-        if (userId) {
-          try {
-            const { data: existing, error: selErr } = await supabase
-              .from("usuarios")
-              .select("id, es_premium")
-              .eq("user_id", userId)
-              .maybeSingle();
-            if (!existing && !selErr) {
-              const email = session?.user?.email || "";
-              const name =
-                (session?.user?.user_metadata as any)?.full_name ||
-                email.split("@")[0] ||
-                "Usuario";
-              let inferredCommunity = "general";
-              if (location.pathname.startsWith("/madrid"))
-                inferredCommunity = "madrid";
-              else if (location.pathname.startsWith("/andalucia"))
-                inferredCommunity = "andalucia";
-              await supabase.from("usuarios").insert({
-                user_id: userId,
-                nombre: name,
-                correo_electronico: email,
-                comunidad_autonoma: inferredCommunity,
-              });
-            }
-          } catch {}
-          const email = session?.user?.email;
-          if (email) {
-            const { data: premiumResult } = await supabase.rpc(
-              "check_premium_status",
-              { p_email: email },
-            );
-            const isPremiumUser = Boolean(premiumResult);
-            setIsPremium(isPremiumUser);
-            updateCachedPremium(isPremiumUser);
-          }
-        } else {
-          setIsPremium(false);
-        }
-      },
-    );
-    return () => {
-      mounted = false;
-      sub.subscription.unsubscribe();
-    };
-  }, []);
 
   const triggerLogin = async (
     community: "general" | "madrid" | "andalucia",
   ) => {
+    const redirectPath =
+      community === "general" ? "/dashboard" : `/${community}/dashboard`;
     const isNational = community === "general";
+
     if (isNational && nationalLoginLoading) return;
 
     try {
       if (isNational) setNationalLoginLoading(true);
 
       const base =
-        typeof window !== "undefined" &&
-        window.location.hostname === "localhost"
+
+      typeof window !== "undefined" && window.location.hostname === "localhost"
           ? "http://localhost:3000"
           : window.location.origin;
 
-      const redirectPath =
-        community === "general" ? "/dashboard" : `/${community}/dashboard`;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
@@ -236,8 +73,6 @@ export default function Navbar() {
       console.error("Error al cerrar sesión", error);
     } finally {
       clearCachedSession();
-      setHasSession(false);
-      setIsPremium(false);
       window.location.href = redirectTo;
     }
   };

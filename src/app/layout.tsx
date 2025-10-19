@@ -1,31 +1,27 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import AuthHashRedirect from '@/components/AuthHashRedirect'
-import { cookies } from 'next/headers'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { AuthProvider } from "@/contexts/AuthContext";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'SelectiviES | Preparación Selectividad 2026',
-  description:
-    'Prepara Selectividad / EvAU 2026 por comunidades con SelectiviES. Accede a SeleTest, calculadora de nota de corte y recursos actualizados.',
-}
+  title: "SelectiviES - Prepara tu Selectividad",
+  description: "La mejor plataforma para preparar la Selectividad en España",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const cookieStore = cookies()
-  const community = cookieStore.get('community')?.value || 'general'
-
   return (
     <html lang="es">
       <body className={inter.className}>
-        <AuthHashRedirect />
-        <div data-community={community}>{children}</div>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
-  )
+  );
 }
