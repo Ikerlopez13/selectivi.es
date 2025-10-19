@@ -135,6 +135,7 @@ export default function Navbar() {
         if (mounted) setIsPremium(false);
       }
     });
+
     const { data: sub } = supabase.auth.onAuthStateChange(
       async (_e, session) => {
         const sessionActive = Boolean(session);
@@ -144,19 +145,19 @@ export default function Navbar() {
             document.cookie = "logged_in=1; path=/; max-age=31536000";
             document.cookie = `recent_login=${encodeURIComponent(Date.now().toString())}; path=/; max-age=600`;
             localStorage.setItem("logged_in", "1");
-        } else {
+          } else {
             clearCachedSession();
-        }
-      } catch {}
+          }
+        } catch {}
         const userId = session?.user?.id;
-      if (userId) {
-        try {
-          const { data: existing, error: selErr } = await supabase
+        if (userId) {
+          try {
+            const { data: existing, error: selErr } = await supabase
               .from("usuarios")
               .select("id, es_premium")
               .eq("user_id", userId)
               .maybeSingle();
-          if (!existing && !selErr) {
+            if (!existing && !selErr) {
               const email = session?.user?.email || "";
               const name =
                 (session?.user?.user_metadata as any)?.full_name ||
@@ -168,15 +169,15 @@ export default function Navbar() {
               else if (location.pathname.startsWith("/andalucia"))
                 inferredCommunity = "andalucia";
               await supabase.from("usuarios").insert({
-              user_id: userId,
-              nombre: name,
-              correo_electronico: email,
-              comunidad_autonoma: inferredCommunity,
+                user_id: userId,
+                nombre: name,
+                correo_electronico: email,
+                comunidad_autonoma: inferredCommunity,
               });
-          }
-        } catch {}
+            }
+          } catch {}
           const email = session?.user?.email;
-        if (email) {
+          if (email) {
             const { data: premiumResult } = await supabase.rpc(
               "check_premium_status",
               { p_email: email },
@@ -190,39 +191,42 @@ export default function Navbar() {
         }
       },
     );
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   const triggerLogin = async (
     community: "general" | "madrid" | "andalucia",
   ) => {
-    if (community === "general") {
-      if (nationalLoginLoading) return;
-      try {
-        setNationalLoginLoading(true);
-        const base =
-          typeof window !== "undefined" &&
-          window.location.hostname === "localhost"
-            ? "http://localhost:3000"
-            : window.location.origin;
-        const redirectTo = `${base}/dashboard`;
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider: "google",
-          options: { redirectTo },
-        });
-        if (error) throw error;
-      } catch (error) {
-        console.error("Error al iniciar sesión", error);
-        alert("No se pudo iniciar sesión. Inténtalo de nuevo.");
-        setNationalLoginLoading(false);
-      }
-      return;
-    }
+    const isNational = community === "general";
+    if (isNational && nationalLoginLoading) return;
 
-    const basePath = community === "general" ? "" : `/${community}`;
-    const loginPath = `${basePath}/login`;
-    const dashboardPath = `${basePath}/dashboard`;
-    window.location.href = `${loginPath}?next=${dashboardPath}`;
+    try {
+      if (isNational) setNationalLoginLoading(true);
+
+      const base =
+        typeof window !== "undefined" &&
+        window.location.hostname === "localhost"
+          ? "http://localhost:3000"
+          : window.location.origin;
+
+      const redirectPath =
+        community === "general" ? "/dashboard" : `/${community}/dashboard`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${base}${redirectPath}`,
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error al iniciar sesión", error);
+      alert("No se pudo iniciar sesión. Inténtalo de nuevo.");
+      if (isNational) setNationalLoginLoading(false);
+    }
   };
 
   const triggerLogout = async (redirectTo = "/") => {
@@ -375,8 +379,8 @@ export default function Navbar() {
           </Link>
           <Link
             href="/calculadora"
-                    className="text-gray-700 hover:text-gray-900"
-                  >
+            className="text-gray-700 hover:text-gray-900"
+          >
             Calculadora
           </Link>
           {isMadridSection
@@ -460,10 +464,7 @@ export default function Navbar() {
                     </Link>
                     <button
                       className="text-left py-2"
-                      onClick={async () => {
-                        await supabase.auth.signOut();
-                        window.location.href = "/madrid";
-                      }}
+                      onClick={() => triggerLogout("/madrid")}
                     >
                       Cerrar sesión
                     </button>
@@ -498,10 +499,7 @@ export default function Navbar() {
                     </Link>
                     <button
                       className="text-left py-2"
-                      onClick={async () => {
-                        await supabase.auth.signOut();
-                        window.location.href = "/andalucia";
-                      }}
+                      onClick={() => triggerLogout("/andalucia")}
                     >
                       Cerrar sesión
                     </button>
