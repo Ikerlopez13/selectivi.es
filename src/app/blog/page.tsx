@@ -126,27 +126,6 @@ export default function BlogPage() {
               )}
             </div>
           </div>
-
-          <div className="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-black/5 p-6">
-            <h3 className="font-bold mb-2">Suscríbete a nuestro boletín</h3>
-            <p className="text-gray-600 text-sm mb-4">
-              Recibe los mejores consejos para Selectividad, notas de corte y
-              novedades.
-            </p>
-            <form className="space-y-3">
-              <input
-                type="email"
-                placeholder="Tu correo electrónico"
-                className="w-full px-4 py-2.5 rounded-lg border bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#FFB800]"
-              />
-              <button
-                type="submit"
-                className="w-full bg-[#FFB800] text-black px-4 py-2.5 rounded-lg font-medium hover:bg-[#ffc835] transition"
-              >
-                Suscribirme
-              </button>
-            </form>
-          </div>
         </aside>
       </section>
       <Footer />

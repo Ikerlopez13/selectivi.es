@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test en formato JSON para estudiantes de 2º de Bachillerato sobre Historia de la Filosofía, siguiendo el currículo oficial de la Comunidad de Madrid. Las preguntas deben distribuirse equitativamente entre los siguientes pensadores y bloques temáticos, siguiendo orden cronológico: Platón (teoría de las Ideas y conocimiento), Aristóteles (metafísica, ética y política), San Agustín (fe y razón, interioridad), Santo Tomás de Aquino (escolástica, relación entre fe y razón), Descartes (racionalismo, duda metódica, cogito), Hume (empirismo, crítica a la causalidad), Kant (criticismo, revolución copernicana, ética del deber), Marx (materialismo histórico, alienación), Nietzsche (crítica a la moral, voluntad de poder, superhombre), Ortega y Gasset (perspectivismo, razón vital e histórica), Hannah Arendt (totalitarismo, acción política y libertad), incluyendo hasta la filosofía contemporánea.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 ### Instrucciones detalladas
 
 - Crea exactamente 50 preguntas, con al menos 4 preguntas por cada autor o autora.

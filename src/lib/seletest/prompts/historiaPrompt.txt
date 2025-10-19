@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Historia de España, adaptadas al currículo de la Comunidad de Madrid.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 en el siguiente formato JSON 
 { id: 'espacio-rural-q2', tier: 'standard', prompt: 'La pesca en España se concentra principalmente en', options: [
         { id: 'a', label: 'Ríos', isCorrect: false },
@@ -7,6 +9,8 @@ en el siguiente formato JSON
         { id: 'c', label: 'Lagos', isCorrect: false },
         { id: 'd', label: 'Interior', isCorrect: false },
       ], explanation: 'La pesca española está centrada en las grandes masas de agua costera y plataformas marinas.' },
+
+prehistoria-antigua-q…, prerromanos-q…, romana-q…, visigodos-q…, …, retos-q…, medio-fisico-q…, relieve-peninsular-q… (nota: hay duplicados con geografía porque cubre contenidos comunes).
 
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 

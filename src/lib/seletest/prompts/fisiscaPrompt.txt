@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test de Física para estudiantes de 2º de Bachillerato, de acuerdo al currículo de la Comunidad de Madrid y los siguientes bloques temáticos: Campo gravitatorio, Campo eléctrico, Campo magnético, Ondas, Óptica geométrica y Física moderna. Antes de formular cada pregunta, clasifícala con el identificador de bloque y el formato id siguiendo la estructura indicada en los ejemplos. Asegúrate de:
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 - Incluir exactamente 50 preguntas, distribuidas de manera equilibrada, con al menos 7-8 preguntas por bloque.
 - Cada pregunta debe estar estructurada en un objeto JSON con:
   - id: identificador único siguiendo el patrón del bloque y número (ej., fis-grav-q1)

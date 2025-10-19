@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Matemáticas aplicadas a las Ciencias Sociales II, adaptadas al currículo de la Comunidad de Madrid.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 
         {

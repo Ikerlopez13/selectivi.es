@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Geografía de España, adaptadas al currículo de la Comunidad de Madrid.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 
 hazlo con este estilo de JSON 
@@ -16,6 +18,8 @@ hazlo con este estilo de JSON
           explanation: 'La Cordillera Bética se sitúa mayoritariamente en el extremo sur y este de la Península, delimitando la Meseta por su vertiente mediterránea.'
         },
 
+    Temas: relieve-peninsular, relieve-insular, climas-espana, aguas-cuencas, paisajes-naturales, poblacion, espacio-rural, industria, servicios, espacio-urbano, territorio-organizacion
+Preguntas: identificadores geo-rel-q…, geo-relpen-q…, geo-clima-q…, geo-agua-q…, etc., además de pares duplicados en bloques finales (medio-fisico, etc.) que reflejan material extendido.
 El medio físico
 
 El relieve peninsular: unidades morfoestructurales.

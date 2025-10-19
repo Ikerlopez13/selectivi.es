@@ -1,5 +1,21 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Lengua Castellana y Literatura, adaptadas al currículo de la Comunidad de Madrid.
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
 
+
+En este formato JSON 
+
+{
+          id: 'lengua-com-func-q2',
+          tier: 'standard',
+          prompt: '¿Qué función se utiliza cuando un poema se dirige al lector para provocar una emoción?',
+          options: [
+            { id: 'a', label: 'Función referencial', isCorrect: false },
+            { id: 'b', label: 'Función expresiva', isCorrect: true },
+            { id: 'c', label: 'Función fática', isCorrect: false },
+            { id: 'd', label: 'Función metalingüística', isCorrect: false },
+          ],
+          explanation: 'La función expresiva se centra en la actitud y emoción del emisor.'
+        },
 
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 

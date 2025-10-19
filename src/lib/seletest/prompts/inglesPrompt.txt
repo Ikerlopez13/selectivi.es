@@ -1,5 +1,7 @@
 Genera 50 preguntas tipo test para estudiantes de 2º de Bachillerato sobre Inglés (Lengua Extranjera II), adaptadas al currículo de la Comunidad de Madrid y al modelo de la EvAU.
 
+Asegurate de que el orden de la respuesta correcta no sea siempre la primera o segunda sino que pueda ser la 3a 0 la 4a tambien
+
 Clasifica cada pregunta en uno de los siguientes bloques temáticos antes de formularla:
 
 Hazlo con este estilo de JSON 
@@ -9,6 +11,9 @@ Hazlo con este estilo de JSON
         { id: 'c', label: 'was leaving', isCorrect: false },
         { id: 'd', label: 'has left', isCorrect: false },
       ], explanation: 'Past perfect for an action completed before another past action.' },] },
+
+tenses, passive, reported-speech, conditionals, modals, relative-time-clauses, gerunds-infinitives, hypothetical-wish, linkers, false-friends-phrasals), vocabulario (v-education, v-general, etc.), reading, writing, v-travel-leisure, v-work, word-forms, uoe-mixed
+Preguntas: eng-tenses-q…, eng-passive-q…, eng-vgen-q…, eng-read-q…, etc.
 
 Grammar & Use of English.
 

@@ -1,10 +1,9 @@
-'use client'
-
 import SpainMap from '@/components/SpainMap'
 import Navbar from '@/components/Navbar'
 import Description from '@/components/Description'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
+import NationalLogin from '@/components/NationalLogin'
 
 export default function Home() {
   return (
@@ -24,7 +23,7 @@ export default function Home() {
         </div>
 
         <p className="text-gray-600 text-lg md:text-xl mb-6 px-4 text-center">
-          En que comunidad autónoma vas a hacer la EvAU?
+          ¿En qué comunidad autónoma vas a hacer la EvAU?
         </p>
 
         <div className="w-full px-4 mb-16">
@@ -32,6 +31,8 @@ export default function Home() {
             <SpainMap />
           </div>
         </div>
+
+        <NationalLogin />
 
         <div className="w-full px-4 mb-24">
           <div className="max-w-4xl mx-auto">

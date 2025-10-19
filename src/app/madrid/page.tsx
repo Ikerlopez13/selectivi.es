@@ -1,47 +1,61 @@
-import Image from 'next/image'
-import Navbar from '@/components/Navbar'
-import Test from '@/components/Test'
-import HistoryQuiz from '@/components/HistoryQuiz'
-import Footer from '@/components/Footer'
-import OnboardingGate from '@/components/OnboardingGate'
-import SeletestCTA from '@/components/SeletestCTA'
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Test from "@/components/Test";
+import HistoryQuiz from "@/components/HistoryQuiz";
+import Footer from "@/components/Footer";
+import OnboardingGate from "@/components/OnboardingGate";
+import SeletestCTA from "@/components/SeletestCTA";
+import NationalLogin from "@/components/NationalLogin";
 
 // Tarjeta de beneficio hecha 100% con código (sin SVG)
 type BenefitProps = {
-  icon: string
-  title: string
-  description: string
-  rotation?: string
-}
+  icon: string;
+  title: string;
+  description: string;
+  rotation?: string;
+};
 
 function BenefitCard({ icon, title, description, rotation }: BenefitProps) {
   return (
-    <div className={`bg-white rounded-[24px] shadow-[0_10px_32px_rgba(0,0,0,0.10)] border border-black/5 p-5 pr-7 ${rotation ?? ''}`}>
+    <div
+      className={`bg-white rounded-[24px] shadow-[0_10px_32px_rgba(0,0,0,0.10)] border border-black/5 p-5 pr-7 ${rotation ?? ""}`}
+    >
       <div className="flex items-start gap-4">
         <div className="flex-none flex items-center justify-center w-11 h-11 aspect-square rounded-lg bg-[#FFB800]">
-          <span className="text-xl" aria-hidden="true">{icon}</span>
+          <span className="text-xl" aria-hidden="true">
+            {icon}
+          </span>
         </div>
         <div>
           <h3 className="text-xl font-bold mb-1.5">{title}</h3>
-          <p className="text-gray-500 leading-snug text-[15px]">{description}</p>
+          <p className="text-gray-500 leading-snug text-[15px]">
+            {description}
+          </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default function MadridPage() {
   return (
     <main className="min-h-screen">
       <Navbar />
-      
+
       {/* Banner */}
       <div className="bg-[#FFB800] relative overflow-hidden -mt-8">
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16 relative">
           {/* Logo */}
           <div className="bg-white rounded-2xl p-4 inline-flex items-center gap-2 mb-14 shadow-sm">
-            <Image src="/images/logoo.svg" alt="SelectiviMAD" width={40} height={40} />
-            <span className="text-2xl font-bold">selectivi<span className="text-[#FFB800]">MAD</span></span>
+            <Image
+              src="/images/logoo.svg"
+              alt="SelectiviMAD"
+              width={40}
+              height={40}
+            />
+            <span className="text-2xl font-bold">
+              selectivi<span className="text-[#FFB800]">MAD</span>
+            </span>
           </div>
 
           {/* Título */}
@@ -51,10 +65,10 @@ export default function MadridPage() {
 
           {/* Imagen de fondo recortada por el banner */}
           <div className="absolute right-0 inset-y-[-40px] md:inset-y-[-80px] w-[65%] md:w-[58%] pointer-events-none">
-            <Image 
-              src="/images/madrid.svg" 
-              alt="Madrid" 
-              fill 
+            <Image
+              src="/images/madrid.svg"
+              alt="Madrid"
+              fill
               className="object-contain"
               priority
               sizes="(min-width: 1280px) 58vw, 90vw"
@@ -76,35 +90,51 @@ export default function MadridPage() {
             </p>
 
             <div className="space-y-8">
-                <SeletestCTA />
+              <SeletestCTA />
 
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span>
-                    Preguntas ilimitadas
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span>
-                    Seguimiento de tu progreso
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span>
-                    Atención Premium 24/7
-                  </li>
-                </ul>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-2">
+                  <span className="text-[#FFB800] text-lg" aria-hidden="true">
+                    ✓
+                  </span>
+                  Preguntas ilimitadas
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#FFB800] text-lg" aria-hidden="true">
+                    ✓
+                  </span>
+                  Seguimiento de tu progreso
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-[#FFB800] text-lg" aria-hidden="true">
+                    ✓
+                  </span>
+                  Atención Premium 24/7
+                </li>
+              </ul>
 
-                <div className="flex flex-wrap gap-4">
-                  <a href="#" className="flex items-center gap-2 bg-[#FFB800] text-black px-5 py-3 rounded-lg font-medium hover:bg-[#ffc835] transition-colors shadow-sm">
-                    <span className="text-lg" aria-hidden="true">📊</span>
-                    Consulta las notas de corte
-                  </a>
-                  <a href="/madrid/calculadora" className="flex items-center gap-2 bg-gray-100 text-black px-5 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors shadow-sm">
-                    <span className="text-lg" aria-hidden="true">🧮</span>
-                    Calcula tu nota
-                  </a>
-                </div>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href="#"
+                  className="flex items-center gap-2 bg-[#FFB800] text-black px-5 py-3 rounded-lg font-medium hover:bg-[#ffc835] transition-colors shadow-sm"
+                >
+                  <span className="text-lg" aria-hidden="true">
+                    📊
+                  </span>
+                  Consulta las notas de corte
+                </a>
+                <a
+                  href="/madrid/calculadora"
+                  className="flex items-center gap-2 bg-gray-100 text-black px-5 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors shadow-sm"
+                >
+                  <span className="text-lg" aria-hidden="true">
+                    🧮
+                  </span>
+                  Calcula tu nota
+                </a>
               </div>
             </div>
+          </div>
           {/* end left column */}
 
           {/* Columna central: tarjetitas (100% código) */}
@@ -131,10 +161,10 @@ export default function MadridPage() {
 
           {/* Columna derecha: gato (oculto en móvil, visible en escritorio) */}
           <div className="hidden lg:block">
-            <Image 
-              src="/images/gato.svg" 
-              alt="Mascota" 
-              width={220} 
+            <Image
+              src="/images/gato.svg"
+              alt="Mascota"
+              width={220}
               height={320}
               className="transform scale-x-100"
               priority
@@ -147,5 +177,5 @@ export default function MadridPage() {
       <OnboardingGate />
       <Footer />
     </main>
-  )
+  );
 }
