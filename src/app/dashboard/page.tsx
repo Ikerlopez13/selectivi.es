@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import type { Session } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,245 +11,126 @@ type Profile = {
   isPremium: boolean;
 };
 
-const fetchPremiumFlag = async (accessToken: string): Promise<boolean> => {
-  console.log("🔍 Verificando premium con API");
-  
-  try {
-    console.log("📡 Llamando a /api/check-premium");
-
-    const response = await fetch('/api/check-premium', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    console.log("📥 Respuesta recibida:", response.status);
-
-    if (!response.ok) {
-      console.error("❌ API error:", response.status, response.statusText);
-      return false;
-    }
-
-    const data = await response.json();
-    console.log("📊 Datos:", data);
-
-    if (data.error) {
-      console.error("❌ Error en respuesta:", data.error);
-      return false;
-    }
-
-    const isPremium = Boolean(data.isPremium);
-    console.log("✅ Premium:", isPremium);
-    return isPremium;
-
-  } catch (error: any) {
-    console.error("💥 Error llamando a API:", error.message || error);
-    return false;
-  }
-};
-
-const processHashIfPresent = async () => {
-  if (typeof window === "undefined") return;
-
-  const { hash, pathname, search } = window.location;
-  if (!hash || !hash.includes("access_token=")) return;
-
-  const params = new URLSearchParams(hash.replace(/^#/, ""));
-  const accessToken = params.get("access_token");
-  const refreshToken = params.get("refresh_token");
-  
-  if (!accessToken || !refreshToken) return;
-
-  try {
-    const { error } = await supabase.auth.setSession({
-      access_token: accessToken,
-      refresh_token: refreshToken,
-    });
-    
-    if (error) {
-      console.error("Error estableciendo sesión:", error);
-      return;
-    }
-
-    // Guardar comunidad en cookie
-    const isMadrid = pathname.includes("/madrid");
-    const isAndalucia = pathname.includes("/andalucia");
-    const community = isMadrid ? "madrid" : isAndalucia ? "andalucia" : "general";
-
-    document.cookie = `community=${community}; path=/; max-age=2592000; SameSite=Lax`;
-
-    // Limpiar hash de la URL
-    window.history.replaceState(null, "", `${pathname}${search}`);
-  } catch (error) {
-    console.error("Error procesando OAuth:", error);
-  }
-};
-
-const waitForSession = async (maxAttempts = 30): Promise<Session | null> => {
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (session?.user?.email) {
-      return session;
-    }
-    
-    await new Promise((resolve) => setTimeout(resolve, 200));
-  }
-  
-  return null;
-};
-
 export default function DashboardPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [checkingPremium, setCheckingPremium] = useState(false);
-  const isLoadingRef = useRef(false);
-  const isMountedRef = useRef(true);
-  const lastEmailRef = useRef<string | null>(null);
+  const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    isMountedRef.current = true;
+    initDashboard();
+  }, []);
 
-    const loadProfile = async (session?: Session | null) => {
-      // Evitar cargas duplicadas
-      if (isLoadingRef.current) {
-        console.log("⏭️ Ya hay una carga en progreso, saltando...");
+  const initDashboard = async () => {
+    // Procesar hash OAuth si existe
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash;
+      if (hash.includes("access_token=")) {
+        console.log("🔑 [DASHBOARD] Hash OAuth detectado, procesando...");
+        
+        const params = new URLSearchParams(hash.replace(/^#/, ""));
+        const accessToken = params.get("access_token");
+        const refreshToken = params.get("refresh_token");
+        
+        if (accessToken && refreshToken) {
+          try {
+            const { error } = await supabase.auth.setSession({
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            });
+            
+            if (error) {
+              console.error("❌ [DASHBOARD] Error setSession:", error);
+            } else {
+              console.log("✅ [DASHBOARD] Sesión establecida desde hash");
+            }
+            
+            // Limpiar hash de la URL
+            window.history.replaceState(null, "", window.location.pathname);
+          } catch (error) {
+            console.error("💥 [DASHBOARD] Error procesando hash:", error);
+          }
+        }
+      }
+    }
+    
+    // Cargar perfil
+    await loadProfile();
+  };
+
+  const loadProfile = async () => {
+    try {
+      console.log("🚀 [DASHBOARD] Cargando perfil...");
+
+      // 1. Obtener sesión
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError) {
+        console.error("❌ [DASHBOARD] Error obteniendo sesión:", sessionError);
+        window.location.href = "/login";
         return;
       }
 
-      try {
-        // Obtener sesión
-        const currentSession = session || await waitForSession();
-
-        if (!isMountedRef.current) return;
-
-        // Si no hay sesión, redirigir a login
-        if (!currentSession?.user?.email) {
-          setProfile(null);
-          setLoading(false);
-          window.location.href = "/login";
-          return;
-        }
-
-        const email = currentSession.user.email;
-
-        // Si ya cargamos este email, no volver a cargar
-        if (lastEmailRef.current === email && profile?.email === email) {
-          console.log("✅ Perfil ya cargado para:", email);
-          setLoading(false);
-          return;
-        }
-
-        isLoadingRef.current = true;
-        lastEmailRef.current = email;
-        
-        console.log("👤 Email del usuario:", email);
-
-        // Mostrar dashboard inmediatamente con estado "verificando"
-        setProfile({ email, isPremium: false });
-        setLoading(false);
-        setCheckingPremium(true);
-
-        // Verificar premium en segundo plano usando el token de la sesión
-        const accessToken = currentSession.access_token;
-        const isPremium = await fetchPremiumFlag(accessToken);
-        console.log("🎯 Estado premium final:", isPremium);
-
-        if (!isMountedRef.current) return;
-
-        const newProfile: Profile = { email, isPremium };
-        setProfile(newProfile);
-        setCheckingPremium(false);
-        
-        console.log("✨ Perfil cargado:", newProfile);
-      } catch (error) {
-        console.error("Error cargando perfil:", error);
-        
-        if (isMountedRef.current) {
-          setProfile(null);
-          setLoading(false);
-        }
-      } finally {
-        isLoadingRef.current = false;
+      if (!session?.user?.email) {
+        console.log("⚠️ [DASHBOARD] No hay sesión, redirigiendo...");
+        window.location.href = "/login";
+        return;
       }
-    };
 
-    const init = async () => {
-      // Procesar hash de OAuth si existe
-      await processHashIfPresent();
-      
-      // Cargar perfil
-      await loadProfile();
-    };
+      const email = session.user.email;
+      console.log("✅ [DASHBOARD] Sesión encontrada:", email);
 
-    init();
+      // 2. Mostrar dashboard inmediatamente
+      setProfile({ email, isPremium: false });
+      setLoading(false);
+      setChecking(true);
 
-    // Escuchar cambios de autenticación
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log("🔔 Auth event:", event);
-        
-        if (!isMountedRef.current) return;
+      // 3. Verificar premium en segundo plano
+      console.log("🔍 [DASHBOARD] Verificando premium...");
+      const response = await fetch('/api/check-premium', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
-        // Ignorar eventos duplicados de SIGNED_IN
-        if (event === "SIGNED_IN" && lastEmailRef.current === session?.user?.email) {
-          console.log("⏭️ Evento SIGNED_IN duplicado ignorado");
-          return;
-        }
-
-        if (event === "SIGNED_OUT") {
-          lastEmailRef.current = null;
-          setProfile(null);
-          setLoading(false);
-          window.location.href = "/login";
-          return;
-        }
-
-        if (session?.user?.email) {
-          await loadProfile(session);
-        } else {
-          lastEmailRef.current = null;
-          setProfile(null);
-          setLoading(false);
-        }
+      if (!response.ok) {
+        console.error("❌ [DASHBOARD] Error en API:", response.status);
+        setChecking(false);
+        return;
       }
-    );
 
-    return () => {
-      isMountedRef.current = false;
-      lastEmailRef.current = null;
-      subscription.unsubscribe();
-    };
-  }, []);
+      const data = await response.json();
+      console.log("📊 [DASHBOARD] Respuesta API:", data);
+
+      const isPremium = Boolean(data.isPremium);
+      console.log("🎯 [DASHBOARD] Estado premium:", isPremium);
+
+      // 4. Actualizar estado
+      setProfile({ email, isPremium });
+      setChecking(false);
+
+    } catch (error) {
+      console.error("💥 [DASHBOARD] Error:", error);
+      setLoading(false);
+      setChecking(false);
+    }
+  };
 
   const handleLogout = async () => {
+    console.log("🚪 [DASHBOARD] Cerrando sesión...");
     try {
-      setLoading(true);
-      
       const { error } = await supabase.auth.signOut();
-      
-      if (error) {
-        console.error("Error cerrando sesión:", error);
-        throw error;
-      }
-
-      // Limpiar estado
-      setProfile(null);
-      
-      // Redirigir
+      if (error) throw error;
+      console.log("✅ [DASHBOARD] Sesión cerrada");
       window.location.href = "/login";
     } catch (error) {
-      console.error("Error en logout:", error);
-      setLoading(false);
-      
-      // Intentar redirigir igualmente
+      console.error("❌ [DASHBOARD] Error logout:", error);
       window.location.href = "/login";
     }
   };
 
-  // Loading state
+  // Loading inicial
   if (loading) {
     return (
       <main className="min-h-screen flex flex-col bg-gray-50">
@@ -266,15 +146,14 @@ export default function DashboardPage() {
     );
   }
 
-  // Non-premium user
-  if (!profile || !profile.isPremium) {
-    const email = profile?.email ?? "Usuario";
-    
+  // No premium
+  if (profile && !profile.isPremium) {
     return (
       <main className="min-h-screen flex flex-col bg-gray-50">
         <Navbar />
         <div className="flex-1 p-6">
           <div className="max-w-4xl mx-auto space-y-6">
+            {/* Perfil */}
             <div className="bg-white rounded-2xl shadow p-6">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 flex items-center justify-center">
@@ -282,9 +161,9 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex-1">
                   <div className="font-medium">Plan estándar</div>
-                  <div className="text-gray-600">{email}</div>
+                  <div className="text-gray-600">{profile.email}</div>
                 </div>
-                {checkingPremium && (
+                {checking && (
                   <div className="text-sm text-gray-400 flex items-center gap-2">
                     <div className="animate-spin">⚡</div>
                     Verificando...
@@ -293,11 +172,11 @@ export default function DashboardPage() {
               </div>
             </div>
 
+            {/* CTA Premium */}
             <div className="bg-[#FFF7E1] rounded-2xl shadow p-8 text-center border border-[#FFE199]">
               <h2 className="text-2xl font-bold mb-2">Sube a Premium</h2>
               <p className="mb-6">
-                Accede a todas las preguntas y funcionalidades exclusivas en
-                SeleTest.
+                Accede a todas las preguntas y funcionalidades exclusivas en SeleTest.
               </p>
               <div className="flex flex-col gap-3 items-center">
                 <Link
@@ -315,6 +194,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
+            {/* Logout */}
             <div className="text-center">
               <button
                 onClick={handleLogout}
@@ -330,12 +210,13 @@ export default function DashboardPage() {
     );
   }
 
-  // Premium user
+  // Premium
   return (
     <main className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
       <div className="flex-1 p-6">
         <div className="max-w-4xl mx-auto space-y-6">
+          {/* Perfil Premium */}
           <div className="bg-white rounded-2xl shadow p-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 flex items-center justify-center">
@@ -343,17 +224,17 @@ export default function DashboardPage() {
               </div>
               <div>
                 <div className="font-medium">Premium</div>
-                <div className="text-gray-600">{profile.email}</div>
+                <div className="text-gray-600">{profile?.email}</div>
               </div>
             </div>
           </div>
 
+          {/* Premium Card */}
           <div className="bg-[#FFB800] rounded-2xl shadow p-8 text-center">
             <div className="text-4xl mb-4">⭐️</div>
             <h2 className="text-2xl font-bold mb-2">Tu acceso Premium</h2>
             <p className="mb-6">
-              Disfruta de acceso ilimitado a todas las preguntas y
-              funcionalidades exclusivas.
+              Disfruta de acceso ilimitado a todas las preguntas y funcionalidades exclusivas.
             </p>
             <Link
               href="/"
@@ -363,6 +244,7 @@ export default function DashboardPage() {
             </Link>
           </div>
 
+          {/* Logout */}
           <div className="text-center">
             <button
               onClick={handleLogout}
