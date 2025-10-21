@@ -89,12 +89,12 @@ export default function QuizPage() {
         const subj = ALL_SUBJECTS[s.id]
         if (!subj) return
         const subjectQuestions: QuestionWithSubject[] = []
-        subj.topics.forEach((t) => {
+        subj.topics.forEach((t: Topic) => {
           if (!s.topics.includes(t.id)) return
           subjectQuestions.push(...t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
         })
         if (subjectQuestions.length === 0) {
-          subjectQuestions.push(...subj.topics.flatMap((t) => t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))))
+          subjectQuestions.push(...subj.topics.flatMap((t: Topic) => t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))))
         }
         if (subjectQuestions.length > 0) perSubject.set(subj.id, subjectQuestions)
       })

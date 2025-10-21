@@ -1,4 +1,4 @@
-import type { Subject } from './types'
+import type { Subject } from '../../types'
 
 export const chemistryAND: Subject = {
   id: 'quimica',
