@@ -17,7 +17,7 @@ import { physicsAND } from '@/lib/seletest/prompts/andalucia/physics'
 import { biologyAND } from '@/lib/seletest/prompts/andalucia/biology'
 import { chemistryAND } from '@/lib/seletest/prompts/andalucia/chemistry'
 import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
-import type { Question, QuestionWithSubject } from '@/lib/seletest/types'
+import type { Question, QuestionWithSubject, Topic } from '@/lib/seletest/types'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyAND,
@@ -61,7 +61,7 @@ export default function QuizPage() {
         const subj = ALL_SUBJECTS[s.id]
         if (!subj) return
         subjectDisplay[subj.id] = subj.name
-        subj.topics.forEach((t) => {
+        subj.topics.forEach((t: Topic) => {
           if (!s.topics.includes(t.id)) return
           pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
         })
@@ -72,7 +72,7 @@ export default function QuizPage() {
           const subj = ALL_SUBJECTS[s.id]
           if (!subj) return
           subjectDisplay[subj.id] = subj.name
-          subj.topics.forEach((t) => { pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))) })
+          subj.topics.forEach((t: Topic) => { pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))) })
         })
       }
       // Usar hint de premium de localStorage para carga instantánea
