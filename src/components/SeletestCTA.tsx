@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabase/client'
 
 export default function SeletestCTA({ className = '' }: { className?: string }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [loading, setLoading] = useState(true)
   const [hasSession, setHasSession] = useState(false)
 
@@ -30,7 +31,18 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
       router.push('/login')
       return
     }
-    router.push('/madrid/seletest')
+    
+    // Detectar comunidad según la ruta actual
+    const isAndalucia = pathname?.startsWith('/andalucia')
+    const isMadrid = pathname?.startsWith('/madrid')
+    
+    if (isAndalucia) {
+      router.push('/andalucia/seletest')
+    } else if (isMadrid) {
+      router.push('/madrid/seletest')
+    } else {
+      router.push('/madrid/seletest') // Default
+    }
   }
 
   return (

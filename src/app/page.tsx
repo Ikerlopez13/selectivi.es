@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar'
 import Description from '@/components/Description'
 import Footer from '@/components/Footer'
 import Image from 'next/image'
-import NationalLogin from '@/components/NationalLogin'
 
 export default function Home() {
   return (
@@ -31,8 +30,6 @@ export default function Home() {
             <SpainMap />
           </div>
         </div>
-
-        <NationalLogin />
 
         <div className="w-full px-4 mb-24">
           <div className="max-w-4xl mx-auto">

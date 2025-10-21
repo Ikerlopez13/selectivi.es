@@ -36,33 +36,34 @@ export default function Navbar() {
   const triggerLogin = async (
     community: "general" | "madrid" | "andalucia",
   ) => {
-    const redirectPath =
-      community === "general" ? "/dashboard" : `/${community}/dashboard`;
-    const isNational = community === "general";
-
-    if (isNational && nationalLoginLoading) return;
+    console.log("🔑 [NAVBAR] Iniciando login para:", community);
+    
+    if (nationalLoginLoading) return;
 
     try {
-      if (isNational) setNationalLoginLoading(true);
+      setNationalLoginLoading(true);
 
-      const base =
-
-      typeof window !== "undefined" && window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : window.location.origin;
+      // TODAS las comunidades redirigen al dashboard general
+      const redirectTo = `${window.location.origin}/dashboard`;
+      console.log("🔗 [NAVBAR] Redirect URL:", redirectTo);
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${base}${redirectPath}`,
+          redirectTo,
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("❌ [NAVBAR] Error en signInWithOAuth:", error);
+        throw error;
+      }
+      
+      console.log("✅ [NAVBAR] OAuth iniciado correctamente");
     } catch (error) {
-      console.error("Error al iniciar sesión", error);
+      console.error("💥 [NAVBAR] Error al iniciar sesión:", error);
       alert("No se pudo iniciar sesión. Inténtalo de nuevo.");
-      if (isNational) setNationalLoginLoading(false);
+      setNationalLoginLoading(false);
     }
   };
 
@@ -172,12 +173,21 @@ export default function Navbar() {
           </Link>
         )
       ) : null}
-      <button
-        onClick={() => triggerLogin("andalucia")}
-        className="bg-[#FFB800] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#ffc835] transition-colors"
-      >
-        {hasSession ? "Accede a SeleTest" : "Entrar"}
-      </button>
+      {hasSession ? (
+        <Link
+          href="/andalucia/seletest"
+          className="bg-[#FFB800] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#ffc835] transition-colors"
+        >
+          Accede a SeleTest
+        </Link>
+      ) : (
+        <button
+          onClick={() => triggerLogin("andalucia")}
+          className="bg-[#FFB800] text-black px-4 py-2 rounded-lg font-medium hover:bg-[#ffc835] transition-colors"
+        >
+          Entrar
+        </button>
+      )}
     </>
   );
 
@@ -214,8 +224,8 @@ export default function Navbar() {
           </Link>
           <Link
             href="/calculadora"
-            className="text-gray-700 hover:text-gray-900"
-          >
+                    className="text-gray-700 hover:text-gray-900"
+                  >
             Calculadora
           </Link>
           {isMadridSection
