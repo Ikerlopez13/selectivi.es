@@ -761,6 +761,24 @@ export const historyAND: Subject = {
         { id: 'c', label: 'La abolición de la monarquía', isCorrect: false },
         { id: 'd', label: 'Un régimen liberal consolidado', isCorrect: false },
       ], explanation: 'Fernando VII restauró el absolutismo, revirtiendo avances liberales.' },
+      { id: 'and-historia-q1', tier: 'standard', prompt: 'La Guerra de la Independencia española tuvo lugar en:', options: [
+        { id: 'a', label: '1789-1795', isCorrect: false },
+        { id: 'b', label: '1808-1814', isCorrect: true },
+        { id: 'c', label: '1820-1823', isCorrect: false },
+        { id: 'd', label: '1833-1840', isCorrect: false },
+      ], explanation: 'La Guerra de la Independencia española se extendió de 1808 a 1814, desde la invasión francesa hasta la expulsión de las tropas napoleónicas.' },
+      { id: 'and-historia-q2', tier: 'standard', prompt: 'La Constitución española conocida como "La Pepa" se promulgó en:', options: [
+        { id: 'a', label: '1808', isCorrect: false },
+        { id: 'b', label: '1810', isCorrect: false },
+        { id: 'c', label: '1812', isCorrect: true },
+        { id: 'd', label: '1814', isCorrect: false },
+      ], explanation: 'La Constitución de 1812, apodada "La Pepa" por ser promulgada el 19 de marzo (día de San José), fue aprobada por las Cortes de Cádiz.' },
+      { id: 'and-historia-q3', tier: 'standard', prompt: '¿Qué rey español se enfrentó a Napoleón?', options: [
+        { id: 'a', label: 'Carlos III', isCorrect: false },
+        { id: 'b', label: 'Fernando VII', isCorrect: true },
+        { id: 'c', label: 'Carlos IV', isCorrect: false },
+        { id: 'd', label: 'Alfonso XII', isCorrect: false },
+      ], explanation: 'Fernando VII fue el rey durante la ocupación napoleónica, aunque estuvo cautivo en Francia. La resistencia se hizo en su nombre.' },
     ] },
     { id: 'fernando-vii', title: 'Reinado de Fernando VII', questions: [
       { id: 'fernando-q1', tier: 'standard', prompt: '¿Cómo se denomina el periodo 1820-1823?', options: [

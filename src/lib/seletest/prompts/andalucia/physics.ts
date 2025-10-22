@@ -67,6 +67,42 @@ export const physicsAND: Subject = {
             { id: 'd', label: 'Se vuelve positiva.', isCorrect: false },
           ],
           explanation: 'Al doblar \\(r\\), \\(E\\) pasa de \\(-GMm/(2r)\\) a \\(-GMm/(4r) = E/2\\).'
+        },
+        {
+          id: 'and-fis-q1',
+          tier: 'standard',
+          prompt: 'La unidad de fuerza en el Sistema Internacional es:',
+          options: [
+            { id: 'a', label: 'Newton', isCorrect: true },
+            { id: 'b', label: 'Julio', isCorrect: false },
+            { id: 'c', label: 'Vatio', isCorrect: false },
+            { id: 'd', label: 'Pascal', isCorrect: false },
+          ],
+          explanation: 'El Newton (N) es la unidad de fuerza en el SI, definida como kg·m/s².'
+        },
+        {
+          id: 'and-fis-q2',
+          tier: 'standard',
+          prompt: 'La segunda ley de Newton se expresa como:',
+          options: [
+            { id: 'a', label: 'F = m·a', isCorrect: true },
+            { id: 'b', label: 'E = m·c²', isCorrect: false },
+            { id: 'c', label: 'P = m·v', isCorrect: false },
+            { id: 'd', label: 'W = F·d', isCorrect: false },
+          ],
+          explanation: 'La segunda ley de Newton establece que la fuerza es igual a la masa por la aceleración: F = ma.'
+        },
+        {
+          id: 'and-fis-q3',
+          tier: 'standard',
+          prompt: 'La velocidad de la luz en el vacío es aproximadamente:',
+          options: [
+            { id: 'a', label: '300.000 km/s', isCorrect: true },
+            { id: 'b', label: '300 km/s', isCorrect: false },
+            { id: 'c', label: '3.000 km/s', isCorrect: false },
+            { id: 'd', label: '30.000 km/s', isCorrect: false },
+          ],
+          explanation: 'La velocidad de la luz en el vacío es aproximadamente 300.000 km/s o 3×10⁸ m/s.'
         }
       ]
     },

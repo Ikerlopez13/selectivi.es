@@ -175,6 +175,42 @@ export const mathematicsAND: Subject = {
             { id: 'd', label: 'No definida en $x=0$', isCorrect: false },
           ],
           explanation: 'La función es continua en $x=0$ por el límite del producto. Es derivable en $x=0$ y $f\'(0)=0$.'
+        },
+        {
+          id: 'and-mat-q1',
+          tier: 'standard',
+          prompt: 'La derivada de f(x) = x³ es:',
+          options: [
+            { id: 'a', label: '3x²', isCorrect: true },
+            { id: 'b', label: 'x²', isCorrect: false },
+            { id: 'c', label: '3x', isCorrect: false },
+            { id: 'd', label: 'x³/3', isCorrect: false },
+          ],
+          explanation: 'Aplicando la regla de potencias: d/dx(x³) = 3x².'
+        },
+        {
+          id: 'and-mat-q2',
+          tier: 'standard',
+          prompt: '¿Cuál es el valor de sen(90°)?',
+          options: [
+            { id: 'a', label: '1', isCorrect: true },
+            { id: 'b', label: '0', isCorrect: false },
+            { id: 'c', label: '√2/2', isCorrect: false },
+            { id: 'd', label: '√3/2', isCorrect: false },
+          ],
+          explanation: 'El seno de 90° (o π/2 radianes) es igual a 1.'
+        },
+        {
+          id: 'and-mat-q3',
+          tier: 'standard',
+          prompt: 'La integral de 2x es:',
+          options: [
+            { id: 'a', label: 'x² + C', isCorrect: true },
+            { id: 'b', label: '2', isCorrect: false },
+            { id: 'c', label: 'x²/2 + C', isCorrect: false },
+            { id: 'd', label: '2x² + C', isCorrect: false },
+          ],
+          explanation: 'Integrando 2x: ∫2x dx = 2·(x²/2) + C = x² + C.'
         }
       ]
     },

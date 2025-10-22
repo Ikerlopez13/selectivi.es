@@ -211,6 +211,42 @@ export const biologyAND: Subject = {
             { id: 'd', label: 'Síntesis de ARN ribosomal', isCorrect: false },
           ],
           explanation: 'El RER contiene ribosomas y participa en la síntesis de proteínas celulares y secretadas.'
+        },
+        {
+          id: 'and-bio-q1',
+          tier: 'standard',
+          prompt: 'La mitosis produce:',
+          options: [
+            { id: 'a', label: '2 células diploides idénticas', isCorrect: true },
+            { id: 'b', label: '4 células haploides', isCorrect: false },
+            { id: 'c', label: '2 células haploides', isCorrect: false },
+            { id: 'd', label: '4 células diploides diferentes', isCorrect: false },
+          ],
+          explanation: 'La mitosis es un proceso de división celular que produce dos células hijas diploides genéticamente idénticas a la célula madre.'
+        },
+        {
+          id: 'and-bio-q2',
+          tier: 'standard',
+          prompt: 'El ADN se encuentra en:',
+          options: [
+            { id: 'a', label: 'El núcleo', isCorrect: true },
+            { id: 'b', label: 'La membrana plasmática', isCorrect: false },
+            { id: 'c', label: 'El citoplasma exclusivamente', isCorrect: false },
+            { id: 'd', label: 'Las vacuolas', isCorrect: false },
+          ],
+          explanation: 'En células eucariotas, la mayor parte del ADN se encuentra en el núcleo, aunque también hay ADN en mitocondrias y cloroplastos.'
+        },
+        {
+          id: 'and-bio-q3',
+          tier: 'standard',
+          prompt: 'La fotosíntesis ocurre en:',
+          options: [
+            { id: 'a', label: 'Los cloroplastos', isCorrect: true },
+            { id: 'b', label: 'Las mitocondrias', isCorrect: false },
+            { id: 'c', label: 'Los ribosomas', isCorrect: false },
+            { id: 'd', label: 'El núcleo', isCorrect: false },
+          ],
+          explanation: 'La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química, y ocurre en los cloroplastos.'
         }
       ]
     },

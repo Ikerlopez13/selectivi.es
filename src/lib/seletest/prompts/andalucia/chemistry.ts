@@ -43,6 +43,42 @@ export const chemistryAND: Subject = {
             { id: 'd', label: 'Depende del estado de oxidación', isCorrect: false },
           ],
           explanation: 'En un periodo el radio disminuye de izquierda a derecha; Na (grupo 1) tiene mayor radio que Cl (grupo 17).'
+        },
+        {
+          id: 'and-quim-q1',
+          tier: 'standard',
+          prompt: 'El número atómico del carbono es:',
+          options: [
+            { id: 'a', label: '6', isCorrect: true },
+            { id: 'b', label: '12', isCorrect: false },
+            { id: 'c', label: '8', isCorrect: false },
+            { id: 'd', label: '14', isCorrect: false },
+          ],
+          explanation: 'El carbono tiene número atómico 6, lo que significa que tiene 6 protones en su núcleo.'
+        },
+        {
+          id: 'and-quim-q2',
+          tier: 'standard',
+          prompt: '¿Cuál es la fórmula del agua?',
+          options: [
+            { id: 'a', label: 'H₂O', isCorrect: true },
+            { id: 'b', label: 'CO₂', isCorrect: false },
+            { id: 'c', label: 'O₂', isCorrect: false },
+            { id: 'd', label: 'NaCl', isCorrect: false },
+          ],
+          explanation: 'La fórmula química del agua es H₂O, formada por dos átomos de hidrógeno y uno de oxígeno.'
+        },
+        {
+          id: 'and-quim-q3',
+          tier: 'standard',
+          prompt: 'Un enlace entre un metal y un no metal es:',
+          options: [
+            { id: 'a', label: 'Iónico', isCorrect: true },
+            { id: 'b', label: 'Covalente', isCorrect: false },
+            { id: 'c', label: 'Metálico', isCorrect: false },
+            { id: 'd', label: 'Van der Waals', isCorrect: false },
+          ],
+          explanation: 'El enlace iónico se forma por transferencia de electrones entre un metal (que cede electrones) y un no metal (que los acepta).'
         }
       ]
     },
