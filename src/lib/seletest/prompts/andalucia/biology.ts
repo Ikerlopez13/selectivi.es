@@ -245,8 +245,8 @@ export const biologyAND: Subject = {
       ]
     },
     {
-      id: 'anatomia-fisiologia',
-      title: 'Anatomía y fisiología humanas',
+      id: 'metabolismo',
+      title: 'Metabolismo',
       questions: [
         {
           id: 'and-bio-ana-q1',
@@ -275,8 +275,8 @@ export const biologyAND: Subject = {
       ]
     },
     {
-      id: 'ecologia-medioambiente',
-      title: 'Ecología y Medioambiente',
+      id: 'biotecnologia',
+      title: 'Biotecnología',
       questions: [
         {
           id: 'and-bio-eco-q1',

@@ -125,8 +125,8 @@ export const physicsAND: Subject = {
       ]
     },
     {
-      id: 'magnetismo',
-      title: 'Estudio de satélites',
+      id: 'campo-gravitatorio',
+      title: 'Campo gravitatorio',
       questions: [
         {
           id: 'and-fis-mag-q1',
@@ -209,8 +209,8 @@ export const physicsAND: Subject = {
       ]
     },
     {
-      id: 'cuantica',
-      title: 'Física cuántica y nuclear',
+      id: 'optica',
+      title: 'Óptica geométrica',
       questions: [
         {
           id: 'and-fis-cuan-q1',
