@@ -1,4 +1,4 @@
-import type { Subject } from '../../types'
+import type { Subject } from '../types'
 
 export const biologyAND: Subject = {
   id: 'biologia',
@@ -247,6 +247,54 @@ export const biologyAND: Subject = {
             { id: 'd', label: 'El núcleo', isCorrect: false },
           ],
           explanation: 'La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química, y ocurre en los cloroplastos.'
+        },
+        {
+          id: 'and-bio-q4',
+          tier: 'standard',
+          prompt: 'La ecuación general de la fotosíntesis es: $6\\text{CO}_2 + 6\\text{H}_2\\text{O} + \\text{luz} \\rightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\text{O}_2$. ¿Qué gas se libera?',
+          options: [
+            { id: 'a', label: '$\\text{O}_2$ (oxígeno)', isCorrect: true },
+            { id: 'b', label: '$\\text{CO}_2$ (dióxido de carbono)', isCorrect: false },
+            { id: 'c', label: '$\\text{N}_2$ (nitrógeno)', isCorrect: false },
+            { id: 'd', label: '$\\text{H}_2$ (hidrógeno)', isCorrect: false },
+          ],
+          explanation: 'Durante la fotosíntesis, las plantas liberan oxígeno ($\\text{O}_2$) como producto de la fotólisis del agua.'
+        },
+        {
+          id: 'and-bio-q5',
+          tier: 'premium',
+          prompt: 'En la replicación del ADN, si una cadena tiene la secuencia $5\'-\\text{ATCG}-3\'$, la cadena complementaria será:',
+          options: [
+            { id: 'a', label: '$3\'-\\text{TAGC}-5\'$', isCorrect: true },
+            { id: 'b', label: '$5\'-\\text{TAGC}-3\'$', isCorrect: false },
+            { id: 'c', label: '$3\'-\\text{ATCG}-5\'$', isCorrect: false },
+            { id: 'd', label: '$5\'-\\text{UAGC}-3\'$', isCorrect: false },
+          ],
+          explanation: 'Las bases se emparejan: A-T y C-G. Las cadenas son antiparalelas: si una va $5\' \\rightarrow 3\'$, la complementaria va $3\' \\rightarrow 5\'$.'
+        },
+        {
+          id: 'and-bio-q6',
+          tier: 'premium',
+          prompt: 'La respiración celular aeróbica produce aproximadamente:',
+          options: [
+            { id: 'a', label: '36-38 ATP por glucosa', isCorrect: true },
+            { id: 'b', label: '2 ATP por glucosa', isCorrect: false },
+            { id: 'c', label: '10 ATP por glucosa', isCorrect: false },
+            { id: 'd', label: '100 ATP por glucosa', isCorrect: false },
+          ],
+          explanation: 'La respiración aeróbica completa (glucólisis + ciclo de Krebs + cadena respiratoria) produce aproximadamente 36-38 moléculas de ATP por molécula de glucosa.'
+        },
+        {
+          id: 'and-bio-q7',
+          tier: 'premium',
+          prompt: 'En genética, si un cruce $Aa \\times Aa$ (donde A es dominante), la proporción fenotípica esperada es:',
+          options: [
+            { id: 'a', label: '3:1 (dominante:recesivo)', isCorrect: true },
+            { id: 'b', label: '1:1', isCorrect: false },
+            { id: 'c', label: '9:3:3:1', isCorrect: false },
+            { id: 'd', label: '1:2:1', isCorrect: false },
+          ],
+          explanation: 'Cuadro de Punnett: AA (25%), Aa (50%), aa (25%). Fenotípicamente: 75% dominante (AA + Aa) : 25% recesivo (aa) = 3:1.'
         }
       ]
     },

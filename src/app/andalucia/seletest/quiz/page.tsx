@@ -6,26 +6,26 @@ import { useEffect, useState } from 'react'
 import MathText from '@/components/MathText'
 import { supabase } from '@/lib/supabase/client'
 // Importar preguntas adaptadas al currículo andaluz
-import { historyAND } from '@/lib/seletest/prompts/andalucia/history'
-import { philosophyES } from '@/lib/seletest/philosophy'
+import { historyAND } from '@/lib/seletest/andalucia/history'
+import { philosophyAND } from '@/lib/seletest/andalucia/philosophy'
 import { businessES } from '@/lib/seletest/business'
-import { geographyES } from '@/lib/seletest/geography'
-import { languageES } from '@/lib/seletest/language'
-import { englishES } from '@/lib/seletest/english'
-import { mathematicsAND } from '@/lib/seletest/prompts/andalucia/mathematics'
-import { physicsAND } from '@/lib/seletest/prompts/andalucia/physics'
-import { biologyAND } from '@/lib/seletest/prompts/andalucia/biology'
-import { chemistryAND } from '@/lib/seletest/prompts/andalucia/chemistry'
+import { geographyAND } from '@/lib/seletest/andalucia/geography'
+import { languageAND } from '@/lib/seletest/andalucia/language'
+import { englishAND } from '@/lib/seletest/andalucia/english'
+import { mathematicsAND } from '@/lib/seletest/andalucia/mathematics'
+import { physicsAND } from '@/lib/seletest/andalucia/physics'
+import { biologyAND } from '@/lib/seletest/andalucia/biology'
+import { chemistryAND } from '@/lib/seletest/andalucia/chemistry'
 import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
 import type { Question, QuestionWithSubject, Topic } from '@/lib/seletest/types'
 
 const ALL_SUBJECTS = {
   'historia-espana': historyAND,
-  'filosofia': philosophyES,
+  'filosofia': philosophyAND,
   'economia-empresa': businessES,
-  'geografia': geographyES,
-  'lengua': languageES,
-  'ingles': englishES,
+  'geografia': geographyAND,
+  'lengua': languageAND,
+  'ingles': englishAND,
   'matematicas': mathematicsAND,
   'fisica': physicsAND,
   'biologia': biologyAND,

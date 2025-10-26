@@ -1,7 +1,7 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 // Importar preguntas adaptadas al currículo andaluz
-import { historyAND } from '@/lib/seletest/prompts/andalucia/history'
+import { historyAND } from '@/lib/seletest/andalucia/history'
 import { philosophyES } from '@/lib/seletest/philosophy'
 import { businessES } from '@/lib/seletest/business'
 import { geographyES } from '@/lib/seletest/geography'

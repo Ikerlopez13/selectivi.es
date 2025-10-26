@@ -1,4 +1,4 @@
-import type { Subject } from '../../types'
+import type { Subject } from '../types'
 
 export const languageAND: Subject = {
   id: 'lengua-castellana',
@@ -43,6 +43,42 @@ export const languageAND: Subject = {
             { id: 'd', label: 'Niebla', isCorrect: false },
           ],
           explanation: 'Federico García Lorca escribió "La casa de Bernarda Alba" (1936), una de sus obras teatrales más emblemáticas de la Generación del 27.'
+        },
+        {
+          id: 'and-lengua-q4',
+          tier: 'standard',
+          prompt: '"El Quijote" fue escrito por:',
+          options: [
+            { id: 'a', label: 'Miguel de Cervantes', isCorrect: true },
+            { id: 'b', label: 'Lope de Vega', isCorrect: false },
+            { id: 'c', label: 'Calderón de la Barca', isCorrect: false },
+            { id: 'd', label: 'Francisco de Quevedo', isCorrect: false },
+          ],
+          explanation: 'Miguel de Cervantes Saavedra escribió "Don Quijote de la Mancha" (1605-1615), considerada la primera novela moderna.'
+        },
+        {
+          id: 'and-lengua-q5',
+          tier: 'premium',
+          prompt: 'En sintaxis, una oración como "María estudia" es:',
+          options: [
+            { id: 'a', label: 'Simple predicativa intransitiva', isCorrect: true },
+            { id: 'b', label: 'Compuesta coordinada', isCorrect: false },
+            { id: 'c', label: 'Simple predicativa transitiva', isCorrect: false },
+            { id: 'd', label: 'Compuesta subordinada', isCorrect: false },
+          ],
+          explanation: 'Es una oración simple (un solo verbo), predicativa (con verbo predicativo "estudiar"), intransitiva (sin complemento directo).'
+        },
+        {
+          id: 'and-lengua-q6',
+          tier: 'premium',
+          prompt: 'El Romancero es característico de:',
+          options: [
+            { id: 'a', label: 'La lírica popular medieval', isCorrect: true },
+            { id: 'b', label: 'El teatro barroco', isCorrect: false },
+            { id: 'c', label: 'La novela renacentista', isCorrect: false },
+            { id: 'd', label: 'La poesía contemporánea', isCorrect: false },
+          ],
+          explanation: 'El Romancero es un conjunto de poemas épico-líricos breves de origen medieval, transmitidos oralmente en la tradición popular española.'
         }
       ]
     }

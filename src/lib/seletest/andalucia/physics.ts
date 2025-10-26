@@ -1,4 +1,4 @@
-import type { Subject } from '../../types'
+import type { Subject } from '../types'
 
 export const physicsAND: Subject = {
   id: 'fisica',
@@ -103,6 +103,66 @@ export const physicsAND: Subject = {
             { id: 'd', label: '30.000 km/s', isCorrect: false },
           ],
           explanation: 'La velocidad de la luz en el vacío es aproximadamente 300.000 km/s o 3×10⁸ m/s.'
+        },
+        {
+          id: 'and-fis-q4',
+          tier: 'standard',
+          prompt: 'Un objeto con masa \\(m = 5\\) kg se mueve con aceleración \\(a = 3\\) m/s². Según \\(F = ma\\), la fuerza neta es:',
+          options: [
+            { id: 'a', label: '\\(15\\) N', isCorrect: true },
+            { id: 'b', label: '\\(8\\) N', isCorrect: false },
+            { id: 'c', label: '\\(2\\) N', isCorrect: false },
+            { id: 'd', label: '\\(1.67\\) N', isCorrect: false },
+          ],
+          explanation: 'Aplicando \\(F = ma\\): \\(F = 5 \\times 3 = 15\\) N.'
+        },
+        {
+          id: 'and-fis-q5',
+          tier: 'standard',
+          prompt: 'La energía cinética de un objeto es \\(E_c = \\frac{1}{2}mv^2\\). Si la velocidad se duplica, la energía cinética:',
+          options: [
+            { id: 'a', label: 'Se cuadruplica', isCorrect: true },
+            { id: 'b', label: 'Se duplica', isCorrect: false },
+            { id: 'c', label: 'Se mantiene igual', isCorrect: false },
+            { id: 'd', label: 'Se triplica', isCorrect: false },
+          ],
+          explanation: 'Como \\(E_c \\propto v^2\\), si \\(v\\) se duplica: \\(E_c\' = \\frac{1}{2}m(2v)^2 = 4 \\cdot \\frac{1}{2}mv^2 = 4E_c\\).'
+        },
+        {
+          id: 'and-fis-q6',
+          tier: 'premium',
+          prompt: 'La ley de Coulomb establece que \\(F = k\\frac{q_1 q_2}{r^2}\\). Si \\(k = 9 \\times 10^9\\) N·m²/C², \\(q_1 = q_2 = 1\\) μC y \\(r = 0.1\\) m, entonces \\(F \\approx\\):',
+          options: [
+            { id: 'a', label: '\\(0.9\\) N', isCorrect: true },
+            { id: 'b', label: '\\(9\\) N', isCorrect: false },
+            { id: 'c', label: '\\(90\\) N', isCorrect: false },
+            { id: 'd', label: '\\(0.09\\) N', isCorrect: false },
+          ],
+          explanation: 'Sustituyendo: \\(F = 9 \\times 10^9 \\cdot \\frac{(10^{-6})^2}{(0.1)^2} = 9 \\times 10^9 \\cdot \\frac{10^{-12}}{0.01} = 9 \\times 10^9 \\cdot 10^{-10} = 0.9\\) N.'
+        },
+        {
+          id: 'and-fis-q7',
+          tier: 'premium',
+          prompt: 'Un péndulo simple tiene periodo \\(T = 2\\pi\\sqrt{\\frac{L}{g}}\\). Si \\(L\\) se cuadruplica, el periodo:',
+          options: [
+            { id: 'a', label: 'Se duplica', isCorrect: true },
+            { id: 'b', label: 'Se cuadruplica', isCorrect: false },
+            { id: 'c', label: 'Se mantiene igual', isCorrect: false },
+            { id: 'd', label: 'Se reduce a la mitad', isCorrect: false },
+          ],
+          explanation: 'Como \\(T \\propto \\sqrt{L}\\), si \\(L\' = 4L\\) entonces \\(T\' = 2\\pi\\sqrt{\\frac{4L}{g}} = 2 \\cdot 2\\pi\\sqrt{\\frac{L}{g}} = 2T\\).'
+        },
+        {
+          id: 'and-fis-q8',
+          tier: 'premium',
+          prompt: 'La ley de Ohm es \\(V = IR\\). Si \\(V = 12\\) V y \\(R = 4\\) Ω, entonces \\(I =\\):',
+          options: [
+            { id: 'a', label: '\\(3\\) A', isCorrect: true },
+            { id: 'b', label: '\\(48\\) A', isCorrect: false },
+            { id: 'c', label: '\\(8\\) A', isCorrect: false },
+            { id: 'd', label: '\\(16\\) A', isCorrect: false },
+          ],
+          explanation: 'Despejando: \\(I = \\frac{V}{R} = \\frac{12}{4} = 3\\) A.'
         }
       ]
     },

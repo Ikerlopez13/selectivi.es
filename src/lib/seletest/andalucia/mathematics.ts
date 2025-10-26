@@ -1,4 +1,4 @@
-import type { Subject } from '../../types'
+import type { Subject } from '../types'
 
 export const mathematicsAND: Subject = {
   id: 'matematicas',
@@ -211,6 +211,78 @@ export const mathematicsAND: Subject = {
             { id: 'd', label: '2x² + C', isCorrect: false },
           ],
           explanation: 'Integrando 2x: ∫2x dx = 2·(x²/2) + C = x² + C.'
+        },
+        {
+          id: 'and-mat-q4',
+          tier: 'standard',
+          prompt: 'Calcula el límite: $\\lim_{x \\to 2} (3x^2 - 5x + 1)$',
+          options: [
+            { id: 'a', label: '$3$', isCorrect: true },
+            { id: 'b', label: '$7$', isCorrect: false },
+            { id: 'c', label: '$11$', isCorrect: false },
+            { id: 'd', label: '$1$', isCorrect: false },
+          ],
+          explanation: 'Por sustitución directa: $3(2)^2 - 5(2) + 1 = 12 - 10 + 1 = 3$.'
+        },
+        {
+          id: 'and-mat-q5',
+          tier: 'standard',
+          prompt: 'La ecuación de la recta que pasa por $(0,2)$ con pendiente $m=3$ es:',
+          options: [
+            { id: 'a', label: '$y = 3x + 2$', isCorrect: true },
+            { id: 'b', label: '$y = 2x + 3$', isCorrect: false },
+            { id: 'c', label: '$y = 3x - 2$', isCorrect: false },
+            { id: 'd', label: '$y = -3x + 2$', isCorrect: false },
+          ],
+          explanation: 'Usando la forma $y = mx + b$ con $m=3$ y punto $(0,2)$: $y = 3x + 2$.'
+        },
+        {
+          id: 'and-mat-q6',
+          tier: 'standard',
+          prompt: 'Resuelve la ecuación: $x^2 - 5x + 6 = 0$',
+          options: [
+            { id: 'a', label: '$x = 2$ o $x = 3$', isCorrect: true },
+            { id: 'b', label: '$x = 1$ o $x = 6$', isCorrect: false },
+            { id: 'c', label: '$x = -2$ o $x = -3$', isCorrect: false },
+            { id: 'd', label: '$x = 5$ o $x = 1$', isCorrect: false },
+          ],
+          explanation: 'Factorizando: $(x-2)(x-3) = 0$, por tanto $x=2$ o $x=3$. También por fórmula: $x = \\frac{5 \\pm \\sqrt{25-24}}{2} = \\frac{5 \\pm 1}{2}$.'
+        },
+        {
+          id: 'and-mat-q7',
+          tier: 'premium',
+          prompt: 'Si $\\vec{u} = (2, -1, 3)$ y $\\vec{v} = (1, 4, -2)$, calcula $\\vec{u} \\cdot \\vec{v}$:',
+          options: [
+            { id: 'a', label: '$-8$', isCorrect: true },
+            { id: 'b', label: '$8$', isCorrect: false },
+            { id: 'c', label: '$4$', isCorrect: false },
+            { id: 'd', label: '$-4$', isCorrect: false },
+          ],
+          explanation: 'Producto escalar: $\\vec{u} \\cdot \\vec{v} = (2)(1) + (-1)(4) + (3)(-2) = 2 - 4 - 6 = -8$.'
+        },
+        {
+          id: 'and-mat-q8',
+          tier: 'premium',
+          prompt: 'La matriz $A = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$ tiene determinante:',
+          options: [
+            { id: 'a', label: '$6$', isCorrect: true },
+            { id: 'b', label: '$5$', isCorrect: false },
+            { id: 'c', label: '$0$', isCorrect: false },
+            { id: 'd', label: '$-6$', isCorrect: false },
+          ],
+          explanation: 'Determinante de matriz diagonal: $\\det(A) = 2 \\times 3 = 6$.'
+        },
+        {
+          id: 'and-mat-q9',
+          tier: 'premium',
+          prompt: 'Calcula $\\int_0^{\\pi/2} \\sin(x) \\, dx$:',
+          options: [
+            { id: 'a', label: '$1$', isCorrect: true },
+            { id: 'b', label: '$0$', isCorrect: false },
+            { id: 'c', label: '$\\pi/2$', isCorrect: false },
+            { id: 'd', label: '$-1$', isCorrect: false },
+          ],
+          explanation: 'Integrando: $[-\\cos(x)]_0^{\\pi/2} = -\\cos(\\pi/2) - (-\\cos(0)) = 0 + 1 = 1$.'
         }
       ]
     },

@@ -1,4 +1,4 @@
-import type { Subject } from '../../types'
+import type { Subject } from '../types'
 
 export const chemistryAND: Subject = {
   id: 'quimica',
@@ -79,6 +79,66 @@ export const chemistryAND: Subject = {
             { id: 'd', label: 'Van der Waals', isCorrect: false },
           ],
           explanation: 'El enlace iónico se forma por transferencia de electrones entre un metal (que cede electrones) y un no metal (que los acepta).'
+        },
+        {
+          id: 'and-quim-q4',
+          tier: 'standard',
+          prompt: 'La ecuación balanceada para la combustión del metano es: $\\text{CH}_4 + 2\\text{O}_2 \\rightarrow \\text{CO}_2 + 2\\text{H}_2\\text{O}$. ¿Cuántos moles de $\\text{O}_2$ se necesitan para quemar 1 mol de $\\text{CH}_4$?',
+          options: [
+            { id: 'a', label: '2 moles', isCorrect: true },
+            { id: 'b', label: '1 mol', isCorrect: false },
+            { id: 'c', label: '3 moles', isCorrect: false },
+            { id: 'd', label: '4 moles', isCorrect: false },
+          ],
+          explanation: 'Según la ecuación balanceada, se necesitan 2 moles de $\\text{O}_2$ por cada mol de $\\text{CH}_4$.'
+        },
+        {
+          id: 'and-quim-q5',
+          tier: 'standard',
+          prompt: 'El pH de una disolución con $[\\text{H}^+] = 10^{-3}$ M es:',
+          options: [
+            { id: 'a', label: '3', isCorrect: true },
+            { id: 'b', label: '7', isCorrect: false },
+            { id: 'c', label: '11', isCorrect: false },
+            { id: 'd', label: '-3', isCorrect: false },
+          ],
+          explanation: 'El pH se calcula como $\\text{pH} = -\\log[\\text{H}^+] = -\\log(10^{-3}) = 3$.'
+        },
+        {
+          id: 'and-quim-q6',
+          tier: 'premium',
+          prompt: 'La constante de equilibrio para $\\text{N}_2 + 3\\text{H}_2 \\rightleftharpoons 2\\text{NH}_3$ se expresa como:',
+          options: [
+            { id: 'a', label: '$K_c = \\frac{[\\text{NH}_3]^2}{[\\text{N}_2][\\text{H}_2]^3}$', isCorrect: true },
+            { id: 'b', label: '$K_c = \\frac{[\\text{N}_2][\\text{H}_2]^3}{[\\text{NH}_3]^2}$', isCorrect: false },
+            { id: 'c', label: '$K_c = [\\text{NH}_3]^2$', isCorrect: false },
+            { id: 'd', label: '$K_c = \\frac{[\\text{NH}_3]}{[\\text{N}_2][\\text{H}_2]}$', isCorrect: false },
+          ],
+          explanation: 'La constante de equilibrio es el cociente de productos sobre reactivos, elevados a sus coeficientes estequiométricos.'
+        },
+        {
+          id: 'and-quim-q7',
+          tier: 'premium',
+          prompt: 'Si la masa molar del $\\text{NaCl}$ es 58.5 g/mol, ¿cuántos gramos hay en 0.5 moles?',
+          options: [
+            { id: 'a', label: '29.25 g', isCorrect: true },
+            { id: 'b', label: '58.5 g', isCorrect: false },
+            { id: 'c', label: '117 g', isCorrect: false },
+            { id: 'd', label: '14.625 g', isCorrect: false },
+          ],
+          explanation: 'Masa = moles × masa molar = $0.5 \\times 58.5 = 29.25$ g.'
+        },
+        {
+          id: 'and-quim-q8',
+          tier: 'premium',
+          prompt: 'La energía de un fotón es $E = h\\nu$ donde $h = 6.63 \\times 10^{-34}$ J·s. Si $\\nu = 5 \\times 10^{14}$ Hz, entonces $E \\approx$:',
+          options: [
+            { id: 'a', label: '$3.3 \\times 10^{-19}$ J', isCorrect: true },
+            { id: 'b', label: '$6.63 \\times 10^{-34}$ J', isCorrect: false },
+            { id: 'c', label: '$5 \\times 10^{14}$ J', isCorrect: false },
+            { id: 'd', label: '$1.3 \\times 10^{-48}$ J', isCorrect: false },
+          ],
+          explanation: 'Sustituyendo: $E = (6.63 \\times 10^{-34})(5 \\times 10^{14}) = 3.315 \\times 10^{-19} \\approx 3.3 \\times 10^{-19}$ J.'
         }
       ]
     },
