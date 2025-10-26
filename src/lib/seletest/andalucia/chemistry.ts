@@ -6,7 +6,7 @@ export const chemistryAND: Subject = {
   topics: [
     {
       id: 'estructura-atomica',
-      title: 'Estructura atómica y tabla periódica',
+      title: 'Estructura atómica y espectros',
       questions: [
         {
           id: 'quim-atom-q1',
@@ -144,7 +144,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'enlace-quimico',
-      title: 'Enlace químico y fuerzas intermoleculares',
+      title: 'Enlace químico y geometría molecular',
       questions: [
         {
           id: 'quim-enl-q1',
@@ -186,7 +186,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'termodinamica',
-      title: 'Termodinámica y gases',
+      title: 'Termodinámica química',
       questions: [
         {
           id: 'quim-term-q1',
@@ -216,7 +216,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'disoluciones',
-      title: 'Disoluciones y propiedades coligativas',
+      title: 'Disoluciones',
       questions: [
         {
           id: 'quim-dis-q1',
@@ -246,7 +246,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'cinetica-equilibrio',
-      title: 'Cinética y equilibrio químico',
+      title: 'Cinética química',
       questions: [
         {
           id: 'quim-cin-q1',
@@ -275,8 +275,13 @@ export const chemistryAND: Subject = {
       ]
     },
     {
+      id: 'equilibrio-quimico',
+      title: 'Equilibrio químico',
+      questions: []
+    },
+    {
       id: 'acido-base',
-      title: 'Ácido-base',
+      title: 'Equilibrio ácido-base',
       questions: [
         {
           id: 'quim-acid-q1',
@@ -306,7 +311,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'redox',
-      title: 'Oxidación-reducción',
+      title: 'Equilibrio redox y electroquímica',
       questions: [
         {
           id: 'quim-redox-q1',
@@ -336,7 +341,7 @@ export const chemistryAND: Subject = {
     },
     {
       id: 'organica',
-      title: 'Química orgánica',
+      title: 'Química orgánica y polímeros',
       questions: [
         {
           id: 'quim-org-q1',
