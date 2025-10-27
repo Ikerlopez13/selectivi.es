@@ -23,7 +23,7 @@ export default function DashboardAndaluciaPage() {
         } = await supabase.auth.getSession();
 
         if (!session?.user) {
-          window.location.href = "/andalucia/login";
+          window.location.href = "/dashboard";
           return;
         }
 
@@ -98,7 +98,7 @@ export default function DashboardAndaluciaPage() {
       } catch (error: unknown) {
         console.error("Error:", error);
         if (error instanceof Error && error.message.includes("auth")) {
-          window.location.href = "/andalucia/login";
+          window.location.href = "/dashboard";
         }
       } finally {
         setLoading(false);
@@ -165,7 +165,7 @@ export default function DashboardAndaluciaPage() {
               <button
                 onClick={async () => {
                   await supabase.auth.signOut();
-                  window.location.href = "/andalucia/login";
+                  window.location.href = "/dashboard";
                 }}
                 className="text-gray-400 text-sm hover:text-gray-600"
               >

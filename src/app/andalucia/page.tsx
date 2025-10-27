@@ -75,7 +75,7 @@ export default function AndaluciaPage() {
                   Andalucía
                 </a>
                 <a
-                  href="/andalucia/login"
+                  href="/dashboard"
                   className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   <span aria-hidden="true">⭐️</span> Accede con tu cuenta
@@ -162,7 +162,7 @@ export default function AndaluciaPage() {
                 Calcula tu nota de acceso
               </a>
               <a
-                href="/andalucia/login"
+                href="/dashboard"
                 className="flex items-center gap-2 rounded-lg bg-gray-100 px-5 py-3 font-medium text-[#1F1300] transition hover:bg-gray-200"
               >
                 <span className="text-lg" aria-hidden="true">
