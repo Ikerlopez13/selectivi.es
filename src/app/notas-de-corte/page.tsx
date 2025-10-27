@@ -86,19 +86,19 @@ export default function NotasDeCortePage() {
       <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-white">
         {/* Header */}
         <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Notas de Corte España 2024/25
-          </h1>
-          <p className="text-xl text-gray-800">
-            Consulta las notas de acceso a todas las universidades españolas
-          </p>
+          <div className="container mx-auto px-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Notas de Corte España 2024/25
+            </h1>
+            <p className="text-xl text-gray-800">
+              Consulta las notas de acceso a todas las universidades españolas
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Filtros */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="container mx-auto px-4 py-8">
+          {/* Filtros */}
+          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             {/* Buscador */}
             <div>
@@ -369,13 +369,14 @@ export default function NotasDeCortePage() {
           ))}
         </div>
 
-        {/* Sin resultados */}
-        {gradosFiltrados.length === 0 && (
-          <div className="bg-white rounded-lg shadow-md p-12 text-center">
-            <p className="text-xl text-gray-600 mb-2">No se encontraron resultados</p>
-            <p className="text-gray-500">Prueba a cambiar los filtros o la búsqueda</p>
-          </div>
-        )}
+          {/* Sin resultados */}
+          {gradosFiltrados.length === 0 && (
+            <div className="bg-white rounded-lg shadow-md p-12 text-center">
+              <p className="text-xl text-gray-600 mb-2">No se encontraron resultados</p>
+              <p className="text-gray-500">Prueba a cambiar los filtros o la búsqueda</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   )
