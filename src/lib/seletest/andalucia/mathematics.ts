@@ -296,7 +296,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q7',
           tier: 'standard',
-          prompt: 'La traza de la matriz $A=\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 5 \\end{pmatrix}$ es...',
+          prompt: 'La traza de la matriz diagonal A con elementos 2, 3, 5 es:',
           options: [
             { id: 'a', label: '10', isCorrect: true },
             { id: 'b', label: '2', isCorrect: false },
@@ -308,19 +308,19 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q8',
           tier: 'standard',
-          prompt: 'Sea $A=\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ y $B=\\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix}$. ¿Es verdadera la afirmación $\\det(A B) = (\\det A)(\\det B)$?',
+          prompt: 'Sean A y B matrices cuadradas. ¿Es verdadera la afirmación det(AB) = det(A)·det(B)?',
           options: [
             { id: 'a', label: 'Sí', isCorrect: true },
             { id: 'b', label: 'No', isCorrect: false },
-            { id: 'c', label: 'Solo si $A$ es triangular', isCorrect: false },
-            { id: 'd', label: 'Solo si $B$ es invertible', isCorrect: false },
+            { id: 'c', label: 'Solo si A es triangular', isCorrect: false },
+            { id: 'd', label: 'Solo si B es invertible', isCorrect: false },
           ],
           explanation: 'Para matrices cuadradas, $\\det(AB)=\\det(A)\\cdot\\det(B)$.'
         },
         {
           id: 'and-mat-alg-q9',
           tier: 'standard',
-          prompt: 'Sea $u=(1,1,0)$ y $v=(0,1,1)$. ¿Cuál de las siguientes afirmaciones es correcta sobre el conjunto $\\{u,v\\}$?',
+          prompt: 'Sean u=(1,1,0) y v=(0,1,1). ¿Cuál de las siguientes afirmaciones es correcta sobre el conjunto {u,v}?',
           options: [
             { id: 'a', label: 'Es linealmente dependiente', isCorrect: false },
             { id: 'b', label: 'Es linealmente independiente', isCorrect: true },
@@ -344,11 +344,11 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q11',
           tier: 'standard',
-          prompt: 'En el espacio, las rectas $r(t)=(t,t,0)$ y $s(u)=(u,0,u)$ son...',
+          prompt: 'En el espacio, las rectas r(t)=(t,t,0) y s(u)=(u,0,u) son:',
           options: [
             { id: 'a', label: 'paralelas', isCorrect: false },
             { id: 'b', label: 'se intersectan', isCorrect: true },
-            { id: 'c', label: 'skew', isCorrect: false },
+            { id: 'c', label: 'se cruzan (skew)', isCorrect: false },
             { id: 'd', label: 'coincidentes', isCorrect: false },
           ],
           explanation: 'Se intersectan en el origen $(0,0,0)$.'
@@ -356,22 +356,22 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q12',
           tier: 'standard',
-          prompt: 'La recta $r(t)=(t,0,0)$ y el plano $\\Pi: x+y+z=0$ son...',
+          prompt: 'La recta r(t)=(t,0,0) y el plano Π: x+y+z=0 son:',
           options: [
-            { id: 'a', label: 'paralelas', isCorrect: false },
+            { id: 'a', label: 'paralelos', isCorrect: false },
             { id: 'b', label: 'perpendiculares', isCorrect: false },
             { id: 'c', label: 'se intersectan en un punto', isCorrect: true },
-            { id: 'd', label: 'son paralelas y no se cortan', isCorrect: false },
+            { id: 'd', label: 'son paralelos y no se cortan', isCorrect: false },
           ],
           explanation: 'Intersección directa en el origen $(0,0,0)$.'
         },
         {
           id: 'and-mat-alg-q13',
           tier: 'standard',
-          prompt: 'La ecuación de una recta en forma paramétrica: $\\vec{r}(t)=\\vec{r}_0 + t\\vec{v}$, ¿qué representación describe?',
+          prompt: 'La ecuación de una recta en forma paramétrica r(t) = r₀ + t·v, ¿qué representación describe?',
           options: [
             { id: 'a', label: 'Una recta en el espacio', isCorrect: true },
-            { id: 'b', label: 'Una recta en el plano', isCorrect: false },
+            { id: 'b', label: 'Una recta solo en el plano', isCorrect: false },
             { id: 'c', label: 'Un plano', isCorrect: false },
             { id: 'd', label: 'Una circunferencia', isCorrect: false },
           ],
@@ -381,7 +381,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q14',
           tier: 'premium',
-          prompt: 'Considera el polinomio $P(x)=x^3-2x^2+3$. ¿Cuál es el resto al dividirlo por $x-1$?',
+          prompt: 'Considera el polinomio P(x) = x³ - 2x² + 3. ¿Cuál es el resto al dividirlo por (x-1)?',
           options: [
             { id: 'a', label: '2', isCorrect: true },
             { id: 'b', label: '1', isCorrect: false },
@@ -393,23 +393,23 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q15',
           tier: 'premium',
-          prompt: 'Un sistema homogéneo $Ax=0$ con $\\det A = 0$ (con $A$ $3\\times 3$) tiene:',
+          prompt: 'Un sistema homogéneo Ax=0 con det(A)=0 (con A de 3x3) tiene:',
           options: [
             { id: 'a', label: 'Infinitas soluciones', isCorrect: true },
             { id: 'b', label: 'Una sola solución', isCorrect: false },
             { id: 'c', label: 'Ninguna solución', isCorrect: false },
-            { id: 'd', label: 'Solución sólo si $A$ es diagonal', isCorrect: false },
+            { id: 'd', label: 'Solución sólo si A es diagonal', isCorrect: false },
           ],
           explanation: 'Si el determinante es cero, el sistema homogéneo tiene núcleo de dimensión mayor que cero, así que soluciones infinitas.'
         },
         {
           id: 'and-mat-alg-q16',
           tier: 'premium',
-          prompt: '¿Cuál es la matriz inversa de $A=\\begin{pmatrix}1 & 2 \\\\ 3 & 5\\end{pmatrix}$?',
+          prompt: '¿Cuál es la matriz inversa de A = [[1,2],[3,5]]?',
           options: [
-            { id: 'a', label: '$\\begin{pmatrix} 5 & -2 \\\\ -3 & 1\\end{pmatrix}$', isCorrect: false },
-            { id: 'b', label: '$\\dfrac{1}{-1}\\begin{pmatrix}5 & -2 \\\\ -3 & 1\\end{pmatrix}$', isCorrect: true },
-            { id: 'c', label: '$\\begin{pmatrix} 1 & -2 \\\\ -3 & 5\\end{pmatrix}$', isCorrect: false },
+            { id: 'a', label: '[[5,-2],[-3,1]]', isCorrect: false },
+            { id: 'b', label: '[[-5,2],[3,-1]]', isCorrect: true },
+            { id: 'c', label: '[[1,-2],[-3,5]]', isCorrect: false },
             { id: 'd', label: 'No existe', isCorrect: false },
           ],
           explanation: 'La inversa de una $2\\times 2$ es $\\frac{1}{ad-bc}\\begin{pmatrix}d & -b\\\\-c & a\\end{pmatrix}$. Aquí $ad-bc=1\\cdot5-3\\cdot2=-1$.'
@@ -425,7 +425,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q1',
           tier: 'standard',
-          prompt: 'Las rectas en el plano $r:\\,2x-y+3=0$ y $s:\\,x+y=1$ son...',
+          prompt: 'Las rectas en el plano r: 2x-y+3=0 y s: x+y=1 son:',
           options: [
             { id: 'a', label: 'paralelas', isCorrect: false },
             { id: 'b', label: 'perpendiculares', isCorrect: false },
@@ -437,11 +437,11 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q2',
           tier: 'standard',
-          prompt: 'La elipse $\\dfrac{x^2}{9}+\\dfrac{y^2}{4}=1$ tiene vértices en...',
+          prompt: 'La elipse x²/9 + y²/4 = 1 tiene vértices en:',
           options: [
-            { id: 'a', label: '$(\\pm 3,0)$ y $(0,\\pm 2)$', isCorrect: true },
-            { id: 'b', label: '$(\\pm 2,0)$ y $(0,\\pm 3)$', isCorrect: false },
-            { id: 'c', label: 'Sólo en $(\\pm 3,\\pm 2)$', isCorrect: false },
+            { id: 'a', label: '(±3,0) y (0,±2)', isCorrect: true },
+            { id: 'b', label: '(±2,0) y (0,±3)', isCorrect: false },
+            { id: 'c', label: 'Sólo en (±3,±2)', isCorrect: false },
             { id: 'd', label: 'No tiene vértices', isCorrect: false },
           ],
           explanation: 'Ejes $a=3$ (horizontal) y $b=2$ (vertical).'
@@ -449,33 +449,33 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q3',
           tier: 'standard',
-          prompt: 'La parábola estándar $y^2=4ax$ (con $a>0$) tiene foco en...',
+          prompt: 'La parábola estándar y² = 4ax (con a>0) tiene foco en:',
           options: [
-            { id: 'a', label: '$(a,0)$', isCorrect: true },
-            { id: 'b', label: '$(0,a)$', isCorrect: false },
-            { id: 'c', label: '$(-a,0)$', isCorrect: false },
-            { id: 'd', label: '$(-a,-a)$', isCorrect: false },
+            { id: 'a', label: '(a,0)', isCorrect: true },
+            { id: 'b', label: '(0,a)', isCorrect: false },
+            { id: 'c', label: '(-a,0)', isCorrect: false },
+            { id: 'd', label: '(-a,-a)', isCorrect: false },
           ],
           explanation: 'Foco en $(a,0)$, directriz $x=-a$.'
         },
         {
           id: 'and-mat-geo-q4',
           tier: 'standard',
-          prompt: 'La distancia entre dos planos paralelos $\\Pi_1: x+y+z=1$ y $\\Pi_2: x+y+z=3$ es...',
+          prompt: 'La distancia entre dos planos paralelos Π₁: x+y+z=1 y Π₂: x+y+z=3 es:',
           options: [
-            { id: 'a', label: '$\\dfrac{2}{\\sqrt{3}}$', isCorrect: true },
-            { id: 'b', label: '$\\dfrac{1}{\\sqrt{3}}$', isCorrect: false },
-            { id: 'c', label: '$\\dfrac{2}{\\sqrt{2}}$', isCorrect: false },
-            { id: 'd', label: '$\\sqrt{3}$', isCorrect: false },
+            { id: 'a', label: '2/√3', isCorrect: true },
+            { id: 'b', label: '1/√3', isCorrect: false },
+            { id: 'c', label: '2/√2', isCorrect: false },
+            { id: 'd', label: '√3', isCorrect: false },
           ],
           explanation: 'Se usa $|d_2-d_1|/\\|n\\|$.'
         },
         {
           id: 'and-mat-geo-q5',
           tier: 'standard',
-          prompt: 'Una recta en el espacio puede definirse paramétricamente como...',
+          prompt: 'Una recta en el espacio puede definirse paramétricamente como:',
           options: [
-            { id: 'a', label: '$\\vec{r}(t)=\\vec{r}_0+t\\vec{v}$', isCorrect: true },
+            { id: 'a', label: 'r(t) = r₀ + t·v', isCorrect: true },
             { id: 'b', label: 'Una ecuación de segundo grado', isCorrect: false },
             { id: 'c', label: 'Una cónica', isCorrect: false },
             { id: 'd', label: 'Una circunferencia', isCorrect: false },
@@ -485,35 +485,35 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q6',
           tier: 'standard',
-          prompt: 'La circunferencia de radio 1 centrada en el origen tiene ecuación...',
+          prompt: 'La circunferencia de radio 1 centrada en el origen tiene ecuación:',
           options: [
-            { id: 'a', label: '$x^2+y^2=1$', isCorrect: true },
-            { id: 'b', label: '$x^2-y^2=1$', isCorrect: false },
-            { id: 'c', label: '$x^2+y^2+z^2=1$', isCorrect: false },
-            { id: 'd', label: '$x^2+y^2=0$', isCorrect: false },
+            { id: 'a', label: 'x² + y² = 1', isCorrect: true },
+            { id: 'b', label: 'x² - y² = 1', isCorrect: false },
+            { id: 'c', label: 'x² + y² + z² = 1', isCorrect: false },
+            { id: 'd', label: 'x² + y² = 0', isCorrect: false },
           ],
           explanation: 'Circunferencia en el plano $z=0$ y radio 1.'
         },
         {
           id: 'and-mat-geo-q7',
           tier: 'standard',
-          prompt: 'La distancia entre el punto $P(0,1,2)$ y la recta $L:\\; x=t, y=0, z=0$ es...',
+          prompt: 'La distancia entre el punto P(0,1,2) y la recta L: x=t, y=0, z=0 es:',
           options: [
-            { id: 'a', label: '$0$', isCorrect: false },
-            { id: 'b', label: '$\\sqrt{5}$', isCorrect: true },
-            { id: 'c', label: '$2$', isCorrect: false },
-            { id: 'd', label: '$\\sqrt{3}$', isCorrect: false },
+            { id: 'a', label: '0', isCorrect: false },
+            { id: 'b', label: '√5', isCorrect: true },
+            { id: 'c', label: '2', isCorrect: false },
+            { id: 'd', label: '√3', isCorrect: false },
           ],
           explanation: 'Distancia perpendicular, $\\sqrt{1^2+2^2}=\\sqrt{5}$.'
         },
         {
           id: 'and-mat-geo-q8',
           tier: 'standard',
-          prompt: 'Una elipse con semiejes $a=4$, $b=3$ centrada en el origen tiene vértices en...',
+          prompt: 'Una elipse con semiejes a=4, b=3 centrada en el origen tiene vértices en:',
           options: [
-            { id: 'a', label: '$(\\pm 4,0)$ y $(0,\\pm 3)$', isCorrect: true },
-            { id: 'b', label: '$(\\pm 3,0)$ y $(0,\\pm 4)$', isCorrect: false },
-            { id: 'c', label: '$(\\pm 4,\\pm 3)$', isCorrect: false },
+            { id: 'a', label: '(±4,0) y (0,±3)', isCorrect: true },
+            { id: 'b', label: '(±3,0) y (0,±4)', isCorrect: false },
+            { id: 'c', label: '(±4,±3)', isCorrect: false },
             { id: 'd', label: 'No tiene vértices visibles', isCorrect: false },
           ],
           explanation: 'Vértices principales $\\pm a$ en $x$ y $\\pm b$ en $y$.'
@@ -534,7 +534,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q10',
           tier: 'premium',
-          prompt: '¿Cuál es el radio de la esfera $x^2+y^2+z^2-4x+6y-8z=0$?',
+          prompt: '¿Cuál es el radio de la esfera x² + y² + z² - 4x + 6y - 8z = 0?',
           options: [
             { id: 'a', label: '7', isCorrect: false },
             { id: 'b', label: '9', isCorrect: false },
