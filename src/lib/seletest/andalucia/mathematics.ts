@@ -226,10 +226,10 @@ export const mathematicsAND: Subject = {
           tier: 'premium',
           prompt: 'Sea la matriz A con elementos a₁₁=1, a₁₂=2, a₂₁=3, a₂₂=4. Sus valores propios son:',
           options: [
-            { id: 'a', label: 'λ₁ = (5+√33)/2, λ₂ = (5-√33)/2', isCorrect: true },
-            { id: 'b', label: 'λ₁ = 1, λ₂ = 4', isCorrect: false },
-            { id: 'c', label: 'λ₁ = 2, λ₂ = 3', isCorrect: false },
-            { id: 'd', label: 'λ₁ = λ₂ = 5', isCorrect: false },
+            { id: 'a', label: '$\\lambda_1 = \\frac{5+\\sqrt{33}}{2}, \\lambda_2 = \\frac{5-\\sqrt{33}}{2}$', isCorrect: true },
+            { id: 'b', label: '$\\lambda_1 = 1, \\lambda_2 = 4$', isCorrect: false },
+            { id: 'c', label: '$\\lambda_1 = 2, \\lambda_2 = 3$', isCorrect: false },
+            { id: 'd', label: '$\\lambda_1 = \\lambda_2 = 5$', isCorrect: false },
           ],
           explanation: 'Los valores propios se obtienen resolviendo $|A-\\lambda I| = 0$.'
         },
@@ -363,7 +363,7 @@ export const mathematicsAND: Subject = {
             { id: 'c', label: 'se intersectan en un punto', isCorrect: true },
             { id: 'd', label: 'son paralelos y no se cortan', isCorrect: false },
           ],
-          explanation: 'Intersección directa en el origen $(0,0,0)$.'
+          explanation: 'La recta pasa por el origen $(0,0,0)$ que pertenece al plano (ya que $0+0+0=0$). El vector director de la recta es $(1,0,0)$ y el vector normal al plano es $(1,1,1)$. Como no son paralelos (el producto escalar es $1 \\neq 0$), la recta interseca al plano en el punto $(0,0,0)$.'
         },
         {
           id: 'and-mat-alg-q13',
@@ -407,9 +407,9 @@ export const mathematicsAND: Subject = {
           tier: 'premium',
           prompt: '¿Cuál es la matriz inversa de A = [[1,2],[3,5]]?',
           options: [
-            { id: 'a', label: '[[5,-2],[-3,1]]', isCorrect: false },
-            { id: 'b', label: '[[-5,2],[3,-1]]', isCorrect: true },
-            { id: 'c', label: '[[1,-2],[-3,5]]', isCorrect: false },
+            { id: 'a', label: '$\\begin{pmatrix} 5 & -2 \\\\ -3 & 1\\end{pmatrix}$', isCorrect: false },
+            { id: 'b', label: '$\\begin{pmatrix} -5 & 2 \\\\ 3 & -1\\end{pmatrix}$', isCorrect: true },
+            { id: 'c', label: '$\\begin{pmatrix} 1 & -2 \\\\ -3 & 5\\end{pmatrix}$', isCorrect: false },
             { id: 'd', label: 'No existe', isCorrect: false },
           ],
           explanation: 'La inversa de una $2\\times 2$ es $\\frac{1}{ad-bc}\\begin{pmatrix}d & -b\\\\-c & a\\end{pmatrix}$. Aquí $ad-bc=1\\cdot5-3\\cdot2=-1$.'
@@ -439,9 +439,9 @@ export const mathematicsAND: Subject = {
           tier: 'standard',
           prompt: 'La elipse x²/9 + y²/4 = 1 tiene vértices en:',
           options: [
-            { id: 'a', label: '(±3,0) y (0,±2)', isCorrect: true },
-            { id: 'b', label: '(±2,0) y (0,±3)', isCorrect: false },
-            { id: 'c', label: 'Sólo en (±3,±2)', isCorrect: false },
+            { id: 'a', label: '$(\\pm 3,0)$ y $(0,\\pm 2)$', isCorrect: true },
+            { id: 'b', label: '$(\\pm 2,0)$ y $(0,\\pm 3)$', isCorrect: false },
+            { id: 'c', label: 'Sólo en $(\\pm 3,\\pm 2)$', isCorrect: false },
             { id: 'd', label: 'No tiene vértices', isCorrect: false },
           ],
           explanation: 'Ejes $a=3$ (horizontal) y $b=2$ (vertical).'
@@ -451,10 +451,10 @@ export const mathematicsAND: Subject = {
           tier: 'standard',
           prompt: 'La parábola estándar y² = 4ax (con a>0) tiene foco en:',
           options: [
-            { id: 'a', label: '(a,0)', isCorrect: true },
-            { id: 'b', label: '(0,a)', isCorrect: false },
-            { id: 'c', label: '(-a,0)', isCorrect: false },
-            { id: 'd', label: '(-a,-a)', isCorrect: false },
+            { id: 'a', label: '$(a,0)$', isCorrect: true },
+            { id: 'b', label: '$(0,a)$', isCorrect: false },
+            { id: 'c', label: '$(-a,0)$', isCorrect: false },
+            { id: 'd', label: '$(-a,-a)$', isCorrect: false },
           ],
           explanation: 'Foco en $(a,0)$, directriz $x=-a$.'
         },
@@ -463,10 +463,10 @@ export const mathematicsAND: Subject = {
           tier: 'standard',
           prompt: 'La distancia entre dos planos paralelos Π₁: x+y+z=1 y Π₂: x+y+z=3 es:',
           options: [
-            { id: 'a', label: '2/√3', isCorrect: true },
-            { id: 'b', label: '1/√3', isCorrect: false },
-            { id: 'c', label: '2/√2', isCorrect: false },
-            { id: 'd', label: '√3', isCorrect: false },
+            { id: 'a', label: '$\\frac{2}{\\sqrt{3}}$', isCorrect: true },
+            { id: 'b', label: '$\\frac{1}{\\sqrt{3}}$', isCorrect: false },
+            { id: 'c', label: '$\\frac{2}{\\sqrt{2}}$', isCorrect: false },
+            { id: 'd', label: '$\\sqrt{3}$', isCorrect: false },
           ],
           explanation: 'Se usa $|d_2-d_1|/\\|n\\|$.'
         },
@@ -511,9 +511,9 @@ export const mathematicsAND: Subject = {
           tier: 'standard',
           prompt: 'Una elipse con semiejes a=4, b=3 centrada en el origen tiene vértices en:',
           options: [
-            { id: 'a', label: '(±4,0) y (0,±3)', isCorrect: true },
-            { id: 'b', label: '(±3,0) y (0,±4)', isCorrect: false },
-            { id: 'c', label: '(±4,±3)', isCorrect: false },
+            { id: 'a', label: '$(\\pm 4,0)$ y $(0,\\pm 3)$', isCorrect: true },
+            { id: 'b', label: '$(\\pm 3,0)$ y $(0,\\pm 4)$', isCorrect: false },
+            { id: 'c', label: '$(\\pm 4,\\pm 3)$', isCorrect: false },
             { id: 'd', label: 'No tiene vértices visibles', isCorrect: false },
           ],
           explanation: 'Vértices principales $\\pm a$ en $x$ y $\\pm b$ en $y$.'
