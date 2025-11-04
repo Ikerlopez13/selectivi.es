@@ -4,9 +4,12 @@ import React from 'react'
 import { InlineMath, BlockMath } from 'react-katex'
 
 export default function MathText({ text }: { text: string }) {
-  if (!text) return null
+  const parts = React.useMemo(() => {
+    if (!text) return []
+    return tokenizeMath(text)
+  }, [text])
   
-  const parts = React.useMemo(() => tokenizeMath(text), [text])
+  if (parts.length === 0) return null
   
   return (
     <>

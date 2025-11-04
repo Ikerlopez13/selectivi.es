@@ -17,45 +17,46 @@ export default function DashboardPage() {
   const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    initDashboard();
-  }, []);
-
-  const initDashboard = async () => {
-    // Procesar hash OAuth si existe
-    if (typeof window !== "undefined" && window.location.hash) {
-      const hash = window.location.hash;
-      if (hash.includes("access_token=")) {
-        console.log("🔑 [DASHBOARD] Hash OAuth detectado, procesando...");
-        
-        const params = new URLSearchParams(hash.replace(/^#/, ""));
-        const accessToken = params.get("access_token");
-        const refreshToken = params.get("refresh_token");
-        
-        if (accessToken && refreshToken) {
-          try {
-            const { error } = await supabase.auth.setSession({
-              access_token: accessToken,
-              refresh_token: refreshToken,
-            });
-            
-            if (error) {
-              console.error("❌ [DASHBOARD] Error setSession:", error);
-            } else {
-              console.log("✅ [DASHBOARD] Sesión establecida desde hash");
+    const initDashboard = async () => {
+      // Procesar hash OAuth si existe
+      if (typeof window !== "undefined" && window.location.hash) {
+        const hash = window.location.hash;
+        if (hash.includes("access_token=")) {
+          console.log("🔑 [DASHBOARD] Hash OAuth detectado, procesando...");
+          
+          const params = new URLSearchParams(hash.replace(/^#/, ""));
+          const accessToken = params.get("access_token");
+          const refreshToken = params.get("refresh_token");
+          
+          if (accessToken && refreshToken) {
+            try {
+              const { error } = await supabase.auth.setSession({
+                access_token: accessToken,
+                refresh_token: refreshToken,
+              });
+              
+              if (error) {
+                console.error("❌ [DASHBOARD] Error setSession:", error);
+              } else {
+                console.log("✅ [DASHBOARD] Sesión establecida desde hash");
+              }
+              
+              // Limpiar hash de la URL
+              window.history.replaceState(null, "", window.location.pathname);
+            } catch (error) {
+              console.error("💥 [DASHBOARD] Error procesando hash:", error);
             }
-            
-            // Limpiar hash de la URL
-            window.history.replaceState(null, "", window.location.pathname);
-          } catch (error) {
-            console.error("💥 [DASHBOARD] Error procesando hash:", error);
           }
         }
       }
-    }
+      
+      // Cargar perfil
+      await loadProfile();
+    };
     
-    // Cargar perfil
-    await loadProfile();
-  };
+    initDashboard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadProfile = async () => {
     try {
