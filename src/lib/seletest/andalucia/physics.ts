@@ -30,6 +30,7 @@ export const physicsAND: Subject = {
             { id: 'c', label: '6.4×10⁹ J', isCorrect: false },
             { id: 'd', label: '2.5×10⁹ J', isCorrect: false },
           ],
+          // CORREGIDO: Usando un solo $ en lugar de $$
           explanation: 'La energía de escape desde la órbita es igual a la energía potencial gravitatoria: $E = \\frac{GMm}{r}$ donde $r = 6.778 \\times 10^6$ m. $E = \\frac{6.67 \\times 10^{-11} \\times 5.97 \\times 10^{24} \\times 80}{6.778 \\times 10^6} \\approx 4.7 \\times 10^9$ J.'
         },
         {
@@ -169,12 +170,12 @@ export const physicsAND: Subject = {
           tier: 'premium',
           prompt: 'Dos altavoces separados 4 m emiten ondas sonoras coherentes en fase con frecuencia 850 Hz (velocidad del sonido 340 m/s). Un oyente está a 5 m del primer altavoz y a 8 m del segundo. ¿Qué escuchará el oyente?',
           options: [
-            { id: 'a', label: 'Interferencia destructiva (mínimo de sonido)', isCorrect: false },
+            { id: 'a', label: 'Interferencia destructiva (mínimo de sonido)', isCorrect: true },
             { id: 'b', label: 'Interferencia constructiva (máximo de sonido)', isCorrect: false },
-            { id: 'c', label: 'Interferencia parcialmente destructiva', isCorrect: true },
+            { id: 'c', label: 'Interferencia parcialmente destructiva', isCorrect: false },
             { id: 'd', label: 'No hay interferencia', isCorrect: false },
           ],
-          explanation: 'La diferencia de camino es $\\Delta d = 8 - 5 = 3$ m. La longitud de onda es $\\lambda = \\frac{v}{f} = \\frac{340}{850} = 0.4$ m. Como $\\Delta d = 7.5\\lambda$, corresponde a interferencia parcialmente destructiva (entre máximo y mínimo).'
+          explanation: 'La diferencia de camino es $\\Delta d = 8 - 5 = 3$ m. La longitud de onda es $\\lambda = \\frac{v}{f} = \\frac{340}{850} = 0.4$ m. Como $\\Delta d = 7.5\\lambda = (7 + \\frac{1}{2})\\lambda$, las ondas llegan en contrafase y se produce interferencia destructiva (mínimo de sonido).'
         },
         {
           id: 'and-fis-ond-q3',
@@ -186,7 +187,7 @@ export const physicsAND: Subject = {
             { id: 'c', label: '73 Hz', isCorrect: false },
             { id: 'd', label: '219 Hz', isCorrect: false },
           ],
-          explanation: 'La velocidad de propagación en la cuerda con tensión $T = 72$ N y densidad lineal $\\mu = 2 \\times 10^{-3}$ kg/m es $v = 190$ m/s. La frecuencia fundamental es $f_1 = \\frac{v}{2L} = \\frac{190}{1.3} \\approx 146$ Hz.'
+          explanation: 'La velocidad de propagación en la cuerda es $v = \\sqrt{\\frac{T}{\\mu}} = \\sqrt{\\frac{72}{2 \\times 10^{-3}}} = \\sqrt{36000} \\approx 190$ m/s. La frecuencia fundamental es $f_1 = \\frac{v}{2L} = \\frac{190}{2 \\times 0.65} \\approx 146$ Hz.'
         },
         {
           id: 'and-fis-ond-q4',
@@ -253,10 +254,10 @@ export const physicsAND: Subject = {
             { id: 'd', label: '19.2°', isCorrect: false },
           ],
           explanation: 'Por la ley de Snell: $n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$. Despejando: $\\sin\\theta_2 = \\frac{n_1 \\sin\\theta_1}{n_2} = \\frac{1.00 \\times \\sin 45°}{1.52} = \\frac{0.707}{1.52} = 0.465$. Por tanto $\\theta_2 = \\arcsin(0.465) \\approx 27.9°$.'
-              }
-            ]
-          },
-          {
+        }
+      ]
+    },
+    {
       id: 'mecanica-energia',
       title: 'Mecánica y Energía',
       questions: [
@@ -270,6 +271,7 @@ export const physicsAND: Subject = {
             { id: 'c', label: '10.8 m/s', isCorrect: false },
             { id: 'd', label: '9.2 m/s', isCorrect: false },
           ],
+          // CORREGIDO: Usando un solo $ en lugar de $$
           explanation: 'La longitud del plano es $L = \\frac{h}{\\sin 30°} = 20$ m. El trabajo del rozamiento es $W_r = -\\mu_k mg\\cos 30° \\times L = -0.2 \\times 5 \\times 10 \\times 0.866 \\times 20 = -173.2$ J. Por conservación de energía: $mgh + W_r = \\frac{1}{2}mv^2$, $500 - 173.2 = \\frac{1}{2} \\times 5 \\times v^2$, $v \\approx 12.5$ m/s.'
         },
         {
@@ -282,6 +284,7 @@ export const physicsAND: Subject = {
             { id: 'c', label: '1.48 m/s', isCorrect: false },
             { id: 'd', label: '3.72 m/s', isCorrect: false },
           ],
+          // CORREGIDO: Usando un solo $ en lugar de $$
           explanation: 'La velocidad de la bola antes del choque (desde 1 m de altura) es $v_1 = 4.47$ m/s. Para un choque elástico, la velocidad del bloque es $v_2\' = \\frac{2m_1}{m_1 + m_2}v_1 = \\frac{0.4}{0.6} \\times 4.47 \\approx 2.97$ m/s.'
         },
         {

@@ -24,7 +24,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q2',
           tier: 'standard',
-          prompt: 'Dada la función f(x) = x²·sen(1/x) para x≠0 y f(0) = 0, la función es:',
+          prompt: 'Dada la función $f(x) = x^2 \\cdot \\sin(1/x)$ para $x \\neq 0$ y $f(0) = 0$, la función es:',
           options: [
             { id: 'a', label: 'Continua pero no derivable en x=0', isCorrect: false },
             { id: 'b', label: 'Continua y derivable en x=0', isCorrect: true },
@@ -36,7 +36,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q3',
           tier: 'standard',
-          prompt: 'Sea f(x)=sen x y g(x)=ln x con dominio adecuado. ¿Cuál es la derivada de f(x)·g(x) en x>0?',
+          prompt: 'Sea $f(x) = \\sin x$ y $g(x) = \\ln x$ con dominio adecuado. ¿Cuál es la derivada de $f(x) \\cdot g(x)$ en $x > 0$?',
           options: [
             { id: 'a', label: "f'(x)·g(x) + f(x)·g'(x)", isCorrect: true },
             { id: 'b', label: "f'(x)·g(x) - f(x)·g'(x)", isCorrect: false },
@@ -46,21 +46,9 @@ export const mathematicsAND: Subject = {
           explanation: 'Regla del producto: $(fg)\' = f\'g + fg\'.$'
         },
         {
-          id: 'and-mat-ana-q4',
-          tier: 'standard',
-          prompt: 'El límite cuando x tiende a 0 de (sen x)/x es igual a:',
-          options: [
-            { id: 'a', label: '0', isCorrect: false },
-            { id: 'b', label: '1', isCorrect: true },
-            { id: 'c', label: 'infinito', isCorrect: false },
-            { id: 'd', label: 'No existe', isCorrect: false },
-          ],
-          explanation: 'Límite clásico de la derivación de sen x en 0.'
-        },
-        {
           id: 'and-mat-ana-q5',
           tier: 'standard',
-          prompt: 'Si f(x) = x³ - 5x, ¿cuál es f\'(2)?',
+          prompt: 'Si $f(x) = x^3 - 5x$, ¿cuál es $f\'(2)$?',
           options: [
             { id: 'a', label: '7', isCorrect: true },
             { id: 'b', label: '3', isCorrect: false },
@@ -84,7 +72,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q7',
           tier: 'standard',
-          prompt: 'Una función f(x) = x³ - 3x tiene extremos locales en:',
+          prompt: 'Una función $f(x) = x^3 - 3x$ tiene extremos locales en:',
           options: [
             { id: 'a', label: 'x=-1 (máximo) y x=1 (mínimo)', isCorrect: true },
             { id: 'b', label: 'x=0 solamente', isCorrect: false },
@@ -168,7 +156,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q14',
           tier: 'standard',
-          prompt: 'Si f(x) = 1/x, entonces el límite cuando x tiende a infinito de f(x) es:',
+          prompt: 'Si $f(x) = \\frac{1}{x}$, entonces el límite cuando $x$ tiende a infinito de $f(x)$ es:',
           options: [
             { id: 'a', label: '0', isCorrect: true },
             { id: 'b', label: '1', isCorrect: false },
@@ -180,7 +168,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q15',
           tier: 'premium',
-          prompt: 'Sea f(x) = x·e^(-x²). ¿Cuál es el valor de la integral de f(x) entre -infinito e infinito?',
+          prompt: 'Sea $f(x) = x \\cdot e^{-x^2}$. ¿Cuál es el valor de la integral de $f(x)$ entre $-\\infty$ e $\\infty$?',
           options: [
             { id: 'a', label: '0', isCorrect: true },
             { id: 'b', label: 'raíz cuadrada de π', isCorrect: false },
@@ -192,7 +180,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q16',
           tier: 'standard',
-          prompt: '¿En qué puntos la función g(x) = x/(x²-1) no es continua?',
+          prompt: '¿En qué puntos la función $g(x) = \\frac{x}{x^2-1}$ no es continua?',
           options: [
             { id: 'a', label: 'En x=1 y x=-1', isCorrect: true },
             { id: 'b', label: 'En x=0', isCorrect: false },
@@ -204,7 +192,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-ana-q17',
           tier: 'premium',
-          prompt: 'Si h(x) = ln(x² + x), ¿cuál es el dominio de h?',
+          prompt: 'Si $h(x) = \\ln(x^2 + x)$, ¿cuál es el dominio de $h$?',
           options: [
             { id: 'a', label: '(-∞,-1)∪(0,∞)', isCorrect: true },
             { id: 'b', label: '(-1,∞)', isCorrect: false },
@@ -224,7 +212,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q1',
           tier: 'premium',
-          prompt: 'Sea la matriz A con elementos a₁₁=1, a₁₂=2, a₂₁=3, a₂₂=4. Sus valores propios son:',
+          prompt: 'Sea la matriz $A$ con elementos $a_{11}=1$, $a_{12}=2$, $a_{21}=3$, $a_{22}=4$. Sus valores propios son:',
           options: [
             { id: 'a', label: '$\\lambda_1 = \\frac{5+\\sqrt{33}}{2}, \\lambda_2 = \\frac{5-\\sqrt{33}}{2}$', isCorrect: true },
             { id: 'b', label: '$\\lambda_1 = 1, \\lambda_2 = 4$', isCorrect: false },
@@ -248,7 +236,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q3',
           tier: 'standard',
-          prompt: 'Dados A = [[1,2],[3,4]] y b = [5,6], resuelve el sistema Ax=b:',
+          prompt: 'Dados $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ y $\\vec{b} = \\begin{pmatrix} 5 \\\\ 6 \\end{pmatrix}$, resuelve el sistema $A\\vec{x}=\\vec{b}$:',
           options: [
             { id: 'a', label: 'x = -4, y = 9/2', isCorrect: true },
             { id: 'b', label: 'x = 4, y = -9/2', isCorrect: false },
@@ -260,7 +248,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q4',
           tier: 'standard',
-          prompt: 'Sea S el subespacio generado por los vectores (1,2,3) y (4,5,6) en R³. ¿Qué describe S?',
+          prompt: 'Sea $S$ el subespacio generado por los vectores $(1,2,3)$ y $(4,5,6)$ en $\\mathbb{R}^3$. ¿Qué describe $S$?',
           options: [
             { id: 'a', label: 'Todo R³', isCorrect: false },
             { id: 'b', label: 'Solo el vector cero', isCorrect: false },
@@ -272,7 +260,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q5',
           tier: 'standard',
-          prompt: 'Sean u=(1,0,0), v=(0,1,0), w=(0,0,1). ¿Qué afirmación es correcta?',
+          prompt: 'Sean $\\vec{u}=(1,0,0)$, $\\vec{v}=(0,1,0)$, $\\vec{w}=(0,0,1)$. ¿Qué afirmación es correcta?',
           options: [
             { id: 'a', label: 'Son linealmente dependientes', isCorrect: false },
             { id: 'b', label: 'Forman una base de R³', isCorrect: true },
@@ -320,7 +308,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q9',
           tier: 'standard',
-          prompt: 'Sean u=(1,1,0) y v=(0,1,1). ¿Cuál de las siguientes afirmaciones es correcta sobre el conjunto {u,v}?',
+          prompt: 'Sean $\\vec{u}=(1,1,0)$ y $\\vec{v}=(0,1,1)$. ¿Cuál de las siguientes afirmaciones es correcta sobre el conjunto $\\{\\vec{u},\\vec{v}\\}$?',
           options: [
             { id: 'a', label: 'Es linealmente dependiente', isCorrect: false },
             { id: 'b', label: 'Es linealmente independiente', isCorrect: true },
@@ -344,7 +332,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q11',
           tier: 'standard',
-          prompt: 'En el espacio, las rectas r(t)=(t,t,0) y s(u)=(u,0,u) son:',
+          prompt: 'En el espacio, las rectas $r(t)=(t,t,0)$ y $s(u)=(u,0,u)$ son:',
           options: [
             { id: 'a', label: 'paralelas', isCorrect: false },
             { id: 'b', label: 'se intersectan', isCorrect: true },
@@ -356,19 +344,19 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q12',
           tier: 'standard',
-          prompt: 'La recta r(t)=(t,0,0) y el plano Π: x+y+z=0 son:',
+          prompt: 'La recta $r(t)=(t,0,0)$ y el plano $\\Pi: x+y+z=0$ son:',
           options: [
             { id: 'a', label: 'paralelos', isCorrect: false },
             { id: 'b', label: 'perpendiculares', isCorrect: false },
             { id: 'c', label: 'se intersectan en un punto', isCorrect: true },
             { id: 'd', label: 'son paralelos y no se cortan', isCorrect: false },
           ],
-          explanation: 'La recta pasa por el origen $(0,0,0)$ que pertenece al plano (ya que $0+0+0=0$). El vector director de la recta es $(1,0,0)$ y el vector normal al plano es $(1,1,1)$. Como no son paralelos (el producto escalar es $1 \\neq 0$), la recta interseca al plano en el punto $(0,0,0)$.'
+          explanation: 'La recta pasa por el origen que pertenece al plano. El vector director $(1,0,0)$ no es paralelo al normal $(1,1,1)$, por lo que se intersectan en $(0,0,0)$.'
         },
         {
           id: 'and-mat-alg-q13',
           tier: 'standard',
-          prompt: 'La ecuación de una recta en forma paramétrica r(t) = r₀ + t·v, ¿qué representación describe?',
+          prompt: 'La ecuación de una recta en forma paramétrica $\\vec{r}(t) = \\vec{r}_0 + t\\vec{v}$, ¿qué representación describe?',
           options: [
             { id: 'a', label: 'Una recta en el espacio', isCorrect: true },
             { id: 'b', label: 'Una recta solo en el plano', isCorrect: false },
@@ -380,8 +368,8 @@ export const mathematicsAND: Subject = {
         // Añadidas difíciles
         {
           id: 'and-mat-alg-q14',
-          tier: 'premium',
-          prompt: 'Considera el polinomio P(x) = x³ - 2x² + 3. ¿Cuál es el resto al dividirlo por (x-1)?',
+          tier: 'standard',
+          prompt: 'Considera el polinomio $P(x) = x^3 - 2x^2 + 3$. ¿Cuál es el resto al dividirlo por $(x-1)$?',
           options: [
             { id: 'a', label: '2', isCorrect: true },
             { id: 'b', label: '1', isCorrect: false },
@@ -393,7 +381,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q15',
           tier: 'premium',
-          prompt: 'Un sistema homogéneo Ax=0 con det(A)=0 (con A de 3x3) tiene:',
+          prompt: 'Un sistema homogéneo $A\\vec{x}=\\vec{0}$ con $\\det(A)=0$ (con $A$ de $3\\times 3$) tiene:',
           options: [
             { id: 'a', label: 'Infinitas soluciones', isCorrect: true },
             { id: 'b', label: 'Una sola solución', isCorrect: false },
@@ -405,7 +393,7 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-alg-q16',
           tier: 'premium',
-          prompt: '¿Cuál es la matriz inversa de A = [[1,2],[3,5]]?',
+          prompt: '¿Cuál es la matriz inversa de $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 5 \\end{pmatrix}$?',
           options: [
             { id: 'a', label: '$\\begin{pmatrix} 5 & -2 \\\\ -3 & 1\\end{pmatrix}$', isCorrect: false },
             { id: 'b', label: '$\\begin{pmatrix} -5 & 2 \\\\ 3 & -1\\end{pmatrix}$', isCorrect: true },
@@ -425,50 +413,50 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q1',
           tier: 'standard',
-          prompt: 'Las rectas en el plano r: 2x-y+3=0 y s: x+y=1 son:',
+          prompt: 'Las rectas en el plano $r: 2x-y+3=0$ y $s: x+y=1$ son:',
           options: [
             { id: 'a', label: 'paralelas', isCorrect: false },
             { id: 'b', label: 'perpendiculares', isCorrect: false },
             { id: 'c', label: 'se intersectan', isCorrect: true },
             { id: 'd', label: 'coinciden', isCorrect: false },
           ],
-          explanation: 'Diferentes pendientes, así que se cruzan.'
+          explanation: 'Las rectas tienen pendientes diferentes (una tiene pendiente $m_1=2$ y otra $m_2=-1$), por lo que se intersectan en un único punto.'
         },
         {
           id: 'and-mat-geo-q2',
           tier: 'standard',
-          prompt: 'La elipse x²/9 + y²/4 = 1 tiene vértices en:',
+          prompt: 'La elipse $\\frac{x^2}{9} + \\frac{y^2}{4} = 1$ tiene vértices en:',
           options: [
             { id: 'a', label: '$(\\pm 3,0)$ y $(0,\\pm 2)$', isCorrect: true },
             { id: 'b', label: '$(\\pm 2,0)$ y $(0,\\pm 3)$', isCorrect: false },
             { id: 'c', label: 'Sólo en $(\\pm 3,\\pm 2)$', isCorrect: false },
             { id: 'd', label: 'No tiene vértices', isCorrect: false },
           ],
-          explanation: 'Ejes $a=3$ (horizontal) y $b=2$ (vertical).'
+          explanation: 'Elipse con semiejes $a=3$ (horizontal) y $b=2$ (vertical).'
         },
         {
           id: 'and-mat-geo-q3',
           tier: 'standard',
-          prompt: 'La parábola estándar y² = 4ax (con a>0) tiene foco en:',
+          prompt: 'La parábola estándar $y^2 = 4ax$ (con $a>0$) tiene foco en:',
           options: [
             { id: 'a', label: '$(a,0)$', isCorrect: true },
             { id: 'b', label: '$(0,a)$', isCorrect: false },
             { id: 'c', label: '$(-a,0)$', isCorrect: false },
             { id: 'd', label: '$(-a,-a)$', isCorrect: false },
           ],
-          explanation: 'Foco en $(a,0)$, directriz $x=-a$.'
+          explanation: 'Parábola con parámetro $a$. Foco en $(a,0)$ y directriz $x=-a$.'
         },
         {
           id: 'and-mat-geo-q4',
           tier: 'standard',
-          prompt: 'La distancia entre dos planos paralelos Π₁: x+y+z=1 y Π₂: x+y+z=3 es:',
+          prompt: 'La distancia entre dos planos paralelos $\\Pi_1: x+y+z=1$ y $\\Pi_2: x+y+z=3$ es:',
           options: [
             { id: 'a', label: '$\\frac{2}{\\sqrt{3}}$', isCorrect: true },
             { id: 'b', label: '$\\frac{1}{\\sqrt{3}}$', isCorrect: false },
             { id: 'c', label: '$\\frac{2}{\\sqrt{2}}$', isCorrect: false },
             { id: 'd', label: '$\\sqrt{3}$', isCorrect: false },
           ],
-          explanation: 'Se usa $|d_2-d_1|/\\|n\\|$.'
+          explanation: 'La distancia entre planos paralelos es $d = \\frac{|d_2 - d_1|}{\\|\\vec{n}\\|}$ donde $\\vec{n} = (1,1,1)$ es el vector normal. Así: $d = \\frac{|3-1|}{\\sqrt{1^2+1^2+1^2}} = \\frac{2}{\\sqrt{3}}$.'
         },
         {
           id: 'and-mat-geo-q5',
@@ -480,7 +468,7 @@ export const mathematicsAND: Subject = {
             { id: 'c', label: 'Una cónica', isCorrect: false },
             { id: 'd', label: 'Una circunferencia', isCorrect: false },
           ],
-          explanation: 'Forma vectorial paramétrica de una recta.'
+          explanation: 'La forma vectorial paramétrica $\\vec{r}(t) = \\vec{r}_0 + t\\vec{v}$ describe una recta que pasa por el punto $\\vec{r}_0$ con dirección $\\vec{v}$.'
         },
         {
           id: 'and-mat-geo-q6',
@@ -492,12 +480,12 @@ export const mathematicsAND: Subject = {
             { id: 'c', label: 'x² + y² + z² = 1', isCorrect: false },
             { id: 'd', label: 'x² + y² = 0', isCorrect: false },
           ],
-          explanation: 'Circunferencia en el plano $z=0$ y radio 1.'
+          explanation: 'Circunferencia en el plano con centro en el origen y radio $r=1$. Ecuación general: $x^2 + y^2 = r^2 = 1$.'
         },
         {
           id: 'and-mat-geo-q7',
           tier: 'standard',
-          prompt: 'La distancia entre el punto P(0,1,2) y la recta L: x=t, y=0, z=0 es:',
+          prompt: 'La distancia entre el punto $P(0,1,2)$ y la recta $L: x=t, y=0, z=0$ es:',
           options: [
             { id: 'a', label: '0', isCorrect: false },
             { id: 'b', label: '√5', isCorrect: true },
@@ -509,14 +497,14 @@ export const mathematicsAND: Subject = {
         {
           id: 'and-mat-geo-q8',
           tier: 'standard',
-          prompt: 'Una elipse con semiejes a=4, b=3 centrada en el origen tiene vértices en:',
+          prompt: 'Una elipse con semiejes $a=4$, $b=3$ centrada en el origen tiene vértices en:',
           options: [
             { id: 'a', label: '$(\\pm 4,0)$ y $(0,\\pm 3)$', isCorrect: true },
             { id: 'b', label: '$(\\pm 3,0)$ y $(0,\\pm 4)$', isCorrect: false },
             { id: 'c', label: '$(\\pm 4,\\pm 3)$', isCorrect: false },
             { id: 'd', label: 'No tiene vértices visibles', isCorrect: false },
           ],
-          explanation: 'Vértices principales $\\pm a$ en $x$ y $\\pm b$ en $y$.'
+          explanation: 'Elipse con vértices en $(\pm a, 0) = (\pm 4, 0)$ y $(0, \pm b) = (0, \pm 3)$.'
         },
         {
           id: 'and-mat-geo-q9',
@@ -528,21 +516,105 @@ export const mathematicsAND: Subject = {
             { id: 'c', label: 'La recta es paralela al plano', isCorrect: true },
             { id: 'd', label: 'No tiene relación', isCorrect: false },
           ],
-          explanation: 'Condición de recta paralela a un plano, pero fuera.'
+          explanation: 'Una recta es paralela a un plano si su vector director es perpendicular al vector normal del plano y no está contenida en él.'
         },
         // Difíciles añadidas
         {
           id: 'and-mat-geo-q10',
           tier: 'premium',
-          prompt: '¿Cuál es el radio de la esfera x² + y² + z² - 4x + 6y - 8z = 0?',
+          prompt: '¿Cuál es el radio de la esfera $x^2 + y^2 + z^2 - 4x + 6y - 8z = 0$?',
           options: [
-            { id: 'a', label: '7', isCorrect: false },
-            { id: 'b', label: '9', isCorrect: false },
-            { id: 'c', label: '5', isCorrect: true },
+            { id: 'a', label: '$\\sqrt{29}$', isCorrect: true },
+            { id: 'b', label: '5', isCorrect: false },
+            { id: 'c', label: '7', isCorrect: false },
             { id: 'd', label: '3', isCorrect: false },
           ],
-          explanation: 'Centro $(2,-3,4)$. Radio $\\sqrt{2^2+(-3)^2+4^2}=5$.'
-  }
+          explanation: 'Completando cuadrados: $(x-2)^2+(y+3)^2+(z-4)^2=4+9+16=29$. El radio es $\\sqrt{29}$.'
+        },
+        {
+          id: 'and-mat-geo-q11',
+          tier: 'standard',
+          prompt: 'La hipérbola $\\frac{x^2}{4} - \\frac{y^2}{9} = 1$ tiene vértices en:',
+          options: [
+            { id: 'a', label: '$(\\pm 2,0)$', isCorrect: true },
+            { id: 'b', label: '$(0,\\pm 3)$', isCorrect: false },
+            { id: 'c', label: '$(\\pm 3,0)$', isCorrect: false },
+            { id: 'd', label: '$(\\pm 2,\\pm 3)$', isCorrect: false },
+          ],
+          explanation: 'Hipérbola con eje transversal horizontal y semieje $a=2$. Vértices en $(\pm 2, 0)$.'
+        },
+        {
+          id: 'and-mat-geo-q12',
+          tier: 'standard',
+          prompt: 'El vector normal al plano $3x - 2y + z = 5$ es:',
+          options: [
+            { id: 'a', label: '$(3,-2,1)$', isCorrect: true },
+            { id: 'b', label: '$(3,2,1)$', isCorrect: false },
+            { id: 'c', label: '$(3,-2,5)$', isCorrect: false },
+            { id: 'd', label: '$(5,3,-2)$', isCorrect: false },
+          ],
+          explanation: 'Los coeficientes de $x$, $y$ y $z$ en la ecuación general del plano forman el vector normal.'
+        },
+        {
+          id: 'and-mat-geo-q13',
+          tier: 'premium',
+          prompt: 'Sea el plano $\\Pi: 2x + y - z = 3$ y el punto $P(1,1,1)$. La distancia de $P$ a $\\Pi$ es:',
+          options: [
+            { id: 'a', label: '$\\frac{1}{\\sqrt{6}}$', isCorrect: true },
+            { id: 'b', label: '$\\frac{2}{\\sqrt{6}}$', isCorrect: false },
+            { id: 'c', label: '$\\sqrt{6}$', isCorrect: false },
+            { id: 'd', label: '1', isCorrect: false },
+          ],
+          explanation: 'Fórmula: $d=\\frac{|2(1)+1(1)-1(1)-3|}{\\sqrt{2^2+1^2+(-1)^2}}=\\frac{|2+1-1-3|}{\\sqrt{6}}=\\frac{1}{\\sqrt{6}}$.'
+        },
+        {
+          id: 'and-mat-geo-q14',
+          tier: 'premium',
+          prompt: 'Los planos $\\Pi_1: x+y+z=1$ y $\\Pi_2: 2x+2y+2z=3$ son:',
+          options: [
+            { id: 'a', label: 'paralelos', isCorrect: true },
+            { id: 'b', label: 'perpendiculares', isCorrect: false },
+            { id: 'c', label: 'se intersectan en una recta', isCorrect: false },
+            { id: 'd', label: 'coincidentes', isCorrect: false },
+          ],
+          explanation: 'Los vectores normales $(1,1,1)$ y $(2,2,2)$ son proporcionales, por lo que los planos son paralelos. No coinciden porque $1 \\neq 3/2$.'
+        },
+        {
+          id: 'and-mat-geo-q15',
+          tier: 'standard',
+          prompt: 'La ecuación de la recta que pasa por $A(1,2,3)$ con dirección $\\vec{v}=(1,0,0)$ es:',
+          options: [
+            { id: 'a', label: '$(1+t,2,3)$', isCorrect: true },
+            { id: 'b', label: '$(t,2,3)$', isCorrect: false },
+            { id: 'c', label: '$(1,2+t,3)$', isCorrect: false },
+            { id: 'd', label: '$(1,2,3+t)$', isCorrect: false },
+          ],
+          explanation: 'Forma paramétrica: $\\mathbf{r}(t)=\\mathbf{r}_0+t\\mathbf{v}=(1,2,3)+t(1,0,0)=(1+t,2,3)$.'
+        },
+        {
+          id: 'and-mat-geo-q16',
+          tier: 'premium',
+          prompt: 'Sea la cónica $4x^2 + 9y^2 = 36$. ¿Qué tipo de cónica es y cuáles son sus semiejes?',
+          options: [
+            { id: 'a', label: 'Elipse con $a=3, b=2$', isCorrect: true },
+            { id: 'b', label: 'Hipérbola con $a=3, b=2$', isCorrect: false },
+            { id: 'c', label: 'Elipse con $a=2, b=3$', isCorrect: false },
+            { id: 'd', label: 'Circunferencia de radio 6', isCorrect: false },
+          ],
+          explanation: 'Dividiendo por 36: $\\frac{x^2}{9}+\\frac{y^2}{4}=1$. Es una elipse con semiejes $a=3$ (horizontal) y $b=2$ (vertical).'
+        },
+        {
+          id: 'and-mat-geo-q17',
+          tier: 'standard',
+          prompt: 'El producto vectorial de $\\vec{u}=(1,0,0)$ y $\\vec{v}=(0,1,0)$ es:',
+          options: [
+            { id: 'a', label: '$(0,0,1)$', isCorrect: true },
+            { id: 'b', label: '$(1,1,0)$', isCorrect: false },
+            { id: 'c', label: '$(0,0,0)$', isCorrect: false },
+            { id: 'd', label: '$(1,0,1)$', isCorrect: false },
+          ],
+          explanation: 'El producto vectorial $\\mathbf{u}\\times\\mathbf{v}$ resulta en un vector perpendicular a ambos: $(0,0,1)$.'
+        }
       ]
     }
   ]

@@ -83,29 +83,50 @@ export default function AndaluciaPage() {
               </div>
             </div>
 
-            <div className="relative hidden md:block">
-              <div className="absolute inset-0 rounded-[30px] bg-white/15 blur-3xl" />
-              <div className="relative rounded-[28px] border border-white/20 bg-white/10 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.25)]">
-                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/80">
-                  SeleTest Andalucía
-                </p>
-                <h2 className="mt-3 text-2xl font-bold text-white">
-                  Todo lo que necesitas para la PEvAU 2026
-                </h2>
-                <ul className="mt-6 space-y-3 text-sm text-white/80">
-                  <li className="flex items-center gap-2">
-                    <span aria-hidden="true">✓</span> Preguntas por materias y
-                    niveles adaptados a Andalucía.
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span aria-hidden="true">✓</span> Simulacros con tiempos
-                    reales y correcciones basadas en las rúbricas oficiales.
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span aria-hidden="true">✓</span> Seguimiento de tus
-                    objetivos de nota y recomendaciones personalizadas.
-                  </li>
-                </ul>
+            <div className="relative hidden md:block space-y-4">
+              {/* Tarjeta 1 - Estudiantes */}
+              <div className="group relative rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-start gap-4">
+                  <div className="flex-none w-12 h-12 rounded-xl bg-gradient-to-br from-[#FFB800] to-[#FF9800] flex items-center justify-center text-2xl shadow-lg">
+                    👥
+                  </div>
+                  <div>
+                    <p className="text-3xl font-black text-[#1F1300]">+5.000</p>
+                    <p className="text-sm font-medium text-gray-600 mt-1">
+                      estudiantes andaluces practicando
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tarjeta 2 - Preguntas */}
+              <div className="group relative rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 ml-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-none w-12 h-12 rounded-xl bg-gradient-to-br from-[#FF6B6B] to-[#FF5252] flex items-center justify-center text-2xl shadow-lg">
+                    📝
+                  </div>
+                  <div>
+                    <p className="text-3xl font-black text-[#1F1300]">+2.000</p>
+                    <p className="text-sm font-medium text-gray-600 mt-1">
+                      preguntas tipo PEvAU 2026
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tarjeta 3 - Actualizado */}
+              <div className="group relative rounded-2xl bg-white p-6 shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-start gap-4">
+                  <div className="flex-none w-12 h-12 rounded-xl bg-gradient-to-br from-[#4CAF50] to-[#2E7D32] flex items-center justify-center text-2xl shadow-lg">
+                    ✨
+                  </div>
+                  <div>
+                    <p className="text-3xl font-black text-[#1F1300]">100%</p>
+                    <p className="text-sm font-medium text-gray-600 mt-1">
+                      adaptado a la reforma 2026
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
