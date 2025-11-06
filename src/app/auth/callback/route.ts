@@ -29,41 +29,7 @@ export async function GET(request: NextRequest) {
 
       if (data?.session) {
         console.log('✅ [AUTH CALLBACK] Sesión establecida para:', data.session.user.email)
-        
-        // Verificar/crear usuario en tabla usuarios
-        const email = data.session.user.email
-        if (email) {
-          try {
-            // Primero verificar si existe
-            const { data: existingUser } = await supabase
-              .from('usuarios')
-              .select('id')
-              .eq('correo_electronico', email)
-              .single()
-            
-            if (!existingUser) {
-              console.log('📝 [AUTH CALLBACK] Creando usuario en tabla usuarios...')
-              // Si no existe, crear el usuario
-              const { error: insertError } = await supabase
-                .from('usuarios')
-                .insert({
-                  correo_electronico: email,
-                  es_premium: false,
-                  fecha_registro: new Date().toISOString()
-                })
-              
-              if (insertError) {
-                console.error('⚠️ [AUTH CALLBACK] Error al crear usuario en tabla:', insertError)
-              } else {
-                console.log('✅ [AUTH CALLBACK] Usuario creado en tabla usuarios')
-              }
-            } else {
-              console.log('ℹ️ [AUTH CALLBACK] Usuario ya existe en tabla usuarios')
-            }
-          } catch (userError) {
-            console.error('⚠️ [AUTH CALLBACK] Error al verificar/crear usuario:', userError)
-          }
-        }
+        console.log('ℹ️ [AUTH CALLBACK] El trigger de Supabase creará el usuario automáticamente')
         
         // Redireccionar al dashboard
         console.log('🚀 [AUTH CALLBACK] Redirigiendo a:', next)
