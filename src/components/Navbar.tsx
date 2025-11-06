@@ -44,8 +44,16 @@ export default function Navbar() {
     try {
       setNationalLoginLoading(true);
 
-      // TODAS las comunidades redirigen al dashboard general
-      const redirectTo = `${window.location.origin}/dashboard`;
+      // Determinar la URL de callback según la comunidad
+      let redirectTo: string;
+      if (community === "madrid") {
+        redirectTo = `${window.location.origin}/madrid/auth/callback?next=/madrid/dashboard`;
+      } else if (community === "andalucia") {
+        redirectTo = `${window.location.origin}/andalucia/auth/callback?next=/andalucia/dashboard`;
+      } else {
+        redirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
+      }
+      
       console.log("🔗 [NAVBAR] Redirect URL:", redirectTo);
 
       const { error } = await supabase.auth.signInWithOAuth({

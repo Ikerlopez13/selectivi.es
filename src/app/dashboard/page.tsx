@@ -17,53 +17,9 @@ export default function DashboardPage() {
   const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    const initDashboard = async () => {
-      // Procesar hash OAuth si existe
-      if (typeof window !== "undefined" && window.location.hash) {
-        const hash = window.location.hash;
-        if (hash.includes("access_token=")) {
-          console.log("🔑 [DASHBOARD] Hash OAuth detectado, procesando...");
-          
-          const params = new URLSearchParams(hash.replace(/^#/, ""));
-          const accessToken = params.get("access_token");
-          const refreshToken = params.get("refresh_token");
-          
-          if (accessToken && refreshToken) {
-            try {
-              const { data, error } = await supabase.auth.setSession({
-                access_token: accessToken,
-                refresh_token: refreshToken,
-              });
-              
-              if (error) {
-                console.error("❌ [DASHBOARD] Error setSession:", error);
-                window.location.href = "/login";
-                return;
-              }
-              
-              if (data?.session) {
-                console.log("✅ [DASHBOARD] Sesión establecida desde hash");
-                
-                // Limpiar hash de la URL
-                window.history.replaceState(null, "", window.location.pathname);
-                
-                // Esperar un momento para que la sesión se propague
-                await new Promise(resolve => setTimeout(resolve, 500));
-              }
-            } catch (error) {
-              console.error("💥 [DASHBOARD] Error procesando hash:", error);
-              window.location.href = "/login";
-              return;
-            }
-          }
-        }
-      }
-      
-      // Cargar perfil
-      await loadProfile();
-    };
-    
-    initDashboard();
+    // El callback server-side ya maneja la autenticación
+    // Solo necesitamos cargar el perfil
+    loadProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
