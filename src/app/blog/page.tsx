@@ -12,6 +12,14 @@ type Post = {
 
 const posts: Post[] = [
   {
+    slug: "selectiviandalucia-ya-disponible",
+    title: "SelectiviANDALUCIA ya está disponible — Practica la PEvAU con SeleTest",
+    excerpt:
+      "¡Buenas noticias! Ya puedes preparar la PEvAU de Andalucía con SelectiviANDALUCIA. Accede a SeleTest, simulacros y seguimiento personalizado.",
+    date: "6 de noviembre de 2025",
+    category: "Novedades",
+  },
+  {
     slug: "como-sera-la-selectividad-2026",
     title: "Cómo será la Selectividad 2026: PAU, cambios y modelos 0 oficiales",
     excerpt:
@@ -117,7 +125,7 @@ export default function BlogPage() {
           <div className="bg-white rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-black/5 p-6">
             <h3 className="font-bold mb-4">Categorías</h3>
             <div className="space-y-2">
-              {["Selectividad", "Universidad", "Consejos de estudio"].map(
+              {["Novedades", "Selectividad", "Universidad", "Consejos de estudio"].map(
                 (c) => (
                   <div key={c} className="px-4 py-2 bg-gray-50 rounded-lg">
                     {c}

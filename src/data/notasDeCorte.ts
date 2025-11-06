@@ -1,6 +1,23 @@
 export type Ambito = 'Ciencias' | 'Ingeniería' | 'Ciencias Sociales' | 'Artes y Humanidades' | 'Ciencias de la Salud'
 export type Modalidad = 'Presencial' | 'Semipresencial' | 'Online'
 export type Tendencia = 'subida' | 'bajada' | 'estable'
+export type ComunidadAutonoma = 
+  | 'Andalucía'
+  | 'Madrid'
+  | 'Cataluña'
+  | 'Comunidad Valenciana'
+  | 'País Vasco'
+  | 'Galicia'
+  | 'Castilla y León'
+  | 'Aragón'
+  | 'Murcia'
+  | 'Cantabria'
+  | 'Asturias'
+  | 'Extremadura'
+  | 'Castilla-La Mancha'
+  | 'La Rioja'
+  | 'Islas Baleares'
+  | 'Canarias'
 
 export interface NotaDeCorte {
   id: string
@@ -86,6 +103,90 @@ export const ambitos: Ambito[] = [
   'Artes y Humanidades',
   'Ciencias de la Salud',
 ]
+
+// Mapeo de universidades a comunidades autónomas
+export const universidadAComunidad: Record<string, ComunidadAutonoma> = {
+  // Andalucía
+  'Universidad de Sevilla': 'Andalucía',
+  'Universidad de Granada': 'Andalucía',
+  'Universidad de Málaga': 'Andalucía',
+  'Universidad de Córdoba': 'Andalucía',
+  'Universidad Pablo de Olavide': 'Andalucía',
+  'Universidad de Cádiz': 'Andalucía',
+  'Universidad de Almería': 'Andalucía',
+  'Universidad de Huelva': 'Andalucía',
+  'Universidad de Jaén': 'Andalucía',
+  // Madrid
+  'Universidad Complutense de Madrid': 'Madrid',
+  'Universidad Autónoma de Madrid': 'Madrid',
+  'Universidad Politécnica de Madrid': 'Madrid',
+  'Universidad Carlos III de Madrid': 'Madrid',
+  'Universidad Rey Juan Carlos': 'Madrid',
+  'Universidad de Alcalá': 'Madrid',
+  // Cataluña
+  'Universidad de Barcelona': 'Cataluña',
+  'Universidad Autónoma de Barcelona': 'Cataluña',
+  'Universidad Politécnica de Cataluña': 'Cataluña',
+  'Universidad Pompeu Fabra': 'Cataluña',
+  'Universidad de Girona': 'Cataluña',
+  'Universidad de Lleida': 'Cataluña',
+  'Universidad Rovira i Virgili': 'Cataluña',
+  // Comunidad Valenciana
+  'Universidad de Valencia': 'Comunidad Valenciana',
+  'Universidad Politécnica de Valencia': 'Comunidad Valenciana',
+  'Universidad de Alicante': 'Comunidad Valenciana',
+  'Universidad Jaume I de Castellón': 'Comunidad Valenciana',
+  'Universidad Miguel Hernández de Elche': 'Comunidad Valenciana',
+  // País Vasco
+  'Universidad del País Vasco': 'País Vasco',
+  'Universidad de Deusto': 'País Vasco',
+  'Universidad de Mondragón': 'País Vasco',
+  // Galicia
+  'Universidad de Santiago de Compostela': 'Galicia',
+  'Universidad de Vigo': 'Galicia',
+  'Universidad de A Coruña': 'Galicia',
+  // Castilla y León
+  'Universidad de Salamanca': 'Castilla y León',
+  'Universidad de Valladolid': 'Castilla y León',
+  'Universidad de León': 'Castilla y León',
+  'Universidad de Burgos': 'Castilla y León',
+  // Otras
+  'Universidad de Zaragoza': 'Aragón',
+  'Universidad de Murcia': 'Murcia',
+  'Universidad de Cantabria': 'Cantabria',
+  'Universidad de Oviedo': 'Asturias',
+  'Universidad de Extremadura': 'Extremadura',
+  'Universidad de Castilla-La Mancha': 'Castilla-La Mancha',
+  'Universidad de La Rioja': 'La Rioja',
+  'Universidad de las Islas Baleares': 'Islas Baleares',
+  'Universidad de La Laguna': 'Canarias',
+  'Universidad de Las Palmas de Gran Canaria': 'Canarias',
+}
+
+// Lista de comunidades autónomas únicas
+export const comunidadesAutonomas: ComunidadAutonoma[] = [
+  'Andalucía',
+  'Aragón',
+  'Asturias',
+  'Canarias',
+  'Cantabria',
+  'Castilla y León',
+  'Castilla-La Mancha',
+  'Cataluña',
+  'Comunidad Valenciana',
+  'Extremadura',
+  'Galicia',
+  'Islas Baleares',
+  'La Rioja',
+  'Madrid',
+  'Murcia',
+  'País Vasco',
+]
+
+// Función helper para obtener la comunidad de un grado
+export function getComunidadAutonoma(grado: NotaDeCorte): ComunidadAutonoma | undefined {
+  return universidadAComunidad[grado.universidad]
+}
 
 // DATOS REALES de notas de corte 2024/25 en Andalucía
 export const notasDeCorte: NotaDeCorte[] = [

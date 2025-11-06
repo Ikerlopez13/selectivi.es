@@ -5,8 +5,12 @@ import {
   notasDeCorte,
   universidades,
   ambitos,
+  comunidadesAutonomas,
+  universidadAComunidad,
+  getComunidadAutonoma,
   type NotaDeCorte,
   type Ambito,
+  type ComunidadAutonoma,
   esNotaAlta,
   esMuyDemandado,
 } from '@/data/notasDeCorte'
@@ -15,14 +19,26 @@ import Navbar from '@/components/Navbar'
 type OrdenType = 'nota-alta' | 'nota-baja' | 'alfabetico' | 'demandados'
 
 export default function NotasDeCortePage() {
+  const [comunidadFiltro, setComunidadFiltro] = useState<ComunidadAutonoma | 'todas'>('todas')
   const [universidadFiltro, setUniversidadFiltro] = useState<string>('todas')
   const [ambitoFiltro, setAmbitoFiltro] = useState<Ambito | 'todos'>('todos')
   const [busqueda, setBusqueda] = useState('')
   const [orden, setOrden] = useState<OrdenType>('nota-alta')
   const [favoritos, setFavoritos] = useState<Set<string>>(new Set())
 
+  // Filtrar universidades según la comunidad seleccionada
+  const universidadesFiltradas = useMemo(() => {
+    if (comunidadFiltro === 'todas') return universidades
+    return universidades.filter(
+      (uni) => universidadAComunidad[uni] === comunidadFiltro
+    )
+  }, [comunidadFiltro])
+
   const gradosFiltrados = useMemo(() => {
     let resultados = notasDeCorte.filter((grado) => {
+      const comunidad = getComunidadAutonoma(grado)
+      const matchComunidad =
+        comunidadFiltro === 'todas' || comunidad === comunidadFiltro
       const matchUniversidad =
         universidadFiltro === 'todas' || grado.universidad === universidadFiltro
       const matchAmbito =
@@ -32,7 +48,7 @@ export default function NotasDeCortePage() {
         grado.grado.toLowerCase().includes(busqueda.toLowerCase()) ||
         grado.universidad.toLowerCase().includes(busqueda.toLowerCase())
 
-      return matchUniversidad && matchAmbito && matchBusqueda
+      return matchComunidad && matchUniversidad && matchAmbito && matchBusqueda
     })
 
     // Ordenar
@@ -52,7 +68,7 @@ export default function NotasDeCortePage() {
     })
 
     return resultados
-  }, [universidadFiltro, ambitoFiltro, busqueda, orden])
+  }, [comunidadFiltro, universidadFiltro, ambitoFiltro, busqueda, orden])
 
   const toggleFavorito = (id: string) => {
     const nuevosFavoritos = new Set(favoritos)
@@ -99,7 +115,7 @@ export default function NotasDeCortePage() {
         <div className="container mx-auto px-4 py-8">
           {/* Filtros */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
             {/* Buscador */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -114,6 +130,28 @@ export default function NotasDeCortePage() {
               />
             </div>
 
+            {/* Comunidad Autónoma */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Comunidad Autónoma
+              </label>
+              <select
+                value={comunidadFiltro}
+                onChange={(e) => {
+                  setComunidadFiltro(e.target.value as ComunidadAutonoma | 'todas')
+                  setUniversidadFiltro('todas') // Reset universidad al cambiar comunidad
+                }}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+              >
+                <option value="todas">Todas las comunidades</option>
+                {comunidadesAutonomas.map((comunidad) => (
+                  <option key={comunidad} value={comunidad}>
+                    {comunidad}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Universidad */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -124,8 +162,12 @@ export default function NotasDeCortePage() {
                 onChange={(e) => setUniversidadFiltro(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
               >
-                <option value="todas">Todas las universidades</option>
-                {universidades.map((uni) => (
+                <option value="todas">
+                  {comunidadFiltro === 'todas' 
+                    ? 'Todas las universidades' 
+                    : `Todas de ${comunidadFiltro}`}
+                </option>
+                {universidadesFiltradas.map((uni) => (
                   <option key={uni} value={uni}>
                     {uni}
                   </option>

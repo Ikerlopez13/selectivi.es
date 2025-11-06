@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import Test from "@/components/Test";
 import HistoryQuiz from "@/components/HistoryQuiz";
 import Footer from "@/components/Footer";
 import OnboardingGate from "@/components/OnboardingGate";
 import SeletestCTA from "@/components/SeletestCTA";
-import NationalLogin from "@/components/NationalLogin";
 
 type BenefitProps = {
   icon: string;
@@ -264,12 +262,6 @@ export default function AndaluciaPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 md:px-8 py-16">
-        <h2 className="text-3xl font-bold text-[#1F1300] mb-6">
-          Reserva tu plaza
-        </h2>
-        <Test />
-      </section>
 
       <HistoryQuiz />
       <OnboardingGate />
