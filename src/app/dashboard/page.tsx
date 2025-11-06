@@ -30,21 +30,30 @@ export default function DashboardPage() {
           
           if (accessToken && refreshToken) {
             try {
-              const { error } = await supabase.auth.setSession({
+              const { data, error } = await supabase.auth.setSession({
                 access_token: accessToken,
                 refresh_token: refreshToken,
               });
               
               if (error) {
                 console.error("❌ [DASHBOARD] Error setSession:", error);
-              } else {
-                console.log("✅ [DASHBOARD] Sesión establecida desde hash");
+                window.location.href = "/login";
+                return;
               }
               
-              // Limpiar hash de la URL
-              window.history.replaceState(null, "", window.location.pathname);
+              if (data?.session) {
+                console.log("✅ [DASHBOARD] Sesión establecida desde hash");
+                
+                // Limpiar hash de la URL
+                window.history.replaceState(null, "", window.location.pathname);
+                
+                // Esperar un momento para que la sesión se propague
+                await new Promise(resolve => setTimeout(resolve, 500));
+              }
             } catch (error) {
               console.error("💥 [DASHBOARD] Error procesando hash:", error);
+              window.location.href = "/login";
+              return;
             }
           }
         }
