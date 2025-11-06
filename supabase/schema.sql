@@ -47,13 +47,13 @@ begin
   insert into public.usuarios (
     user_id,
     correo_electronico,
-    nombre_completo,
+    nombre,
     es_premium,
     fecha_registro
   ) values (
     new.id,
     new.email,
-    coalesce(new.raw_user_meta_data->>'full_name', new.email),
+    coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
     false,
     now()
   )

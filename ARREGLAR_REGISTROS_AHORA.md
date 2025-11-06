@@ -19,13 +19,13 @@ BEGIN
   INSERT INTO public.usuarios (
     user_id,
     correo_electronico,
-    nombre_completo,
+    nombre,
     es_premium,
     fecha_registro
   ) VALUES (
     new.id,
     new.email,
-    COALESCE(new.raw_user_meta_data->>'full_name', new.email),
+    COALESCE(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
     false,
     NOW()
   )
@@ -74,11 +74,11 @@ Reemplaza `tu-dominio.vercel.app` con tu dominio real de Vercel.
 Ejecuta esto para crearlos retroactivamente:
 
 ```sql
-INSERT INTO public.usuarios (user_id, correo_electronico, nombre_completo, es_premium, fecha_registro)
+INSERT INTO public.usuarios (user_id, correo_electronico, nombre, es_premium, fecha_registro)
 SELECT 
   id,
   email,
-  COALESCE(raw_user_meta_data->>'full_name', email),
+  COALESCE(raw_user_meta_data->>'full_name', split_part(email, '@', 1)),
   false,
   created_at
 FROM auth.users
