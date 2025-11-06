@@ -2,137 +2,136 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
 
-const DASHBOARD_CACHE_KEY = "dashboard_profile";
-
-const writeProfileCache = (
-  profile: { email: string; isPremium: boolean } | null,
-) => {
-  try {
-    if (profile) {
-      localStorage.setItem(DASHBOARD_CACHE_KEY, JSON.stringify(profile));
-      localStorage.setItem("es_premium", profile.isPremium ? "1" : "0");
-      localStorage.setItem("logged_in", "1");
-    } else {
-      localStorage.removeItem(DASHBOARD_CACHE_KEY);
-      localStorage.removeItem("es_premium");
-      localStorage.removeItem("logged_in");
-    }
-  } catch (error) {
-    console.warn("No se pudo actualizar la caché del login nacional", error);
-  }
-};
-
-const loadPremiumStatus = async (email: string) => {
-  try {
-    const { data, error } = await supabase.rpc("check_premium_status", {
-      p_email: email,
-    });
-    if (!error && (data === true || data === 1 || data === "true")) {
-      return true;
-    }
-    if (error) {
-      console.warn(
-        "No se pudo verificar premium via RPC en login nacional:",
-        error,
-      );
-    }
-  } catch (rpcError) {
-    console.warn("Fallo RPC premium en login nacional:", rpcError);
-  }
-
-  try {
-    const { data: row, error } = await supabase
-      .from("usuarios")
-      .select("es_premium")
-      .eq("correo_electronico", email)
-      .maybeSingle();
-    if (!error && row?.es_premium === true) {
-      return true;
-    }
-    if (error) {
-      console.warn("Fallback usuarios premium en login nacional:", error);
-    }
-  } catch (tableError) {
-    console.warn(
-      "No se pudo consultar usuarios premium en login nacional:",
-      tableError,
-    );
-  }
-
-  return false;
-};
-
-const syncSessionProfile = async (session: Session | null) => {
-  if (!session?.user?.email) {
-    writeProfileCache(null);
-    return;
-  }
-
-  const email = session.user.email;
-  const isPremium = await loadPremiumStatus(email);
-  writeProfileCache({ email, isPremium });
-};
-
 export default function NationalLogin() {
+  const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    let isMounted = true;
+    console.log('🔍 [LOGIN] Verificando sesión...');
+    
+    // Verificar sesión actual
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('📊 [LOGIN] Sesión actual:', session?.user?.email || 'ninguna');
+      setSession(session);
+      
+      // Si hay sesión, podría redirigir automáticamente
+      // Descomenta la siguiente línea si quieres auto-redirect
+      // if (session) router.push('/dashboard');
+    });
 
-    const loadSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (!isMounted) return;
-      setSession(session ?? null);
-      await syncSessionProfile(session ?? null);
-    };
-
-    loadSession();
-    const { data: subscription } = supabase.auth.onAuthStateChange(
-      async (_event, nextSession) => {
-        if (!isMounted) return;
-        setSession(nextSession ?? null);
-        await syncSessionProfile(nextSession ?? null);
-      },
+    // Escuchar cambios de autenticación
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('🔔 [LOGIN] Auth event:', event);
+        console.log('👤 [LOGIN] Session:', session?.user?.email || 'ninguna');
+        
+        setSession(session);
+        
+        // Si se completa el login, crear usuario en DB
+        if (event === 'SIGNED_IN' && session?.user?.email) {
+          console.log('✅ [LOGIN] Usuario autenticado, verificando DB...');
+          
+          try {
+            const email = session.user.email;
+            
+            // Verificar si existe en la tabla usuarios
+            const { data: existingUser, error: selectError } = await supabase
+              .from('usuarios')
+              .select('id')
+              .eq('correo_electronico', email)
+              .maybeSingle();
+            
+            if (selectError) {
+              console.error('⚠️ [LOGIN] Error verificando usuario:', selectError);
+            }
+            
+            // Si no existe, crearlo
+            if (!existingUser) {
+              console.log('📝 [LOGIN] Creando usuario en DB...');
+              const { error: insertError } = await supabase
+                .from('usuarios')
+                .insert({
+                  correo_electronico: email,
+                  es_premium: false,
+                  fecha_registro: new Date().toISOString()
+                });
+              
+              if (insertError) {
+                console.error('❌ [LOGIN] Error creando usuario:', insertError);
+              } else {
+                console.log('✅ [LOGIN] Usuario creado exitosamente');
+              }
+            } else {
+              console.log('ℹ️ [LOGIN] Usuario ya existe en DB');
+            }
+            
+            // Redirigir al dashboard
+            console.log('🚀 [LOGIN] Redirigiendo a dashboard...');
+            router.push('/dashboard');
+            
+          } catch (err) {
+            console.error('💥 [LOGIN] Error inesperado:', err);
+          }
+        }
+      }
     );
 
-    return () => {
-      isMounted = false;
-      subscription.subscription.unsubscribe();
-    };
-  }, []);
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const handleLogin = useCallback(async () => {
+    console.log('🔑 [LOGIN] Iniciando login con Google...');
+    setLoading(true);
+    setError("");
+
     try {
-      setLoading(true);
-      const base =
-        typeof window !== "undefined" &&
-        window.location.hostname === "localhost"
-          ? "http://localhost:3000"
-          : window.location.origin;
-      const redirectTo = `${base}/dashboard`;
-      const { error } = await supabase.auth.signInWithOAuth({
+      const redirectTo = `${window.location.origin}/auth/callback`;
+      console.log('📍 [LOGIN] Redirect URL:', redirectTo);
+      
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo },
+        options: {
+          redirectTo,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          }
+        },
       });
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error al iniciar sesión nacional:", error);
-      alert("No se pudo iniciar sesión. Inténtalo de nuevo.");
-    } finally {
+
+      if (error) {
+        console.error('❌ [LOGIN] Error signInWithOAuth:', error);
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+
+      console.log('✅ [LOGIN] Redirección OAuth iniciada');
+      // No quitamos loading aquí porque la página se redirigirá
+      
+    } catch (err: any) {
+      console.error("💥 [LOGIN] Error inesperado:", err);
+      setError(err?.message || "Error al iniciar sesión");
       setLoading(false);
     }
   }, []);
 
   const handleLogout = useCallback(async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-    writeProfileCache(null);
+    console.log('🚪 [LOGIN] Cerrando sesión...');
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      setSession(null);
+      console.log('✅ [LOGIN] Sesión cerrada');
+    } catch (err) {
+      console.error('❌ [LOGIN] Error al cerrar sesión:', err);
+    }
   }, []);
 
   const email = session?.user?.email ?? "";
@@ -166,6 +165,13 @@ export default function NationalLogin() {
               </p>
             </div>
 
+            {/* Errores */}
+            {error && (
+              <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+                <p className="text-sm text-red-800">{error}</p>
+              </div>
+            )}
+
             {session ? (
               <div className="flex flex-col gap-6">
                 {/* Usuario logueado */}
@@ -188,7 +194,7 @@ export default function NationalLogin() {
                     className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-black to-gray-900 px-6 py-4 text-base font-bold text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
                   >
                     <span className="text-xl">📚</span>
-                    <span>Ir donde me quedé</span>
+                    <span>Ir al Dashboard</span>
                     <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
                   </Link>
                   <Link
@@ -218,7 +224,7 @@ export default function NationalLogin() {
                   {loading ? (
                     <>
                       <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>Conectando…</span>
+                      <span>Conectando con Google…</span>
                     </>
                   ) : (
                     <>

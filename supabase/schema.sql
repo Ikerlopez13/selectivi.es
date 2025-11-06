@@ -43,22 +43,44 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  v_nombre text;
 begin
+  v_nombre := coalesce(
+    new.raw_user_meta_data->>'full_name',
+    new.raw_user_meta_data->>'name',
+    split_part(new.email, '@', 1)
+  );
+  
   insert into public.usuarios (
     user_id,
     correo_electronico,
     nombre,
+    comunidad_autonoma,
     es_premium,
-    fecha_registro
+    created_at,
+    avatar_url
   ) values (
     new.id,
     new.email,
-    coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
+    v_nombre,
+    'General',
     false,
-    now()
+    now(),
+    coalesce(
+      new.raw_user_meta_data->>'avatar_url',
+      new.raw_user_meta_data->>'picture'
+    )
   )
-  on conflict (user_id) do nothing;
+  on conflict (user_id) do update
+  set correo_electronico = excluded.correo_electronico,
+      nombre = excluded.nombre,
+      avatar_url = coalesce(excluded.avatar_url, usuarios.avatar_url);
   
+  return new;
+  
+exception when others then
+  raise log 'Error en handle_new_user: %, SQLSTATE: %', sqlerrm, sqlstate;
   return new;
 end;
 $$;
