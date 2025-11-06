@@ -1,4 +1,4 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
@@ -15,7 +15,32 @@ export async function GET(request: NextRequest) {
   if (code) {
     try {
       const cookieStore = cookies()
-      const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
+      
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          cookies: {
+            get(name: string) {
+              return cookieStore.get(name)?.value
+            },
+            set(name: string, value: string, options: CookieOptions) {
+              try {
+                cookieStore.set({ name, value, ...options })
+              } catch (error) {
+                // Ignorar errores en set durante el response
+              }
+            },
+            remove(name: string, options: CookieOptions) {
+              try {
+                cookieStore.set({ name, value: '', ...options })
+              } catch (error) {
+                // Ignorar errores en remove durante el response
+              }
+            },
+          },
+        }
+      )
       
       console.log('🔑 [AUTH CALLBACK] Intercambiando código por sesión...')
       
@@ -39,7 +64,7 @@ export async function GET(request: NextRequest) {
               .from('usuarios')
               .select('id')
               .eq('correo_electronico', email)
-              .single()
+              .maybeSingle()
             
             if (!existingUser) {
               console.log('📝 [AUTH CALLBACK] Creando usuario en tabla usuarios...')
