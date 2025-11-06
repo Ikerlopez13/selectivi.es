@@ -17,9 +17,16 @@ export default function DashboardPage() {
   const [checking, setChecking] = useState(false);
 
   useEffect(() => {
-    // El callback server-side ya maneja la autenticación
-    // Solo necesitamos cargar el perfil
-    loadProfile();
+    const initDashboard = async () => {
+      // Dar tiempo para que Supabase procese el hash de OAuth automáticamente
+      // detectSessionInUrl: true lo hace automáticamente
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Cargar perfil
+      await loadProfile();
+    };
+    
+    initDashboard();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

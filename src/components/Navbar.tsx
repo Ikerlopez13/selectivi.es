@@ -44,14 +44,14 @@ export default function Navbar() {
     try {
       setNationalLoginLoading(true);
 
-      // Determinar la URL de callback según la comunidad
+      // Redirigir directamente al dashboard (sin callback intermedio)
       let redirectTo: string;
       if (community === "madrid") {
-        redirectTo = `${window.location.origin}/madrid/auth/callback?next=/madrid/dashboard`;
+        redirectTo = `${window.location.origin}/madrid/dashboard`;
       } else if (community === "andalucia") {
-        redirectTo = `${window.location.origin}/andalucia/auth/callback?next=/andalucia/dashboard`;
+        redirectTo = `${window.location.origin}/andalucia/dashboard`;
       } else {
-        redirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
+        redirectTo = `${window.location.origin}/dashboard`;
       }
       
       console.log("🔗 [NAVBAR] Redirect URL:", redirectTo);
