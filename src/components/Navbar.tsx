@@ -60,6 +60,11 @@ export default function Navbar() {
         provider: "google",
         options: {
           redirectTo,
+          skipBrowserRedirect: false,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       });
 

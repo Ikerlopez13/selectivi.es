@@ -17,7 +17,8 @@ export const supabase = createClient(
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
-      storageKey: 'selectivies-supabase-auth'
+      storageKey: 'selectivies-supabase-auth',
+      flowType: 'pkce'
     }
   }
 )
