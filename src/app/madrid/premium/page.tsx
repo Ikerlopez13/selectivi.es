@@ -8,8 +8,8 @@ export default function PremiumPage() {
       <Navbar />
       <section className="flex-1 py-12 px-6">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-2">Desbloquea todo el potencial de SelectiviMAD</h1>
-          <p className="text-gray-700 mb-10">Accede a todas las preguntas y recursos para triunfar en la EvAU</p>
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-2">Desbloquea todo el potencial de SelectiviES</h1>
+          <p className="text-gray-700 mb-10">Accede a todas las preguntas y recursos para triunfar en la selectividad</p>
 
           <div id="planes" className="grid md:grid-cols-3 gap-6 items-stretch">
             {/* Plan Standard */}
@@ -32,7 +32,7 @@ export default function PremiumPage() {
             <div className="bg-white rounded-2xl shadow-xl p-6 border relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFE08A] text-[#4B3A00] text-xs px-3 py-1 rounded-full shadow">Recomendado</div>
               <h2 className="text-2xl font-bold mb-2">Premium Mensual</h2>
-              <p className="text-gray-600 mb-4">Todo lo que necesitas para SelectiviMAD</p>
+              <p className="text-gray-600 mb-4">Todo lo que necesitas para la selectividad</p>
               <div className="mb-1 text-gray-400 line-through">4,99 €/mes</div>
               <div className="text-5xl font-extrabold mb-6">2,99 €<span className="text-base font-normal">/mes</span></div>
               <ul className="text-left mt-2 space-y-3">

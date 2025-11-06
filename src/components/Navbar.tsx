@@ -26,7 +26,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [nationalLoginLoading, setNationalLoginLoading] = useState(false);
 
-  const isMadridBrand = pathname?.startsWith("/madrid");
+  const isPremiumPage = pathname?.startsWith("/madrid/premium");
+  const isMadridBrand = pathname?.startsWith("/madrid") && !isPremiumPage;
   const isAndaluciaBrand = pathname?.startsWith("/andalucia");
   const isMadridSection = pathname?.startsWith("/madrid");
   const isMadridDashboard = pathname?.startsWith("/madrid/dashboard");

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 type Slide =
@@ -28,6 +29,7 @@ const slides: Slide[] = [
 ];
 
 export default function Onboarding() {
+  const { isPremium } = useAuth();
   const [index, setIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -293,14 +295,16 @@ export default function Onboarding() {
           <h4 className="text-xl sm:text-2xl font-extrabold mt-16 sm:mt-24 md:mt-32 mb-2">
             ¿Te parece justo?
           </h4>
-          <div className="mt-auto pt-6">
-            <a
-              href="/madrid/premium"
-              className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
-            >
-              Hazte premium y empieza ahora
-            </a>
-          </div>
+          {!isPremium && (
+            <div className="mt-auto pt-6">
+              <a
+                href="/madrid/premium"
+                className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
+              >
+                Hazte premium y empieza ahora
+              </a>
+            </div>
+          )}
         </div>
       </Card>
     );
@@ -525,14 +529,16 @@ export default function Onboarding() {
                         <h4 className="text-xl sm:text-2xl font-extrabold mt-16 sm:mt-24 md:mt-32 mb-2">
                           ¿Te parece justo?
                         </h4>
-                        <div className="mt-auto pt-6">
-                          <a
-                            href="/madrid/premium"
-                            className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
-                          >
-                            Hazte premium y empieza ahora
-                          </a>
-                        </div>
+                        {!isPremium && (
+                          <div className="mt-auto pt-6">
+                            <a
+                              href="/madrid/premium"
+                              className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
+                            >
+                              Hazte premium y empieza ahora
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </Card>
                   )}

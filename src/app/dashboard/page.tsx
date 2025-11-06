@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   Ir al mapa de comunidades
                 </Link>
                 <Link
-                  href="/"
+                  href="/madrid/premium"
                   className="inline-block bg-[#FFB800] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#ffc835]"
                 >
                   Ver planes Premium →
