@@ -38,7 +38,13 @@ export default function Onboarding() {
   const restartAuto = useCallback(() => {
     if (auto.current) clearInterval(auto.current);
     auto.current = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slides.length);
+      setIndex((prev) => {
+        // No avanzar automáticamente desde la última diapositiva
+        if (prev === slides.length - 1) {
+          return prev;
+        }
+        return (prev + 1) % slides.length;
+      });
     }, 5000);
   }, []);
 
@@ -54,7 +60,12 @@ export default function Onboarding() {
     [animating, restartAuto],
   );
 
-  const next = useCallback(() => goTo(index + 1), [goTo, index]);
+  const next = useCallback(() => {
+    // No permitir avanzar desde la última diapositiva
+    if (index >= slides.length - 1) return;
+    goTo(index + 1);
+  }, [goTo, index]);
+  
   const prev = useCallback(() => goTo(index - 1), [goTo, index]);
 
   useEffect(() => {
@@ -72,6 +83,11 @@ export default function Onboarding() {
     if (touchStartX.current == null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     if (Math.abs(dx) > 40) {
+      // Si estamos en la última diapositiva, no permitir swipe a la derecha
+      if (dx < 0 && index === slides.length - 1) {
+        touchStartX.current = null;
+        return;
+      }
       dx < 0 ? next() : prev();
     }
     touchStartX.current = null;
@@ -295,16 +311,14 @@ export default function Onboarding() {
           <h4 className="text-xl sm:text-2xl font-extrabold mt-16 sm:mt-24 md:mt-32 mb-2">
             ¿Te parece justo?
           </h4>
-          {!isPremium && (
-            <div className="mt-auto pt-6">
-              <a
-                href="/madrid/premium"
-                className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
-              >
-                Hazte premium y empieza ahora
-              </a>
-            </div>
-          )}
+          <div className="mt-4">
+            <a
+              href="/madrid/premium"
+              className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-6 py-3 text-base"
+            >
+              Ver planes Premium
+            </a>
+          </div>
         </div>
       </Card>
     );
@@ -529,16 +543,14 @@ export default function Onboarding() {
                         <h4 className="text-xl sm:text-2xl font-extrabold mt-16 sm:mt-24 md:mt-32 mb-2">
                           ¿Te parece justo?
                         </h4>
-                        {!isPremium && (
-                          <div className="mt-auto pt-6">
-                            <a
-                              href="/madrid/premium"
-                              className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-5 py-3"
-                            >
-                              Hazte premium y empieza ahora
-                            </a>
-                          </div>
-                        )}
+                        <div className="mt-4">
+                          <a
+                            href="/madrid/premium"
+                            className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-medium rounded-xl px-6 py-3 text-base"
+                          >
+                            Ver planes Premium
+                          </a>
+                        </div>
                       </div>
                     </Card>
                   )}
@@ -551,14 +563,20 @@ export default function Onboarding() {
           <button
             aria-label="Anterior"
             onClick={prev}
-            className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black rounded-full w-10 h-10 items-center justify-center shadow"
+            disabled={index === 0}
+            className={`hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black rounded-full w-10 h-10 items-center justify-center shadow ${
+              index === 0 ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           >
             ‹
           </button>
           <button
             aria-label="Siguiente"
             onClick={next}
-            className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black rounded-full w-10 h-10 items-center justify-center shadow"
+            disabled={index === slides.length - 1}
+            className={`hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-black rounded-full w-10 h-10 items-center justify-center shadow ${
+              index === slides.length - 1 ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
           >
             ›
           </button>
@@ -567,14 +585,20 @@ export default function Onboarding() {
             <button
               aria-label="Anterior"
               onClick={prev}
-              className="rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-black shadow"
+              disabled={index === 0}
+              className={`rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-black shadow ${
+                index === 0 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
               Anterior
             </button>
             <button
               aria-label="Siguiente"
               onClick={next}
-              className="rounded-full bg-[#FFB800] px-4 py-2 text-sm font-semibold text-black shadow"
+              disabled={index === slides.length - 1}
+              className={`rounded-full bg-[#FFB800] px-4 py-2 text-sm font-semibold text-black shadow ${
+                index === slides.length - 1 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
               Siguiente
             </button>

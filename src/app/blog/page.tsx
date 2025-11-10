@@ -12,6 +12,30 @@ type Post = {
 
 const posts: Post[] = [
   {
+    slug: "calcular-nota-acceso-universidad-espana-2026",
+    title: "Cómo Calcular tu Nota de Acceso a la Universidad 2026 | Guía Completa",
+    excerpt:
+      "📊 Fórmulas, ponderaciones y ejemplos reales paso a paso. Calcula tu nota real de acceso y descubre qué necesitas para entrar a tu universidad soñada.",
+    date: "12 de noviembre de 2025",
+    category: "Universidad",
+  },
+  {
+    slug: "profesor-no-prepara-selectividad-2026",
+    title: "🚨 Tu Profesor NO te está preparando para la Selectividad 2026",
+    excerpt:
+      "Hay una brecha enorme entre lo que enseñan en clase y lo que realmente pide el examen. Descubre la verdad incómoda y cómo cerrar la brecha antes de junio.",
+    date: "12 de noviembre de 2025",
+    category: "Selectividad 2026",
+  },
+  {
+    slug: "trampa-selectividad-2026-nadie-ve",
+    title: "💀 La Selectividad 2026 tiene una TRAMPA que nadie está viendo",
+    excerpt:
+      "Mientras estudias contenido, el 20% de tu nota depende de algo que nadie te está enseñando. Miles suspenderán por ignorar la trampa de la expresión escrita.",
+    date: "12 de noviembre de 2025",
+    category: "Selectividad 2026",
+  },
+  {
     slug: "selectividad-2026-mas-complicada-historia",
     title: "¿Será la Selectividad 2026 la MÁS COMPLICADA de la historia?",
     excerpt:
