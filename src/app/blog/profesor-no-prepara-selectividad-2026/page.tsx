@@ -224,7 +224,7 @@ export default function Article() {
                 </h3>
                 <p className="text-gray-700 text-lg">
                   El <strong>67% de estudiantes</strong> que hicieron simulacros del nuevo formato 
-                  dijeron: <em>"En clase no me enseñaron esto"</em>.
+                  dijeron: <em>&ldquo;En clase no me enseñaron esto&rdquo;</em>.
                 </p>
               </div>
             </div>
@@ -430,7 +430,7 @@ export default function Article() {
                   <div className="mb-4">
                     <p className="font-bold text-lg text-gray-900">{test.name}</p>
                   </div>
-                  <p className="text-gray-700 mb-4 italic">"{test.quote}"</p>
+                  <p className="text-gray-700 mb-4 italic">&ldquo;{test.quote}&rdquo;</p>
                   <div className="rounded-2xl bg-green-50 border border-green-200 p-4">
                     <p className="text-sm font-bold text-green-900 mb-1">✅ Resultado:</p>
                     <p className="text-gray-900 font-medium text-sm">{test.result}</p>
