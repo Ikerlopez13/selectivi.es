@@ -12,6 +12,14 @@ type Post = {
 
 const posts: Post[] = [
   {
+    slug: "selectividad-2026-mas-complicada-historia",
+    title: "¿Será la Selectividad 2026 la MÁS COMPLICADA de la historia?",
+    excerpt:
+      "🚨 La reforma LOMLOE trae cambios radicales. Ejercicios competenciales, criterios más duros y menos opcionalidad. ¿Estás preparado para el mayor desafío educativo?",
+    date: "11 de noviembre de 2025",
+    category: "Selectividad 2026",
+  },
+  {
     slug: "selectiviandalucia-ya-disponible",
     title: "SelectiviANDALUCIA ya está disponible — Practica la PEvAU con SeleTest",
     excerpt:
