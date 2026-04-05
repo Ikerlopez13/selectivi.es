@@ -18,6 +18,8 @@ export async function POST(req: Request) {
 
     console.log(`🚀 [STRIPE] Creando checkout para: ${email}, Plan: ${priceId}`);
 
+    const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL;
+
     // Crear sesión de checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -28,9 +30,9 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      mode: 'subscription', // O 'payment' para pago único
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/madrid/premium?canceled=true`,
+      mode: priceId.startsWith('price_') ? 'subscription' : 'payment', // Detección automática de tipo
+      success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`,
+      cancel_url: `${origin}/madrid/premium?canceled=true`,
       metadata: {
         email: email,
         name: name || '',
