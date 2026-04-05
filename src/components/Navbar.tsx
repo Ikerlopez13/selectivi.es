@@ -229,6 +229,9 @@ export default function Navbar() {
           <Link href="/blog" className="text-gray-700 hover:text-gray-900">
             Blog
           </Link>
+          <Link href="/ai-lab" className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1">
+            ✨ AI-Test
+          </Link>
           <Link
             href="/calculadora"
                     className="text-gray-700 hover:text-gray-900"
@@ -286,6 +289,13 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               Blog
+            </Link>
+            <Link
+              href="/ai-lab"
+              className="py-2 text-[#FFB800] font-bold"
+              onClick={() => setMobileOpen(false)}
+            >
+              ✨ AI-Test
             </Link>
             <Link
               href="/calculadora"
