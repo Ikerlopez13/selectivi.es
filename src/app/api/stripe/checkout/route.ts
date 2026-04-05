@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { supabase } from '@/lib/supabase/client';
+
+export const dynamic = 'force-dynamic';
 
 // Llave de Stripe (Se configurará en .env)
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
