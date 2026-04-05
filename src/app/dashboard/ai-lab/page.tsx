@@ -33,9 +33,28 @@ export default function AILabPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const feedRef = useRef<HTMLDivElement>(null)
 
+  const [aiLabUses, setAiLabUses] = useState(0)
+  const [isPremium, setIsPremium] = useState(false)
+  const [session, setSession] = useState<any>(null)
+
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) window.location.href = '/dashboard'
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (!session) {
+        window.location.href = '/dashboard'
+        return
+      }
+      setSession(session)
+
+      try {
+        const res = await fetch('/api/check-premium', {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        })
+        const data = await res.json()
+        setIsPremium(data.isPremium)
+        setAiLabUses(data.aiLabUses || 0)
+      } catch (err) {
+        console.error("Error al verificar perfil:", err)
+      }
     })
   }, [])
 
@@ -95,18 +114,29 @@ export default function AILabPage() {
     try {
       const res = await fetch('/api/ai/generate-session-quiz', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token}`
+        },
         body: JSON.stringify({ content: raw, count: 5 })
       })
 
       const data = await res.json()
       
       if (!res.ok) {
+        if (res.status === 403) {
+          alert("Has alcanzado tu límite de 2 tests gratuitos. ¡Sigue aprendiendo con la versión Premium!")
+          window.location.href = '/madrid/premium'
+          return
+        }
         throw new Error(data.error || "Fallo en el Laboratorio");
       }
 
       if (data.questions) {
         setQuestions(data.questions)
+        // Actualizar contador localmente para que cambie el UI sin refrescar
+        if (!isPremium) setAiLabUses(u => u + 1)
+        
         setTimeout(() => {
           feedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
@@ -130,6 +160,7 @@ export default function AILabPage() {
       
       {/* HERO - ESTILO LA SELE FÁCIL CON MASCOTA ORIGINAL */}
       <div className="bg-[#FFB800] py-16 md:py-24 px-6 relative overflow-hidden">
+
         {/* Mascota asomando */}
         <div className="absolute right-0 bottom-0 h-4/5 md:h-[110%] opacity-100 pointer-events-none translate-x-12 md:translate-x-0 translate-y-10 md:translate-y-4 z-0">
           <img 
@@ -196,9 +227,35 @@ export default function AILabPage() {
                )}
              </div>
 
-             <button onClick={() => handleGenerate()} disabled={isGenerating || isReadingPDF} className={`w-full py-6 rounded-[32px] font-black text-2xl italic uppercase border-4 border-black ${isGenerating || isReadingPDF ? 'bg-slate-100 text-slate-300' : 'bg-black text-[#FFB800] hover:bg-[#FFB800] hover:text-black shadow-[12px_12px_0px_#000] active:shadow-none translate-y-0 active:translate-y-2'}`}>
-                {isGenerating || isReadingPDF ? 'Wait...' : '¡GENERAR EXAMEN!'}
-             </button>
+             {/* INDICADOR DE TOKENS (ESTILO ARCADE) */}
+             <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase text-slate-300 tracking-[0.2em] leading-none mb-1">Tu Salto AI</span>
+                  <span className={`text-[11px] font-black italic ${isPremium ? 'text-emerald-500' : 'text-black'}`}>
+                    {isPremium ? 'PLAN PREMIUM' : 'CUENTA GRATUITA'}
+                  </span>
+                </div>
+                <div className={`px-4 py-2 rounded-2xl border-[3px] border-black font-black italic shadow-[4px_4px_0px_#000] text-xs transition-all ${isPremium ? 'bg-emerald-400 text-emerald-950 border-emerald-900' : 'bg-white text-black'}`}>
+                    {isPremium ? 'TOKENS: ∞' : `TOKENS: ${Math.max(0, 2 - aiLabUses)} / 2`}
+                </div>
+             </div>
+
+             {!isPremium && aiLabUses >= 2 ? (
+                <a 
+                  href="/madrid/premium"
+                  className="block w-full py-6 rounded-[32px] font-black text-2xl italic uppercase border-4 border-black bg-gradient-to-br from-[#FFB800] to-[#FF9000] text-black hover:scale-105 transition-all shadow-[12px_12px_0px_#000] text-center"
+                >
+                   🚀 HAZTE PREMIUM
+                </a>
+             ) : (
+                <button 
+                  onClick={() => handleGenerate()} 
+                  disabled={isGenerating || isReadingPDF} 
+                  className={`w-full py-6 rounded-[32px] font-black text-2xl italic uppercase border-4 border-black ${isGenerating || isReadingPDF ? 'bg-slate-100 text-slate-300' : 'bg-black text-[#FFB800] hover:bg-[#FFB800] hover:text-black shadow-[12px_12px_0px_#000] active:shadow-none translate-y-0 active:translate-y-2'}`}
+                >
+                  {isGenerating || isReadingPDF ? 'Wait...' : '¡GENERAR EXAMEN!'}
+                </button>
+             )}
           </div>
         </div>
 
