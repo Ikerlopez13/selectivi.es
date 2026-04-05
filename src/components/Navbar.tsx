@@ -229,9 +229,18 @@ export default function Navbar() {
           <Link href="/blog" className="text-gray-700 hover:text-gray-900">
             Blog
           </Link>
-          <Link href="/ai-lab" className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1">
-            ✨ AI-Test
-          </Link>
+          {hasSession ? (
+            <Link href="/dashboard/ai-lab" className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1">
+              ✨ AI-Test
+            </Link>
+          ) : (
+            <button 
+              onClick={() => triggerLogin("general")}
+              className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1"
+            >
+              ✨ AI-Test
+            </button>
+          )}
           <Link
             href="/calculadora"
                     className="text-gray-700 hover:text-gray-900"
@@ -290,13 +299,25 @@ export default function Navbar() {
             >
               Blog
             </Link>
-            <Link
-              href="/ai-lab"
-              className="py-2 text-[#FFB800] font-bold"
-              onClick={() => setMobileOpen(false)}
-            >
-              ✨ AI-Test
-            </Link>
+            {hasSession ? (
+              <Link
+                href="/dashboard/ai-lab"
+                className="py-2 text-[#FFB800] font-bold"
+                onClick={() => setMobileOpen(false)}
+              >
+                ✨ AI-Test
+              </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  triggerLogin("general");
+                }}
+                className="py-2 text-[#FFB800] font-bold text-left"
+              >
+                ✨ AI-Test
+              </button>
+            )}
             <Link
               href="/calculadora"
               className="py-2"
