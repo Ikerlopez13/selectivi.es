@@ -44,17 +44,10 @@ export default function Navbar() {
     try {
       setNationalLoginLoading(true);
 
-      // Redirigir directamente al dashboard (sin callback intermedio)
-      let redirectTo: string;
-      if (community === "madrid") {
-        redirectTo = `${window.location.origin}/madrid/dashboard`;
-      } else if (community === "andalucia") {
-        redirectTo = `${window.location.origin}/andalucia/dashboard`;
-      } else {
-        redirectTo = `${window.location.origin}/dashboard`;
-      }
+      // Redirigir siempre a través del callback de autenticación para asegurar el intercambio de tokens en servidor
+      const redirectTo = `${window.location.origin}/auth/callback`;
       
-      console.log("🔗 [NAVBAR] Redirect URL:", redirectTo);
+      console.log("🔗 [NAVBAR] Redirect URL (Secure Callback):", redirectTo);
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
