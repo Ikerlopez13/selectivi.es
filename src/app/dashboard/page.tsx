@@ -19,7 +19,6 @@ export default function DashboardPage() {
   useEffect(() => {
     const initDashboard = async () => {
       // Dar tiempo para que Supabase procese el hash de OAuth automáticamente
-      // detectSessionInUrl: true lo hace automáticamente
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Cargar perfil
@@ -27,38 +26,22 @@ export default function DashboardPage() {
     };
     
     initDashboard();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadProfile = async () => {
     try {
-      console.log("🚀 [DASHBOARD] Cargando perfil...");
-
-      // 1. Obtener sesión
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
       
-      if (sessionError) {
-        console.error("❌ [DASHBOARD] Error obteniendo sesión:", sessionError);
-        window.location.href = "/login";
-        return;
-      }
-
-      if (!session?.user?.email) {
-        console.log("⚠️ [DASHBOARD] No hay sesión, redirigiendo...");
+      if (sessionError || !session?.user?.email) {
         window.location.href = "/login";
         return;
       }
 
       const email = session.user.email;
-      console.log("✅ [DASHBOARD] Sesión encontrada:", email);
-
-      // 2. Mostrar dashboard inmediatamente
       setProfile({ email, isPremium: false });
       setLoading(false);
       setChecking(true);
 
-      // 3. Verificar premium en segundo plano
-      console.log("🔍 [DASHBOARD] Verificando premium...");
       const response = await fetch('/api/check-premium', {
         method: 'GET',
         headers: {
@@ -68,18 +51,12 @@ export default function DashboardPage() {
       });
 
       if (!response.ok) {
-        console.error("❌ [DASHBOARD] Error en API:", response.status);
         setChecking(false);
         return;
       }
 
       const data = await response.json();
-      console.log("📊 [DASHBOARD] Respuesta API:", data);
-
       const isPremium = Boolean(data.isPremium);
-      console.log("🎯 [DASHBOARD] Estado premium:", isPremium);
-
-      // 4. Actualizar estado
       setProfile({ email, isPremium });
       setChecking(false);
 
@@ -91,19 +68,15 @@ export default function DashboardPage() {
   };
 
   const handleLogout = async () => {
-    console.log("🚪 [DASHBOARD] Cerrando sesión...");
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      console.log("✅ [DASHBOARD] Sesión cerrada");
       window.location.href = "/login";
     } catch (error) {
-      console.error("❌ [DASHBOARD] Error logout:", error);
       window.location.href = "/login";
     }
   };
 
-  // Loading inicial
   if (loading) {
     return (
       <main className="min-h-screen flex flex-col bg-gray-50">
@@ -119,111 +92,105 @@ export default function DashboardPage() {
     );
   }
 
-  // No premium
-  if (profile && !profile.isPremium) {
-    return (
-      <main className="min-h-screen flex flex-col bg-gray-50">
-        <Navbar />
-        <div className="flex-1 p-6">
-          <div className="max-w-4xl mx-auto space-y-6">
-            {/* Perfil */}
-            <div className="bg-white rounded-2xl shadow p-6">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 flex items-center justify-center">
-                  <span className="text-2xl">👤</span>
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium">Plan estándar</div>
-                  <div className="text-gray-600">{profile.email}</div>
-                </div>
-                {checking && (
-                  <div className="text-sm text-gray-400 flex items-center gap-2">
-                    <div className="animate-spin">⚡</div>
-                    Verificando...
-                  </div>
-                )}
-              </div>
-            </div>
+  const renderAILabCard = () => (
+    <div className="bg-[#FFB800] rounded-3xl p-8 text-black relative overflow-hidden group shadow-[10px_10px_0px_#000] hover:shadow-[15px_15px_0px_#000] border-4 border-black transition-all duration-500">
+      <div className="absolute -right-4 bottom-[-20px] h-48 opacity-100 pointer-events-none group-hover:scale-110 transition-transform duration-700 select-none">
+        <img 
+          src="/images/gato.svg" 
+          alt="Mascota" 
+          className="h-full w-auto drop-shadow-xl" 
+        />
+      </div>
+      <div className="relative z-10">
+        <div className="flex items-center gap-2 mb-4 bg-black text-[#FFB800] w-fit px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest italic">
+          <span>¡NUEVO!</span>
+        </div>
+        <h2 className="text-4xl font-black mb-3 italic uppercase tracking-tighter">AI Study <span className="text-white drop-shadow-[2px_2px_0px_#000]">Lab</span></h2>
+        <p className="mb-8 text-black/70 max-w-sm font-bold text-sm leading-tight italic">
+          Pega tus apuntes y deja que nuestra IA cree un examen personalizado estilo EBAU solo para ti.
+        </p>
+        <Link
+          href="/dashboard/ai-lab"
+          className="inline-flex items-center gap-2 bg-black text-[#FFB800] px-8 py-4 rounded-2xl font-black uppercase italic text-sm hover:scale-105 transition-all shadow-[5px_5px_0px_#FFF] active:shadow-none"
+        >
+          Probar AI Lab ⚡️
+        </Link>
+      </div>
+    </div>
+  );
 
-            {/* CTA Premium */}
-            <div className="bg-[#FFF7E1] rounded-2xl shadow p-8 text-center border border-[#FFE199]">
-              <h2 className="text-2xl font-bold mb-2">Sube a Premium</h2>
-              <p className="mb-6">
-                Accede a todas las preguntas y funcionalidades exclusivas en SeleTest.
+  return (
+    <main className="min-h-screen flex flex-col bg-[#FDFDFD]">
+      <Navbar />
+      <div className="flex-1 p-6 py-12">
+        <div className="max-w-4xl mx-auto space-y-8">
+          
+          {/* Perfil */}
+          <div className="bg-white rounded-3xl border-4 border-black p-6 shadow-[8px_8px_0px_#000]">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 flex items-center justify-center bg-slate-100 rounded-2xl text-2xl">
+                {profile?.isPremium ? '⭐️' : '👤'}
+              </div>
+              <div className="flex-1">
+                <div className="font-black italic uppercase text-xs tracking-widest text-[#FFB800] bg-black w-fit px-3 py-1 rounded-full mb-1">
+                  {profile?.isPremium ? 'PREMIUM USER' : 'STANDARD USER'}
+                </div>
+                <div className="text-xl font-bold text-slate-800">{profile?.email}</div>
+              </div>
+              {checking && (
+                <div className="animate-spin text-xl">⚙️</div>
+              )}
+            </div>
+          </div>
+
+          {/* AI Lab Card */}
+          {renderAILabCard()}
+
+          {/* CTA Premium / Map */}
+          {!profile?.isPremium ? (
+            <div className="bg-[#FFF7E1] rounded-3xl p-10 text-center border-4 border-dashed border-[#FFE199]">
+              <h2 className="text-3xl font-black mb-2 italic">¿Quieres más?</h2>
+              <p className="mb-8 text-slate-600 font-medium">
+                Accede a todas las preguntas y funcionalidades exclusivas.
               </p>
-              <div className="flex flex-col gap-3 items-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-xl font-medium border hover:bg-gray-50"
+                  className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-white text-black px-8 py-4 rounded-2xl font-bold border-2 border-slate-200 hover:bg-slate-50 transition-all shadow-sm"
                 >
-                  Ir al mapa de comunidades
+                  Mapa de comunidades
                 </Link>
                 <Link
                   href="/madrid/premium"
-                  className="inline-block bg-[#FFB800] text-black px-6 py-3 rounded-xl font-medium hover:bg-[#ffc835]"
+                  className="w-full sm:w-auto inline-block bg-[#FFB800] text-black px-8 py-4 rounded-2xl font-black italic uppercase border-2 border-black hover:bg-[#ffc835] shadow-[5px_5px_0px_#000] active:shadow-none"
                 >
                   Ver planes Premium →
                 </Link>
               </div>
             </div>
-
-            {/* Logout */}
-            <div className="text-center">
-              <button
-                onClick={handleLogout}
-                className="text-gray-400 text-sm hover:text-gray-600 transition-colors"
+          ) : (
+            <div className="bg-[#FFB800] rounded-3xl p-10 text-center border-4 border-black shadow-[10px_10px_0px_#000]">
+              <div className="text-5xl mb-6">⭐️</div>
+              <h2 className="text-3xl font-black mb-4 italic uppercase">Acceso Ilimitado</h2>
+              <p className="mb-8 font-bold text-black/60 italic leading-tight max-w-md mx-auto">
+                Disfrutas de todas las preguntas y funcionalidades exclusivas de SeleTest.
+              </p>
+              <Link
+                href="/"
+                className="inline-block bg-white text-black px-10 py-5 rounded-2xl font-black italic uppercase border-2 border-black hover:scale-105 transition-all shadow-[5px_5px_0px_#000]"
               >
-                Cerrar sesión
-              </button>
+                Ir al mapa de comunidades →
+              </Link>
             </div>
-          </div>
-        </div>
-        <Footer />
-      </main>
-    );
-  }
-
-  // Premium
-  return (
-    <main className="min-h-screen flex flex-col bg-gray-50">
-      <Navbar />
-      <div className="flex-1 p-6">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Perfil Premium */}
-          <div className="bg-white rounded-2xl shadow p-6">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 flex items-center justify-center">
-                <span className="text-2xl">⭐️</span>
-              </div>
-              <div>
-                <div className="font-medium">Premium</div>
-                <div className="text-gray-600">{profile?.email}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Premium Card */}
-          <div className="bg-[#FFB800] rounded-2xl shadow p-8 text-center">
-            <div className="text-4xl mb-4">⭐️</div>
-            <h2 className="text-2xl font-bold mb-2">Tu acceso Premium</h2>
-            <p className="mb-6">
-              Disfruta de acceso ilimitado a todas las preguntas y funcionalidades exclusivas.
-            </p>
-            <Link
-              href="/"
-              className="inline-block bg-white text-black px-6 py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors"
-            >
-              Ir al mapa de comunidades →
-            </Link>
-          </div>
+          )}
 
           {/* Logout */}
-          <div className="text-center">
+          <div className="text-center pt-8">
             <button
               onClick={handleLogout}
-              className="text-gray-400 text-sm hover:text-gray-600 transition-colors"
+              className="font-black italic uppercase text-[10px] tracking-widest text-slate-300 hover:text-red-500 transition-colors"
             >
-              Cerrar sesión
+              Cerrar sesión segura 🔐
             </button>
           </div>
         </div>

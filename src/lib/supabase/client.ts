@@ -1,24 +1,6 @@
-"use client"
-import { createClient } from '@supabase/supabase-js'
+import { createClient as createBrowserClient } from "@/utils/supabase/client";
 
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL')
-}
-
-if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-  throw new Error('Missing NEXT_PUBLIC_SUPABASE_ANON_KEY')
-}
-
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-      storageKey: 'selectivies-supabase-auth',
-      flowType: 'implicit'
-    }
-  }
-)
+// Exportamos el mismo cliente que usa el nuevo sistema de SSR
+// para que el Dashboard y el resto de componentes antiguos 
+// compartan la misma sesión basada en cookies.
+export const supabase = createBrowserClient();

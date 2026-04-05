@@ -1,15 +1,34 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { cookies } from 'next/headers'
+import { createClient } from '@/utils/supabase/server'
 
-// Callback simple que redirige al dashboard
-// El cliente manejará el intercambio del código por sesión
 export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url)
-  const next = requestUrl.searchParams.get('next') || '/dashboard'
-  
-  console.log('🔄 [AUTH CALLBACK] Redirigiendo a:', next)
-  
-  // Redirigir al dashboard - el cliente de Supabase manejará el código automáticamente
-  return NextResponse.redirect(new URL(next, requestUrl.origin))
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  // if "next" is in search params, use it as the redirect URL
+  const next = searchParams.get('next') ?? '/dashboard'
+
+  if (code) {
+    const cookieStore = await cookies()
+    const supabase = createClient(cookieStore)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    if (!error) {
+      const forwardedHost = request.headers.get('x-forwarded-host') 
+      const isLocalEnv = process.env.NODE_ENV === 'development'
+      if (isLocalEnv) {
+        // we can be sure that origin is http://localhost:3000
+        return NextResponse.redirect(`${origin}${next}`)
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`)
+      } else {
+        return NextResponse.redirect(`${origin}${next}`)
+      }
+    }
+  }
+
+  // return the user to an error page with instructions
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
 }
+
 

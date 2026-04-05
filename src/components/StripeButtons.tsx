@@ -27,33 +27,43 @@ export function StripeButtons({ plan = 'both' }: Props) {
 
       const { data: { user }, error: sessionError } = await supabase.auth.getUser()
       if (sessionError) throw sessionError
+      
       if (!user) {
         // Redirige a login si no hay sesión
-        window.location.href = '/madrid/dashboard?login=1'
+        window.location.href = "/login"
         return
       }
 
       const email = user.email
-      const userId = user.id
       if (!email) throw new Error('No email on user')
 
-      const res = await fetch('/madrid/api/stripe/checkout', {
+      // Obtener el Price ID correcto según el plan
+      const priceId = plan === 'monthly' 
+        ? "price_1S9NsaKD8uYiuyZB55EP2NOM" // Estos son tus IDs reales del .env
+        : "price_1S9NteKD8uYiuyZB4r6KSRJY"
+
+      console.log(`💳 [STRIPE] Iniciando pago para ${plan}: ${priceId}`);
+
+      const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, email, userId }),
+        body: JSON.stringify({ priceId, email, name: user.user_metadata?.full_name || '' }),
       })
-      if (!res.ok) throw new Error(await res.text())
-      const { id } = await res.json()
 
-      if (!publishableKey) throw new Error('Configura NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY')
-      if (!stripePromise) throw new Error('Stripe JS no disponible en este entorno')
-      const stripe = await stripePromise
-      if (!stripe) throw new Error('Stripe failed to load')
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Error en el servidor: ${errorText}`);
+      }
 
-      const { error: redirectErr } = await stripe.redirectToCheckout({ sessionId: id })
-      if (redirectErr) throw redirectErr
+      const { url } = await res.json()
+      if (!url) throw new Error('No se recibió URL de checkout')
+
+      // Redirigir directamente a la página de Stripe
+      window.location.href = url;
+      
     } catch (e) {
-      const msg = e instanceof Error ? e.message : 'Error inesperado'
+      console.error('❌ [STRIPE] Error:', e);
+      const msg = e instanceof Error ? e.message : 'Error inesperado al conectar con Stripe'
       setError(msg)
     } finally {
       setLoading(null)

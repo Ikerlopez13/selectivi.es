@@ -5,38 +5,24 @@ import Footer from '@/components/Footer'
 import { useEffect, useState } from 'react'
 import MathText from '@/components/MathText'
 import { supabase } from '@/lib/supabase/client'
-import { historyES } from '@/lib/seletest/history'
-import { philosophyES } from '@/lib/seletest/philosophy'
-import { businessES } from '@/lib/seletest/business'
-import { geographyES } from '@/lib/seletest/geography'
-import { languageES } from '@/lib/seletest/language'
-import { englishES } from '@/lib/seletest/english'
-import { mathematicsES } from '@/lib/seletest/mathematics'
-import { physicsES } from '@/lib/seletest/physics'
-import { biologyES } from '@/lib/seletest/biology'
-import { chemistryES } from '@/lib/seletest/chemistry'
-import { mathematicsCCSS } from '@/lib/seletest/mathematics-ccss'
-import type { Question, QuestionWithSubject } from '@/lib/seletest/types'
 
-const ALL_SUBJECTS = {
-  'historia-espana': historyES,
-  'filosofia': philosophyES,
-  'economia-empresa': businessES,
-  'geografia': geographyES,
-  'lengua': languageES,
-  'ingles': englishES,
-  'matematicas': mathematicsES,
-  'fisica': physicsES,
-  'biologia': biologyES,
-  'quimica': chemistryES,
-  'matematicas-ccss': mathematicsCCSS,
-} as const
-
-function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
+interface Question {
+  id: number;
+  tema_id: number;
+  pregunta: string;
+  opcion_a: string;
+  opcion_b: string;
+  opcion_c: string;
+  opcion_d: string;
+  correcta: string;
+  explicacion: string;
+  tier: string;
+  subject_name?: string;
+  subject_id?: string;
+}
 
 export default function QuizPage() {
-  const [questions, setQuestions] = useState<QuestionWithSubject[]>([])
-  const [subjectMap, setSubjectMap] = useState<Record<string, string>>({})
+  const [questions, setQuestions] = useState<Question[]>([])
   const [idx, setIdx] = useState(0)
   const [chosen, setChosen] = useState<string | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
@@ -44,118 +30,84 @@ export default function QuizPage() {
   const [isPremium, setIsPremium] = useState(false)
   const [planLoaded, setPlanLoaded] = useState(false)
   const [showGate, setShowGate] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Construir pool inmediatamente desde localStorage
-    try {
-      const raw = localStorage.getItem('seletestPlan')
-      if (!raw) {
-        setPlanLoaded(true)
-        return
-      }
-      const { subjects = [], numQuestions, mixSubjects } = JSON.parse(raw)
-      const subjectDisplay: Record<string, string> = {}
-      let pool: QuestionWithSubject[] = []
-      subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
-        const subj = ALL_SUBJECTS[s.id]
-        if (!subj) return
-        subjectDisplay[subj.id] = subj.name
-        subj.topics.forEach((t) => {
-          if (!s.topics.includes(t.id)) return
-          pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
-        })
-      })
-      // Fallback: si por cualquier motivo el filtrado por topic dejó vacío, usa todos los topics de los sujetos elegidos
-      if (pool.length === 0) {
-        subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
-          const subj = ALL_SUBJECTS[s.id]
-          if (!subj) return
-          subjectDisplay[subj.id] = subj.name
-          subj.topics.forEach((t) => { pool = pool.concat(t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))) })
-        })
-      }
-      // Usar hint de premium de localStorage para carga instantánea
+    let mounted = true
+    ;(async () => {
+      // 1. Initial status check
       const isPremiumHint = localStorage.getItem('es_premium') === '1'
       setIsPremium(isPremiumHint)
       setShowGate(!isPremiumHint)
 
-      // Respetar exactamente las preguntas solicitadas (ya limitadas en la pantalla previa)
-      const desiredCount = typeof numQuestions === 'number' ? numQuestions : 1
-      const cappedCount = Math.max(1, Math.min(desiredCount, pool.length))
+      const raw = localStorage.getItem('seletestPlan')
+      if (!raw) {
+        setPlanLoaded(true)
+        setLoading(false)
+        return
+      }
 
-      const perSubject = new Map<string, QuestionWithSubject[]>()
-      subjects.forEach((s: { id: keyof typeof ALL_SUBJECTS; topics: string[] }) => {
-        const subj = ALL_SUBJECTS[s.id]
-        if (!subj) return
-        const subjectQuestions: QuestionWithSubject[] = []
-        subj.topics.forEach((t) => {
-          if (!s.topics.includes(t.id)) return
-          subjectQuestions.push(...t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name })))
-        })
-        if (subjectQuestions.length === 0) {
-          subjectQuestions.push(...subj.topics.flatMap((t) => t.questions.map((q) => ({ ...q, subjectId: subj.id, subjectName: subj.name }))))
-        }
-        if (subjectQuestions.length > 0) perSubject.set(subj.id, subjectQuestions)
-      })
-
-      const selection: QuestionWithSubject[] = []
-      if (mixSubjects) {
-        const subjectIds = Array.from(perSubject.keys())
-        const decks = subjectIds.map((sid) => shuffle(perSubject.get(sid) || []))
-        while (selection.length < cappedCount) {
-          const nextRound = decks
-            .map((deck, index) => ({ deck, index }))
-            .filter(({ deck }) => deck.length > 0)
-            .map(({ deck }) => deck.shift()!)
-          if (nextRound.length === 0) break
-          for (const item of nextRound) {
-            if (selection.length >= cappedCount) break
-            selection.push(item)
-          }
-        }
-      } else {
-        const subjectIds = Array.from(perSubject.keys())
-        if (subjectIds.length > 0) {
-          const target = shuffle(perSubject.get(subjectIds[0]) || [])
-          selection.push(...target.slice(0, cappedCount))
+      const { subjects = [], numQuestions, mixSubjects } = JSON.parse(raw)
+      
+      // 2. Real-time premium check
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session?.user?.email) {
+        const { data: isPremiumRes } = await supabase.rpc('check_premium_status', { p_email: session.user.email })
+        if (mounted) {
+          const premium = !!isPremiumRes
+          setIsPremium(premium)
+          setShowGate(!premium)
         }
       }
 
-      setQuestions(selection.slice(0, cappedCount))
-      setSubjectMap(subjectDisplay)
-      setPlanLoaded(true)
-    } catch {}
+      // 3. Fetch Questions from DB
+      // We need to fetch questions for each selected subject/topic
+      let allFetchedQuestions: Question[] = []
 
-    // Verificar premium en background con reintentos
-    ;(async () => {
-      let retryCount = 0;
-      const maxRetries = 3;
-      const retryDelay = 1000 // 1 segundo entre reintentos
-
-      const checkPremiumStatus = async () => {
-        const { data: auth } = await supabase.auth.getUser()
-        const userId = auth.user?.id
-        let premium = false
+      for (const s of subjects) {
+        const { data: qData, error } = await supabase
+          .from('preguntas')
+          .select(`
+            *,
+            temas!inner (
+              titulo,
+              slug,
+              asignaturas (
+                id,
+                nombre
+              )
+            )
+          `)
+          .in('temas.slug', s.topics)
+          .eq('temas.asignatura_id', s.id)
         
-        if (userId && auth.user?.email) {
-          const { data } = await supabase.rpc('check_premium_status', { p_email: auth.user.email })
-          premium = !!data
-          
-          if (!premium && retryCount < maxRetries) {
-            retryCount++
-            console.log(`Reintento ${retryCount} de verificación premium...`)
-            await new Promise(resolve => setTimeout(resolve, retryDelay))
-            return checkPremiumStatus()
-          }
+        if (qData) {
+          const mapped = qData.map((q: any) => ({
+            ...q,
+            subject_name: q.temas.asignaturas.nombre,
+            subject_id: q.temas.asignaturas.id
+          }))
+          allFetchedQuestions = [...allFetchedQuestions, ...mapped]
         }
-        
-        setIsPremium(premium)
-        if (!premium) setShowGate(true)
-        try { localStorage.setItem('es_premium', premium ? '1' : '0') } catch {}
       }
 
-      await checkPremiumStatus()
+      // Filter by tier if not premium
+      if (!isPremiumHint) {
+        allFetchedQuestions = allFetchedQuestions.filter(q => q.tier === 'standard')
+      }
+
+      // Shuffle and Limit
+      allFetchedQuestions.sort(() => Math.random() - 0.5)
+      const finalSelection = allFetchedQuestions.slice(0, numQuestions)
+
+      if (mounted) {
+        setQuestions(finalSelection)
+        setPlanLoaded(true)
+        setLoading(false)
+      }
     })()
+    
+    return () => { mounted = false }
   }, [])
 
   const q = questions[idx] ?? null
@@ -165,8 +117,7 @@ export default function QuizPage() {
   const next = () => {
     if (!q) return
     if (chosen) {
-      const selected = q.options.find(o => o.id === chosen)
-      if (selected?.isCorrect) setCorrectCount(c => c + 1)
+      if (chosen === q.correcta) setCorrectCount(c => c + 1)
     }
     if (idx + 1 < total) {
       setIdx((v) => v + 1)
@@ -183,6 +134,17 @@ export default function QuizPage() {
     setFinished(false)
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center animate-pulse">
+          <h1 className="text-4xl font-extrabold mb-4">Sele<span className="text-[#FFB800]">Test</span></h1>
+          <p className="text-gray-500">Cargando preguntas...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <main className="min-h-screen flex flex-col pb-24 md:pb-0">
       <Navbar />
@@ -191,17 +153,15 @@ export default function QuizPage() {
           <div className="flex items-center justify-between mb-4 sticky top-0 bg-white/80 backdrop-blur z-10 py-2">
             <div className="text-sm text-gray-600">Pregunta {Math.min(idx + 1, total)} de {total}</div>
           </div>
-          <div className="rounded-2xl border bg-white p-6">
-            {!planLoaded ? (
-              <div className="text-center py-20 text-gray-500">Cargando SeleTest…</div>
-            ) : showGate && !isPremium ? (
+          <div className="rounded-2xl border bg-white p-6 shadow-xl">
+            {showGate && !isPremium ? (
               <div className="text-center py-20 space-y-4">
                 <h1 className="text-2xl font-bold">Hazte Premium para seguir</h1>
                 <p className="text-gray-600">Las preguntas premium están bloqueadas para el plan estándar.</p>
                 <div className="flex flex-col gap-3 items-center">
                   <a
                     href="/madrid/premium"
-                    className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-5 py-3"
+                    className="inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl px-5 py-3 shadow-lg"
                   >
                     Ver planes premium
                   </a>
@@ -225,104 +185,120 @@ export default function QuizPage() {
                 </button>
               </div>
             ) : finished ? (
-              <div className="text-center max-w-[700px] mx-auto">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFF3C4] flex items-center justify-center text-2xl">✨</div>
-                <h1 className="text-3xl font-extrabold mb-2">¡Test completado!</h1>
-                <p className="text-gray-700">Tu puntuación: {correctCount} de {total}</p>
-                <p className="text-gray-600 mb-4">Aciertos: {correctCount} • Fallos: {Math.max(total - correctCount, 0)}</p>
-                <div className="inline-block rounded-xl border-2 border-[#FFE08A] bg-[#FFF9E6] px-6 py-4 mb-4">
-                  <p className="text-sm text-gray-700 font-semibold mb-1">Nota simulada sobre 14:</p>
-                  <p className="text-3xl font-extrabold">{(total ? (correctCount / total) * 14 : 0).toFixed(2)} / 14</p>
+              <div className="text-center max-w-[700px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#FFF3C4] flex items-center justify-center text-4xl shadow-inner">🏆</div>
+                <h1 className="text-3xl font-extrabold mb-2">¡Desafío completado!</h1>
+                <p className="text-gray-700 text-lg">Tu puntuación: <span className="font-bold text-[#FFB800]">{correctCount}</span> de {total}</p>
+                <div className="flex gap-4 justify-center my-6">
+                   <div className="bg-green-50 text-green-700 px-4 py-2 rounded-xl border border-green-100 font-bold">Aciertos: {correctCount}</div>
+                   <div className="bg-red-50 text-red-700 px-4 py-2 rounded-xl border border-red-100 font-bold">Fallos: {total - correctCount}</div>
                 </div>
-                <p className="text-gray-600 mb-6">¡Sigue practicando! Con más práctica lo conseguirás 💪</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-[720px] mx-auto">
-                  <a
-                    className="inline-flex items-center justify-center bg-[#25D366] text-white rounded-xl py-3"
-                    href={
-                      'https://wa.me/?text=' +
-                      encodeURIComponent(
-                        `Acabo de hacer un test en SeleTest y mi nota simulada es ${(total ? (correctCount / total) * 14 : 0).toFixed(2)} / 14 — https://selectivi.es/madrid/seletest`
-                      )
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Compartir por WhatsApp
-                  </a>
-                  <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">Volver a empezar</button>
+                <div className="inline-block rounded-2xl border-2 border-[#FFE08A] bg-[#FFF9E6] px-10 py-6 mb-8 shadow-sm">
+                  <p className="text-sm text-gray-700 font-semibold mb-1 uppercase tracking-wider">Nota simulada</p>
+                  <p className="text-5xl font-black text-black">{(total ? (correctCount / total) * 14 : 0).toFixed(2)} <span className="text-2xl opacity-40">/ 14</span></p>
+                </div>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[600px] mx-auto">
+                  <button onClick={restart} className="bg-[#FFB800] hover:bg-[#ffc835] text-black font-extrabold rounded-2xl py-4 shadow-lg transition-transform active:scale-95">Repetir Test</button>
                   <a
                     href="/madrid/seletest"
-                    className="inline-flex items-center justify-center border rounded-xl py-3 font-semibold text-gray-700 hover:bg-gray-50"
+                    className="inline-flex items-center justify-center border-2 border-gray-100 rounded-2xl py-4 font-bold text-gray-700 hover:bg-gray-50 transition-all"
                   >
-                    Configurar nuevo test
+                    Nueva Configuración
                   </a>
                 </div>
               </div>
             ) : (
-              <div className="space-y-5">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <h1 className="text-2xl font-extrabold"><MathText text={q.prompt} /></h1>
-                  <span className="inline-flex items-center gap-2 bg-[#FFF3C4] text-black/80 rounded-full px-3 py-1 text-xs font-medium border border-[#FFE08A]">
-                    <span aria-hidden>📚</span>
-                    {subjectMap[q.subjectId] || q.subjectName || 'SeleTest'}
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-50 pb-4">
+                  <div className="flex-1">
+                    <span className="text-[#FFB800] font-black tracking-tighter text-xl mb-1 block">PREGUNTA</span>
+                    <h1 className="text-2xl font-bold leading-tight text-gray-900"><MathText text={q.pregunta} /></h1>
+                  </div>
+                  <span className="inline-flex items-center gap-2 bg-[#FFF9E6] text-[#8B5E00] rounded-xl px-4 py-2 text-sm font-bold border border-[#FFB800]/20 self-start sm:self-center shrink-0">
+                    {q.subject_name || 'SeleTest'}
                   </span>
                 </div>
-                <div className="space-y-3">
-                  {q.options.map((opt) => {
-                    const isSelected = chosen === opt.id
-                    const correct = chosen && opt.isCorrect
-                    const incorrect = isSelected && !opt.isCorrect
-                    let cls = 'w-full text-left border rounded-xl px-4 py-4 hover:bg-gray-50'
-                    if (correct) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-green-50 border-green-300'
-                    if (incorrect) cls = 'w-full text-left border rounded-xl px-4 py-4 bg-red-50 border-red-300'
+
+                <div className="grid grid-cols-1 gap-3">
+                  {['a', 'b', 'c', 'd'].map((key) => {
+                    const label = (q as any)[`opcion_${key}`]
+                    if (!label) return null
+                    
+                    const isSelected = chosen === key
+                    const isCorrect = q.correcta === key && chosen
+                    const isWrong = isSelected && q.correcta !== key
+                    
+                    let baseCls = "w-full text-left border-2 rounded-2xl p-5 font-medium transition-all duration-200 flex items-center justify-between group "
+                    if (!chosen) baseCls += "border-gray-100 hover:border-[#FFB800] hover:bg-[#FFFDF5] cursor-pointer"
+                    else if (isCorrect) baseCls += "border-green-500 bg-green-50 text-green-900"
+                    else if (isWrong) baseCls += "border-red-500 bg-red-50 text-red-900"
+                    else if (q.correcta === key && chosen) baseCls += "border-green-200 bg-green-50/50 text-green-700"
+                    else baseCls += "border-gray-50 opacity-40 grayscale"
+
                     return (
-                      <button key={opt.id} onClick={() => setChosen(opt.id)} className={cls}>
-                        <MathText text={opt.label} />
+                      <button 
+                        key={key} 
+                        disabled={!!chosen}
+                        onClick={() => setChosen(key)} 
+                        className={baseCls}
+                      >
+                        <div className="flex items-center gap-4">
+                          <span className={`w-8 h-8 flex items-center justify-center rounded-lg font-bold uppercase transition-colors ${isSelected ? 'bg-current text-white' : 'bg-gray-100 text-gray-500 group-hover:bg-[#FFB800]/20 group-hover:text-[#8B5E00]'}`}>
+                            {key}
+                          </span>
+                          <MathText text={label} />
+                        </div>
+                        {isCorrect && <span className="text-xl">✅</span>}
+                        {isWrong && <span className="text-xl">❌</span>}
                       </button>
                     )
                   })}
                 </div>
+
                 {chosen && (
-                  <div className="mt-2 text-sm text-gray-700">
-                    <p className="font-semibold mb-1">Explicación</p>
-                    <p><MathText text={q.explanation} /></p>
+                  <div className="mt-8 bg-blue-50/50 border border-blue-100 rounded-2xl p-6 animate-in slide-in-from-top-2 duration-300">
+                    <div className="flex items-center gap-2 text-blue-800 font-bold mb-2">
+                       <span className="text-xl">💡</span> EXPLICACIÓN
+                    </div>
+                    <div className="text-gray-800 leading-relaxed text-lg">
+                       <MathText text={q.explicacion} />
+                    </div>
                   </div>
                 )}
+                
                 {/* Botón desktop */}
-                <div className="pt-4 hidden md:flex gap-3">
-                  <button onClick={next} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
-                    {idx + 1 < total ? 'Siguiente pregunta' : 'Finalizar test'}
-                  </button>
-                  <a
-                    href="/madrid/seletest"
-                    className="inline-flex items-center justify-center px-4 py-3 font-semibold rounded-xl border bg-white text-gray-700 hover:bg-gray-50"
+                <div className="pt-6 hidden md:flex gap-4">
+                  <button 
+                    onClick={next} 
+                    disabled={!chosen}
+                    className={`flex-1 rounded-2xl py-4 font-black tracking-wide shadow-xl transition-all active:scale-[0.98] ${!chosen ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#FFB800] hover:bg-[#ffc835] text-black shadow-[#FFB800]/20'}`}
                   >
-                    Ver SeleTest
-                  </a>
+                    {idx + 1 < total ? 'SIGUIENTE PREGUNTA' : 'VER RESULTADOS'}
+                  </button>
                 </div>
               </div>
             )}
           </div>
         </div>
       </section>
+
       {/* Barra fija móvil */}
-      <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur border-t p-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-        <div className="max-w-[1100px] mx-auto px-2 flex gap-2">
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-20 bg-white/95 backdrop-blur-md border-t p-4 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+        <div className="max-w-[1100px] mx-auto flex gap-3">
           {!finished ? (
-            <button onClick={next} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
+            <button 
+              onClick={next} 
+              disabled={!chosen && questions.length > 0}
+              className={`flex-1 rounded-2xl py-4 font-extrabold shadow-lg transition-all active:scale-[0.95] ${!chosen && questions.length > 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-[#FFB800] hover:bg-[#ffc835] text-black shadow-[#FFB800]/20'}`}
+            >
               {idx + 1 < total ? 'Siguiente' : 'Finalizar'}
             </button>
           ) : (
-            <button onClick={restart} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3">
-              Volver a empezar
+            <button onClick={restart} className="flex-1 bg-[#FFB800] hover:bg-[#ffc835] text-black font-extrabold rounded-2xl py-4">
+              Repetir Test
             </button>
           )}
-          <a
-            href="/madrid/seletest"
-            className="inline-flex items-center justify-center px-4 py-3 font-semibold rounded-xl border bg-white text-gray-700 hover:bg-gray-50"
-          >
-            SeleTest
-          </a>
         </div>
       </div>
       <Footer />

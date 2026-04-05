@@ -4,10 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Session } from "@supabase/supabase-js";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 export default function NationalLogin() {
   const router = useRouter();
+  const supabase = createClient();
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -19,10 +20,6 @@ export default function NationalLogin() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       console.log('📊 [LOGIN] Sesión actual:', session?.user?.email || 'ninguna');
       setSession(session);
-      
-      // Si hay sesión, podría redirigir automáticamente
-      // Descomenta la siguiente línea si quieres auto-redirect
-      // if (session) router.push('/dashboard');
     });
 
     // Escuchar cambios de autenticación
@@ -33,57 +30,17 @@ export default function NationalLogin() {
         
         setSession(session);
         
-        // Si se completa el login, crear usuario en DB
+        // Si el usuario acaba de iniciar sesión, lo mandamos directo al dashboard
+        // La creación en la tabla 'usuarios' la gestiona el trigger de la DB (schema.sql)
         if (event === 'SIGNED_IN' && session?.user?.email) {
-          console.log('✅ [LOGIN] Usuario autenticado, verificando DB...');
-          
-          try {
-            const email = session.user.email;
-            
-            // Verificar si existe en la tabla usuarios
-            const { data: existingUser, error: selectError } = await supabase
-              .from('usuarios')
-              .select('id')
-              .eq('correo_electronico', email)
-              .maybeSingle();
-            
-            if (selectError) {
-              console.error('⚠️ [LOGIN] Error verificando usuario:', selectError);
-            }
-            
-            // Si no existe, crearlo
-            if (!existingUser) {
-              console.log('📝 [LOGIN] Creando usuario en DB...');
-              const { error: insertError } = await supabase
-                .from('usuarios')
-                .insert({
-                  correo_electronico: email,
-                  es_premium: false,
-                  fecha_registro: new Date().toISOString()
-                });
-              
-              if (insertError) {
-                console.error('❌ [LOGIN] Error creando usuario:', insertError);
-              } else {
-                console.log('✅ [LOGIN] Usuario creado exitosamente');
-              }
-            } else {
-              console.log('ℹ️ [LOGIN] Usuario ya existe en DB');
-            }
-            
-            // Redirigir al dashboard
-            console.log('🚀 [LOGIN] Redirigiendo a dashboard...');
-            router.push('/dashboard');
-            
-          } catch (err) {
-            console.error('💥 [LOGIN] Error inesperado:', err);
-          }
+          console.log('🚀 [LOGIN] Redirigiendo a dashboard...');
+          router.push('/dashboard');
         }
       }
     );
 
     return () => subscription.unsubscribe();
-  }, [router]);
+  }, [router, supabase.auth]);
 
   const handleLogin = useCallback(async () => {
     console.log('🔑 [LOGIN] Iniciando login con Google...');
@@ -94,7 +51,7 @@ export default function NationalLogin() {
       const redirectTo = `${window.location.origin}/auth/callback`;
       console.log('📍 [LOGIN] Redirect URL:', redirectTo);
       
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo,
@@ -113,14 +70,13 @@ export default function NationalLogin() {
       }
 
       console.log('✅ [LOGIN] Redirección OAuth iniciada');
-      // No quitamos loading aquí porque la página se redirigirá
       
     } catch (err: any) {
       console.error("💥 [LOGIN] Error inesperado:", err);
       setError(err?.message || "Error al iniciar sesión");
       setLoading(false);
     }
-  }, []);
+  }, [supabase.auth]);
 
   const handleLogout = useCallback(async () => {
     console.log('🚪 [LOGIN] Cerrando sesión...');
@@ -132,7 +88,7 @@ export default function NationalLogin() {
     } catch (err) {
       console.error('❌ [LOGIN] Error al cerrar sesión:', err);
     }
-  }, []);
+  }, [supabase.auth]);
 
   const email = session?.user?.email ?? "";
 
