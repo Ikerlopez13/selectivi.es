@@ -20,6 +20,8 @@ export async function POST(req: Request) {
 
     const origin = req.headers.get('origin') || process.env.NEXT_PUBLIC_APP_URL;
 
+    const mode = (priceId === process.env.STRIPE_PRICE_PREMIUM_MONTHLY) ? 'subscription' : 'payment';
+
     // Crear sesión de checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -30,7 +32,7 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      mode: priceId.startsWith('price_') ? 'subscription' : 'payment', // Detección automática de tipo
+      mode: mode as Stripe.Checkout.SessionCreateParams.Mode,
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}&success=true`,
       cancel_url: `${origin}/madrid/premium?canceled=true`,
       metadata: {
