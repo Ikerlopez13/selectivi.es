@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import {
-  notasDeCorte,
+  notasDeCorte as staticNotasDeCorte,
   universidades,
   ambitos,
   comunidadesAutonomas,
@@ -15,6 +15,7 @@ import {
   esMuyDemandado,
 } from '@/data/notasDeCorte'
 import Navbar from '@/components/Navbar'
+import { useEffect } from 'react'
 
 type OrdenType = 'nota-alta' | 'nota-baja' | 'alfabetico' | 'demandados'
 
@@ -25,20 +26,42 @@ export default function NotasDeCortePage() {
   const [busqueda, setBusqueda] = useState('')
   const [orden, setOrden] = useState<OrdenType>('nota-alta')
   const [favoritos, setFavoritos] = useState<Set<string>>(new Set())
+  const [allNotas, setAllNotas] = useState<NotaDeCorte[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Fetch consolidated data
+  useEffect(() => {
+    fetch('/data/notas_corte.json')
+      .then(res => res.json())
+      .then(data => {
+        setAllNotas(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error loading notas:", err);
+        setAllNotas(staticNotasDeCorte);
+        setLoading(false);
+      });
+  }, []);
+
+  const internalCommunityToUnis = (comunidad: string, currentNotas: any[]) => {
+    if (comunidad === 'todas') {
+      const unis = new Set(currentNotas.map(n => n.universidad));
+      return Array.from(unis).sort();
+    }
+    const unis = new Set(currentNotas.filter(n => n.comunidad === comunidad).map(n => n.universidad));
+    return Array.from(unis).sort();
+  }
 
   // Filtrar universidades según la comunidad seleccionada
   const universidadesFiltradas = useMemo(() => {
-    if (comunidadFiltro === 'todas') return universidades
-    return universidades.filter(
-      (uni) => universidadAComunidad[uni] === comunidadFiltro
-    )
-  }, [comunidadFiltro])
+    return internalCommunityToUnis(comunidadFiltro, allNotas);
+  }, [comunidadFiltro, allNotas])
 
   const gradosFiltrados = useMemo(() => {
-    let resultados = notasDeCorte.filter((grado) => {
-      const comunidad = getComunidadAutonoma(grado)
+    let resultados = allNotas.filter((grado: any) => {
       const matchComunidad =
-        comunidadFiltro === 'todas' || comunidad === comunidadFiltro
+        comunidadFiltro === 'todas' || (grado.comunidad || 'Andalucía') === comunidadFiltro
       const matchUniversidad =
         universidadFiltro === 'todas' || grado.universidad === universidadFiltro
       const matchAmbito =
@@ -98,19 +121,66 @@ export default function NotasDeCortePage() {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-white">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 py-12">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Notas de Corte España 2024/25
-            </h1>
-            <p className="text-xl text-gray-800">
-              Consulta las notas de acceso a todas las universidades españolas
-            </p>
+        <Navbar />
+      
+        {/* SEO Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "¿Cuál es la nota de corte más alta de España?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Normalmente corresponde al Doble Grado de Matemáticas y Física, superando el 13.6 en universidades como la Complutense de Madrid o la de Granada."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "¿Cuándo salen las notas de corte de 2025?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Las notas de corte de la primera adjudicación suelen publicarse en la primera quincena de julio, tras la realización de la prueba ordinaria de Selectividad."
+                  }
+                }
+              ]
+            })
+          }}
+        />
+
+        <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-white">
+          {/* Header */}
+          <div className="bg-gradient-to-br from-yellow-400 via-yellow-500 to-orange-400 text-gray-900 py-16">
+            <div className="container mx-auto px-4">
+              <nav className="text-sm mb-4 flex gap-2 text-gray-800" aria-label="Breadcrumb">
+                <a href="/" className="hover:underline">Inicio</a> / <span className="font-semibold">Notas de Corte</span>
+              </nav>
+              <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
+                Notas de Corte <span className="bg-white/30 px-3 rounded-xl">2025/2026</span> <br/>
+                Madrid, Cataluña y Andalucía
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-800 max-w-3xl font-medium leading-relaxed">
+                Consulta las notas de acceso actualizadas a todas las universidades españolas. Compara tendencias, plazas disponibles y ratios de solicitud para asegurar tu plaza.
+              </p>
+              
+              {/* Region Quick Links */}
+              <div className="flex flex-wrap gap-3 mt-8">
+                {['Madrid', 'Cataluña', 'Andalucía'].map(region => (
+                  <button 
+                    key={region}
+                    onClick={() => setComunidadFiltro(region as ComunidadAutonoma)}
+                    className="bg-white/20 hover:bg-white/40 backdrop-blur-md border border-white/30 px-6 py-2 rounded-full font-bold transition-all text-sm uppercase tracking-wider"
+                  >
+                    {region}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
 
         <div className="container mx-auto px-4 py-8">
           {/* Filtros */}
@@ -167,7 +237,7 @@ export default function NotasDeCortePage() {
                     ? 'Todas las universidades' 
                     : `Todas de ${comunidadFiltro}`}
                 </option>
-                {universidadesFiltradas.map((uni) => (
+                {universidadesFiltradas.map((uni: string) => (
                   <option key={uni} value={uni}>
                     {uni}
                   </option>
@@ -213,8 +283,15 @@ export default function NotasDeCortePage() {
           </div>
 
           {/* Resultados count */}
-          <div className="text-sm text-gray-600">
-            Mostrando <span className="font-semibold">{gradosFiltrados.length}</span> grados
+          <div className="flex justify-between items-center text-sm text-gray-600">
+            <div>
+              Mostrando <span className="font-bold text-yellow-600">{gradosFiltrados.length}</span> grados encontrados
+            </div>
+            {loading && (
+              <div className="flex items-center gap-2 text-yellow-600">
+                <span className="animate-spin text-lg">⏳</span> Actualizando base de datos...
+              </div>
+            )}
           </div>
         </div>
 
@@ -411,16 +488,45 @@ export default function NotasDeCortePage() {
           ))}
         </div>
 
-          {/* Sin resultados */}
-          {gradosFiltrados.length === 0 && (
-            <div className="bg-white rounded-lg shadow-md p-12 text-center">
-              <p className="text-xl text-gray-600 mb-2">No se encontraron resultados</p>
-              <p className="text-gray-500">Prueba a cambiar los filtros o la búsqueda</p>
+        </div>
+
+        {/* SEO Text Content Sections */}
+        <div className="container mx-auto px-4 py-16 border-t border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Madrid: Polo Universitario</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Madrid concentra algunas de las universidades más prestigiosas como la UCM, UAM y UC3M. Las notas de corte en carreras como Medicina y Doble Grado de Matemáticas + Física suelen ser de las más altas del país, superando a menudo el 13.5.
+              </p>
             </div>
-          )}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Cataluña y Proceso de Preinscripción</h2>
+              <p className="text-gray-600 leading-relaxed">
+                En Cataluña, la preinscripción es centralizada a través del Canal Universitats. Instituciones como la UB, UAB y UPC ofrecen una oferta académica competitiva en Ingeniería y Ciencias de la Salud con una alta demanda internacional.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Distrito Único Andaluz</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Andalucía cuenta con el Distrito Único Andaluz (DUA), que permite a los estudiantes solicitar plaza en cualquier universidad andaluza de forma coordinada. Sevilla y Granada son los principales focos de atracción estudiantes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer info for SEO */}
+        <div className="bg-gray-50 py-12">
+          <div className="container mx-auto px-4 text-center">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">SelectiviES © 2025</h3>
+            <p className="text-xs text-gray-400 max-w-xl mx-auto">
+              Las notas de corte mostradas son orientativas y corresponden a la última adjudicación del curso anterior. Recomendamos siempre contrastar con el portal oficial de cada universidad o comunidad autónoma.
+            </p>
+          </div>
         </div>
       </div>
     </>
   )
 }
+
+
 

@@ -243,9 +243,15 @@ export default function Navbar() {
           )}
           <Link
             href="/calculadora"
-                    className="text-gray-700 hover:text-gray-900"
-                  >
+            className="text-gray-700 hover:text-gray-900"
+          >
             Calculadora
+          </Link>
+          <Link
+            href="/notas-de-corte"
+            className="text-gray-700 hover:text-gray-900 font-medium"
+          >
+            Notas de Corte
           </Link>
           {isMadridSection
             ? renderMadridControls()
@@ -324,6 +330,13 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
             >
               Calculadora
+            </Link>
+            <Link
+              href="/notas-de-corte"
+              className="py-2 font-medium"
+              onClick={() => setMobileOpen(false)}
+            >
+              Notas de Corte
             </Link>
             {isMadridSection ? (
               <>
