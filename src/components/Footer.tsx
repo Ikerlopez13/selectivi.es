@@ -17,6 +17,7 @@ export default function Footer() {
               <li><a href="https://selectivi.cat" target="_blank" rel="noreferrer" className="hover:underline">Cataluña</a></li>
               <li><a href="/madrid" className="hover:underline">Madrid</a></li>
               <li><a href="/andalucia" className="hover:underline">Andalucía</a></li>
+              <li><a href="/valencia" className="hover:underline">Valencia</a></li>
             </ul>
           </div>
           <div>

@@ -18,11 +18,11 @@ export default function PremiumPage() {
               <p className="text-gray-600 mb-6">Perfecto para empezar a practicar</p>
               <div className="text-5xl font-extrabold">0€<span className="text-base font-normal">/para siempre</span></div>
               <ul className="text-left mt-6 space-y-3">
-                <li>✓ 10 preguntas aleatorias al día</li>
+                <li>✓ 2 exámenes con IA gratis (de por vida)</li>
                 <li>✓ Acceso a la calculadora de notas</li>
                 <li>✓ Consulta de notas de corte</li>
+                <li className="text-gray-400">✗ Generación de exámenes IA ilimitada</li>
                 <li className="text-gray-400">✗ Acceso ilimitado a preguntas</li>
-                <li className="text-gray-400">✗ Estadísticas detalladas</li>
                 <li className="text-gray-400">✗ Práctica por temas</li>
               </ul>
               <button disabled className="w-full mt-8 bg-gray-100 text-gray-500 rounded-xl py-3">Plan actual</button>
@@ -36,11 +36,11 @@ export default function PremiumPage() {
               <div className="mb-1 text-gray-400 line-through">4,99 €/mes</div>
               <div className="text-5xl font-extrabold mb-6">2,99 €<span className="text-base font-normal">/mes</span></div>
               <ul className="text-left mt-2 space-y-3">
+                <li className="font-bold text-indigo-600">✓ Tokens IA ILIMITADOS en exámenes</li>
                 <li>✓ Acceso ilimitado a todas las preguntas</li>
                 <li>✓ Filtra y practica por subtemas</li>
                 <li>✓ Sin anuncios, experiencia limpia</li>
                 <li>✓ Estadísticas y progreso</li>
-                <li>✓ Soporte prioritario</li>
               </ul>
               <div className="mt-8"><StripeButtons plan="monthly" /></div>
             </div>
@@ -51,11 +51,11 @@ export default function PremiumPage() {
               <p className="text-gray-600 mb-4">Acceso permanente sin suscripción</p>
               <div className="text-5xl font-extrabold mb-6">14,99 €</div>
               <ul className="text-left mt-2 space-y-3">
+                <li className="font-bold text-indigo-600">✓ Tokens IA ILIMITADOS en exámenes</li>
                 <li>✓ Acceso ilimitado a todas las preguntas</li>
                 <li>✓ Filtra y practica por subtemas</li>
                 <li>✓ Sin anuncios, experiencia limpia</li>
                 <li>✓ Estadísticas y progreso</li>
-                <li>✓ Soporte prioritario</li>
               </ul>
               <div className="mt-8"><StripeButtons plan="lifetime" /></div>
               <p className="text-xs text-gray-500 mt-3">Pago único • Acceso de por vida.</p>
@@ -67,9 +67,9 @@ export default function PremiumPage() {
             <h2 className="text-3xl md:text-4xl font-extrabold mb-8">¿Por qué hacerte Premium?</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-2xl shadow p-6 text-left border">
-                <div className="w-10 h-10 rounded-lg bg-[#FFE08A] flex items-center justify-center mb-3">➕</div>
-                <h3 className="text-lg font-bold mb-1">Preguntas ilimitadas</h3>
-                <p className="text-gray-600">Practica sin límites: acceso a todas las preguntas premium y simuladores.</p>
+                <div className="w-10 h-10 rounded-lg bg-[#FFE08A] flex items-center justify-center mb-3">🤖</div>
+                <h3 className="text-lg font-bold mb-1">Exámenes con IA</h3>
+                <p className="text-gray-600">Genera exámenes infinitos a partir de tus propios apuntes con nuestra IA avanzada.</p>
               </div>
               <div className="bg-white rounded-2xl shadow p-6 text-left border">
                 <div className="w-10 h-10 rounded-lg bg-[#FFE08A] flex items-center justify-center mb-3">📊</div>

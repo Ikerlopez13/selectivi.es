@@ -38,10 +38,10 @@ export async function GET(request: Request) {
       );
     }
 
-    // Consultar el estado premium
+    // Consultar el estado premium y usos
     const { data, error } = await supabase
       .from('usuarios')
-      .select('es_premium')
+      .select('es_premium, ai_lab_uses, premium_ai_uses, last_ai_use_at')
       .eq('user_id', user.id)
       .single();
 
@@ -49,12 +49,15 @@ export async function GET(request: Request) {
       console.error('Error fetching premium status:', error);
       return NextResponse.json(
         { isPremium: false, error: error.message },
-        { status: 200 } // Devolver 200 aunque haya error, con isPremium: false
+        { status: 200 }
       );
     }
 
     return NextResponse.json({
       isPremium: Boolean(data?.es_premium),
+      aiLabUses: data?.ai_lab_uses || 0,
+      premiumAiUses: data?.premium_ai_uses || 0,
+      lastAiUseAt: data?.last_ai_use_at,
       userId: user.id,
       email: user.email
     });
@@ -104,7 +107,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await supabase
       .from('usuarios')
-      .select('es_premium')
+      .select('es_premium, ai_lab_uses, premium_ai_uses, last_ai_use_at')
       .eq('user_id', user.id)
       .single();
 
@@ -118,6 +121,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       isPremium: Boolean(data?.es_premium),
+      aiLabUses: data?.ai_lab_uses || 0,
+      premiumAiUses: data?.premium_ai_uses || 0,
+      lastAiUseAt: data?.last_ai_use_at,
       userId: user.id,
       email: user.email
     });

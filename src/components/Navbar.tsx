@@ -26,16 +26,20 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [nationalLoginLoading, setNationalLoginLoading] = useState(false);
 
-  const isPremiumPage = pathname?.startsWith("/madrid/premium");
+  const isPremiumPage = pathname?.startsWith("/madrid/premium") || pathname?.startsWith("/andalucia/premium") || pathname?.startsWith("/valencia/premium");
   const isMadridBrand = pathname?.startsWith("/madrid") && !isPremiumPage;
-  const isAndaluciaBrand = pathname?.startsWith("/andalucia");
+  const isAndaluciaBrand = pathname?.startsWith("/andalucia") && !isPremiumPage;
+  const isValenciaBrand = pathname?.startsWith("/valencia") && !isPremiumPage;
+
+  const isValenciaSection = pathname?.startsWith("/valencia");
+  const isValenciaDashboard = pathname?.startsWith("/valencia/dashboard");
   const isMadridSection = pathname?.startsWith("/madrid");
   const isMadridDashboard = pathname?.startsWith("/madrid/dashboard");
   const isAndaluciaSection = pathname?.startsWith("/andalucia");
   const isAndaluciaDashboard = pathname?.startsWith("/andalucia/dashboard");
 
   const triggerLogin = async (
-    community: "general" | "madrid" | "andalucia",
+    community: "general" | "madrid" | "andalucia" | "valencia",
   ) => {
     console.log("🔑 [NAVBAR] Iniciando login para:", community);
     
@@ -152,7 +156,6 @@ export default function Navbar() {
       </button>
     </>
   );
-
   const renderAndaluciaControls = () => (
     <>
       {hasSession && !isPremium && (
@@ -198,6 +201,52 @@ export default function Navbar() {
     </>
   );
 
+
+  const renderValenciaControls = () => (
+    <>
+      {hasSession && !isPremium && (
+        <Link
+          href="/valencia/premium"
+          className="bg-[#FFF2C2] text-[#1F1300] px-4 py-2 rounded-lg font-medium border border-[#FF9500]/40 hover:bg-[#FFE8A3] transition-colors"
+        >
+          Hazte Premium ⭐️
+        </Link>
+      )}
+      {hasSession ? (
+        isValenciaDashboard ? (
+          <button
+            onClick={() => triggerLogout("/valencia")}
+            className="text-gray-700 hover:text-gray-900"
+          >
+            Cerrar sesión
+          </button>
+        ) : (
+          <Link
+            href="/valencia/dashboard"
+            className="text-gray-700 hover:text-gray-900"
+          >
+            Mi perfil
+          </Link>
+        )
+      ) : null}
+      {hasSession ? (
+        <Link
+          href="/valencia/seletest"
+          className="bg-[#FF9500] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#ffae33] transition-colors"
+        >
+          Accede a SeleTest
+        </Link>
+      ) : (
+        <button
+          onClick={() => triggerLogin("valencia")}
+          className="bg-[#FF9500] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#ffae33] transition-colors"
+        >
+          Entrar
+        </button>
+      )}
+    </>
+  );
+
   return (
     <nav className="border-b bg-white mb-8 shadow-md z-20 sticky top-0">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
@@ -208,21 +257,25 @@ export default function Navbar() {
             width={40}
             height={40}
           />
-          <span className="text-2xl font-bold">
-            {isMadridBrand ? (
-              <>
-                selectivi<span className="text-[#FFB800]">MAD</span>
-              </>
-            ) : isAndaluciaBrand ? (
-              <>
-                selectivi<span className="text-[#FFB800]">AND</span>
-              </>
-            ) : (
-              <>
-                selectivi<span className="text-[#FFB800]">ES</span>
-              </>
-            )}
-          </span>
+            <span className="text-2xl font-bold">
+              {isMadridBrand ? (
+                <>
+                  selectivi<span className="text-[#FFB800]">MAD</span>
+                </>
+              ) : isAndaluciaBrand ? (
+                <>
+                  selectivi<span className="text-[#FFB800]">AND</span>
+                </>
+              ) : isValenciaBrand ? (
+                <>
+                  selectivi<span className="text-[#FF9500]">VAL</span>
+                </>
+              ) : (
+                <>
+                  selectivi<span className="text-[#FFB800]">ES</span>
+                </>
+              )}
+            </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
@@ -257,7 +310,9 @@ export default function Navbar() {
             ? renderMadridControls()
             : isAndaluciaSection
               ? renderAndaluciaControls()
-              : renderNationalLogged()}
+              : isValenciaSection
+                ? renderValenciaControls()
+                : renderNationalLogged()}
           <span className="text-xs text-gray-500">
             ¿Cataluña? Accede desde
             <a
@@ -404,6 +459,41 @@ export default function Navbar() {
                 <button
                   onClick={() => triggerLogin("andalucia")}
                   className="mt-2 bg-[#FFB800] text-black px-4 py-2 rounded-lg font-semibold"
+                >
+                  {hasSession ? "Accede a SeleTest" : "Entrar"}
+                </button>
+              </>
+            ) : isValenciaSection ? (
+              <>
+                {hasSession && !isPremium && (
+                  <Link
+                    href="/valencia/premium"
+                    className="py-2"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Hazte Premium ⭐️
+                  </Link>
+                )}
+                {hasSession ? (
+                  <>
+                    <Link
+                      href="/valencia/dashboard"
+                      className="py-2"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Mi perfil
+                    </Link>
+                    <button
+                      className="text-left py-2"
+                      onClick={() => triggerLogout("/valencia")}
+                    >
+                      Cerrar sesión
+                    </button>
+                  </>
+                ) : null}
+                <button
+                  onClick={() => triggerLogin("valencia")}
+                  className="mt-2 bg-[#FF9500] text-white px-4 py-2 rounded-lg font-semibold"
                 >
                   {hasSession ? "Accede a SeleTest" : "Entrar"}
                 </button>

@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://selectivi.es'
   
-  const communities = ['madrid', 'andalucia']
+  const communities = ['madrid', 'andalucia', 'valencia']
   const subjects = [
     'historia-espana',
     'filosofia',
