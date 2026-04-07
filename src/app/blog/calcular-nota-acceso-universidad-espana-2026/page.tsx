@@ -13,20 +13,55 @@ const keywords = [
 ];
 
 export const metadata: Metadata = {
-  title:
-    "Cómo Calcular tu Nota de Acceso a la Universidad 2026 | Guía Completa España",
-  description:
-    "Guía definitiva para calcular tu nota de acceso a la universidad en España 2026. Fórmulas, ponderaciones, ejemplos reales y calculadora gratuita. Descubre qué nota necesitas realmente.",
-  keywords,
+  title: "Cómo Calcular tu Nota de Acceso a la Universidad 2026 | Guía + Calculadora",
+  description: "Aprende a calcular tu nota de admisión a la universidad en España 2026. Fórmulas de la fase de acceso y admisión, tabla de ponderaciones y ejemplos reales paso a paso.",
+  keywords: [
+    ...keywords,
+    "como calcular nota ebau 2026",
+    "simulador nota selectividad 2026",
+    "nota maxima selectividad 14 puntos",
+  ],
   alternates: {
     canonical: "/blog/calcular-nota-acceso-universidad-espana-2026",
   },
   openGraph: {
     title: "Cómo Calcular tu Nota de Acceso Universidad 2026 | España",
-    description:
-      "Fórmulas, ponderaciones y ejemplos paso a paso. Calcula tu nota real de acceso y descubre qué necesitas para entrar a tu universidad soñada.",
+    description: "Fórmulas, ponderaciones y ejemplos paso a paso. Calcula tu nota real de acceso y descubre qué necesitas para entrar a tu universidad soñada.",
     type: "article",
+    url: "https://selectivi.es/blog/calcular-nota-acceso-universidad-espana-2026",
+    images: ["/blog/calcular-nota-2026-cover.jpg"]
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cómo Calcular tu Nota de Acceso a la Universidad 2026 | Guía Completa España",
+  "description": "Guía definitiva para calcular tu nota de acceso a la universidad en España 2026 con fórmulas y ejemplos.",
+  "author": {
+    "@type": "Organization",
+    "name": "SelectiviES"
+  }
+};
+
+const howToLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo calcular la nota de acceso a la universidad (Selectividad)",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "text": "Calcula tu nota media de Bachillerato (60% de la fase de acceso)."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Calcula la media de tus 4 o 5 exámenes de la fase obligatoria (40% de la fase de acceso)."
+    },
+    {
+      "@type": "HowToStep",
+      "text": "Suma las ponderaciones de las materias voluntarias (hasta 4 puntos extra)."
+    }
+  ]
 };
 
 const phases = [
@@ -217,6 +252,14 @@ export default function Article() {
   return (
     <main className="min-h-screen flex flex-col bg-[#FCFCFF]">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToLd) }}
+      />
 
       <header className="relative overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.15),_transparent_50%)]" />

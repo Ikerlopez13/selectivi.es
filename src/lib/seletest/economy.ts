@@ -1,6 +1,6 @@
 import { Subject } from './types'
 
-export const businessES: Subject = {
+export const economyES: Subject = {
   id: 'economia-empresa',
   name: 'Economía de la Empresa',
   topics: [

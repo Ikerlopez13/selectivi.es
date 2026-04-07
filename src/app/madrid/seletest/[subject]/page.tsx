@@ -6,6 +6,12 @@ import { businessES } from '@/lib/seletest/business'
 import { geographyES } from '@/lib/seletest/geography'
 import { languageES } from '@/lib/seletest/language'
 import { englishES } from '@/lib/seletest/english'
+import { biologyES } from '@/lib/seletest/biology'
+import { chemistryES } from '@/lib/seletest/chemistry'
+import { physicsES } from '@/lib/seletest/physics'
+import { mathematicsES } from '@/lib/seletest/mathematics'
+import { mathematicsCCSSES } from '@/lib/seletest/mathematics-ccss'
+import { economyES } from '@/lib/seletest/economy'
 import Seletest from '@/components/Seletest'
 import { cookies } from 'next/headers'
 import type { Metadata } from 'next'
@@ -17,14 +23,34 @@ const SUBJECT_NAMES: Record<string, string> = {
   'geografia': 'Geografía',
   'lengua': 'Lengua Castellana y Literatura',
   'ingles': 'Inglés',
+  'biology': 'Biología',
+  'chemistry': 'Química',
+  'physics': 'Física',
+  'mathematics': 'Matemáticas II',
+  'mathematics-ccss': 'Matemáticas Aplicadas a las CCSS',
+  'economy': 'Economía',
 }
 
 export async function generateMetadata({ params }: { params: { subject: string } }): Promise<Metadata> {
   const name = SUBJECT_NAMES[params.subject] || 'Asignatura'
   return {
-    title: `Preguntas ${name} Selectividad Madrid 2025 | Exámenes Resueltos`,
-    description: `Practica con miles de preguntas de ${name} para la Selectividad (EBAU) de Madrid. Exámenes corregidos, temario actualizado y resolución paso a paso.`,
-    keywords: [`selectividad madrid ${params.subject}`, `preguntas ${name} madrid`, `ebau madrid ${name}`, `examenes resueltos ${name} madrid`]
+    title: `Exámenes Resueltos ${name} Selectividad Madrid 2026 | SeleTest`,
+    description: `Practica con exámenes resueltos de ${name} para la Selectividad (PAU) 2026 en Madrid. Simulador interactivo con preguntas oficiales corregidas y explicadas paso a paso.`,
+    keywords: [
+      `selectividad madrid 2026 ${params.subject}`,
+      `pau madrid 2026 ${name}`,
+      `exámenes resueltos ${name} madrid`,
+      `preguntas corregidas ${name} selectividad`,
+      `modelo cero ${name} madrid 2026`
+    ],
+    openGraph: {
+      title: `Exámenes Resueltos ${name} Selectividad Madrid 2026`,
+      description: `Prepárate para la PAU 2026 con nuestro simulador de ${name} en Madrid.`,
+      type: 'website',
+    },
+    alternates: {
+      canonical: `/madrid/seletest/${params.subject}`,
+    }
   }
 }
 
@@ -35,6 +61,12 @@ const SUBJECTS = {
   'geografia': geographyES,
   'lengua': languageES,
   'ingles': englishES,
+  'biology': biologyES,
+  'chemistry': chemistryES,
+  'physics': physicsES,
+  'mathematics': mathematicsES,
+  'mathematics-ccss': mathematicsCCSSES,
+  'economy': economyES,
 }
 
 export default function SubjectPage({ params, searchParams }: { params: { subject: string }, searchParams: { premium?: string } }) {
@@ -63,15 +95,31 @@ export default function SubjectPage({ params, searchParams }: { params: { subjec
             Volver a SeleTest
           </a>
         </div>
-        <div className="max-w-[1100px] mx-auto px-6 mb-2">
-           <h1 className="text-3xl font-black text-gray-900 mb-2">
-             Preguntas de {SUBJECT_NAMES[params.subject] || 'Asignatura'} - Selectividad Madrid
+        <div className="max-w-[1100px] mx-auto px-6 mb-8">
+           <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+             Exámenes Resueltos de {SUBJECT_NAMES[params.subject] || 'Asignatura'} - Selectividad Madrid 2026
            </h1>
-           <p className="text-gray-600 max-w-2xl text-sm leading-relaxed">
-             Prepara tu examen de 2025 con nuestro simulador de {SUBJECT_NAMES[params.subject] || 'esta asignatura'}. 
-             Todas las preguntas han sido redactadas por expertos bajo el currículo de la Comunidad de Madrid.
+           <p className="text-gray-600 max-w-3xl text-lg leading-relaxed">
+             Practica para la PAU 2026 con nuestro simulador de {SUBJECT_NAMES[params.subject] || 'esta asignatura'}. 
+             Todas las preguntas están actualizadas al nuevo modelo competencial de la Comunidad de Madrid y cuentan con corrección detallada.
            </p>
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Course",
+              "name": `Preparación Selectividad 2026: ${SUBJECT_NAMES[params.subject] || 'Asignatura'} Madrid`,
+              "description": `Simulador interactivo con exámenes resueltos de ${SUBJECT_NAMES[params.subject] || 'la asignatura'} para la PAU de Madrid.`,
+              "provider": {
+                "@type": "Organization",
+                "name": "SelectiviES",
+                "sameAs": "https://selectivi.es"
+              }
+            })
+          }}
+        />
         {subject ? (
           <Seletest subject={subject} isPremium={!!isPremium} />
         ) : (

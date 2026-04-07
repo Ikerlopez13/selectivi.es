@@ -11,7 +11,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'economia-empresa',
     'geografia',
     'lengua',
-    'ingles'
+    'ingles',
+    'biology',
+    'chemistry',
+    'physics',
+    'mathematics',
+    'mathematics-ccss',
+    'economy'
+  ]
+
+  const blogPosts = [
+    '/como-sera-la-selectividad-2026',
+    '/calcular-nota-acceso-universidad-espana-2026',
+    '/como-calcular-nota-de-corte-madrid-evau',
+    '/profesor-no-prepara-selectividad-2026',
+    '/selectiviandalucia-ya-disponible',
+    '/selectividad-2026-mas-complicada-historia',
+    '/trampa-selectividad-2026-nadie-ve',
+    '/herramienta-que-me-cambio-la-forma-de-estudiar',
+    '/universidad-de-mis-suenos-imposible-hasta-este-metodo',
+    '/de-perdido-a-seguro-para-la-evau-gracias-a-esto'
   ]
 
   const staticRoutes = [
@@ -19,11 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/notas-de-corte',
     '/calculadora',
     '/blog',
+    ...blogPosts.map(post => `/blog${post}`)
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'daily' as const,
-    priority: 1,
+    priority: route === '' ? 1 : 0.8,
   }))
 
   const communityRoutes = communities.flatMap((community) => [

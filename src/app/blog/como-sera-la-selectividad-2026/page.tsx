@@ -13,20 +13,70 @@ const keywords = [
 ];
 
 export const metadata: Metadata = {
-  title:
-    "Cómo será la Selectividad 2026 (PAU): estructura, cambios y modelos 0",
-  description:
-    "Descubre cómo será la Selectividad 2026 (PAU): estructura renovada, ejercicios competenciales, criterios de corrección y enlaces a los exámenes modelo 0 oficiales.",
-  keywords,
+  title: "Cómo será la Selectividad 2026 (PAU): Guía de cambios, estructura y Modelos 0",
+  description: "Descubre cómo será la Selectividad 2026 (PAU) en España: estructura renovada, bloques competenciales, criterios de corrección y acceso a exámenes modelo 0 oficiales de todas las comunidades.",
+  keywords: [
+    ...keywords,
+    "pau 2026 novedades",
+    "selectividad 2026 modelo competencial",
+    "examenes pau 2026 pdf",
+  ],
   alternates: {
     canonical: "/blog/como-sera-la-selectividad-2026",
   },
   openGraph: {
     title: "Cómo será la Selectividad 2026 (PAU) — SelectiviES",
-    description:
-      "Guía completa de la PAU 2026 con cambios, cronograma competencial y modelos 0 oficiales para prepararte con ventaja.",
+    description: "Guía completa de la PAU 2026 con cambios, cronograma competencial y modelos 0 oficiales para prepararte con ventaja.",
     type: "article",
+    url: "https://selectivi.es/blog/como-sera-la-selectividad-2026",
+    images: ["/blog/pau-2026-cover.jpg"]
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cómo será la Selectividad 2026 (PAU): estructura, cambios y modelos 0",
+  "description": "Descubre cómo será la Selectividad 2026 (PAU): estructura renovada, ejercicios competenciales, criterios de corrección y enlaces a los exámenes modelo 0 oficiales.",
+  "author": {
+    "@type": "Organization",
+    "name": "SelectiviES"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SelectiviES",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://selectivi.es/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://selectivi.es/blog/como-sera-la-selectividad-2026"
+  }
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cómo será la estructura de la PAU 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La PAU 2026 se divide en una fase de acceso obligatoria (hasta 10 puntos) y una fase de admisión voluntaria (hasta 4 puntos extra). Incluye un bloque competencial en cada materia."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué son los modelos 0 de la Selectividad 2026?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los modelos 0 son los exámenes de ejemplo publicados por las universidades para mostrar la nueva estructura y tipo de preguntas competenciales que aparecerán en la PAU 2026."
+      }
+    }
+  ]
 };
 
 const highlights = [
@@ -123,6 +173,14 @@ export default function Article() {
   return (
     <main className="min-h-screen flex flex-col bg-[#FCFCFF]">
       <Navbar />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
 
       <header className="relative overflow-hidden bg-gradient-to-br from-[#FFF4D8] via-white to-[#F3F4FF]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,184,0,0.15),_transparent_45%)]" />

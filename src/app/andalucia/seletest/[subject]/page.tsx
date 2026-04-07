@@ -2,11 +2,15 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 // Importar preguntas adaptadas al currículo andaluz
 import { historyAND } from '@/lib/seletest/andalucia/history'
-import { philosophyES } from '@/lib/seletest/philosophy'
+import { philosophyAND } from '@/lib/seletest/andalucia/philosophy'
 import { businessES } from '@/lib/seletest/business'
-import { geographyES } from '@/lib/seletest/geography'
-import { languageES } from '@/lib/seletest/language'
-import { englishES } from '@/lib/seletest/english'
+import { geographyAND } from '@/lib/seletest/andalucia/geography'
+import { languageAND } from '@/lib/seletest/andalucia/language'
+import { englishAND } from '@/lib/seletest/andalucia/english'
+import { biologyAND } from '@/lib/seletest/andalucia/biology'
+import { chemistryAND } from '@/lib/seletest/andalucia/chemistry'
+import { physicsAND } from '@/lib/seletest/andalucia/physics'
+import { mathematicsAND } from '@/lib/seletest/andalucia/mathematics'
 import Seletest from '@/components/Seletest'
 import { cookies } from 'next/headers'
 import type { Metadata } from 'next'
@@ -18,24 +22,46 @@ const SUBJECT_NAMES: Record<string, string> = {
   'geografia': 'Geografía',
   'lengua': 'Lengua Castellana y Literatura',
   'ingles': 'Inglés',
+  'biology': 'Biología',
+  'chemistry': 'Química',
+  'physics': 'Física',
+  'mathematics': 'Matemáticas II',
 }
 
 export async function generateMetadata({ params }: { params: { subject: string } }): Promise<Metadata> {
   const name = SUBJECT_NAMES[params.subject] || 'Asignatura'
   return {
-    title: `Preguntas ${name} Selectividad Andalucía 2025 | Exámenes Resueltos`,
-    description: `Practica con miles de preguntas de ${name} para la Selectividad de Andalucía. Exámenes corregidos (Distrito Único Andaluz) y temario actualizado.`,
-    keywords: [`selectividad andalucia ${params.subject}`, `preguntas ${name} andalucia`, `dua andalucia ${name}`, `examenes resueltos ${name} andalucia`]
+    title: `Exámenes Resueltos ${name} Selectividad Andalucía 2026 | DUA`,
+    description: `Prepara la Selectividad (PAU) 2026 en Andalucía con exámenes resueltos de ${name}. Practica con el simulador oficial del Distrito Único Andaluz (DUA) con corrección al instante.`,
+    keywords: [
+      `selectividad andalucia 2026 ${params.subject}`,
+      `pau andalucia 2026 ${name}`,
+      `exámenes resueltos ${name} andalucia`,
+      `distrito unico andaluz ${name}`,
+      `modelos de examen andalucia 2026`
+    ],
+    openGraph: {
+      title: `Exámenes Resueltos ${name} Selectividad Andalucía 2026`,
+      description: `Aprueba la PAU 2026 con nuestro simulador de ${name} para Andalucía.`,
+      type: 'website',
+    },
+    alternates: {
+      canonical: `/andalucia/seletest/${params.subject}`,
+    }
   }
 }
 
 const SUBJECTS = {
   'historia-espana': historyAND,
-  'filosofia': philosophyES,
+  'filosofia': philosophyAND,
   'economia-empresa': businessES,
-  'geografia': geographyES,
-  'lengua': languageES,
-  'ingles': englishES,
+  'geografia': geographyAND,
+  'lengua': languageAND,
+  'ingles': englishAND,
+  'biology': biologyAND,
+  'chemistry': chemistryAND,
+  'physics': physicsAND,
+  'mathematics': mathematicsAND,
 }
 
 export default function SubjectPage({ params, searchParams }: { params: { subject: string }, searchParams: { premium?: string } }) {
@@ -64,15 +90,31 @@ export default function SubjectPage({ params, searchParams }: { params: { subjec
             Volver a SeleTest
           </a>
         </div>
-        <div className="max-w-[1100px] mx-auto px-6 mb-2">
-           <h1 className="text-3xl font-black text-gray-900 mb-2">
-             Preguntas de {SUBJECT_NAMES[params.subject] || 'Asignatura'} - Selectividad Andalucía
+        <div className="max-w-[1100px] mx-auto px-6 mb-8">
+           <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+             Exámenes Resueltos de {SUBJECT_NAMES[params.subject] || 'Asignatura'} - Selectividad Andalucía 2026
            </h1>
-           <p className="text-gray-600 max-w-2xl text-sm leading-relaxed">
-             Simulador de examen de 2025 para {SUBJECT_NAMES[params.subject] || 'esta asignatura'} basado en el Distrito Único Andaluz. 
-             Preguntas adaptadas específicamente al currículo andaluz.
+           <p className="text-gray-600 max-w-3xl text-lg leading-relaxed">
+             Prepara tu examen de la PAU 2026 con nuestro simulador de {SUBJECT_NAMES[params.subject] || 'esta asignatura'} basado en el Distrito Único Andaluz (DUA). 
+             Preguntas actualizadas y corregidas siguiendo los criterios oficiales de corrección de Andalucía.
            </p>
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Course",
+              "name": `Preparación PAU 2026: ${SUBJECT_NAMES[params.subject] || 'Asignatura'} Andalucía`,
+              "description": `Simulador interactivo con exámenes resueltos de ${SUBJECT_NAMES[params.subject] || 'la asignatura'} para la Selectividad de Andalucía.`,
+              "provider": {
+                "@type": "Organization",
+                "name": "SelectiviES",
+                "sameAs": "https://selectivi.es"
+              }
+            })
+          }}
+        />
         {subject ? (
           <Seletest subject={subject} isPremium={!!isPremium} />
         ) : (
