@@ -70,39 +70,18 @@ export function StripeButtons({ plan = 'both' }: Props) {
     }
   }
 
-  if (plan === 'monthly') {
+  if (plan === 'lifetime' || plan === 'both') {
     return (
       <>
-        <button onClick={() => handleClick('monthly')} disabled={loading !== null} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3 disabled:opacity-60">
-          {loading === 'monthly' ? 'Redirigiendo…' : 'Suscríbete 2,99€/mes'}
+        <button onClick={() => handleClick('lifetime')} disabled={loading !== null} className="w-full bg-black hover:bg-gray-800 text-white font-semibold rounded-xl py-4 disabled:opacity-60 transition-all">
+          {loading === 'lifetime' ? 'Redirigiendo…' : 'Comprar Acceso Premium (14,99€)'}
         </button>
         {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
       </>
     )
   }
 
-  if (plan === 'lifetime') {
-    return (
-      <>
-        <button onClick={() => handleClick('lifetime')} disabled={loading !== null} className="w-full bg-black hover:bg-gray-800 text-white font-semibold rounded-xl py-3 disabled:opacity-60">
-          {loading === 'lifetime' ? 'Redirigiendo…' : 'Comprar 14,99€'}
-        </button>
-        {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
-      </>
-    )
-  }
-
-  return (
-    <div className="grid md:grid-cols-2 gap-4">
-      <button onClick={() => handleClick('monthly')} disabled={loading !== null} className="w-full bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-3 disabled:opacity-60">
-        {loading === 'monthly' ? 'Redirigiendo…' : 'Suscríbete 2,99€/mes'}
-      </button>
-      <button onClick={() => handleClick('lifetime')} disabled={loading !== null} className="w-full bg-black hover:bg-gray-800 text-white font-semibold rounded-xl py-3 disabled:opacity-60">
-        {loading === 'lifetime' ? 'Redirigiendo…' : 'Comprar 14,99€'}
-      </button>
-      {error && <p className="text-sm text-red-600 md:col-span-2">{error}</p>}
-    </div>
-  )
+  return null;
 }
 
 

@@ -136,7 +136,7 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
 
               <div className="space-y-3 max-w-[460px] mx-auto">
                 <a href="/madrid/premium" className="w-full inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-2">Hazte Premium ahora</a>
-                <p className="text-center text-sm text-gray-600">Desde 2,99 €/mes o pago único.</p>
+                <p className="text-center text-sm text-gray-600">Pago único, sin suscripciones.</p>
                 <button onClick={() => setShowGate(false)} className="w-full inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-2">Seguir con el plan estándar</button>
               </div>
             </div>

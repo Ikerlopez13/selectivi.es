@@ -279,33 +279,7 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/blog" className="text-gray-700 hover:text-gray-900">
-            Blog
-          </Link>
-          {hasSession ? (
-            <Link href="/dashboard/ai-lab" className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1">
-              ✨ AI-Test
-            </Link>
-          ) : (
-            <button 
-              onClick={() => triggerLogin("general")}
-              className="text-[#FFB800] font-black hover:opacity-80 flex items-center gap-1"
-            >
-              ✨ AI-Test
-            </button>
-          )}
-          <Link
-            href="/calculadora"
-            className="text-gray-700 hover:text-gray-900"
-          >
-            Calculadora
-          </Link>
-          <Link
-            href="/notas-de-corte"
-            className="text-gray-700 hover:text-gray-900 font-medium"
-          >
-            Notas de Corte
-          </Link>
+
           {isMadridSection
             ? renderMadridControls()
             : isAndaluciaSection
@@ -313,16 +287,7 @@ export default function Navbar() {
               : isValenciaSection
                 ? renderValenciaControls()
                 : renderNationalLogged()}
-          <span className="text-xs text-gray-500">
-            ¿Cataluña? Accede desde
-            <a
-              href="https://selectivi.cat"
-              className="underline ml-1 text-gray-700"
-            >
-              selectivi.cat
-            </a>
-            , inicia sesión allí.
-          </span>
+
         </div>
 
         <button
