@@ -11,7 +11,7 @@ export default function ValenciaPremiumPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-2">Pasa la PAU de València con éxito</h1>
           <p className="text-gray-700 mb-10">Desbloquea todas las preguntas y recursos exclusivos para la Comunitat.</p>
 
-          <div id="planes" className="grid md:grid-cols-3 gap-6 items-stretch">
+          <div id="planes" className="grid md:grid-cols-2 gap-6 items-stretch">
             {/* Plan Standard */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border text-black">
               <h2 className="text-2xl font-bold mb-2">Plan Standard</h2>
@@ -28,22 +28,7 @@ export default function ValenciaPremiumPage() {
               <button disabled className="w-full mt-8 bg-gray-100 text-gray-500 rounded-xl py-3 font-semibold">Tu plan actual</button>
             </div>
 
-            {/* Plan Premium (Mensual) */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 border relative text-black">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF9500] text-white text-xs px-3 py-1 rounded-full shadow font-bold">Más popular</div>
-              <h2 className="text-2xl font-bold mb-2">Premium Mensual</h2>
-              <p className="text-gray-600 mb-4">Todo lo que necesitas para la PAU</p>
-              <div className="mb-1 text-gray-400 line-through">4,99 €/mes</div>
-              <div className="text-5xl font-extrabold mb-6">2,99 €<span className="text-base font-normal">/mes</span></div>
-              <ul className="text-left mt-2 space-y-3 font-medium">
-                <li className="font-bold text-orange-600">✓ Tokens IA ILIMITADOS en exámenes</li>
-                <li>✓ Acceso 100% a preguntas de Valencia</li>
-                <li>✓ Filtra y practica por subtemas</li>
-                <li>✓ Sin anuncios, experiencia limpia</li>
-                <li>✓ Estadísticas y progreso real</li>
-              </ul>
-              <div className="mt-8"><StripeButtons plan="monthly" /></div>
-            </div>
+
 
             {/* Plan Premium (Pago único) */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border text-black">

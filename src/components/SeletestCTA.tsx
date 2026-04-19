@@ -35,11 +35,14 @@ export default function SeletestCTA({ className = '' }: { className?: string }) 
     // Detectar comunidad según la ruta actual
     const isAndalucia = pathname?.startsWith('/andalucia')
     const isMadrid = pathname?.startsWith('/madrid')
+    const isValencia = pathname?.startsWith('/valencia')
     
     if (isAndalucia) {
       router.push('/andalucia/seletest')
     } else if (isMadrid) {
       router.push('/madrid/seletest')
+    } else if (isValencia) {
+      router.push('/valencia/seletest')
     } else {
       router.push('/madrid/seletest') // Default
     }

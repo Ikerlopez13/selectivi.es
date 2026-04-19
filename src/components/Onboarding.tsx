@@ -285,7 +285,7 @@ export default function Onboarding() {
       <Card>
         <div className="px-4 sm:px-6 pb-8 text-center flex flex-col h-full">
           <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-2">
-            2,99<span className="text-xl sm:text-2xl">/mes</span>
+            14,99€<span className="text-xl sm:text-2xl"> pago único</span>
           </div>
           <p className="italic text-gray-700 mb-6">
             Este es un <span className="italic">recurso de pago</span>
@@ -303,7 +303,7 @@ export default function Onboarding() {
               Y por qué es justo:
             </p>
             <p className="text-gray-700 mb-6">
-              menos que <u>un café a la semana</u>,
+              mucho menos que <u>una sola clase particular</u>,
               <br className="hidden md:block" /> por un futuro que vale{" "}
               <u>miles</u>.
             </p>
@@ -516,7 +516,7 @@ export default function Onboarding() {
                     <Card>
                       <div className="px-4 sm:px-6 pb-8 text-center flex flex-col h-full">
                         <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-2">
-                          2,99<span className="text-xl sm:text-2xl">/mes</span>
+                          14,99€<span className="text-xl sm:text-2xl"> pago único</span>
                         </div>
                         <p className="italic text-gray-700 mb-6">
                           Este es un{" "}
@@ -535,7 +535,7 @@ export default function Onboarding() {
                             Y por qué es justo:
                           </p>
                           <p className="text-gray-700 mb-6">
-                            menos que <u>un café a la semana</u>,
+                            mucho menos que <u>una sola clase particular</u>,
                             <br className="hidden md:block" /> por un futuro que
                             vale <u>miles</u>.
                           </p>

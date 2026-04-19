@@ -11,7 +11,7 @@ export default function PremiumPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-2">Desbloquea todo el potencial de SelectiviES</h1>
           <p className="text-gray-700 mb-10">Accede a todas las preguntas y recursos para triunfar en la selectividad</p>
 
-          <div id="planes" className="grid md:grid-cols-3 gap-6 items-stretch">
+          <div id="planes" className="grid md:grid-cols-2 gap-6 items-stretch">
             {/* Plan Standard */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border">
               <h2 className="text-2xl font-bold mb-2">Plan Standard</h2>
@@ -28,22 +28,7 @@ export default function PremiumPage() {
               <button disabled className="w-full mt-8 bg-gray-100 text-gray-500 rounded-xl py-3">Plan actual</button>
             </div>
 
-            {/* Plan Premium (Mensual) */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 border relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFE08A] text-[#4B3A00] text-xs px-3 py-1 rounded-full shadow">Recomendado</div>
-              <h2 className="text-2xl font-bold mb-2">Premium Mensual</h2>
-              <p className="text-gray-600 mb-4">Todo lo que necesitas para la selectividad</p>
-              <div className="mb-1 text-gray-400 line-through">4,99 €/mes</div>
-              <div className="text-5xl font-extrabold mb-6">2,99 €<span className="text-base font-normal">/mes</span></div>
-              <ul className="text-left mt-2 space-y-3">
-                <li className="font-bold text-indigo-600">✓ Tokens IA ILIMITADOS en exámenes</li>
-                <li>✓ Acceso ilimitado a todas las preguntas</li>
-                <li>✓ Filtra y practica por subtemas</li>
-                <li>✓ Sin anuncios, experiencia limpia</li>
-                <li>✓ Estadísticas y progreso</li>
-              </ul>
-              <div className="mt-8"><StripeButtons plan="monthly" /></div>
-            </div>
+
 
             {/* Plan Premium (Pago único) */}
             <div className="bg-white rounded-2xl shadow-xl p-6 border">
@@ -94,7 +79,7 @@ export default function PremiumPage() {
               </div>
               <div className="bg-white rounded-2xl shadow p-5 text-left border">
                 <h3 className="font-bold mb-2">¿Durante cuánto tiempo tengo acceso?</h3>
-                <p className="text-gray-700">Si eliges suscripción, 2,99€ al mes. Si eliges pago único, <span className="font-semibold">14,99€</span> y el acceso es tuyo para siempre (sin renovaciones).</p>
+                <p className="text-gray-700">Con el pago único de <span className="font-semibold">14,99€</span> el acceso es tuyo para siempre (sin suscripciones ni renovaciones).</p>
               </div>
             </div>
           </div>
@@ -103,7 +88,7 @@ export default function PremiumPage() {
           <div className="mt-16 md:mt-20 text-center">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">¿Preparado para empezar?</h2>
             <p className="text-lg md:text-xl text-gray-700">Únete a miles de estudiantes que ya confían en SelectiviES Premium.</p>
-            <p className="text-lg md:text-xl text-gray-700 mb-8">Un solo pago o suscripción. Acceso permanente. Sin sorpresas.</p>
+            <p className="text-lg md:text-xl text-gray-700 mb-8">Un solo pago único. Acceso permanente. Sin sorpresas.</p>
             <a href="#planes" className="block w-full md:w-auto mx-auto bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-4 px-8 shadow-lg">
               Hazte Premium ahora
             </a>
