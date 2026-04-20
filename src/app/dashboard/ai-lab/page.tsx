@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { supabase } from '@/lib/supabase/client'
+import SideAdBanner from '@/components/SideAdBanner'
 import MathText from '@/components/MathText'
 import 'katex/dist/katex.min.css'
 import Script from 'next/script'
@@ -155,7 +156,7 @@ export default function AILabPage() {
   const currentQuestion = questions[currentIdx]
 
   return (
-    <main className="min-h-screen bg-[#FDFDFD]">
+    <main className="min-h-screen bg-white">
       <Script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" onLoad={handleEngineLoad} />
       <Navbar />
       
@@ -189,7 +190,13 @@ export default function AILabPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 -mt-8 md:-mt-16 mb-40 grid lg:grid-cols-12 gap-16 relative z-10">
+      <div className="flex justify-center items-start gap-8 px-6 -mt-8 md:-mt-16 mb-16 max-w-[1600px] mx-auto relative z-10 w-full">
+        {/* Banner Izquierdo */}
+        <div className="hidden 2xl:block sticky top-24">
+          <SideAdBanner />
+        </div>
+
+        <div className="flex-1 grid lg:grid-cols-12 gap-16">
         
         {/* PANEL DE CONTROL (STICKY EN DESKTOP, CENTRADO EN MÓVIL) */}
         <div className="lg:col-span-4 w-full">
@@ -343,7 +350,13 @@ export default function AILabPage() {
             </div>
           )}
         </div>
+
+        {/* Banner Derecho */}
+        <div className="hidden 2xl:block sticky top-24">
+          <SideAdBanner />
+        </div>
       </div>
+
 
       <Footer />
     </main>

@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '@/lib/supabase/client'
+import SideAdBanner from '@/components/SideAdBanner'
 
 interface DBSubject {
   id: string;
@@ -170,11 +171,13 @@ export default function SeletestPage() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col pb-24 md:pb-0">
+    <main className={`min-h-screen flex flex-col pb-24 md:pb-0 transition-colors duration-500 ${!isPremium && !loading ? 'bg-[#FFF9E6]' : 'bg-white'}`}>
       <Navbar />
       <section className="flex-1">
-        <div className="max-w-[900px] mx-auto px-6 py-10">
-          <div className="bg-white border border-black/5 rounded-2xl shadow-xl p-6 md:p-10">
+        <div className="flex justify-center items-start gap-12 px-2 md:px-6 py-10 max-w-[1400px] mx-auto relative">
+          {!isPremium && <SideAdBanner className="hidden xl:block mt-10" />}
+          
+          <div className="w-full max-w-[900px] bg-white border border-black/5 rounded-3xl shadow-2xl p-6 md:p-10 relative z-10">
             <div className="text-center mb-4">
                <div className="flex items-center justify-center gap-3 mb-2">
                  <h1 className="text-4xl md:text-5xl font-extrabold">Sele<span className="text-[#FF9500]">Test</span></h1>

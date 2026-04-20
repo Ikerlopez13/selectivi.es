@@ -15,14 +15,14 @@ export default function AdBanner({ className = "" }: AdBannerProps) {
   return (
     <div className={`w-full max-w-4xl mx-auto px-4 py-8 ${className}`}>
       <div 
-        className="relative overflow-hidden rounded-[48px] border-4 border-dashed border-[#FFB800] bg-[#1A1A1A] p-10 md:p-16 text-center shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(255,184,0,0.2)] group"
+        className="relative overflow-hidden rounded-[48px] border-4 border-dashed border-[#FFB800] bg-[#FFF9E6] p-10 md:p-16 text-center shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(255,184,0,0.1)] group"
       >
         {/* Decoración de fondo */}
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#FFB800]/5 blur-3xl transition-all duration-700 group-hover:bg-[#FFB800]/10" />
-        <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-[#FFB800]/5 blur-3xl transition-all duration-700 group-hover:bg-[#FFB800]/10" />
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#FFB800]/10 blur-3xl transition-all duration-700 group-hover:bg-[#FFB800]/20" />
+        <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-[#FFB800]/10 blur-3xl transition-all duration-700 group-hover:bg-[#FFB800]/20" />
 
         <div className="relative z-10 flex flex-col items-center">
-          <h3 className="mb-6 text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-white leading-tight">
+          <h3 className="mb-6 text-2xl md:text-4xl font-black italic uppercase tracking-tighter text-slate-800 leading-tight">
             ¿Te gustaría conseguir<br />
             <span className="text-[#FFB800]">este espacio publicitario</span><br />
             para tu negocio?
@@ -37,7 +37,7 @@ export default function AdBanner({ className = "" }: AdBannerProps) {
             adquirir banner
           </a>
           
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 italic">
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-slate-400 italic">
             Publicidad exclusiva • Selectivi.es
           </p>
         </div>

@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import AdBanner from "@/components/AdBanner";
+import SideAdBanner from "@/components/SideAdBanner";
 
 type Profile = {
   email: string;
@@ -121,10 +121,15 @@ export default function DashboardPage() {
   );
 
   return (
-    <main className="min-h-screen flex flex-col bg-[#FDFDFD]">
+    <main className="min-h-screen flex flex-col bg-white">
       <Navbar />
-      <div className="flex-1 p-6 py-12">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <div className="flex-1 flex justify-center items-start gap-8 p-6 py-12 max-w-[1600px] mx-auto w-full relative">
+        {/* Banner Izquierdo */}
+        <div className="hidden 2xl:block sticky top-24">
+          <SideAdBanner />
+        </div>
+
+        <div className="flex-1 max-w-4xl space-y-8">
           
           {/* Perfil */}
           <div className="bg-white rounded-3xl border-4 border-black p-6 shadow-[8px_8px_0px_#000]">
@@ -146,6 +151,7 @@ export default function DashboardPage() {
 
           {/* AI Lab Card */}
           {renderAILabCard()}
+
 
           {/* CTA Premium / Map */}
           {!profile?.isPremium ? (
@@ -185,8 +191,6 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {/* Banner Publicitario */}
-          <AdBanner className="pt-8" />
 
           {/* Logout */}
           <div className="text-center pt-8">
@@ -197,6 +201,12 @@ export default function DashboardPage() {
               Cerrar sesión segura 🔐
             </button>
           </div>
+          </div>
+        </div>
+
+        {/* Banner Derecho */}
+        <div className="hidden 2xl:block sticky top-24">
+          <SideAdBanner />
         </div>
       </div>
       <Footer />
