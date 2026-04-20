@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
     // USAMOS LOS MODELOS QUE TU LLAVE HA CONFIRMADO EN EL ESCANEO
     // Obligatorio v1beta para estos modelos de nueva generación
-    const modelsToTry = ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.5-flash"];
+    const modelsToTry = ["gemini-flash-latest", "gemini-2.0-flash-001", "gemini-pro-latest"];
     let lastErr = null;
 
     for (const m of modelsToTry) {
