@@ -83,7 +83,7 @@ export async function POST(req: Request) {
 
     // USAMOS LOS MODELOS QUE TU LLAVE HA CONFIRMADO EN EL ESCANEO
     // Obligatorio v1beta para estos modelos de nueva generación
-    const modelsToTry = ["gemini-flash-latest", "gemini-2.0-flash-001", "gemini-pro-latest"];
+    const modelsToTry = ["gemini-flash-latest", "gemini-3.1-flash-lite-preview"];
     let lastErr = null;
 
     for (const m of modelsToTry) {
@@ -134,14 +134,24 @@ export async function POST(req: Request) {
             } else {
                 lastErr = data.error?.message || "Fallo en el modelo";
                 console.warn(`Intento ${m} fallido: ${lastErr}`);
+                
+                // Si es un error de cuota o saturación, no seguimos probando modelos pro que sabemos que fallarán
+                if (lastErr.includes("quota") || lastErr.includes("limit") || lastErr.includes("demand")) {
+                    break; 
+                }
             }
         } catch (err) {
             console.error(`Error crítico en ${m}:`, err);
         }
     }
 
+    // Mensaje de error amigable para el usuario final
+    const friendlyError = lastErr?.includes("quota") || lastErr?.includes("demand") || lastErr?.includes("limit")
+        ? "La IA está experimentando mucha demanda en este momento. Por favor, espera unos segundos e inténtalo de nuevo."
+        : `No se pudo generar el examen: ${lastErr}`;
+
     return NextResponse.json({ 
-      error: `La tecnología 2.0/2.5 de tu llave todavía está en fase restringida: ${lastErr}.`
+      error: `⚠️ ERROR EN EL LAB: ${friendlyError}`
     }, { status: 500 });
 
   } catch (error: any) {
