@@ -107,32 +107,69 @@ export async function POST(req: Request) {
             if (googleRes.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
                 let t = data.candidates[0].content.parts[0].text;
                 t = t.replace(/```json/g, "").replace(/```/g, "").trim();
-                const quiz = JSON.parse(t);
                 
-                // 3. Incrementar contador
-                if (!isPremium) {
-                  await supabaseAdmin.from('usuarios')
-                    .update({ ai_lab_uses: uses + 1 })
-                    .eq('user_id', user.id);
-                } else {
-                  // Incrementar diario premium
-                  const now = new Date();
-                  const isSameDay = lastUseAt && 
-                    lastUseAt.getUTCFullYear() === now.getUTCFullYear() &&
-                    lastUseAt.getUTCMonth() === now.getUTCMonth() &&
-                    lastUseAt.getUTCDate() === now.getUTCDate();
-                  
-                  await supabaseAdmin.from('usuarios')
-                    .update({ 
-                      premium_ai_uses: isSameDay ? premiumUses + 1 : 1,
-                      last_ai_use_at: now.toISOString()
-                    })
-                    .eq('user_id', user.id);
+                try {
+                    let quiz = JSON.parse(t);
+                    
+                    // NORMALIZACIÓN: Si la IA devuelve un array directo
+                    if (Array.isArray(quiz)) {
+                        quiz = { questions: quiz };
+                    }
+                    
+                    // NORMALIZACIÓN: Si usa la clave "preguntas" en lugar de "questions"
+                    if (!quiz.questions && quiz.preguntas) {
+                        quiz.questions = quiz.preguntas;
+                        delete quiz.preguntas;
+                    }
+
+                    // NORMALIZACIÓN: Si usa "test" u otras variaciones
+                    if (!quiz.questions && quiz.test) {
+                        quiz.questions = quiz.test;
+                        delete quiz.test;
+                    }
+
+                    // VALIDACIÓN FINAL
+                    if (!quiz.questions || !Array.isArray(quiz.questions)) {
+                        console.error("Formato JSON inválido tras normalización:", quiz);
+                        throw new Error("La IA no generó una lista de preguntas válida.");
+                    }
+
+                    // 3. Incrementar contador
+                    if (!isPremium) {
+                      await supabaseAdmin.from('usuarios')
+                        .update({ ai_lab_uses: uses + 1 })
+                        .eq('user_id', user.id);
+                    } else {
+                      // Incrementar diario premium
+                      const now = new Date();
+                      const isSameDay = lastUseAt && 
+                        lastUseAt.getUTCFullYear() === now.getUTCFullYear() &&
+                        lastUseAt.getUTCMonth() === now.getUTCMonth() &&
+                        lastUseAt.getUTCDate() === now.getUTCDate();
+                      
+                      await supabaseAdmin.from('usuarios')
+                        .update({ 
+                          premium_ai_uses: isSameDay ? premiumUses + 1 : 1,
+                          last_ai_use_at: now.toISOString()
+                        })
+                        .eq('user_id', user.id);
+                    }
+
+                    return NextResponse.json(quiz);
+                } catch (parseErr: any) {
+                    console.error("Error parseando JSON de IA:", parseErr);
+                    lastErr = `Error de formato en la respuesta: ${parseErr.message}`;
+                    // Intentamos con el siguiente modelo
+                }
+            } else {
+                // Chequear filtros de seguridad
+                const safetySetting = data.candidates?.[0]?.finishReason === "SAFETY";
+                if (safetySetting) {
+                    lastErr = "El contenido ha sido bloqueado por los filtros de seguridad de Google (posible tema sensible).";
+                    break; // No seguimos probando si es un tema de seguridad de contenido
                 }
 
-                return NextResponse.json(quiz);
-            } else {
-                lastErr = data.error?.message || "Fallo en el modelo";
+                lastErr = data.error?.message || "Fallo en el modelo o respuesta vacía";
                 console.warn(`Intento ${m} fallido: ${lastErr}`);
                 
                 // Si es un error de cuota o saturación, no seguimos probando modelos pro que sabemos que fallarán

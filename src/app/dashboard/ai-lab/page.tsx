@@ -141,7 +141,8 @@ export default function AILabPage() {
           feedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
       } else {
-        throw new Error("No se han recibido preguntas válidas.");
+        const detail = JSON.stringify(data).slice(0, 100);
+        throw new Error(`La IA respondió pero el formato es incorrecto. Detalle: ${detail}`);
       }
     } catch (e: any) {
       console.error(e)
