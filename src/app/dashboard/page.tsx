@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import AdBanner from "@/components/AdBanner";
 
 type Profile = {
   email: string;
@@ -183,6 +184,9 @@ export default function DashboardPage() {
               </Link>
             </div>
           )}
+
+          {/* Banner Publicitario */}
+          <AdBanner className="pt-8" />
 
           {/* Logout */}
           <div className="text-center pt-8">

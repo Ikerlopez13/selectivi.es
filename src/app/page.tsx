@@ -2,6 +2,7 @@ import SpainMap from '@/components/SpainMap'
 import Navbar from '@/components/Navbar'
 import Description from '@/components/Description'
 import Footer from '@/components/Footer'
+import AdBanner from '@/components/AdBanner'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -65,6 +66,9 @@ export default function Home() {
             <Description />
           </div>
         </div>
+
+        {/* Banner Publicitario */}
+        <AdBanner className="mb-24" />
       </section>
 
       <Footer />
