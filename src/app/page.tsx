@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex-1 flex justify-center items-start gap-8 px-4 py-8 max-w-[1600px] mx-auto w-full relative">
         {/* Banner Izquierdo */}
         <div className="hidden xl:block sticky top-24">
-          <SideAdBanner />
+          <SideAdBanner isMas />
         </div>
 
         <section className="flex-1 max-w-4xl flex flex-col items-center">

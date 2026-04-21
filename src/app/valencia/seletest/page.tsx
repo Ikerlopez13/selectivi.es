@@ -175,7 +175,7 @@ export default function SeletestPage() {
       <Navbar />
       <section className="flex-1">
         <div className="flex justify-center items-start gap-12 px-2 md:px-6 py-10 max-w-[1400px] mx-auto relative">
-          {!isPremium && <SideAdBanner className="hidden xl:block mt-24" />}
+          {!isPremium && <SideAdBanner isMas className="hidden xl:block mt-24" />}
           
           <div className="w-full max-w-[900px] bg-white border border-black/5 rounded-3xl shadow-2xl p-6 md:p-10 relative z-10">
             <div className="text-center mb-4">

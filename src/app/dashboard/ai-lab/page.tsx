@@ -193,7 +193,7 @@ export default function AILabPage() {
       <div className="flex justify-center items-start gap-8 px-6 -mt-8 md:-mt-16 mb-16 max-w-[1600px] mx-auto relative z-10 w-full">
         {/* Banner Izquierdo */}
         <div className="hidden xl:block sticky top-24">
-          <SideAdBanner />
+          <SideAdBanner isMas />
         </div>
 
         <div className="flex-1 grid lg:grid-cols-12 gap-16">
