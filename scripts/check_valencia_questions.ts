@@ -24,9 +24,8 @@ async function checkValenciaQuestions() {
   for (const s of subjects) {
     const { count, error: qError } = await supabase
       .from('preguntas')
-      .select('*', { count: 'exact', head: true })
+      .select('*, temas!inner(asignatura_id)', { count: 'exact', head: true })
       .eq('temas.asignatura_id', s.id)
-      .innerJoin('temas', 'preguntas.tema_id', 'temas.id')
     
     // Actually simpler to use a join or just count by asignatura_id if it's there
     // But questions table doesn't have asignatura_id directly, it's in temas.
