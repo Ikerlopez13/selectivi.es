@@ -350,9 +350,10 @@ export default function AILabPage() {
             </div>
           )}
         </div>
+      </div>
 
-        {/* Banner Derecho */}
-        <div className="hidden 2xl:block sticky top-24">
+      {/* Banner Derecho */}
+      <div className="hidden 2xl:block sticky top-24">
           <SideAdBanner />
         </div>
       </div>

@@ -202,7 +202,7 @@ export default function DashboardPage() {
             </button>
           </div>
           </div>
-        </div>
+
 
         {/* Banner Derecho */}
         <div className="hidden 2xl:block sticky top-24">
