@@ -9,7 +9,7 @@ interface SideAdBannerProps {
 }
 
 export default function SideAdBanner({ className = "", isMas = false }: SideAdBannerProps) {
-  const phoneNumber = "34675977794"
+  const phoneNumber = "34675881777"
   const message = encodeURIComponent(
     isMas 
       ? "Hola! Estoy interesado en el viaje a Mallorca de MAS" 

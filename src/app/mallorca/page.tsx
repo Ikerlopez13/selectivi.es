@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export default function MallorcaLandingPage() {
-  const whatsappUrl = "https://wa.me/34675977794?text=Hola!%20Estoy%20interesado%20en%20el%20viaje%20a%20Mallorca%20de%20MAS"
+  const whatsappUrl = "https://wa.me/34675881777?text=Hola!%20Estoy%20interesado%20en%20el%20viaje%20a%20Mallorca%20de%20MAS"
 
   return (
     <main className="min-h-screen flex flex-col bg-[#F0FBFF]">
