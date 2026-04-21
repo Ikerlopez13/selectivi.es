@@ -14,21 +14,22 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY!);
 const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
 async function generateAndInsert(topicId: number, topicTitle: string, subjectName: string) {
-  console.log(`Generating questions for ${subjectName} - ${topicTitle}...`);
+  console.log(`Generating 15 questions for ${subjectName} - ${topicTitle}...`);
   
   const prompt = `
     Eres un experto en la prueba PAU (Selectividad) de la Comunidad Valenciana, España.
-    Tu tarea es generar 10 preguntas tipo test del tema "${topicTitle}" de la asignatura "${subjectName}" específicamente adaptadas al currículo valenciano.
+    Tu tarea es generar 15 preguntas tipo test de nivel alto del tema "${topicTitle}" de la asignatura "${subjectName}".
     
-    REGLAS:
+    REGLAS CRÍTICAS:
     1. El formato de salida DEBE SER UN ARRAY JSON VÁLIDO.
     2. Cada objeto debe tener:
-       - pregunta: enunciado claro.
+       - pregunta: enunciado claro y preciso.
        - opcion_a, opcion_b, opcion_c, opcion_d.
        - correcta (letra minúscula: a, b, c, o d).
-       - explicacion: por qué es correcta la opción elegida.
-       - tier: "standard" o "premium" (haz un mix, 5 de cada).
-    3. Responde ÚNICAMENTE con el bloque JSON, sin texto adicional.
+       - explicacion: por qué es correcta la opción elegida, con rigor académico.
+       - tier: "standard" o "premium" (haz un mix equilibrado).
+    3. Responde ÚNICAMENTE con el bloque JSON.
+    4. Usa LaTeX para cualquier fórmula o símbolo matemático si la asignatura lo requiere.
   `;
 
   try {
@@ -43,6 +44,8 @@ async function generateAndInsert(topicId: number, topicTitle: string, subjectNam
         const end = jsonStr.lastIndexOf(']') + 1;
         questions = JSON.parse(jsonStr.substring(start, end));
     }
+
+    console.log(`Successfully generated ${questions.length} questions for ${topicTitle}`);
 
     const { data: inserted, error } = await supabase
       .from("preguntas")
@@ -71,9 +74,8 @@ async function generateAndInsert(topicId: number, topicTitle: string, subjectNam
 }
 
 async function main() {
-  console.log('--- Injecting Questions for Valencia ---')
+  console.log('--- Injecting Questions for Valencia (Bulk mode) ---')
   
-  // Get all Valencia subjects
   const { data: subjects, error: sError } = await supabase
     .from('asignaturas')
     .select('id, nombre')
@@ -85,7 +87,6 @@ async function main() {
   }
 
   for (const s of subjects) {
-    // Get topics for this subject
     const { data: topics, error: tError } = await supabase
       .from('temas')
       .select('id, titulo')
@@ -98,27 +99,28 @@ async function main() {
 
     for (const t of topics) {
       try {
-        // Check if it already has many questions to avoid redundancy
         const { count } = await supabase
           .from('preguntas')
           .select('*', { count: 'exact', head: true })
           .eq('tema_id', t.id);
         
-        if (count && count >= 5) { // Lowered threshold to fill more topics faster
+        if (count && count >= 25) { 
           console.log(`Skipping ${t.titulo} (already has ${count} questions)`);
           continue;
         }
 
-        await generateAndInsert(t.id, t.titulo, s.nombre);
-        // Wait a bit more to avoid rate limits
-        await new Promise(r => setTimeout(r, 5000));
+        const added = await generateAndInsert(t.id, t.titulo, s.nombre);
+        if (added > 0) {
+            // Wait slightly between topics to manage rate limits and ensure stability
+            await new Promise(r => setTimeout(r, 3000));
+        }
       } catch (e) {
         console.error(`Error processing topic ${t.titulo}:`, e);
       }
     }
   }
   
-  console.log('--- Injection Complete ---');
+  console.log('--- Bulk Injection Complete ---');
 }
 
 main();

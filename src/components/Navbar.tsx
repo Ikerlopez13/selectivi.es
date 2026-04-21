@@ -249,14 +249,16 @@ export default function Navbar() {
 
   return (
     <nav className="border-b bg-white mb-8 shadow-md z-20 sticky top-0">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/images/logoo.svg"
-            alt="SelectiviES"
-            width={40}
-            height={40}
-          />
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center">
+        {/* Left: Logo */}
+        <div className="flex-1 flex justify-start">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/images/logoo.svg"
+              alt="SelectiviES"
+              width={48}
+              height={48}
+            />
             <span className="text-2xl font-bold">
               {isMadridBrand ? (
                 <>
@@ -276,27 +278,57 @@ export default function Navbar() {
                 </>
               )}
             </span>
-        </Link>
-
-        <div className="hidden md:flex items-center gap-6">
-
-          {isMadridSection
-            ? renderMadridControls()
-            : isAndaluciaSection
-              ? renderAndaluciaControls()
-              : isValenciaSection
-                ? renderValenciaControls()
-                : renderNationalLogged()}
-
+          </Link>
         </div>
 
-        <button
-          aria-label="Abrir menú"
-          className="md:hidden p-2 rounded-lg border bg-white"
-          onClick={() => setMobileOpen(true)}
-        >
-          ☰
-        </button>
+        {/* Center: Core Links */}
+        <div className="hidden lg:flex items-center gap-10">
+          <Link 
+            href="/calculadora" 
+            className={`text-[15px] font-semibold transition-all hover:scale-105 ${pathname === '/calculadora' ? 'text-black' : 'text-gray-500 hover:text-black'}`}
+          >
+            Calculadora
+          </Link>
+          <Link 
+            href="/ai-lab" 
+            className={`text-[15px] font-semibold transition-all hover:scale-105 flex items-center gap-1.5 ${pathname === '/ai-lab' ? 'text-[#FFB800]' : 'text-gray-500 hover:text-[#FFB800]'}`}
+          >
+            ✨ AI Lab
+          </Link>
+          <Link 
+            href="/notas-de-corte" 
+            className={`text-[15px] font-semibold transition-all hover:scale-105 ${pathname === '/notas-de-corte' ? 'text-black' : 'text-gray-500 hover:text-black'}`}
+          >
+            Notas de Corte
+          </Link>
+          <Link 
+            href="/blog" 
+            className={`text-[15px] font-semibold transition-all hover:scale-105 ${pathname === '/blog' ? 'text-black' : 'text-gray-500 hover:text-black'}`}
+          >
+            Blog
+          </Link>
+        </div>
+
+        {/* Right: Controls & Profile */}
+        <div className="flex-1 flex justify-end items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
+            {isMadridSection
+              ? renderMadridControls()
+              : isAndaluciaSection
+                ? renderAndaluciaControls()
+                : isValenciaSection
+                  ? renderValenciaControls()
+                  : renderNationalLogged()}
+          </div>
+
+          <button
+            aria-label="Abrir menú"
+            className="md:hidden p-2 rounded-lg border bg-white shadow-sm"
+            onClick={() => setMobileOpen(true)}
+          >
+            ☰
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
@@ -331,7 +363,7 @@ export default function Navbar() {
                 className="py-2 text-[#FFB800] font-bold"
                 onClick={() => setMobileOpen(false)}
               >
-                ✨ AI-Test
+                ✨ AI Lab
               </Link>
             ) : (
               <button
@@ -341,7 +373,7 @@ export default function Navbar() {
                 }}
                 className="py-2 text-[#FFB800] font-bold text-left"
               >
-                ✨ AI-Test
+                ✨ AI Lab
               </button>
             )}
             <Link
