@@ -42,10 +42,13 @@ export default function SideAdBanner({ className = "", isMas = false }: SideAdBa
                 />
               </div>
               <p className="text-emerald-500 font-black uppercase text-[10px] tracking-widest mb-2">PROMOCIÓN EXCLUSIVA</p>
-              <h3 className="mb-8 text-xl font-black italic uppercase tracking-tighter text-slate-800 leading-tight">
+              <h3 className="mb-2 text-xl font-black italic uppercase tracking-tighter text-slate-800 leading-tight">
                 GANA UN VIAJE<br />
                 <span className="text-emerald-500 underline decoration-2 underline-offset-4">A MALLORCA</span>
               </h3>
+              <p className="mb-4 text-[10px] font-black italic uppercase text-emerald-600 tracking-widest leading-tight">
+                (gratis con TODO incluido)
+              </p>
             </>
           ) : (
             <>

@@ -47,6 +47,9 @@ export default function MallorcaLandingPage() {
             >
               ¡QUIERO MI VIAJE! 🚀
             </a>
+            <p className="mt-4 text-emerald-600 font-black italic uppercase tracking-widest text-sm animate-in fade-in duration-1000 delay-700">
+              (gratis con TODO incluido)
+            </p>
           </div>
         </div>
       </section>
@@ -104,6 +107,9 @@ export default function MallorcaLandingPage() {
             >
               SABER MÁS 💬
             </a>
+            <p className="mt-6 text-emerald-600 font-black italic uppercase tracking-widest text-sm">
+              (gratis con TODO incluido)
+            </p>
           </div>
         </div>
       </section>
