@@ -192,7 +192,7 @@ export default function AILabPage() {
 
       <div className="flex justify-center items-start gap-8 px-6 -mt-8 md:-mt-16 mb-16 max-w-[1600px] mx-auto relative z-10 w-full">
         {/* Banner Izquierdo */}
-        <div className="hidden 2xl:block sticky top-24">
+        <div className="hidden xl:block sticky top-24">
           <SideAdBanner />
         </div>
 
@@ -353,7 +353,7 @@ export default function AILabPage() {
       </div>
 
       {/* Banner Derecho */}
-      <div className="hidden 2xl:block sticky top-24">
+      <div className="hidden xl:block sticky top-24">
           <SideAdBanner />
         </div>
       </div>

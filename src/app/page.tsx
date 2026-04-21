@@ -13,7 +13,7 @@ export default function Home() {
 
       <div className="flex-1 flex justify-center items-start gap-8 px-4 py-8 max-w-[1600px] mx-auto w-full relative">
         {/* Banner Izquierdo */}
-        <div className="hidden 2xl:block sticky top-24">
+        <div className="hidden xl:block sticky top-24">
           <SideAdBanner />
         </div>
 
@@ -75,7 +75,7 @@ export default function Home() {
         </section>
 
         {/* Banner Derecho */}
-        <div className="hidden 2xl:block sticky top-24">
+        <div className="hidden xl:block sticky top-24">
           <SideAdBanner />
         </div>
       </div>
