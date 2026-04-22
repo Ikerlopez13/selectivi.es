@@ -54,26 +54,6 @@ export default function MallorcaLandingPage() {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section className="pb-32 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative aspect-video rounded-[48px] overflow-hidden border-[12px] border-white shadow-2xl bg-slate-900 group">
-            {/* Placeholder for Video */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-400/20 to-blue-500/20">
-              <div className="w-24 h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
-                <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2" />
-              </div>
-            </div>
-            
-            {/* Overlay if no video */}
-            <div className="absolute top-8 left-8 flex items-center gap-3">
-              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-              <span className="text-white font-black text-xs tracking-widest uppercase italic">Presentación MAS Mallorca</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Features/Info Section */}
       <section className="bg-white py-32 rounded-t-[80px] shadow-[0_-20px_50px_rgba(0,0,0,0.02)]">
         <div className="max-w-6xl mx-auto px-6">
