@@ -40,9 +40,7 @@ function MasAdCard() {
         </p>
 
         <a 
-          href="https://viajesmas.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
+          href="/mallorca" 
           className="bg-yellow-400 hover:bg-yellow-500 text-black font-black text-xl w-full py-4 rounded-2xl shadow-[0_0_20px_rgba(250,204,21,0.4)] transition-all transform hover:scale-105 flex items-center justify-center gap-3"
         >
           <Plane className="w-6 h-6" />

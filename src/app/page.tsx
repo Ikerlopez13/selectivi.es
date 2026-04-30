@@ -29,14 +29,14 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="w-full mb-12">
-            <div className="max-w-2xl mx-auto">
+          <div className="w-full mb-12 px-4">
+            <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
               <Link 
                 href="/ai-lab" 
-                className="group flex items-center justify-between p-5 px-8 rounded-[32px] border-2 border-[#FFE199] bg-white shadow-[0_20px_50px_rgba(255,184,0,0.1)] hover:shadow-[0_25px_60px_rgba(255,184,0,0.2)] hover:scale-[1.01] transition-all duration-300"
+                className="group flex flex-col justify-between p-6 rounded-[32px] border-2 border-[#FFE199] bg-white shadow-[0_20px_50px_rgba(255,184,0,0.1)] hover:shadow-[0_25px_60px_rgba(255,184,0,0.2)] hover:scale-[1.02] transition-all duration-300"
               >
-                <div className="flex items-center gap-5">
-                  <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFB800] to-[#FF9000] text-3xl shadow-lg group-hover:rotate-12 transition-transform">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-14 h-14 shrink-0 flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFB800] to-[#FF9000] text-3xl shadow-lg group-hover:rotate-12 transition-transform">
                     🤖
                   </div>
                   <div className="text-left">
@@ -49,8 +49,33 @@ export default function Home() {
                     <p className="text-sm font-medium text-slate-500">Crea tus propios exámenes con IA en segundos ✨</p>
                   </div>
                 </div>
-                <div className="hidden sm:flex items-center gap-2 text-sm font-black text-slate-800">
+                <div className="flex justify-end items-center gap-2 text-sm font-black text-slate-800">
                   PROBAR GRATIS
+                  <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </Link>
+
+              <Link 
+                href="/fast" 
+                className="group flex flex-col justify-between p-6 rounded-[32px] border-2 border-black bg-black text-white shadow-[0_20px_50px_rgba(0,0,0,0.2)] hover:shadow-[0_25px_60px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-all duration-300 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#FFB800]/20 to-transparent rounded-full blur-2xl -mr-10 -mt-10"></div>
+                <div className="flex items-start gap-4 mb-6 relative z-10">
+                  <div className="w-14 h-14 shrink-0 flex items-center justify-center rounded-2xl bg-[#FFB800] text-black text-3xl shadow-lg group-hover:-translate-y-1 transition-transform">
+                    🚀
+                  </div>
+                  <div className="text-left">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black px-2.5 py-1 rounded-full bg-[#FFB800]">
+                        VIRAL
+                      </span>
+                      <h3 className="text-xl font-bold text-white">Selectivi FAST</h3>
+                    </div>
+                    <p className="text-sm font-medium text-gray-300">Repasa deslizando como en TikTok. Rápido y adictivo 🔥</p>
+                  </div>
+                </div>
+                <div className="flex justify-end items-center gap-2 text-sm font-black text-[#FFB800] relative z-10">
+                  ENTRAR AL FEED
                   <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </Link>

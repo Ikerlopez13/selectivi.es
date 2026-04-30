@@ -296,6 +296,12 @@ export default function Navbar() {
             ✨ AI Lab
           </Link>
           <Link 
+            href="/fast" 
+            className={`text-[15px] font-semibold transition-all hover:scale-105 flex items-center gap-1.5 ${pathname === '/fast' ? 'text-black' : 'text-gray-500 hover:text-black'}`}
+          >
+            🚀 FAST
+          </Link>
+          <Link 
             href="/notas-de-corte" 
             className={`text-[15px] font-semibold transition-all hover:scale-105 ${pathname === '/notas-de-corte' ? 'text-black' : 'text-gray-500 hover:text-black'}`}
           >
@@ -376,6 +382,13 @@ export default function Navbar() {
                 ✨ AI Lab
               </button>
             )}
+            <Link
+              href="/fast"
+              className="py-2 font-bold"
+              onClick={() => setMobileOpen(false)}
+            >
+              🚀 FAST
+            </Link>
             <Link
               href="/calculadora"
               className="py-2"
