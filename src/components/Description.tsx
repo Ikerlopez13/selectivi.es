@@ -53,14 +53,14 @@ export default function Description() {
   }
 
   return (
-    <div className="relative bg-gray-50 rounded-3xl p-6 md:p-8 md:pr-64 shadow-lg overflow-hidden">
+    <div className="relative bg-gray-50 rounded-3xl p-5 sm:p-6 md:p-8 md:pr-64 shadow-lg overflow-hidden">
       <div className="max-w-xl">
-        <h2 className="text-3xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 md:mb-4">
           Tu comunidad aún<br />
           no está disponible?
         </h2>
-        <p className="text-gray-600 mb-8">
-          Dejanos tu correo y comunidad y<br />
+        <p className="text-gray-600 text-sm md:text-base mb-6 md:mb-8">
+          Déjanos tu correo y comunidad y<br className="hidden sm:block" />
           te avisaremos lo antes posible
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -69,14 +69,14 @@ export default function Description() {
             placeholder="Tu correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-4 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#FFB800]"
+            className="w-full p-3 md:p-4 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#FFB800] text-sm md:text-base"
             required
           />
 
           <select
             value={community}
             onChange={(e) => setCommunity(e.target.value)}
-            className="w-full p-4 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#FFB800]"
+            className="w-full p-3 md:p-4 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#FFB800] text-sm md:text-base"
             required
           >
             <option value="" disabled>

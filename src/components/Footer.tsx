@@ -4,13 +4,13 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gray-100 mt-24 border-t">
-      <div className="max-w-7xl mx-auto px-8 py-12 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-10">
+    <footer className="w-full bg-gray-100 mt-16 md:mt-24 border-t">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12 grid grid-cols-1 md:grid-cols-[auto,1fr] gap-8 md:gap-10">
         <div className="flex items-center gap-3">
         <Image src="/images/logoo.svg" alt="SelectiviES" width={40} height={40} className="w-10 h-10" />
           <span className="text-xl font-bold">selectivi<span className="text-[#FFB800]">ES</span></span>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           <div>
             <h4 className="font-semibold mb-3">Comunidades</h4>
             <ul className="space-y-2 text-gray-700">
