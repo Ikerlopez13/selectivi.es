@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import PromoBanner from "./PromoBanner";
 
 const clearCachedSession = () => {
   try {
@@ -25,6 +26,18 @@ export default function Navbar() {
   const { hasSession, isPremium } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [nationalLoginLoading, setNationalLoginLoading] = useState(false);
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (isPremium) return;
+
+    const interval = setInterval(() => {
+      setShowPopup(true);
+    }, 10 * 60 * 1000); // 10 minutes
+
+    return () => clearInterval(interval);
+  }, [isPremium]);
 
   const isPremiumPage = pathname?.startsWith("/madrid/premium") || pathname?.startsWith("/andalucia/premium") || pathname?.startsWith("/valencia/premium");
   const isMadridBrand = pathname?.startsWith("/madrid") && !isPremiumPage;
@@ -248,7 +261,9 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="border-b bg-white mb-8 shadow-md z-20 sticky top-0">
+    <>
+      {!isPremium && <PromoBanner />}
+      <nav className="border-b bg-white mb-8 shadow-md z-20 sticky top-0">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 md:py-4 flex items-center">
         {/* Left: Logo */}
         <div className="flex-1 flex justify-start">
@@ -551,5 +566,58 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+    
+    {showPopup && !isPremium && (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="w-full max-w-[450px] bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#FFD0D0]">
+          <div className="bg-[#FFE8E8] p-6 text-center relative">
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-[#C0392B] hover:scale-110 transition-transform font-bold text-xl"
+            >
+              ✕
+            </button>
+            <div className="inline-flex items-center justify-center bg-white/80 rounded-full px-4 py-1 text-xs font-black text-[#C0392B] mb-3 uppercase tracking-wider border border-[#FFD0D0]">
+              Oportunidad única
+            </div>
+            <h2 className="text-2xl font-black text-[#C0392B] mb-1">🚨 ¡OFERTA FLASH! 🚨</h2>
+            <p className="text-[#C0392B] text-sm font-bold opacity-90">No dejes pasar esta oportunidad</p>
+          </div>
+          
+          <div className="p-6 text-center">
+            <p className="text-gray-600 mb-4 font-medium">
+              Accede a todo el contenido premium, preguntas ilimitadas y IA Lab a mitad de precio.
+            </p>
+            
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="text-center">
+                <p className="text-xs text-gray-400 font-bold uppercase">Antes</p>
+                <p className="text-2xl text-gray-400 line-through font-bold">29,99€</p>
+              </div>
+              <div className="text-4xl font-black text-[#C0392B]">➔</div>
+              <div className="text-center">
+                <p className="text-xs text-[#E74C3C] font-bold uppercase">Ahora</p>
+                <p className="text-4xl text-[#E74C3C] font-black">14,99€</p>
+              </div>
+            </div>
+            
+            <a 
+              href="/madrid/premium" 
+              className="w-full inline-flex items-center justify-center bg-[#E74C3C] hover:bg-[#C0392B] text-white font-black text-lg rounded-xl py-3.5 transition-colors shadow-[0_4px_0_#962D22] hover:translate-y-0.5 active:translate-y-1 active:shadow-none"
+            >
+              ¡APROVECHAR OFERTA!
+            </a>
+            
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="mt-4 text-gray-500 hover:text-gray-700 text-sm font-medium underline"
+            >
+              Quizás más tarde
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

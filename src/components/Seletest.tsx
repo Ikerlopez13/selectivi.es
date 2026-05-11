@@ -5,6 +5,7 @@ import Image from 'next/image'
 import MathText from '@/components/MathText'
 import type { QuestionWithSubject, Subject } from '@/lib/seletest/types'
 import { incrementQuestionsCount, hasReachedLimit, shouldPromptPremium } from '@/utils/limits'
+import PromoBanner from './PromoBanner'
 
 type SeletestProps = {
   subject: Subject
@@ -52,7 +53,9 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
   }
 
   return (
-    <div className="max-w-[1100px] mx-auto px-6 py-10 grid md:grid-cols-[360px,1fr] gap-6">
+    <div className="max-w-[1100px] mx-auto px-6 py-10">
+      {!isPremium && <PromoBanner className="mb-6 rounded-2xl" />}
+      <div className="grid md:grid-cols-[360px,1fr] gap-6">
       <div className="h-[560px] overflow-y-auto pr-1">
         <div className="inline-flex items-center gap-2 bg-[#FFF3C4] rounded-full px-3 py-1 text-sm text-black/70 mb-3">✨ Prueba SeleTest</div>
         <h1 className="text-2xl md:text-3xl font-extrabold mb-4">¿Qué tema de {subject.name} quieres estudiar hoy?</h1>
@@ -115,6 +118,7 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
         {!isPremium && (
           <p className="text-sm text-gray-500 mt-3">Algunas preguntas son premium. Activa premium para verlas todas.</p>
         )}
+      </div>
       </div>
 
       {showGate && !isPremium && (
