@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import MathText from '@/components/MathText'
 import type { QuestionWithSubject, Subject } from '@/lib/seletest/types'
+import { incrementQuestionsCount, hasReachedLimit, shouldPromptPremium } from '@/utils/limits'
 
 type SeletestProps = {
   subject: Subject
@@ -35,6 +36,14 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
   const onSelectOption = (id: string) => setChosen(id)
   const next = () => {
     const nextIdx = qIndex + 1
+    
+    if (!isPremium) {
+      incrementQuestionsCount()
+      if (hasReachedLimit() || shouldPromptPremium()) {
+        setShowGate(true)
+      }
+    }
+
     if (nextIdx < questions.length) {
       setQIndex(nextIdx)
       setChosen(null)
@@ -125,8 +134,14 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
                   + de 1000 estudiantes ya son premium
                 </div>
               </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-center mb-2">Desbloquea todo tu potencial</h2>
-              <p className="text-center text-gray-600 mb-4">Accede a la experiencia completa de SeleTest y prepárate para bordar la EvAU 2025.</p>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-center mb-2">
+                {hasReachedLimit() ? "Has alcanzado el límite diario" : "Desbloquea todo tu potencial"}
+              </h2>
+              <p className="text-center text-gray-600 mb-4">
+                {hasReachedLimit() 
+                  ? "Has respondido 30 preguntas hoy. Hazte premium para seguir practicando sin límites." 
+                  : "Accede a la experiencia completa de SeleTest y prepárate para bordar la EvAU 2025."}
+              </p>
 
               <ul className="space-y-2.5 mb-4 max-w-[460px] mx-auto text-left">
                 <li className="flex items-start gap-3"><span className="text-[#FFB800] text-lg" aria-hidden="true">✓</span><div><p className="font-medium">Sin anuncios</p><p className="text-sm text-gray-600">Concéntrate en practicar, sin distracciones.</p></div></li>
@@ -137,7 +152,11 @@ export default function Seletest({ subject, isPremium, showSubjectBadge = false 
               <div className="space-y-3 max-w-[460px] mx-auto">
                 <a href="/madrid/premium" className="w-full inline-flex items-center justify-center bg-[#FFB800] hover:bg-[#ffc835] text-black font-semibold rounded-xl py-2">Hazte Premium ahora</a>
                 <p className="text-center text-sm text-gray-600">Pago único, sin suscripciones.</p>
-                <button onClick={() => setShowGate(false)} className="w-full inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-2">Seguir con el plan estándar</button>
+                {!hasReachedLimit() ? (
+                  <button onClick={() => setShowGate(false)} className="w-full inline-flex items-center justify-center bg-gray-100 hover:bg-gray-200 text-black rounded-xl py-2">Seguir con el plan estándar</button>
+                ) : (
+                  <p className="text-center text-red-500 font-semibold text-sm">Vuelve mañana o hazte premium para continuar.</p>
+                )}
               </div>
             </div>
           </div>
